@@ -1,3 +1,7 @@
+# Materiał referencyjny Control_ATV
+
+To odziedziczony opis biblioteki, zachowany jako pomoc techniczna. Nie potwierdza wersji biblioteki, konfiguracji magistrali ani parametrów windy w nowym projekcie. Przed zmianą sterowania sprawdź [AGENTS.md](../AGENTS.md) oraz GAP-06 w [planie implementacji](../docs/implementation-plan.md).
+
 ## This is description of a function block from Schneider Electric library
 
 FUNCTION_BLOCK **Control_ATV**

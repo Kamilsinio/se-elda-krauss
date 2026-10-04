@@ -1,0 +1,26 @@
+{
+    "snapshot_date":  "2026-10-04",
+    "sources":  [
+                    {
+                        "file":  "Wytyczne.docx",
+                        "origin":  "../../../Wytyczne.docx",
+                        "status":  "copied",
+                        "sha256":  "9368fd7d90d1aa23f35983e61f74dc6dfbe97ee35a77bd52c225179ae983cfa9",
+                        "bytes":  43748
+                    },
+                    {
+                        "file":  "IO map.xlsx",
+                        "origin":  "../../../IO map.xlsx",
+                        "status":  "copied",
+                        "sha256":  "9e1e47058088382590e4c1f36284c01fae4e294bebdfb6eb6f3faed95cb06e64",
+                        "bytes":  50015
+                    },
+                    {
+                        "file":  "Schemat elektryczny.PDF",
+                        "origin":  "../../../Schemat elektryczny.PDF",
+                        "status":  "copied",
+                        "sha256":  "81f6c50ad3cdec51a13930bfea6311f13f2754f5ef89630fb13928928be226a9",
+                        "bytes":  1892971
+                    }
+                ]
+}
