@@ -1,0 +1,123 @@
+l.p.	urz?dzenie	nazwa sygna?u	typ	adres	opis sygna?u	
+1	Robot M20iA	box production	DI	1		MODBUS
+2	Robot M20iA	tray production	DI	2		
+3	Robot M20iA	cmd continiue job	DI	3		
+4	Robot M20iA	stack ready	DI	4		
+5	Robot M20iA	elevator ready	DI	5		
+6	Robot M20iA	cmd samples	DI	6		
+7	Robot M20iA		DI	7		
+8	Robot M20iA		DI	8		
+9	Robot M20iA		DI	9		
+10	Robot M20iA		DI	10		
+11	Robot M20iA		DI	11		
+12	Robot M20iA		DI	12		
+13	Robot M20iA		DI	13		
+14	Robot M20iA		DI	14		
+15	Robot M20iA		DI	15		
+16	Robot M20iA		DI	16		
+17	Robot M20iA		DI	17		
+18	Robot M20iA		DI	18		
+19	Robot M20iA		DI	19		
+20	Robot M20iA		DI	20		
+21	Robot M20iA		DI	21		
+22	Robot M20iA		DI	22		
+23	Robot M20iA		DI	23		
+24	Robot M20iA		DI	24		
+25	Robot M20iA		DI	25		
+26	Robot M20iA		DI	26		
+27	Robot M20iA		DI	27		
+28	Robot M20iA		DI	28		
+29	Robot M20iA		DI	29		
+30	Robot M20iA		DI	30		
+31	Robot M20iA		DI	31		
+32	Robot M20iA	vac 5 ok	DI	32		
+34	Robot M20iA	AUTO mode	DO	1		MODBUS
+35	Robot M20iA	T1 mode	DO	2		
+36	Robot M20iA	T2 mode	DO	3		
+37	Robot M20iA	E-STOP state	DO	4		
+38	Robot M20iA	input simulated	DO	5		
+39	Robot M20iA	output simulated	DO	6		
+40	Robot M20iA	in home pos	DO	7	uop7	
+41	Robot M20iA	system ready	DO	8	uop2	
+42	Robot M20iA	prg running	DO	9	uop3	
+43	Robot M20iA	fault	DO	10	uop6	
+44	Robot M20iA	tp enabled	DO	11	uop8	
+45	Robot M20iA	current program box	DO	12		
+46	Robot M20iA	current program tray	DO	13		
+47	Robot M20iA	cmd ack	DO	14		
+48	Robot M20iA	pallet placed	DO	15		
+49	Robot M20iA	samples placed	DO	16		
+50	Robot M20iA	pallet finished	DO	17		
+51	Robot M20iA	stack finished	DO	18		
+52	Robot M20iA		DO	19		
+53	Robot M20iA		DO	20		
+54	Robot M20iA		DO	21		
+55	Robot M20iA		DO	22		
+56	Robot M20iA		DO	23		
+57	Robot M20iA		DO	24		
+58	Robot M20iA		DO	25		
+59	Robot M20iA		DO	26		
+60	Robot M20iA		DO	27		
+61	Robot M20iA		DO	28		
+62	Robot M20iA		DO	29		
+63	Robot M20iA		DO	30		
+64	Robot M20iA	vac 5	DO	31		
+65	Robot M20iA	blow 5	DO	32		
+66	Robot M20iA	vac 1	RO	1		ROBOT ARM
+67	Robot M20iA	blow 1	RO	2		
+68	Robot M20iA	vac 2 	RO	3		
+69	Robot M20iA	blow 2	RO	4		
+70	Robot M20iA	vac 3	RO	5		
+71	Robot M20iA	blow 3	RO	6		
+72	Robot M20iA	vac 4	RO	7		
+73	Robot M20iA	blow 4	RO	8		
+74	Robot M20iA	vac 1 ok	RI	1		ROBOT ARM
+75	Robot M20iA	vac 2 ok	RI	2		
+76	Robot M20iA	vac 3 ok	RI	3		
+77	Robot M20iA	vac 4 ok	RI	4		
+78	Robot M20iA	arm bend	RI	5		
+79	Robot M20iA	arm straight	RI	6		
+80	Robot M20iA		RI	7		
+81	Robot M20iA		RI	8		
+82	Robot M20iA	Mould area free	DO	101		ROBOT CONTROLLER CRMA
+83	Robot M20iA	Enable mould closure	DO	102		
+84	Robot M20iA	Enable full mould opening	DO	103		
+85	Robot M20iA	Robot operation mode	DO	104		
+86	Robot M20iA	Enable ejector back	DO	105		
+87	Robot M20iA	enable jector forward	DO	106		
+88	Robot M20iA	Enable core 1 pos 1	DO	107		
+89	Robot M20iA	Enable core 1 pos 2	DO	108		
+90	Robot M20iA	Enable core 2 pos 1	DO	109		
+91	Robot M20iA	Enable core 2 pos 2	DO	110		
+92	Robot M20iA	m12 bwd	DO	111	valve 1 open	
+93	Robot M20iA	m12 fwd	DO	112	valve 1 close	
+94	Robot M20iA	m11 bwd	DO	113	valve 2 open	
+95	Robot M20iA	m11 fwd	DO	114	valve 2 close	
+96	Robot M20iA	m13 fwd	DO	115	valve 3 open	
+97	Robot M20iA	m13 bwd	DO	116	valve 3 close	
+98	Robot M20iA	m14 fwd	DO	117	valve 4 open	
+99	Robot M20iA	m14 bwd	DO	118	valve 4 close	
+100	Robot M20iA	m15 fwd - straight	DO	119	valve 5 open	
+101	Robot M20iA	m15 bwd - bend	DO	120	valve 5 close	
+102	Robot M20iA	reject	DI	101		ROBOT CONTROLLER CRMA
+103	Robot M20iA	mould closed	DI	102		
+104	Robot M20iA	mould open	DI	103		
+105	Robot M20iA	intermediate mould pos	DI	104		
+106	Robot M20iA	enable operation with robot	DI	105		
+107	Robot M20iA	ejector back pos	DI	106		
+108	Robot M20iA	ejector forward pos	DI	107		
+109	Robot M20iA	core 1 in pos 1	DI	108		
+110	Robot M20iA	core 1 in pos 2	DI	109		
+111	Robot M20iA	core 2 in pos 1	DI	110		
+112	Robot M20iA	core 2 in pos 2	DI	111		
+113	Robot M20iA	m11 in fwd pos	DI	112		
+114	Robot M20iA	m11 in bwd pos	DI	113		
+115	Robot M20iA	m12 in fwd pos	DI	114		
+116	Robot M20iA	m12 in bwd pos	DI	115		
+117	Robot M20iA	m13 in fwd pos	DI	116		
+118	Robot M20iA	m13 in bwd pos	DI	117		
+119	Robot M20iA	m14 in fwd pos	DI	118		
+120	Robot M20iA	m14 in bwd pos	DI	119		
+121	Robot M20iA	spare on gripper	DI	120		
+122	Robot M20iA	spare on gripper	DI	121		
+123	Robot M20iA	spare	DI	122		

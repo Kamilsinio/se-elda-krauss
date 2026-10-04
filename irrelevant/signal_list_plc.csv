@@ -1,0 +1,113 @@
+﻿l.p.,urządzenie,nazwa sygnału,typ,adres,opis sygnału,moduł
+1,PLC M241,ind_M1.1_fwd,DI,%IX0.0,"siłownik M1.1 w pozycji wysuniętej - pozycjoner stosu, załadunek",moduł załadunku
+2,PLC M241,ind_M1.2_fwd,DI,%IX0.1,"siłownik M1.2 w pozycji wysuniętej - pozycjoner stosu, załadunek",moduł załadunku
+3,PLC M241,ind_M1.1_bwd,DI,%IX0.2,"siłownik M1.1 w pozycji cofniętej - pozycjoner stosu, załadunek",moduł załadunku
+4,PLC M241,ind_M1.2_bwd,DI,%IX0.3,"siłownik M1.2 w pozycji cofniętej - pozycjoner stosu, załadunek",moduł załadunku
+5,PLC M241,ind_M2.1_fwd,DI,%IX0.4,"siłownik M2.1 w pozycji wysuniętej - blokada ruchu stosu na pozycji 1, załadunek",moduł załadunku
+6,PLC M241,ind_M2.2_fwd,DI,%IX0.5,"siłownik M2.2 w pozycji wysuniętej - blokada ruchu stosu na pozycji 1, załadunek",moduł załadunku
+7,PLC M241,ind_M2.1_bwd,DI,%IX0.6,"siłownik M2.1 w pozycji cofniętej -  blokada ruchu stosu na pozycji 1, załadunek",moduł załadunku
+8,PLC M241,ind_M2.2_bwd,DI,%IX0.7,"siłownik M2.2 w pozycji cofniętej -  blokada ruchu stosu na pozycji 1, załadunek",moduł załadunku
+9,PLC M241,ind_container_in_pos_1,DI,%IX1.0,"Pojemnik w pozycji 1 - potwierdzenie obecności, załadunek",moduł załadunku
+10,PLC M241,ind_container_in_pos_2,DI,%IX1.1,"Pojemnik w pozycji 2 - potwierdzenie obecności, bufor",moduł bufora
+11,PLC M241,ind_M3.1_fwd,DI,%IX1.2,"siłownik M3.1 w pozycji wysuniętej - blokada ruchu stosu na pozycji 2, bufor",moduł bufora
+12,PLC M241,ind_M3.2_fwd,DI,%IX1.3,"siłownik M3.2 w pozycji wysuniętej - blokada ruchu stosu na pozycji 2, bufor",moduł bufora
+13,PLC M241,ind_M3.1_bwd,DI,%IX1.4,"siłownik M3.1 w pozycji cofniętej -  blokada ruchu stosu na pozycji 2, bufor",moduł bufora
+14,PLC M241,ind_M3.2_bwd,DI,%IX1.5,"siłownik M3.2 w pozycji cofniętej -  blokada ruchu stosu na pozycji 2, bufor",moduł bufora
+15,PLC M241,ctrl_LED_button_open_close_spacer_storage,DO,%QX0.0,"podświetlenie przycisku ""Otwórz/Zamknij magazyn"" - załącz, magazyn",moduł magazynu
+16,PLC M241,ctrl_LED_button_samples,DO,%QX0.1,"podświetlenie przycisku ""Podaj próbki"" - załącz, robot",moduł robota
+17,PLC M241,ctrl_LED_button_continue_process,DO,%QX0.2,"podświetlenie przycisku ""Kontynuuj proces"" - załącz, robot",moduł robota
+18,PLC M241,ctrl_LED_button_start_process,DO,%QX0.3,"podświetlenie przycisku ""Rozpocznij pracę/START"" - załącz, ",utils
+19,PLC M241,ctrl_LED_button_container_ready,DO,%QX0.4,"podświetlenie przycisku ""Pojemnik gotowy"" - załącz, załadunek",moduł załadunku
+20,PLC M241,ctrl_LED_button_start_emptying_process,DO,%QX0.5,"podświetlenie przycisku ""Opróżnij stację"" - załącz,",utils
+21,PLC M241,ctrl_turn_on_top_conveyor,DO,%QX0.6,górny transporter - kierunek podawania pustych pojemników do robota - załącz,moduł bufora
+22,PLC M241,ctrl_turn_on_bottom_conveyor,DO,%QX0.7,dolny transporter - kierunek podawanie pełnych pojemników do wyjścia - załącz,moduł rozładunku
+23,PLC M241,ctrl_turn_on_elevator_conveyor_in,DO,%QX1.0,"transporter windy - kierunek podawania pustych pojemników do robota - załacz, winda",moduł windy
+24,PLC M241,ctrl_turn_on_elevator_conveyor_out,DO,%QX1.1,"transporter windy - kierunek podawania pełnych pojemników do rozładunku - załacz, winda",moduł windy
+25,PLC M241,ind_M4.1_fwd,DI,%IX4.0,"siłownik M4.1 w pozycji wysuniętej - blokada ruchu stosu na pozycji 3, bufor",moduł bufora
+26,PLC M241,ind_M4.2_fwd,DI,%IX4.1,"siłownik M4.2 w pozycji wysuniętej - blokada ruchu stosu na pozycji 3, bufor",moduł bufora
+27,PLC M241,ind_M4.1_bwd,DI,%IX4.2,"siłownik M4.1 w pozycji cofniętej -  blokada ruchu stosu na pozycji 3, bufor",moduł bufora
+28,PLC M241,ind_M4.2_bwd,DI,%IX4.3,"siłownik M4.2 w pozycji cofniętej -  blokada ruchu stosu na pozycji 3, bufor",moduł bufora
+29,PLC M241,ind_container_in_pos_3,DI,%IX4.4,"Pojemnik w pozycji 3 - potwierdzenie obecności, bufor",moduł bufora
+30,PLC M241,spare,DI,%IX4.5,spare,spare
+31,PLC M241,ind_M5.1_fwd,DI,%IX4.6,"siłownik M5.1 w pozycji wysuniętej - pozycjoner tacek na pozycji 3, bufor",moduł bufora
+32,PLC M241,ind_M5.2_fwd,DI,%IX4.7,"siłownik M5.2 w pozycji wysuniętej - pozycjoner tacek na pozycji 3, bufor",moduł bufora
+33,PLC M241,ind_M5.1_bwd,DI,%IX5.0,"siłownik M5.1 w pozycji cofniętej - pozycjoner tacek na pozycji 3, bufor",moduł bufora
+34,PLC M241,ind_M5.2_bwd,DI,%IX5.1,"siłownik M5.2 w pozycji cofniętej - pozycjoner tacek na pozycji 3, bufor",moduł bufora
+35,PLC M241,ind_M6.1_fwd,DI,%IX5.2,"siłownik M6.1 w pozycji wysuniętej - pozycjoner tacek na pozycji 4, winda",moduł windy
+36,PLC M241,ind_M6.2_fwd,DI,%IX5.3,"siłownik M6.2 w pozycji wysuniętej - pozycjoner tacek na pozycji 4, winda",moduł windy
+37,PLC M241,ind_M6.1_bwd,DI,%IX5.4,"siłownik M6.1 w pozycji cofniętej - pozycjoner tacek na pozycji 4, winda",moduł windy
+38,PLC M241,ind_M6.2_bwd,DI,%IX5.5,"siłownik M6.2 w pozycji cofniętej - pozycjoner tacek na pozycji 4, winda",moduł windy
+39,PLC M241,ind_M7_fwd,DI,%IX5.6,"siłownik M7 w pozycji wysuniętej - pozycjoner kuwet na pozycji 4, winda",moduł windy
+40,PLC M241,ind_M7_bwd,DI,%IX5.7,"siłownik M7 w pozycji cofniętej - pozycjoner kuwet na pozycji 4, winda",moduł windy
+41,PLC M241,ind_elevator_in_top_pos,DI,%IX6.0,"winda w górnej pozycji - zatrzymaj/uruchom falownik, winda",moduł windy
+42,PLC M241,ind_elevator_in_intermediate_top_pos,DI,%IX6.1,"winda blisko górnej pozycji - zmień prędkość falownika, winda",moduł windy
+43,PLC M241,ind_elevator_in_intermediate_bottom_pos,DI,%IX6.2,"winda blisko dolnej pozycji - zmień prędkość falownika, winda",moduł windy
+44,PLC M241,ind_elevator_in_bottom_pos,DI,%IX6.3,"winda w dolnej pozycji - zatrzymaj/uruchom falownik, winda",moduł windy
+45,PLC M241,ind_container_in_pos_4,DI,%IX6.4,"Pojemnik w pozycji 4 - potwierdzenie obecności, winda",moduł windy
+46,PLC M241,spare,DI,%IX6.5,spare,spare
+47,PLC M241,ind_elevator_emptied,DI,%IX6.6,"Pojemnik opuścił windę - pozwolenie na ruch do góry, winda",moduł windy
+48,PLC M241,ind_container_in_pos_5,DI,%IX6.7,"Pojemnik w pozycji 5, rozładunek",moduł rozładunku
+49,PLC M241,ind_container_in_pos_6,DI,%IX7.0,"Pojemnik w pozycji 6, rozładunek",moduł rozładunku
+50,PLC M241,ind_container_in_pos_7,DI,%IX7.1,"Pojemnik w pozycji 7, rozładunek",moduł rozładunku
+51,PLC M241,spare,DI,%IX7.2,spare,spare
+52,PLC M241,spare,DI,%IX7.3,spare,spare
+53,PLC M241,ind_M8_fwd,DI,%IX7.4,"siłownik M8 w pozycji wysuniętej - osłona magazynu od strony robota otwarta, magazyn",moduł magazynu
+54,PLC M241,ind_M8_bwd,DI,%IX7.5,"siłownik M8 w pozycji cofniętej - osłona magazynu od strony robota zamknięta, magazyn",moduł magazynu
+55,PLC M241,ind_low_level_of_spacers,DI,%IX7.6,"niski poziom przekładek w magazynie, magazyn",moduł magazynu
+56,PLC M241,ind_spacer_storage_empty,DI,%IX7.7,"magazyn przekładek pusty, magazyn",moduł magazynu
+57,PLC M241,spare,DI,%IX8.0,spare,spare
+58,PLC M241,spare,DI,%IX8.1,spare,spare
+59,PLC M241,ind_button_open_close_spacer_storage,DI,%IX8.2,"przycisk ""Otwórz/Zamknij magazyn"" wciśnięty przez operatora, magazyn",moduł magazynu
+60,PLC M241,ind_button_open_close_robot_cell_doors,DI,%IX8.3,"przycisk ""Otwórz/Zamknij drzwi"" wciśnięty przez operatora,",utils
+61,PLC M241,ind_button_samples,DI,%IX8.4,"przycisk ""Podaj Próbki"" wciśnięty przez operatora, ",utils
+62,PLC M241,ind_button_continue_process,DI,%IX8.5,"przycisk ""Kontynuuj proces"" wcięsnięty przez operatora",utils
+63,PLC M241,ind_button_start_process,DI,%IX8.6,"przycisk ""Rozpocznij pracę/START"" wciśnięty przez operatora",utils
+64,PLC M241,ind_button_container_ready,DI,%IX8.7,"przycisk ""Pojemnik gotowy"" wciśnięty przez operatora",moduł załadunku
+65,PLC M241,ind_button_start_emptying_process,DI,%IX9.0,"przycisk ""Opróżnij stację"" wciśnięty przez operatora",utils
+66,PLC M241,ind_low_pressure,DI,%IX9.1,niskie ciśnienie w obwodach pnemuatyki,utils
+67,PLC M241,ind_robot_cell_doors_closed,DI,%IX9.2,drzwi celi robota zamknięte,utils
+68,PLC M241,ind_robot_cell_doors_locked,DI,%IX9.3,drzwi celi robota zaryglowane,utils
+69,PLC M241,ind_spacer_storage_robot_side_doors_opening_permission,DI,%IX9.4,zezwolenie otwarcia magazynu od strony robota,moduł magazynu
+70,PLC M241,ind_spacer_storage_operator_side_doors_opening_permission,DI,%IX9.5,zezwolenie otwarcia magazynu przez operatora,moduł magazynu
+71,PLC M241,ind_robot_gripper_vacuum_ok,DI,%IX9.6,sygnał osiągnięcia próżni eżektora na narzędziu robota,moduł robota
+72,PLC M241,spare,DI,%IX9.7,spare,spare
+73,PLC M241,ctrl_move_M1_actuator_forward,DO,%QX4.0,wysuń siłownik M1 - spozycjonuj pojemnik w pozycji 1 (załadunku),moduł załadunku
+74,PLC M241,ctrl_move_M1_actuator_backward,DO,%QX4.1,cofnij siłownik M1 - cofnij pozycjoner pozycji 1 (załadunku),moduł załadunku
+75,PLC M241,ctrl_move_M2_actuator_forward,DO,%QX4.2,wysuń siłownik M2 - zablokuj ruch pojemnika w pozycji 1 (załadunku),moduł bufora
+76,PLC M241,ctrl_move_M2_actuator_backward,DO,%QX4.3,cofnij siłownik M2 - odblokuj ruch pojemnika w pozycji 1 (załadunku),moduł bufora
+77,PLC M241,ctrl_move_M3_actuator_forward,DO,%QX4.4,wysuń siłownik M3 - zablokuj ruch pojemnika w pozycji 2,moduł bufora
+78,PLC M241,ctrl_move_M3_actuator_backward,DO,%QX4.5,cofnij siłownik M3 - odblokuj ruch pojemnika w pozycji 2,moduł bufora
+79,PLC M241,ctrl_move_M4_actuator_forward,DO,%QX4.6,wysuń siłownik M4 - zablokuj ruch pojemnika w pozycji 3,moduł bufora
+80,PLC M241,ctrl_move_M4_actuator_backward,DO,%QX4.7,cofnij siłownik M4 - odblokuj ruch pojemnika w pozycji 3,moduł bufora
+81,PLC M241,ctrl_move_M5_actuator_forward,DO,%QX5.0,wysuń siłownik M5 - spozycjonuj tacki w pozycji 3 (odbioru przez robota),moduł bufora
+82,PLC M241,ctrl_move_M5_actuator_backward,DO,%QX5.1,cofnij siłownik M5 - cofnij pozycjoner w pozycji 3 (odbioru przez robota),moduł bufora
+83,PLC M241,ctrl_move_M6_actuator_forward,DO,%QX5.2,wysuń siłownik M6 - spozycjonuj tacki w pozycji 4 (na windzie),moduł windy
+84,PLC M241,ctrl_move_M6_actuator_backward,DO,%QX5.3,cofnij siłownik M6 - cofnij pozycjoner tacek w pozycji 4 (na windzie),moduł windy
+85,PLC M241,ctrl_move_M7_actuator_forward,DO,%QX5.4,wysuń siłownik M7 - spozycjonuj kuwetę w pozycji 4 (na windzie),moduł windy
+86,PLC M241,ctrl_move_M7_actuator_backward,DO,%QX5.5,cofnij siłownik M7 - cofnij pozycjoner kuwet w pozycji 4 (na windzie),moduł windy
+87,PLC M241,ctrl_move_M8_actuator_forward,DO,%QX5.6,wysuń siłownik M8 - otwórz osłonę magazynu przekładek od strony robota,moduł magazynu
+88,PLC M241,ctrl_move_M8_actuator_backward,DO,%QX5.7,cofnij siłownik M8 - zamknij osłonę magazynu przekładek od strony robota,moduł magazynu
+89,PLC M241,spare,DO,%QX6.0,spare,spare
+90,PLC M241,spare,DO,%QX6.1,spare,spare
+91,PLC M241,spare,DO,%QX6.2,spare,spare
+92,PLC M241,spare,DO,%QX6.3,spare,spare
+93,PLC M241,ctrl_open_spacer_storage_robot_side_lock,DO,%QX6.4,odrygluj zamek osłony magazynu przekładek od strony robota,spare
+94,PLC M241,ctrl_open_spacer_storage_operator_side_lock,DO,%QX6.5,odrygluj zamek osłony magazynu przekładek od strony opertatora,moduł magazynu
+95,PLC M241,ctrl_open_robot_cell_doors_lock,DO,%QX6.6,odrygluj zamek drzwi celi robota,moduł magazynu
+96,PLC M241,ctrl_reset_robot_cell_doors,DO,%QX6.7,RST klamki Euchner drzwi celi robota,utils
+97,PLC M241,ctrl_robot_cell_doors_LED_open_close,DO,%QX7.0,"LED przycisku ""Otwóz/Zamknij"" drzwi celi robota - załącz",utils
+98,PLC M241,ctrl_turn_on_buzzer,DO,%QX7.1,Załącz sygnał dźwiękowy dla operatora,utils
+99,PLC M241,ctrl_turn_on_light_green,DO,%QX7.2,Załącz zielone światło na wieży sygnalizacyjnej,utils
+100,PLC M241,ctrl_turn_on_light_yellow,DO,%QX7.3,Załącz zółte światło na wieży sygnalizacyjnej,utils
+101,PLC M241,ctrl_turn_on_light_red,DO,%QX7.4,Załącz czerwone światło na wieży sygnalizacyjnej,utils
+102,PLC M241,ctrl_turn_on_robot_gripper_vacuum,DO,%QX7.5,Załącz próżnie na narzędziu robota,moduł robota
+103,PLC M241,ctrl_turn_on_robot_gripper_blow_off,DO,%QX7.6,Załącz przedmuch na narzędziu robota,moduł robota
+104,PLC M241,ctrl_turn_on_bottom_conveyor_in,DO,%QX7.7,Załącz dolny transporter (rozładunku) w kierunku windy ,moduł rozładunku
+105,PLC M241,spare,DO,%QX8.0,spare,spare
+106,PLC M241,spare,DO,%QX8.1,spare,spare
+107,PLC M241,spare,DO,%QX8.2,spare,spare
+108,PLC M241,spare,DO,%QX8.3,spare,spare
+109,PLC M241,spare,DO,%QX8.4,spare,spare
+110,PLC M241,spare,DO,%QX8.5,spare,spare
+111,PLC M241,spare,DO,%QX8.6,spare,spare
+112,PLC M241,spare,DO,%QX8.7,spare,spare
