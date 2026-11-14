@@ -6,6 +6,8 @@ Dokument uzupełnia [założenia](project-assumptions.md) i [plan implementacji]
 
 ## 1. Topologia i aktualność danych
 
+Modele FANUC M-20iD/25 i R-30iB Mate Plus potwierdzono ze zdjęć tabliczek 2026-11-14 (SRC-06). [Rejestr sprzętu](robot-hardware.md) zawiera identyfikatory i parametry zasilania. Tabliczki nie potwierdzają opcji EtherNet/IP ani parametrów połączenia; GAP-04 pozostaje otwarty.
+
 PLC M241 pełni rolę skanera EtherNet/IP dla robota i bramki Festo AP. Wewnątrz systemu Festo poszczególne terminale/moduły są połączone magistralą AP; nie przypisywać każdemu z nich osobnego adresu IP.
 
 Adresy wskazane w schemacie P0001, do potwierdzenia z konfiguracją:

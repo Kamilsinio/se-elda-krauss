@@ -23,6 +23,7 @@ PLC Schneider Electric M241 pośredniczy między robotem a wtryskarką: robot i 
 | [Założenia projektowe](docs/project-assumptions.md) | Uzgodniony proces, zlecenia, tryby, stacje, alarmy i HMI |
 | [Interfejsy i mapowanie](docs/interfaces.md) | Podział I/O, kontrakty PLC–robot–Festo–wtryskarka oraz migracja oznaczeń |
 | [Plan implementacji i odbioru](docs/implementation-plan.md) | Etapy, macierz wymagań, scenariusze testów i rejestr braków |
+| [Robot i kontroler — tabliczki](docs/robot-hardware.md) | Potwierdzone modele, typy, numery seryjne, daty, masy i zasilanie; odczyt 2026-11-14 |
 | [Materiały źródłowe](docs/sources/README.md) | Dokumenty klienta, pochodzenie, rewizje, kopie i sumy kontrolne |
 
 ## Struktura

@@ -1,6 +1,6 @@
 # Materiały źródłowe SE-ELDA-Krauss
 
-Stan rejestru: 2026-10-04. Materiały są wejściem do adaptacji, a nie potwierdzeniem gotowej konfiguracji urządzeń.
+Stan rejestru: 2026-11-14 (dodano SRC-06; stan kopii SRC-01–SRC-03 z 2026-10-04 bez zmian). Materiały są wejściem do adaptacji, a nie potwierdzeniem gotowej konfiguracji urządzeń.
 
 ## Kopie i pochodzenie
 
@@ -13,6 +13,9 @@ Oryginały znajdowały się w katalogu nadrzędnym względem repozytorium. Pozos
 | SRC-03 | [Schemat elektryczny.PDF](<Schemat elektryczny.PDF>) | Kopia zgodna z oryginałem. P0001, 63 strony PDF; karta tytułowa: rewizja 01, data 2026-09-29. Poszczególne arkusze mają własne rewizje i daty. |
 | SRC-04 | Odpowiedzi użytkownika podczas planowania | Potwierdzone decyzje DEC-01–DEC-15 zapisano w [założeniach](../project-assumptions.md). Nie są częścią oryginalnego Worda. |
 | SRC-05 | Kod PLC/FANUC odziedziczony w repozytorium | Baza do adaptacji, nie nadrzędny opis nowego procesu. Konkretne rozbieżności zestawiono w [planie](../implementation-plan.md). |
+| SRC-06 | Zdjęcia tabliczek znamionowych robota i kontrolera przekazane przez użytkownika 2026-11-14 | [Transkrypcja i analiza](../robot-hardware.md): modele, typy, numery seryjne, daty, masy i parametry zasilania. Zdjęcia dostępne w rozmowie; brak kopii plików zdjęć w repozytorium i brak SHA-256. Nie potwierdzają opcji sieci ani konfiguracji urządzeń. |
+
+Manifest obejmuje wyłącznie kopie plikowe SRC-01–SRC-03. SRC-06 jest zarejestrowanym źródłem z rozmowy, zachowanym w repozytorium jako transkrypcja.
 
 SHA-256 wykonanych kopii:
 

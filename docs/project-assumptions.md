@@ -6,7 +6,7 @@ Dokument opisuje zachowanie docelowe. Źródła ST/LS są odziedziczoną bazą p
 
 ## 1. Źródła i status ustaleń
 
-- **POTWIERDZONE** — wymaganie klienta lub odpowiedź użytkownika z planowania, uwzględniona w zaakceptowanym planie.
+- **POTWIERDZONE** — wymaganie klienta, odpowiedź użytkownika z planowania lub fakt z jawnie wskazanego źródła, w tym odczyt tabliczek znamionowych.
 - **DOMYŚLNE** — jawne założenie projektowe przyjęte w planie lub podczas jego dokumentowania; nie przedstawiać go jako cytatu klienta.
 - **OTWARTE** — potrzebne dane lub rozbieżność opisana w rejestrze GAP. Agent nie zastępuje ich zgadywaniem.
 
@@ -23,7 +23,7 @@ Wszystkie pliki tworzone i zmieniane w ramach projektu, również pomocnicze, po
 | Element | Docelowa rola |
 |---|---|
 | PLC Schneider Electric M241 | Koordynacja stacji, zleceń, wymiany danych oraz końcowych komend wyjść. Schemat wskazuje TM241CE24T. |
-| FANUC M-20iD/25, R-30iB Mate Plus | Ruch robota i sekwencja pobierania/odkładania. Wymiana procesowa z PLC przez EtherNet/IP. |
+| FANUC M-20iD/25, R-30iB Mate Plus | Ruch robota i sekwencja pobierania/odkładania. Modele potwierdzone tabliczkami SRC-06 z odczytu 2026-11-14; [identyfikacja i parametry](robot-hardware.md). Wymiana procesowa z PLC przez EtherNet/IP jest docelowa; opcja i konfiguracja nadal wymagają potwierdzenia (GAP-04). |
 | Festo AP | Rozproszone I/O i pneumatyka; wymiana z PLC przez EtherNet/IP. |
 | Krauss | Wymiana sygnałów elektrycznych EUROMAP 67 z PLC. PLC pośredniczy w komunikacji z robotem. |
 | ATV320 | Napęd windy. Istniejący kod wykorzystuje GIATV.Control_ATV; docelowa konfiguracja osi i magistrali wymaga potwierdzenia. |
