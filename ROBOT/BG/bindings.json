@@ -1,0 +1,18 @@
+{
+  "status": "UNBOUND_VERIFY_ON_V9_40",
+  "description": "Brak potwierdzonych źródeł blokuje RB_BIND i ruch. taskRunning/taskPaused dotyczą RT_MAIN, nie RC_SVC. Nie wpisywać fikcyjnych sygnałów ani stałych TRUE.",
+  "sources": {
+    "autoMode": null,
+    "t1Mode": null,
+    "t2Mode": null,
+    "tpEnabled": null,
+    "systemReady": null,
+    "estopActive": null,
+    "fault": null,
+    "inputSimulated": null,
+    "outputSimulated": null,
+    "home": null,
+    "taskRunning": null,
+    "taskPaused": null
+  }
+}

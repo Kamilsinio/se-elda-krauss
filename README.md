@@ -6,11 +6,11 @@ PLC Schneider Electric M241 pośredniczy między robotem a wtryskarką: robot i 
 
 ## Stan projektu
 
-**Etap dokumentacyjny adaptacji: przygotowany. Implementacja zmian sterowania: przed rozpoczęciem.**
+**Dokumentacja adaptacji przygotowana. Komunikacja FANUC v2, program tacek i logiki BG są przygotowane w źródłach i sprawdzone offline. Import i uruchomienie pozostają do wykonania.**
 
-Źródła PLC i FANUC są odziedziczoną bazą poprzedniego stanowiska. Dokumentacja opisuje uzgodnione zachowanie docelowe i wskazuje braki sprzętowe; nie potwierdza gotowości obecnego programu do pracy na nowej maszynie. W etapie dokumentacyjnym nie zmieniono plików ST, LS, VA ani DG. Następnie uporządkowano źródła PLC w `Modules/` i wydzielono typy do `DUTs/`, bez zmiany logiki sterowania.
+Źródła PLC i archiwalne programy FANUC są odziedziczoną bazą poprzedniego stanowiska. Dokumentacja opisuje uzgodnione zachowanie docelowe i wskazuje braki sprzętowe; nie potwierdza gotowości obecnego programu do pracy na nowej maszynie. W etapie dokumentacyjnym nie zmieniono plików ST, LS, VA ani DG. Następnie uporządkowano źródła PLC w `Modules/` i wydzielono typy do `DUTs/`, bez zmiany logiki sterowania.
 
-Aktualizacja 2026-11-14: przygotowano [kontrakt komunikacji PLC–robot](docs/robot-plc-contract.md), pełną migrację symboliczną dostępnych I/O oraz analizę modernizacji obu programów. Mapa fizyczna i przepisanie sterowania pozostają zależne od danych sprzętowych; [raport weryfikacji](docs/robot-communication-verification.md) rozróżnia wykonany przegląd od niewykonanych prób.
+Aktualizacja 2026-11-14: przygotowano [kontrakt komunikacji PLC–robot](docs/robot-plc-contract.md), pełną migrację symboliczną dostępnych I/O oraz analizę modernizacji obu programów. Dodano [pakiet komunikacji FANUC](ROBOT/COMM/README.md): 17 źródeł komunikacji LIVE, propozycję mapy 80 bajtów na kierunek oraz odizolowany pakiet TEST. [Program tacek i BG](ROBOT/TRAY/README.md) obejmuje częściowe odkładanie, próbki, odrzuty i Stop N+1. Punkty nie są nauczone, powiązania natywne BG są nieuzupełnione; ruch jest zablokowany. Konfiguracja urządzeń, PLC v2 i program Pojemników pozostają do wykonania; [raport weryfikacji](docs/robot-communication-verification.md) rozróżnia wykonany przegląd od niewykonanych prób.
 
 ## Dokumentacja
 
@@ -25,7 +25,9 @@ Aktualizacja 2026-11-14: przygotowano [kontrakt komunikacji PLC–robot](docs/ro
 | [Założenia projektowe](docs/project-assumptions.md) | Uzgodniony proces, zlecenia, tryby, stacje, alarmy i HMI |
 | [Interfejsy i mapowanie](docs/interfaces.md) | Podział I/O, kontrakty PLC–robot–Festo–wtryskarka oraz migracja oznaczeń |
 | [Plan implementacji i odbioru](docs/implementation-plan.md) | Etapy, macierz wymagań, scenariusze testów i rejestr braków |
-| [Kontrakt PLC–robot v1](docs/robot-plc-contract.md) | Żądania urządzeń, ACK zdarzeń, synchronizacja, Stop i EUROMAP; katalog JSON i migracja CSV |
+| [Kontrakt PLC–robot v2](docs/robot-plc-contract.md) | Żądania urządzeń, ACK zdarzeń, synchronizacja, Stop i EUROMAP; katalog JSON i migracja CSV |
+| [Pakiet komunikacji FANUC](ROBOT/COMM/README.md) | Źródła LS, mapa 80 B/kierunek, API R/F, konfiguracja i granice testów |
+| [Program tacek i BG](ROBOT/TRAY/README.md) | Źródła, parametry, punkty do nauczenia, recovery i warunki uruchomienia |
 | [Modernizacja FANUC](docs/robot-modernization.md) | Wspólne procedury, zgodność instrukcji, rejestry i warunki przepisania dwóch main |
 | [Analiza materiałów współdzielonych](docs/workspace-analysis.md) | Pneumatyka, EUROMAP, kanały potwierdzeń, backupy, rozbieżności i parametr liczby detali |
 | [Robot i kontroler — tabliczki](docs/robot-hardware.md) | Potwierdzone modele, typy, numery seryjne, daty, masy i zasilanie; odczyt 2026-11-14 |
@@ -35,7 +37,10 @@ Aktualizacja 2026-11-14: przygotowano [kontrakt komunikacji PLC–robot](docs/ro
 
 - `GVLs/` — obecne deklaracje I/O, robota i HMI.
 - `Modules/` — każdy FB urządzenia lub sekwencer ma własny katalog z plikiem `FB_*.st` i podkatalogiem `DUTs/` (jeden typ danych na plik ST); programy `PRG_*.st` pozostają bezpośrednio w `Modules/`.
-- `ROBOT/` — dwa programy główne FANUC i częściowy eksport danych.
+- `ROBOT/COMM/` — nowe źródła komunikacji FANUC, mapa i interfejs aplikacji. Archiwalne dwa main i eksporty danych użytkownik przeniósł do `../Robot M20iD/old/ROBOT` (tylko odczyt).
+- `ROBOT/TRAY/`, `ROBOT/BG/` — sekwencja tacek, ruchy z blokadami i monitorowanie; punkty i native bindings wymagają zatwierdzenia.
+- `ROBOT/TEST/` — izolowany test komunikacji, niedopuszczony do wspólnego importu z LIVE/produkcją.
+- `tools/` — generatory komunikacji/tacek, audyt kontraktu i testy offline rzeczywistych instrukcji LS.
 - `agents/` — odsyłacze do aktualnych instrukcji oraz odziedziczony materiał Control_ATV.
 - `docs/` — dokumentacja adaptacji.
 - `irrelevant/` — materiał wyłączony z pracy agenta.

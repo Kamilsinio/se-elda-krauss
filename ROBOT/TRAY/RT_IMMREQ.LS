@@ -1,0 +1,15 @@
+/PROG RT_IMMREQ
+/ATTR
+OWNER = MNEDITOR;
+COMMENT = "Krauss tacki";
+PROTECT = READ_WRITE;
+DEFAULT_GROUP = *,*,*,*,*;
+CONTROL_CODE = 00000000 00000000;
+/MN
+   1:  F[21]=(F[571] AND F[559] AND !F[574] AND !F[569]) ;
+   2:  F[22]=(F[570] AND (R[63]>0) AND !F[560]) ;
+   3:  F[635]=(F[15] AND F[30] AND (F[21] OR F[22])) ;
+   4:  F[635]=(F[635] AND !(F[17] AND !F[18])) ;
+   5:  IF (F[30]),F[636]=(F[560] AND F[17] AND !F[18]) ;
+/POS
+/END

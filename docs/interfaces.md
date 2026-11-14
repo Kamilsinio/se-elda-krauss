@@ -94,7 +94,7 @@ Schemat P0001 i arkusz nadal przedstawiają przewodowe sygnały procesowe robota
 
 ## 4. PLC ↔ FANUC
 
-Szczegółową specyfikacją logiczną od 2026-11-14 jest [kontrakt v1](robot-plc-contract.md), z [katalogiem nazw](robot-plc-signals.json) i [migracją historycznych sygnałów](robot-plc-migration.csv). Poniższa tabela jest podsumowaniem. Nie jest to gotowa konfiguracja assembly ani wdrożona deklaracja ST. Zmiany nazw/semantyki prowadzić w katalogu i migracji, nie w niezależnych ręcznych listach.
+Szczegółową specyfikacją logiczną od 2026-11-14 jest [kontrakt v2](robot-plc-contract.md), z [katalogiem nazw](robot-plc-signals.json) i [migracją historycznych sygnałów](robot-plc-migration.csv). Poniższa tabela jest podsumowaniem. Nie jest to gotowa konfiguracja assembly ani wdrożona deklaracja ST. Zmiany nazw/semantyki prowadzić w katalogu i migracji, nie w niezależnych ręcznych listach.
 
 | Kierunek | Docelowe grupy danych |
 |---|---|

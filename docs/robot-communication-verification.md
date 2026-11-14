@@ -1,57 +1,81 @@
-# Weryfikacja kontraktu komunikacji robot–PLC
+# Weryfikacja komunikacji v2, programu tacek i BG
 
-Data: 2026-11-14. Zakres: specyfikacja logiczna v1, migracja historycznych I/O i analiza modernizacji. **Nie jest to raport uruchomienia komunikacji ani przepisania programów sterowania.**
+Data: 2026-11-14. Wynik dotyczy **źródeł i testów offline**. Import FANUC, konfiguracja urządzeń i odbiór stanowiska pozostają niewykonane.
 
-## Wykonane sprawdzenia
+## Dostarczona implementacja
 
-- Przegląd AGENTS, założeń, interfejsów, planu/GAP, obu main LS, GVL_Robot, powiązań PRG_IO_Read/Write i PRG_Main, IOSTATE/NUMREG/POSREG oraz odpowiednich fragmentów dostarczonych manuali.
-- Katalog: 220 jawnych pól z kierunkiem, typem, właścicielem, semantyką, ważnością i reakcją na utratę danych; brak przypisanych adresów sprzętowych.
-- Migracja: 268 unikalnych wierszy — 49 dla Blistrów i 65 dla Pojemników (łącznie z trzema CALL wymagającymi eksportu odnalezionych TP w każdym programie), 64 deklaracje logiczne PLC i 90 opisanych historycznych I/O. Puste opisy IOSTATE nie są sygnałami przypisanymi do wykorzystania.
-- Walidator wykrywa niepokryte/stare wiersze źródeł, brakujące cele, duplikaty, brakujące kanały urządzeń/ACK/payload, utratę rozdziału DO17 i błędne przeniesienie mould-area-free do zwykłego I/O. Nie ustawia urządzeń i nie zapisuje plików.
-- Osiem negatywnych prób w pamięci: usunięte użycie LS, nieistniejący cel, duplikat ID, brak ACK przedmuchu, zrównane znaczenia DO17, przeniesienie DO101 do zwykłego statusu, niepotwierdzony adres i brak osobnego payload próbek. Wszystkie zostały odrzucone przez kontrolę statyczną. To sprawdzenie narzędzia audytu, nie symulacja protokołu.
-- Rejestr sześciu zewnętrznych manuali oraz manifest analizy workspace obejmują SHA-256 i rozmiary; oryginałów nie zmieniono. Odczyt treści dotyczył zakresu kontrolerów oraz instrukcji wskazanych w macierzy modernizacji; nie wykonano pełnego audytu tysięcy stron.
+- Kontrakt v2: 227 pól; zachowano adresy 220 pól v1. Dodano batchCount, startToken i osobny kanał rejectsPlaced z payloadem. Rozmiar pozostaje 80 bajtów na kierunek.
+- LIVE: 17 źródeł komunikacji, 58 programu tacek/procedur i 3 w katalogu BG. Rejestrowane jako BG są RC_MON, RB_STATUS i RB_GUARD; RB_BIND jest inicjalizatorem.
+- Wariant TEST: osobny obraz mock i RC_TEST, bez możliwości zapisu niezerowych wyjść sieciowych. Nie jest ładowany razem z produkcją.
+- R1–200 są zarezerwowane łącznie przez LIVE, sekwencję i BG. Manifesty kontrolują kolizje. Wolność i pojemność zasobów na fizycznym kontrolerze wymagają potwierdzenia.
+- Chwytak ma profil grup maska/ilość, aktywną kopię parametrów i punkty do nauki. Nie skopiowano współrzędnych starego robota ani nie użyto nieodczytanych BB_* jako zależności.
+- Źródła native BG pozostają UNBOUND; wszystkie flagi dopuszczenia i punkty są niezatwierdzone. W tym stanie ruch nie jest dopuszczony.
 
-Powtórzenie audytu z katalogu se-elda-krauss:
+Szczegóły i instrukcje: [tacki](../ROBOT/TRAY/README.md), [BG](../ROBOT/BG/README.md), [komunikacja](../ROBOT/COMM/README.md).
 
-```powershell
+## Wyniki wykonanych kontroli
+
+| Kontrola | Wynik |
+|---|---|
+| Generatory w trybie --check | zgodne: 41 artefaktów komunikacji LIVE/TEST i 63 tacek/BG |
+| Audyt kontraktu i migracji | 227 pól, 268 wierszy; brak utraty rozróżnienia DO17 i granicy DO101/safety |
+| Testy komunikacji na rzeczywistych instrukcjach LS | 16/16 poprawnych |
+| Testy sekwencji i BG na rzeczywistych instrukcjach LS | 21/21 poprawnych |
+| Zasoby, referencje CALL, pisarze DO/GO i ograniczony zestaw instrukcji BG | sprawdzone statycznie |
+| Budżet wyrażeń Mixed Logic | kontrola konserwatywna do 20 elementów; nie zastępuje importu FANUC |
+| Spójność dokumentacji, lokalnych odsyłaczy i składni Python | sprawdzana przy zakończeniu zmiany |
+
+Łącznie **37 testów offline**. Interpreter czyta /MN z wygenerowanych plików LS, wykonuje przypisania, IF, SELECT/CALL i skoki, a operacje PR/J/L rejestruje w kontrolowanym modelu. Natywne statusy i współrzędne są jawnymi syntetycznymi danymi testowymi. Nie emuluje firmware, servo, kinematyki ani rzeczywistego harmonogramu BG.
+
+Testy komunikacji obejmują mapę i skrajne UINT, kolejność bajtów, REQ/ACK, stałość payloadu, niezależność kanałów, błędną wersję, heartbeat i watchdog serwisu, synchronizację, jawne recovery, reakcje na błędne dane oraz izolację TEST od wyjść sieciowych.
+
+Testy produkcji obejmują:
+
+- pełny stos z częściowymi odłożeniami, ilość grupy większą niż cztery, brak podwójnego liczenia;
+- cały komplet próbek i osobne odrzuty w tym samym miejscu fizycznym;
+- Stop z rozpoczętym N+1 oraz Stop bez N+1, z zachowaniem niepełnej tacki;
+- niekolejkowany Start, zamknięcie zlecenia i wymóg nowego kontekstu;
+- aktywną kopię parametrów, błędne maski, ilości i niepodzielną pojemność tacki;
+- utratę ACK i sesji, zachowanie maski, unieważnienie pewności ładunku i brak replay;
+- ograniczone szukanie tacki, odrzucony przedmuch i brak fałszywego odłożenia;
+- oczekiwanie na obszar bez eskalowania ostrzeżenia do globalnego błędu;
+- brak bindingów, nienauczone punkty, native ABORT, ręczny jog i zatrzymany monitor;
+- recovery spójnej partii, nowy Start po uzgodnieniu, brak ponownego pobrania rozliczonego kompletu;
+- blokadę recovery pełnej tacki przed uzgodnieniem zdarzeń końcowych z PLC;
+- nieznany stan sekwencji, właścicieli wyjść i matematyczne offsety X/Y.
+
+## Powtórzenie
+
+Z katalogu repozytorium, Python 3 i biblioteka standardowa:
+
+~~~powershell
+python -B tools/build_fanuc_comm.py --check
+python -B tools/build_fanuc_tray.py --check
 python -B tools/check_robot_contract.py
-```
+python -B tools/check_fanuc_comm.py
+python -B tools/check_fanuc_tray.py
+~~~
 
-Jeśli `python` wskazuje niedostępny alias Windows Store, użyć interpretera z runtime Codex. Narzędzie korzysta wyłącznie z biblioteki standardowej. Lokalnie użyto `C:/Users/KamilPelczar/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe`.
+Lokalnie użyto interpretera runtime Codex. Opcja -B zapobiega zapisywaniu cache modułów. Narzędzia nie łączą się z urządzeniami.
 
-## Scenariusze odbioru zachowania — wszystkie NIEWYKONANE
+## Niewykonane próby i bramki
 
-| Scenariusz | Oczekiwany dowód | Powiązanie |
-|---|---|---|
-| Jednoczesne HOME/WORK kilku urządzeń, w tym konflikt 11 jednej pary | niezależne wykonanie poprawnych żądań; konflikt odrzucony bez ruchu i bez wpływu na inne kanały | AT-09/15 |
-| Próżnia, brak pomiaru, konflikt hold/przedmuch, utrzymane blowReq | accepted nie udaje vacuumOK; jeden impuls i stabilny wynik; konflikt nie zrzuca próżni | AT-15 |
-| Zdarzenie opóźnione, długo utrzymany ACK, dwa różne kanały równocześnie | pojedynczy skutek w sesji, niezmienny payload, brak wspólnego licznika count | AT-03/09/14 |
-| Restart w każdej fazie REQ/ACK i synchronizacji | brak automatycznego powtórzenia, rozliczenie niepewnego skutku przez recovery | AT-09/13 |
-| Niezgodna wersja, heartbeat zatrzymany, ale sieć ONLINE, program w WAIT | brak fałszywego CommOK; monitor aktywny podczas prawidłowego WAIT | AT-09 |
-| Zanik podczas ruchu, WAIT i zatrzymanie samego monitora | potwierdzona reakcja robota; brak polegania wyłącznie na odczycie bitu pomiędzy ruchami | AT-09/12 |
-| Stop przed/po potwierdzonym rozpoczęciu N+1 | nierozpoczęty nie powoduje nieskończonego WAIT; rozpoczęty rozliczony, ładunki/transfery zachowane | AT-02/03 |
-| Częściowe odkładanie kilku chwytaków i próbki z tego samego wtrysku | prawidłowe sumowanie dyspozycji bez podwójnego liczenia lub zakończenia po pierwszym detalu | AT-03/14 |
-| Przekroczenie pojemności rejestru cykli i niepoprawny cycleId | zablokowany nowy wtrysk, zachowane stare wpisy, brak przypisania detali do N+1 zamiast N | AT-03/13 |
-| Zanik Festo lub lokalnych wejść KEC3 przy robot–PLC ONLINE | invalid odpowiedniej grupy; brak potwierdzenia ruchu lub HOME ze starego obrazu | AT-09/15 |
-| Zajęty obszar windy/magazynu; odebrane granted, gdy robot wewnątrz | brak kolizyjnego uruchomienia urządzeń PLC; rezerwacja do uzgodnienia | AT-07/14 |
-| Manual/Auto, błędny program, samodzielna praca Krauss | jeden właściciel wyjścia; poprawne blokady i pozwolenia niezależne od zlecenia tylko dla trybu samodzielnego | AT-08/10 |
-| Pełne cykle obu produkcji, blistry, przekładki, próbki i częściowy stos | każde zdarzenie zgodne z funkcją; pełne opróżnianie dopiero po Koniec zlecenia | AT-04/14 |
-| Pomiar opóźnień przez PLC/Festo i SKIP | zapis najgorszej latencji, doboru RPI/timeoutów i bezpiecznej drogi zatrzymania w procedurze szukania | AT-14/15 |
+| Etap | Stan / wymagany dowód |
+|---|---|
+| Native źródła statusów i mechanika kontrolera | NIEWYKONANE: zweryfikować powiązania na fizycznym V9.40, zgodność osobowości/kinematyki, mastering, narzędzie i obciążenia |
+| Import/kompilacja LS do TP | NIEWYKONANE: docelowe V9.40P/80 i właściwe opcje/importer; ROBOGUIDE V9.10 nie jest tym dowodem |
+| BG i alarmy podczas ruchu/WAIT | NIEWYKONANE: wykazać zatrzymanie RT_MAIN przez ustaloną reakcję; sam UALM wykonany w BG nie dowodzi zatrzymania grupy ruchowej |
+| Native HOME i status właściwego zadania | NIEWYKONANE: Reference Position, tryby, symulacje, WAIT, PAUSE, ABORT; nie używać pracy RC_SVC jako pracy produkcji |
+| Ethernet/IP i PLC v2 | NIEWYKONANE: zgodność assembly/EDS, 80 bajtów na kierunek, rezerwy, RPI, KEEP_IO_ADP, watchdog i alarm adaptera |
+| PLC/Festo/EUROMAP | NIEWYKONANE: końcowe mapowanie, porty F-2680, próżnia, podtrzymanie, początek wtrysku i zależność KF203 |
+| Ruchy i geometria | NIEWYKONANE: nauka punktów, poprawne UF/UT, próby dróg, granic szukania i kolizji |
+| Recovery trwałych skutków | NIEWYKONANE na stanowisku: ręczne uzgodnienie nierozliczonych zdarzeń i danych PLC; brak deklaracji exactly-once po restarcie |
+| Pełne cykle i FAT/SAT | NIEWYKONANE |
 
-## Stan etapów i bramki
+Otwarte GAP nie są zamknięte wynikami interpretera. PLC i program Pojemników nie zostały przepisane. Domyślne UNBOUND i niezatwierdzone punkty blokują przejście do ruchu; brakujące dane nie są zastępowane fikcyjnym potwierdzeniem.
 
-| Część planu | Stan | Co pozostało |
-|---|---|---|
-| Kontrakt logiczny i pełna migracja symboliczna dostępnych źródeł | PRZYGOTOWANE, przegląd statyczny zakończony | walidacja na docelowej konfiguracji |
-| Mapowanie fizyczne | NIEWYKONANE | Weryfikacja dostępnego przykładu EDS i backupu, rozmiary/offsety Festo, docelowy projekt, sprzeczne porty i EUROMAP (GAP-03/04/05/06/08/09) |
-| Przepisanie ST/LS i integracja urządzeń | NIEWYKONANE | Eksport/audyt odnalezionych TP, zgodność instrukcji V9.40P/80, zatwierdzona mapa i wybór docelowego PLC, retencja i alarmy (GAP-04/06/11/12) |
-| Kompilacja Machine Expert / import FANUC | NIEWYKONANE | docelowe środowiska, opcje i projekt |
-| Symulacja protokołu / FAT / SAT | NIEWYKONANE | implementacja i przygotowane środowisko odbioru |
+## Pochodzenie i wcześniejsze kontrole
 
-Żaden GAP nie został zamknięty samą dokumentacją. Źródła ST/LS/VA/DG i urządzenia pozostają bez zmian. Materiały odnalezione i pozostałe bramki opisuje [analiza workspace](workspace-analysis.md). Nie wymagać ponownie fizycznego backupu, przykładu EDS, wzorców W716/W590 i projektów PLC/HMI. Potrzebne są ich weryfikacja/wybór, eksport TP, rozstrzygnięcie portów F-2680, pełny obraz Festo/pomiary próżni oraz rozpoznanie początku i rozliczenia cyklu Krauss. Brak jednego elementu blokuje tylko zależny fragment, a nie pozostałe niezależne prace.
+Podstawą są decyzje DEC-01–26, dawny program A01_F2679_TACKI, dokumentacja instalacji i dostarczone manuale. Archiwalne źródła użytkownik przeniósł do ../Robot M20iD/old/ROBOT; audyt i CSV migracji odczytują tę lokalizację bez przywracania plików.
 
-## Aktualizacja analizy materiałów i kryteriów
-
-Zapisano ustalenia SRC-09–SRC-15, oddzielając potwierdzenie dokumentacyjne od wykonania instalacji. Przed commitem sprawdzono rozmiary i SHA-256 wszystkich 150 rekordów plikowych w trzech manifestach (6 manuali, 141 rekordów analizy, 3 kopie wejściowe), odsyłacze lokalne i tabele w 15 dokumentach Markdown. Audyt kontraktu: 220 pól i 268 wierszy migracji, wynik poprawny. Dodatkowe trzy negatywne próby w pamięci wykryły brak GAP przy EXPORT_REQUIRED, usunięty ACK próżni 5 i pominięte źródło migracji. Sprawdzono składnię narzędzia Python i brak stałego limitu 1..4 w polach count. To wyniki statyczne, nie odbiór urządzeń.
-
-Dodatkowe scenariusze pozostają NIEWYKONANE: zastosowanie liczby detali podczas aktywnego zlecenia/ruchu musi być zablokowane; zmiana przy zamkniętym zleceniu i potwierdzonym postoju jest dopuszczona; rozpoczęte partie zachowują ilość; zdarzenie z count>4 jest dopuszczalne w granicach ilości partii; przekroczenie tej ilości odrzucane. Dodatkowo sprawdzić przypisanie próżni dla F-2680/F-2844, kierunki po korekcie rysunku oraz podtrzymanie sygnałów zależnych od KF203 podczas Stop.
+Wcześniejszy etap v1 obejmował 220 pól, 268 wierszy migracji oraz negatywne próby walidatora. W analizie materiałów zweryfikowano 150 rekordów plikowych w trzech manifestach, pochodzenie manuali i schematów; nie oznaczało to audytu treści każdego binarnego TP ani odbioru urządzeń. [Analiza workspace](workspace-analysis.md) i [rejestr źródeł](sources/README.md) pozostają opisem pochodzenia materiałów.

@@ -1,0 +1,25 @@
+/PROG RC_CYL
+/ATTR
+OWNER = MNEDITOR;
+COMMENT = "EIP bez ruchu";
+PROTECT = READ_WRITE;
+DEFAULT_GROUP = *,*,*,*,*;
+CONTROL_CODE = 00000000 00000000;
+/MN
+   1:  IF (F[614] AND F[615]),R[141]=(907) ;
+   2:  F[678]=(F[614] AND !F[615] AND F[752]) ;
+   3:  F[679]=(F[615] AND !F[614] AND F[752]) ;
+   4:  IF (F[616] AND F[617]),R[141]=(907) ;
+   5:  F[680]=(F[616] AND !F[617] AND F[752]) ;
+   6:  F[681]=(F[617] AND !F[616] AND F[752]) ;
+   7:  IF (F[618] AND F[619]),R[141]=(907) ;
+   8:  F[682]=(F[618] AND !F[619] AND F[752]) ;
+   9:  F[683]=(F[619] AND !F[618] AND F[752]) ;
+  10:  IF (F[620] AND F[621]),R[141]=(907) ;
+  11:  F[684]=(F[620] AND !F[621] AND F[752]) ;
+  12:  F[685]=(F[621] AND !F[620] AND F[752]) ;
+  13:  IF (F[622] AND F[623]),R[141]=(907) ;
+  14:  F[686]=(F[622] AND !F[623] AND F[752]) ;
+  15:  F[687]=(F[623] AND !F[622] AND F[752]) ;
+/POS
+/END

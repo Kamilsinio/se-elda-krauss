@@ -154,9 +154,9 @@ Poniższe pozycje są faktami z przeglądu, nie wykonanymi poprawkami. Numery w 
 | POUs/PRG_Main.st:180 | xSafetyOK := TRUE | Zastąpić rzeczywistym uzgodnionym pozwoleniem; nie utożsamiać logiki PLC z funkcją bezpieczeństwa |
 | GVLs/GVL_Robot.st:87 | xRobotCommOk inicjalizowane TRUE bez aktualizacji w aktywnych źródłach | Wprowadzić diagnostykę rzeczywistego połączenia i ważności |
 | POUs/FB_TraySequencer.st:367 | Zakomentowany blok „do testów” obsługi błędu/timeoutu gotowości robota | Przywrócić właściwą kontrolę zgodną z nowym kontraktem |
-| ROBOT/A01_F2679_TACKI.LS:232 i :234 | Zapis //WAIT dla potwierdzenia wyrzutnika i próżni RI1–RI4 | Zweryfikować eksport i czynną kontrolę nowych potwierdzeń |
-| ROBOT/A01_F2679_TACKI.LS:105; ROBOT/AAAA_MAIN_BOX_PRG.LS:703 | Przykładowe WAIT bez timeoutu; występują kolejne | Zdiagnozować warunek/krok i określić właściwą reakcję; odróżnić oczekiwanie procesowe od awarii |
-| ROBOT/A01_F2679_TACKI.LS:275 | Oczekiwanie na zamknięcie kolejnego wtrysku przed odłożeniem | Uwzględnić zatrzymanie bez oczekiwania na cykl, który nie wystartuje |
+| ../Robot M20iD/old/ROBOT/A01_F2679_TACKI.LS:232 i :234 | Zapis //WAIT dla potwierdzenia wyrzutnika i próżni RI1–RI4 | Zweryfikować eksport i czynną kontrolę nowych potwierdzeń |
+| ../Robot M20iD/old/ROBOT/A01_F2679_TACKI.LS:105; ../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS:703 | Przykładowe WAIT bez timeoutu; występują kolejne | Zdiagnozować warunek/krok i określić właściwą reakcję; odróżnić oczekiwanie procesowe od awarii |
+| ../Robot M20iD/old/ROBOT/A01_F2679_TACKI.LS:275 | Oczekiwanie na zamknięcie kolejnego wtrysku przed odłożeniem | Uwzględnić zatrzymanie bez oczekiwania na cykl, który nie wystartuje |
 | POUs/PRG_Main.st:509 | elevIn.xCommOk := TRUE; równocześnie winda ma xVfdCommOk z GIATV | Zweryfikować spójność diagnostyki wejścia i GIATV; nie twierdzić, że diagnostyki falownika nie ma |
 | POUs/PRG_Main.st:635 i :735 | HMI Stop używany jako AbortAuto obu sekwencji | Oddzielić Stop, krytyczne przerwanie i Koniec zlecenia |
 | POUs/PRG_Main.st:849 | Stop natychmiast przerywa opróżnianie | Zastąpić po rozstrzygnięciu GAP-10, zachowując stan transferu |
@@ -178,3 +178,7 @@ Przed odbiorem każdej zmiany:
 5. zachować wersje źródeł, konfiguracji urządzeń i backupy użyte do prób.
 
 Wgranie i uruchomienie na urządzeniach jest osobnym działaniem poza etapem dokumentacyjnym. E0 nie zmienia układu bezpieczeństwa ani ustawień urządzeń.
+
+## 9. Aktualny zakres źródeł FANUC — 2026-11-14
+
+Przygotowano kontrakt v2 (227 pól, 80 bajtów/kierunek), komunikację LIVE/TEST, program tacek i trzy programy rejestrowane jako BG. [Instrukcja tacek](../ROBOT/TRAY/README.md) oraz [raport weryfikacji](robot-communication-verification.md) opisują 37 testów offline, zasoby i warunki uruchomienia. To częściowa realizacja źródłowa E1/E3: Pojemniki, implementacja PLC, fizyczna mapa/konfiguracja, import V9.40, nauka punktów i FAT/SAT pozostają niewykonane. Powiązania native BG mają status UNBOUND; flagi dopuszczenia ruchu nie są zatwierdzone. Nie zamykać GAP-03/04/05/06/08/09/11/12 samym wynikiem interpretera.

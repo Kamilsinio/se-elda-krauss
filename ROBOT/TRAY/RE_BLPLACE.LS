@@ -1,0 +1,15 @@
+/PROG RE_BLPLACE
+/ATTR
+OWNER = MNEDITOR;
+COMMENT = "Krauss tacki";
+PROTECT = READ_WRITE;
+DEFAULT_GROUP = *,*,*,*,*;
+CONTROL_CODE = 00000000 00000000;
+/MN
+   1:  F[23]=(OFF) ;
+   2:  IF ((R[149]<>0) OR F[626]),JMP LBL[999] ;
+   3:  R[84]=(R[189]) ;
+   4:  F[626]=(ON) ;
+   5:  LBL[999] ;
+/POS
+/END

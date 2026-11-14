@@ -1,6 +1,6 @@
 # Modernizacja programów FANUC po ustaleniu kontraktu
 
-Data: 2026-11-14. Status: **analiza i projekt przebudowy**, nie wgrany program. Kontrakt v1: [robot-plc-contract.md](robot-plc-contract.md). Użytkownik wybrał dwa programy produkcyjne i wspólne moduły; robot wydaje niezależne polecenia urządzeń, PLC wykonuje pneumatykę.
+Data: 2026-11-14. Status: **źródła programu tacek i BG przygotowane offline; Pojemniki pozostają planowane**. Kontrakt v2: [robot-plc-contract.md](robot-plc-contract.md). Użytkownik wybrał dwa programy produkcyjne i wspólne moduły; robot wydaje niezależne polecenia urządzeń, PLC wykonuje pneumatykę.
 
 ## 1. Ustalenia z rzeczywistych źródeł
 
@@ -39,7 +39,7 @@ Brak potwierdzenia blokowego IF nie blokuje projektu komunikacji. Wariant bazowy
 
 ## 3. Podział programów
 
-Nazwy poniżej są projektem, nie plikami już istniejącymi. Przed utworzeniem sprawdzić kolizje nazw i rejestrów w pełnym backupie.
+Aktualna implementacja tacek znajduje się w [ROBOT/TRAY](../ROBOT/TRAY/README.md); używa RT_MAIN, SELECT/CALL, RT_*, RG_*, RE_*, RM_* oraz RC_MON/RB_STATUS/RB_GUARD. Poniższa tabela przedstawia podział funkcji dla docelowych dwóch produkcji; jej pierwotne nazwy nie są listą plików do wgrania. Przed utworzeniem sprawdzić kolizje nazw i rejestrów w pełnym backupie.
 
 | Procedura | Odpowiedzialność | Wyjścia / ograniczenia |
 |---|---|---|
@@ -64,7 +64,7 @@ Przed kodowaniem sporządzić inwentarz całego backupu R/PR/F/TIMER/P/UFRAME/UT
 
 Rozdzielić parametry technologiczne od stanu sekwencji i danych protokołu. Stan odtwarzania obejmuje program, fazę, stos, warstwę, indeks detalu, następny chwytak, cycleId partii, przypisaną jej liczbę detali i rzeczywistą maskę zajętych obwodów według narzędzia. Pięć obwodów nie oznacza pięciu sztuk. DEC-18 dopuszcza zastosowanie nowej liczby detali wyłącznie przy zamkniętym zleceniu i niepracującej stacji. Błąd walidacji przy wznowieniu nie może po cichu uruchamiać ścieżki „nowa produkcja” i zerować liczników.
 
-Docelowy kod kroku: baza 1000 inicjalizacja/link, 2000 chwytak, 3000 IMM, 4000 blister/przekładka, 5000 odkładanie, 6000 próbki, 7000 Stop, 9000 recovery. W ramach modułu numeracja co 10; kod błędu jest odrębny. Nie kierować wszystkich timeoutów do nierozróżnialnego UALM[1].
+W programie tacek r2p.production.step jest bieżącym stanem sekwencji 10–900 opisanym w resources.json, a faultCode i resumeState są osobne. Dla dalszej modernizacji Pojemników pozostaje propozycja numeracji: baza 1000 inicjalizacja/link, 2000 chwytak, 3000 IMM, 4000 blister/przekładka, 5000 odkładanie, 6000 próbki, 7000 Stop, 9000 recovery. W ramach modułu numeracja co 10; kod błędu jest odrębny. Nie kierować wszystkich timeoutów do nierozróżnialnego UALM[1].
 
 Dla Pojemników zastąpić powtarzane gałęzie wyboru palety SELECT/CALL; pozostawić oddzielne punkty podejścia, pracy i wycofania. Wspólny helper liczy offset, ale nie zmienia konfiguracji kinematycznej punktu. Zmniejszenie liczby etykiet poprawia utrzymanie; nie jest dowodem skrócenia cyklu.
 
@@ -74,4 +74,4 @@ Najpierw zachować poprawność nakładania wtrysku i odkładania, potem mierzy�
 
 Kolejność: kontrakt logiczny → fizyczna mapa i dowody I/O → inwentarz backupu i macierz instrukcji → warstwa komunikacji PLC/FANUC → urządzenia/IMM → wspólne procedury → dwa main → import/kompilacja → próby bez i z ruchem.
 
-Przykład EDS, projekty PLC, fizyczny backup i schemat pneumatyczny są już znalezione. Do mapy potrzebna jest weryfikacja identyfikacji/obrazu urządzeń i wybór docelowego projektu. Do przepisania LS pozostaje eksport TP, audyt pełnych zależności i potwierdzenie instrukcji na V9.40P/80. Rozbieżne porty F-2680, niepełne pomiary podciśnienia i brak rozpoznania początku wtrysku blokują zależne ruchy i Stop N+1. Nie tworzyć pozornie działających main z nieobecnymi helperami, fikcyjnymi DI/DO ani składnią niepotwierdzoną przez kontroler. [Raport weryfikacji](robot-communication-verification.md) rozróżnia zakończony przegląd statyczny i niewykonane próby urządzeń.
+Przykład EDS, projekty PLC, fizyczny backup i schemat pneumatyczny są już znalezione. Do mapy potrzebna jest weryfikacja identyfikacji/obrazu urządzeń i wybór docelowego projektu. Nowy program tacek nie wywołuje historycznych BB_* ani nie kopiuje dawnych współrzędnych. Do porównania technologii i dalszej modernizacji pozostają eksport TP, audyt zależności oraz potwierdzenie importu na V9.40P/80. Rozbieżne porty F-2680, niepełne pomiary podciśnienia i brak rozpoznania początku wtrysku blokują zależne ruchy i Stop N+1. Nie tworzyć pozornie działających main z nieobecnymi helperami, fikcyjnymi DI/DO ani składnią niepotwierdzoną przez kontroler. [Raport weryfikacji](robot-communication-verification.md) rozróżnia zakończony przegląd statyczny i niewykonane próby urządzeń.

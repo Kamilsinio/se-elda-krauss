@@ -1,0 +1,14 @@
+/PROG RC_RECOV
+/ATTR
+OWNER = MNEDITOR;
+COMMENT = "EIP bez ruchu";
+PROTECT = READ_WRITE;
+DEFAULT_GROUP = *,*,*,*,*;
+CONTROL_CODE = 00000000 00000000;
+/MN
+   1:  IF (R[126]<>30),JMP LBL[90] ;
+   2:  F[751]=(OFF) ;
+   3:  F[740]=(ON) ;
+   4:  LBL[90] ;
+/POS
+/END

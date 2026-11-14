@@ -1,6 +1,6 @@
-# Kontrakt komunikacji FANUC–PLC v1
+# Kontrakt komunikacji FANUC–PLC v2
 
-Data: 2026-11-14. Status: **SPECYFIKACJA LOGICZNA, NIEURUCHOMIONA**. Dotyczy REQ-03/04/11–19/22; AT-02/03/08–15. Modele urządzeń: [tabliczki](robot-hardware.md). Decyzje użytkownika: niezależne polecenia urządzeń, dwa programy produkcyjne ze wspólnymi procedurami. Fizyczne adresy pozostają OTWARTE. Fizyczny backup V9.40P/80, przykład EDS i projekty są już dostępne poza repozytorium; stan ich weryfikacji opisuje [analiza źródeł](workspace-analysis.md).
+Data: 2026-11-14. Status: **SPECYFIKACJA LOGICZNA, NIEURUCHOMIONA**. Dotyczy REQ-03/04/11–19/22; AT-02/03/08–15. Modele urządzeń: [tabliczki](robot-hardware.md). Decyzje użytkownika: niezależne polecenia urządzeń, dwa programy produkcyjne ze wspólnymi procedurami. Przypisania pozostają NIEODEBRANE; propozycję transportu v2 zawiera ROBOT/COMM. Fizyczny backup V9.40P/80, przykład EDS i projekty są już dostępne poza repozytorium; stan ich weryfikacji opisuje [analiza źródeł](workspace-analysis.md).
 
 ## 1. Granice i źródło prawdy
 
@@ -47,7 +47,7 @@ Robot wyznacza kolejność; PLC wykonuje cewki i ograniczenia. Priorytet: potwie
 
 ## 4. Zdarzenia, obszary i próbki
 
-Kanały zdarzeń: blisterPicked, blisterPlaced, blisterFinished, spacerPlaced, productsPlaced, samplesPlaced, layerFinished, stackFinished, immPickupCompleted. Każdy ma osobne REQ/ACK i własny payload. Payload stabilny przed ustawieniem REQ i aż do ACK=0; nie współdzielić zmiennej count między równoległymi kanałami.
+Kanały zdarzeń: rejectsPlaced, blisterPicked, blisterPlaced, blisterFinished, spacerPlaced, productsPlaced, samplesPlaced, layerFinished, stackFinished, immPickupCompleted. Każdy ma osobne REQ/ACK i własny payload. Payload stabilny przed ustawieniem REQ i aż do ACK=0; nie współdzielić zmiennej count między równoległymi kanałami.
 
 ```mermaid
 sequenceDiagram
@@ -65,7 +65,7 @@ ACK zdarzenia oznacza jego zarejestrowanie, nie stan urządzenia. Niepoprawny pa
 
 Po jednym nierozliczonym zdarzeniu danego typu; następne czeka w sekwencji robota, bez nadpisywania payload i bez gubienia impulsu. Przy równoczesnych kanałach PLC rejestruje dane w jednym cyklu przed oceną końca stosu. stackFinished można wysłać dopiero po zamknięciu poprzednich wymian odkładania i warstwy.
 
-productsPlaced oznacza potwierdzone odłożenie ilości detali przypisanej do zdarzenia, nie ukończenie warstwy. count jest UINT (technicznie 1..65535) i nie może przekraczać nierozliczonej ilości danej partii. Nie ma stałego limitu czterech detali ani zależności od liczby obwodów próżni. samplesPlaced rozlicza próbki, nie zwiększa automatycznie ilości dobrych detali w pojemniku. layerFinished nie zwiększa ponownie liczby detali. blisterFinished oznacza napełnienie pojedynczego blistra (stary DO17 w Blistrach), a nie odłożenie pustego blistra ani ukończenie stosu. blisterPicked, blisterPlaced i spacerPlaced mają odrębne skutki dla źródła, windy i magazynu. stackFinished to ukończenie stosu/pojemnika; zwykły Stop nie generuje fałszywego zakończenia niepełnego stosu.
+productsPlaced oznacza potwierdzone odłożenie ilości detali przypisanej do zdarzenia, nie ukończenie warstwy. count jest UINT (technicznie 1..65535) i nie może przekraczać nierozliczonej ilości danej partii. Nie ma stałego limitu czterech detali ani zależności od liczby obwodów próżni. samplesPlaced rozlicza próbki, nie zwiększa automatycznie ilości dobrych detali w pojemniku. rejectsPlaced rozlicza odrzuty osobno, choć fizycznie trafiają do miejsca próbek. Wszystkie trzy dyspozycje mają oddzielne kanały i payloady; ich suma nie przekracza ilości przypisanej do wtrysku. layerFinished nie zwiększa ponownie liczby detali. blisterFinished oznacza napełnienie pojedynczego blistra (stary DO17 w Blistrach), a nie odłożenie pustego blistra ani ukończenie stosu. blisterPicked, blisterPlaced i spacerPlaced mają odrębne skutki dla źródła, windy i magazynu. stackFinished to ukończenie stosu/pojemnika; zwykły Stop nie generuje fałszywego zakończenia niepełnego stosu.
 
 Dostęp do source (źródło blistrów P3), elevator i storage: robot wystawia accessReq, PLC rozstrzyga ready/granted. ready nie jest granted. Robot blokuje ruchy zależne bez granted, valid i aktualnej sesji. accessReq utrzymać przez cały pobyt; clear=1 dopiero po faktycznym opuszczeniu obszaru i przed skasowaniem accessReq. Zezwolenia na zwolnienie magazynu/windy są procesowe, nie safety. Przejście granted=0 przy robocie wewnątrz nie uprawnia PLC do ruchu kolizyjnego — obowiązuje rezerwacja obszaru do uzgodnienia stanu.
 
@@ -73,7 +73,7 @@ samples.req/ack/result: PLC żąda, robot przyjmuje albo odrzuca; ACK nie oznacz
 
 ### Parametr liczby detali — DEC-18
 
-Operator może wpisać liczbę detali; PLC stosuje nową wartość tylko przy wyłączonym zleceniu i niepracującej stacji, bez nierozliczonych operacji. Wpisanie wartości w trakcie pracy nie zmienia aktywnej konfiguracji. Każdy rozpoczęty wtrysk/partia zachowuje przypisaną ilość aż do rozliczenia, również podczas Stop i recovery. Dla częściowego odkładania ilość wynika z potwierdzonego kontekstu partii i narzędzia; nie z samego zgaszenia vacuumOK. Brak potwierdzonej nastawy lub stanu blokuje rozpoczęcie nowej produkcji. To wymaganie dla przyszłej implementacji, nie gotowa zmienna HMI/ST.
+Operator może wpisać liczbę detali; PLC stosuje nową wartość tylko przy wyłączonym zleceniu i niepracującej stacji, bez nierozliczonych operacji. Wpisanie wartości w trakcie pracy nie zmienia aktywnej konfiguracji. Każdy rozpoczęty wtrysk/partia zachowuje przypisaną ilość aż do rozliczenia, również podczas Stop i recovery. Dla częściowego odkładania ilość wynika z potwierdzonego kontekstu partii i narzędzia; nie z samego zgaszenia vacuumOK. Brak potwierdzonej nastawy lub stanu blokuje rozpoczęcie nowej produkcji. To wymaganie dla przyszłej implementacji, nie gotowa zmienna HMI/ST. W v2 PLC przekazuje snapshot ilości w p2r.imm.batchCount, związany z cycleId i reject do końca immPickupCompleted.
 
 ## 5. EUROMAP i rozliczenie Stop
 
@@ -96,3 +96,13 @@ N+1 rozpoczęty podczas odkładania N musi zostać pobrany i odłożony także p
 [Mapa migracji](robot-plc-migration.csv) obejmuje użycia LS i deklaracje starego GVL; nie jest zatwierdzoną mapą zacisków. [Modernizacja](robot-modernization.md) określa moduły, instrukcje i dane potrzebne do przepisywania. Weryfikację i statusy opisuje [raport](robot-communication-verification.md).
 
 Przed mapowaniem fizycznym zamknąć właściwe części GAP-03/04/05/06/08/09: EDS/assembly, opcje FANUC, natywny PLC, pneumatyka, potwierdzenia i EUROMAP. Następnie zmierzyć pełną latencję robot → PLC → Festo → czujnik → PLC → robot i wpływ na SKIP. Osobno zatwierdzić retencję/recovery (GAP-11) i alarmy (GAP-12). Nie oznaczać E1–E5 jako zakończonych samym przygotowaniem kontraktu.
+
+## 7. Implementacja źródeł v2 — 2026-11-14
+
+[Komunikacja LIVE](../ROBOT/COMM/README.md) i [program tacek](../ROBOT/TRAY/README.md) zawierają źródła LS oraz testy offline. Wszystkie offsety 220 pól v1 pozostały bez zmian; v2 dodaje 7 pól w rezerwach: batchCount, startToken, REQ/ACK rejectsPlaced oraz jego count/cycleId/stackId. Razem 227 pól, 40 słów w każdym kierunku. Version obu nagłówków wynosi 2; v1 nie uzbraja sesji. DO184 jest teraz REQ odrzutów.
+
+startToken zmienia się modulo 65536 po przyjętym fizycznym Start. Robot pobiera wartość bazową przy inicjalizacji/recovery i wymaga kolejnej zmiany po gotowości; odrzucony Start nie jest kolejkowany. Nie uruchamia zadania przez UOP. Geometryczne parametry tacek ustawia się na robocie i kopiuje do konfiguracji aktywnej przy potwierdzonym postoju oraz zamkniętym zleceniu. Partia zachowuje dane do rozliczenia.
+
+Clear i utrzymane accessReq nie są kasowane przez samo odebranie pozwolenia na nowe operacje. Pozostają ważne przy aktualnej sesji i rzeczywistym potwierdzeniu obszaru. Utrata sesji nadal wymaga uzgodnienia rezerwacji przez PLC.
+
+Implementacja PLC v2, import FANUC, powiązania natywne BG, nauka punktów i FAT/SAT są NIEWYKONANE. Żaden status procesu nie zastępuje safety. Archiwalne źródła migracji znajdują się w `../Robot M20iD/old/ROBOT` względem katalogu repozytorium.

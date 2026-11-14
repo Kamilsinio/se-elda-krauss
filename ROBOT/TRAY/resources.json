@@ -1,0 +1,1253 @@
+{
+  "status": "PREPARED_NOT_COMMISSIONED",
+  "contract_version": 2,
+  "staging": {
+    "mask1": "R[1]",
+    "mask2": "R[2]",
+    "mask3": "R[3]",
+    "mask4": "R[4]",
+    "mask5": "R[5]",
+    "qty1": "R[6]",
+    "qty2": "R[7]",
+    "qty3": "R[8]",
+    "qty4": "R[9]",
+    "qty5": "R[10]",
+    "gridX": "R[11]",
+    "gridY": "R[12]",
+    "pitchX": "R[13]",
+    "pitchY": "R[14]",
+    "trayHeight": "R[15]",
+    "traysPerStack": "R[16]",
+    "searchStep": "R[17]",
+    "searchLimit": "R[18]",
+    "maxAttempts": "R[19]",
+    "speed": "R[20]",
+    "timeout": "R[21]",
+    "tool": "R[22]",
+    "frame": "R[23]",
+    "cylFold": "R[24]",
+    "cylStraight": "R[25]",
+    "trayMask": "R[26]"
+  },
+  "active": {
+    "mask1": "R[27]",
+    "mask2": "R[28]",
+    "mask3": "R[29]",
+    "mask4": "R[30]",
+    "mask5": "R[31]",
+    "qty1": "R[32]",
+    "qty2": "R[33]",
+    "qty3": "R[34]",
+    "qty4": "R[35]",
+    "qty5": "R[36]",
+    "gridX": "R[37]",
+    "gridY": "R[38]",
+    "pitchX": "R[39]",
+    "pitchY": "R[40]",
+    "trayHeight": "R[41]",
+    "traysPerStack": "R[42]",
+    "searchStep": "R[43]",
+    "searchLimit": "R[44]",
+    "maxAttempts": "R[45]",
+    "speed": "R[46]",
+    "timeout": "R[47]",
+    "tool": "R[48]",
+    "frame": "R[49]",
+    "cylFold": "R[50]",
+    "cylStraight": "R[177]",
+    "trayMask": "R[178]"
+  },
+  "runtime": {
+    "state": "R[179]",
+    "dispatch": "R[180]",
+    "lastState": "R[181]",
+    "phaseSince": "R[182]",
+    "cycleId": "R[183]",
+    "batchCount": "R[184]",
+    "remaining": "R[185]",
+    "group": "R[186]",
+    "slot": "R[187]",
+    "trayIndex": "R[188]",
+    "stackId": "R[189]",
+    "lastStart": "R[190]",
+    "mask": "R[191]",
+    "qty": "R[192]",
+    "searchDepth": "R[193]",
+    "attempt": "R[194]",
+    "destination": "R[195]",
+    "work": "R[196]",
+    "sum": "R[197]",
+    "capacity": "R[198]",
+    "groupCount": "R[199]",
+    "resumeState": "R[200]"
+  },
+  "flags": {
+    "initApproved": "F[1]",
+    "newApproved": "F[2]",
+    "recoveryApproved": "F[3]",
+    "contextChecked": "F[4]",
+    "stationIdleConfirmed": "F[5]",
+    "profileApproved": "F[6]",
+    "motionApproved": "F[7]",
+    "alarmApproved": "F[8]",
+    "bindingsVerified": "F[9]",
+    "sourceBound": "F[10]",
+    "statusValid": "F[11]",
+    "cfgApplied": "F[12]",
+    "candidateValid": "F[13]",
+    "selected": "F[14]",
+    "armed": "F[15]",
+    "needsRecovery": "F[16]",
+    "batchAssigned": "F[17]",
+    "pickupConfirmed": "F[18]",
+    "trayReady": "F[19]",
+    "motionDone": "F[20]",
+    "safe": "F[21]",
+    "deviceDone": "F[22]",
+    "eventDone": "F[23]",
+    "cylDone": "F[24]",
+    "vacDone": "F[25]",
+    "releaseDone": "F[26]",
+    "sourceExited": "F[27]",
+    "elevatorExited": "F[28]",
+    "storageExited": "F[29]",
+    "immExited": "F[30]",
+    "cycleExecuting": "F[31]",
+    "applyDenied": "F[32]",
+    "guardFault": "F[33]",
+    "timeoutFault": "F[34]",
+    "maskValid": "F[35]",
+    "samplePending": "F[36]",
+    "cfgFrozen": "F[37]",
+    "booted": "F[38]",
+    "sourceInside": "F[39]",
+    "elevatorInside": "F[40]",
+    "releasing": "F[41]",
+    "fullStackWait": "F[42]",
+    "guardLoaded": "F[43]",
+    "guardReleasing": "F[44]",
+    "orderWasActive": "F[45]",
+    "statusRouteStable": "F[46]"
+  },
+  "native": {
+    "autoMode": "F[47]",
+    "t1Mode": "F[48]",
+    "t2Mode": "F[49]",
+    "tpEnabled": "F[50]",
+    "systemReady": "F[51]",
+    "estopActive": "F[52]",
+    "fault": "F[53]",
+    "inputSimulated": "F[54]",
+    "outputSimulated": "F[55]",
+    "home": "F[56]",
+    "taskRunning": "F[57]",
+    "taskPaused": "F[58]"
+  },
+  "taught": {
+    "1": "F[59]",
+    "2": "F[60]",
+    "3": "F[61]",
+    "4": "F[62]",
+    "5": "F[63]",
+    "6": "F[64]",
+    "7": "F[65]",
+    "8": "F[66]",
+    "9": "F[67]",
+    "10": "F[68]",
+    "11": "F[69]",
+    "12": "F[70]",
+    "13": "F[71]",
+    "14": "F[72]",
+    "15": "F[73]",
+    "16": "F[74]",
+    "17": "F[75]",
+    "18": "F[76]",
+    "19": "F[77]",
+    "20": "F[78]",
+    "21": "F[79]",
+    "22": "F[80]",
+    "23": "F[81]",
+    "24": "F[82]",
+    "25": "F[83]",
+    "26": "F[84]",
+    "27": "F[85]",
+    "28": "F[86]",
+    "29": "F[87]",
+    "30": "F[88]",
+    "31": "F[89]",
+    "32": "F[90]",
+    "33": "F[91]",
+    "34": "F[92]",
+    "35": "F[93]",
+    "36": "F[94]",
+    "37": "F[95]",
+    "38": "F[96]",
+    "39": "F[97]",
+    "40": "F[98]"
+  },
+  "bg": {
+    "statusAt": "R[142]",
+    "guardAt": "R[146]"
+  },
+  "points": {
+    "1": "HOME",
+    "2": "SOURCE_ENTRY",
+    "3": "SOURCE_APPROACH",
+    "4": "SOURCE_SEARCH_START",
+    "5": "SOURCE_SEARCH_LIMIT",
+    "6": "SOURCE_LIFT",
+    "7": "SOURCE_EXIT",
+    "8": "ELEVATOR_ENTRY",
+    "9": "TRAY_APPROACH",
+    "10": "TRAY_PLACE",
+    "11": "ELEVATOR_EXIT",
+    "12": "IMM_ENTRY",
+    "13": "IMM_WAIT",
+    "14": "IMM_APPROACH",
+    "15": "IMM_PICK",
+    "16": "IMM_RETRACT",
+    "17": "IMM_EXIT",
+    "18": "PRODUCT_GROUP_1",
+    "19": "PRODUCT_GROUP_2",
+    "20": "PRODUCT_GROUP_3",
+    "21": "PRODUCT_GROUP_4",
+    "22": "PRODUCT_GROUP_5",
+    "23": "PRODUCT_APPROACH",
+    "24": "SAMPLE_GROUP_1",
+    "25": "SAMPLE_GROUP_2",
+    "26": "SAMPLE_GROUP_3",
+    "27": "SAMPLE_GROUP_4",
+    "28": "SAMPLE_GROUP_5",
+    "29": "OFFSET_WORK",
+    "30": "SEARCH_WORK",
+    "31": "POSE_WORK",
+    "32": "SAMPLE_ENTRY",
+    "33": "SAMPLE_EXIT",
+    "34": "HOME_ENTRY",
+    "35": "TRAY_LIFT",
+    "36": "RESERVE",
+    "37": "RESERVE",
+    "38": "RESERVE",
+    "39": "RESERVE",
+    "40": "RESERVE"
+  },
+  "allocations": [
+    {
+      "name": "staging.mask1",
+      "bank": "R",
+      "number": 1
+    },
+    {
+      "name": "staging.mask2",
+      "bank": "R",
+      "number": 2
+    },
+    {
+      "name": "staging.mask3",
+      "bank": "R",
+      "number": 3
+    },
+    {
+      "name": "staging.mask4",
+      "bank": "R",
+      "number": 4
+    },
+    {
+      "name": "staging.mask5",
+      "bank": "R",
+      "number": 5
+    },
+    {
+      "name": "staging.qty1",
+      "bank": "R",
+      "number": 6
+    },
+    {
+      "name": "staging.qty2",
+      "bank": "R",
+      "number": 7
+    },
+    {
+      "name": "staging.qty3",
+      "bank": "R",
+      "number": 8
+    },
+    {
+      "name": "staging.qty4",
+      "bank": "R",
+      "number": 9
+    },
+    {
+      "name": "staging.qty5",
+      "bank": "R",
+      "number": 10
+    },
+    {
+      "name": "staging.gridX",
+      "bank": "R",
+      "number": 11
+    },
+    {
+      "name": "staging.gridY",
+      "bank": "R",
+      "number": 12
+    },
+    {
+      "name": "staging.pitchX",
+      "bank": "R",
+      "number": 13
+    },
+    {
+      "name": "staging.pitchY",
+      "bank": "R",
+      "number": 14
+    },
+    {
+      "name": "staging.trayHeight",
+      "bank": "R",
+      "number": 15
+    },
+    {
+      "name": "staging.traysPerStack",
+      "bank": "R",
+      "number": 16
+    },
+    {
+      "name": "staging.searchStep",
+      "bank": "R",
+      "number": 17
+    },
+    {
+      "name": "staging.searchLimit",
+      "bank": "R",
+      "number": 18
+    },
+    {
+      "name": "staging.maxAttempts",
+      "bank": "R",
+      "number": 19
+    },
+    {
+      "name": "staging.speed",
+      "bank": "R",
+      "number": 20
+    },
+    {
+      "name": "staging.timeout",
+      "bank": "R",
+      "number": 21
+    },
+    {
+      "name": "staging.tool",
+      "bank": "R",
+      "number": 22
+    },
+    {
+      "name": "staging.frame",
+      "bank": "R",
+      "number": 23
+    },
+    {
+      "name": "staging.cylFold",
+      "bank": "R",
+      "number": 24
+    },
+    {
+      "name": "staging.cylStraight",
+      "bank": "R",
+      "number": 25
+    },
+    {
+      "name": "staging.trayMask",
+      "bank": "R",
+      "number": 26
+    },
+    {
+      "name": "active.mask1",
+      "bank": "R",
+      "number": 27
+    },
+    {
+      "name": "active.mask2",
+      "bank": "R",
+      "number": 28
+    },
+    {
+      "name": "active.mask3",
+      "bank": "R",
+      "number": 29
+    },
+    {
+      "name": "active.mask4",
+      "bank": "R",
+      "number": 30
+    },
+    {
+      "name": "active.mask5",
+      "bank": "R",
+      "number": 31
+    },
+    {
+      "name": "active.qty1",
+      "bank": "R",
+      "number": 32
+    },
+    {
+      "name": "active.qty2",
+      "bank": "R",
+      "number": 33
+    },
+    {
+      "name": "active.qty3",
+      "bank": "R",
+      "number": 34
+    },
+    {
+      "name": "active.qty4",
+      "bank": "R",
+      "number": 35
+    },
+    {
+      "name": "active.qty5",
+      "bank": "R",
+      "number": 36
+    },
+    {
+      "name": "active.gridX",
+      "bank": "R",
+      "number": 37
+    },
+    {
+      "name": "active.gridY",
+      "bank": "R",
+      "number": 38
+    },
+    {
+      "name": "active.pitchX",
+      "bank": "R",
+      "number": 39
+    },
+    {
+      "name": "active.pitchY",
+      "bank": "R",
+      "number": 40
+    },
+    {
+      "name": "active.trayHeight",
+      "bank": "R",
+      "number": 41
+    },
+    {
+      "name": "active.traysPerStack",
+      "bank": "R",
+      "number": 42
+    },
+    {
+      "name": "active.searchStep",
+      "bank": "R",
+      "number": 43
+    },
+    {
+      "name": "active.searchLimit",
+      "bank": "R",
+      "number": 44
+    },
+    {
+      "name": "active.maxAttempts",
+      "bank": "R",
+      "number": 45
+    },
+    {
+      "name": "active.speed",
+      "bank": "R",
+      "number": 46
+    },
+    {
+      "name": "active.timeout",
+      "bank": "R",
+      "number": 47
+    },
+    {
+      "name": "active.tool",
+      "bank": "R",
+      "number": 48
+    },
+    {
+      "name": "active.frame",
+      "bank": "R",
+      "number": 49
+    },
+    {
+      "name": "active.cylFold",
+      "bank": "R",
+      "number": 50
+    },
+    {
+      "name": "active.cylStraight",
+      "bank": "R",
+      "number": 177
+    },
+    {
+      "name": "active.trayMask",
+      "bank": "R",
+      "number": 178
+    },
+    {
+      "name": "runtime.state",
+      "bank": "R",
+      "number": 179
+    },
+    {
+      "name": "runtime.dispatch",
+      "bank": "R",
+      "number": 180
+    },
+    {
+      "name": "runtime.lastState",
+      "bank": "R",
+      "number": 181
+    },
+    {
+      "name": "runtime.phaseSince",
+      "bank": "R",
+      "number": 182
+    },
+    {
+      "name": "runtime.cycleId",
+      "bank": "R",
+      "number": 183
+    },
+    {
+      "name": "runtime.batchCount",
+      "bank": "R",
+      "number": 184
+    },
+    {
+      "name": "runtime.remaining",
+      "bank": "R",
+      "number": 185
+    },
+    {
+      "name": "runtime.group",
+      "bank": "R",
+      "number": 186
+    },
+    {
+      "name": "runtime.slot",
+      "bank": "R",
+      "number": 187
+    },
+    {
+      "name": "runtime.trayIndex",
+      "bank": "R",
+      "number": 188
+    },
+    {
+      "name": "runtime.stackId",
+      "bank": "R",
+      "number": 189
+    },
+    {
+      "name": "runtime.lastStart",
+      "bank": "R",
+      "number": 190
+    },
+    {
+      "name": "runtime.mask",
+      "bank": "R",
+      "number": 191
+    },
+    {
+      "name": "runtime.qty",
+      "bank": "R",
+      "number": 192
+    },
+    {
+      "name": "runtime.searchDepth",
+      "bank": "R",
+      "number": 193
+    },
+    {
+      "name": "runtime.attempt",
+      "bank": "R",
+      "number": 194
+    },
+    {
+      "name": "runtime.destination",
+      "bank": "R",
+      "number": 195
+    },
+    {
+      "name": "runtime.work",
+      "bank": "R",
+      "number": 196
+    },
+    {
+      "name": "runtime.sum",
+      "bank": "R",
+      "number": 197
+    },
+    {
+      "name": "runtime.capacity",
+      "bank": "R",
+      "number": 198
+    },
+    {
+      "name": "runtime.groupCount",
+      "bank": "R",
+      "number": 199
+    },
+    {
+      "name": "runtime.resumeState",
+      "bank": "R",
+      "number": 200
+    },
+    {
+      "name": "control.initApproved",
+      "bank": "F",
+      "number": 1
+    },
+    {
+      "name": "control.newApproved",
+      "bank": "F",
+      "number": 2
+    },
+    {
+      "name": "control.recoveryApproved",
+      "bank": "F",
+      "number": 3
+    },
+    {
+      "name": "control.contextChecked",
+      "bank": "F",
+      "number": 4
+    },
+    {
+      "name": "control.stationIdleConfirmed",
+      "bank": "F",
+      "number": 5
+    },
+    {
+      "name": "control.profileApproved",
+      "bank": "F",
+      "number": 6
+    },
+    {
+      "name": "control.motionApproved",
+      "bank": "F",
+      "number": 7
+    },
+    {
+      "name": "control.alarmApproved",
+      "bank": "F",
+      "number": 8
+    },
+    {
+      "name": "control.bindingsVerified",
+      "bank": "F",
+      "number": 9
+    },
+    {
+      "name": "control.sourceBound",
+      "bank": "F",
+      "number": 10
+    },
+    {
+      "name": "control.statusValid",
+      "bank": "F",
+      "number": 11
+    },
+    {
+      "name": "control.cfgApplied",
+      "bank": "F",
+      "number": 12
+    },
+    {
+      "name": "control.candidateValid",
+      "bank": "F",
+      "number": 13
+    },
+    {
+      "name": "control.selected",
+      "bank": "F",
+      "number": 14
+    },
+    {
+      "name": "control.armed",
+      "bank": "F",
+      "number": 15
+    },
+    {
+      "name": "control.needsRecovery",
+      "bank": "F",
+      "number": 16
+    },
+    {
+      "name": "control.batchAssigned",
+      "bank": "F",
+      "number": 17
+    },
+    {
+      "name": "control.pickupConfirmed",
+      "bank": "F",
+      "number": 18
+    },
+    {
+      "name": "control.trayReady",
+      "bank": "F",
+      "number": 19
+    },
+    {
+      "name": "control.motionDone",
+      "bank": "F",
+      "number": 20
+    },
+    {
+      "name": "control.safe",
+      "bank": "F",
+      "number": 21
+    },
+    {
+      "name": "control.deviceDone",
+      "bank": "F",
+      "number": 22
+    },
+    {
+      "name": "control.eventDone",
+      "bank": "F",
+      "number": 23
+    },
+    {
+      "name": "control.cylDone",
+      "bank": "F",
+      "number": 24
+    },
+    {
+      "name": "control.vacDone",
+      "bank": "F",
+      "number": 25
+    },
+    {
+      "name": "control.releaseDone",
+      "bank": "F",
+      "number": 26
+    },
+    {
+      "name": "control.sourceExited",
+      "bank": "F",
+      "number": 27
+    },
+    {
+      "name": "control.elevatorExited",
+      "bank": "F",
+      "number": 28
+    },
+    {
+      "name": "control.storageExited",
+      "bank": "F",
+      "number": 29
+    },
+    {
+      "name": "control.immExited",
+      "bank": "F",
+      "number": 30
+    },
+    {
+      "name": "control.cycleExecuting",
+      "bank": "F",
+      "number": 31
+    },
+    {
+      "name": "control.applyDenied",
+      "bank": "F",
+      "number": 32
+    },
+    {
+      "name": "control.guardFault",
+      "bank": "F",
+      "number": 33
+    },
+    {
+      "name": "control.timeoutFault",
+      "bank": "F",
+      "number": 34
+    },
+    {
+      "name": "control.maskValid",
+      "bank": "F",
+      "number": 35
+    },
+    {
+      "name": "control.samplePending",
+      "bank": "F",
+      "number": 36
+    },
+    {
+      "name": "control.cfgFrozen",
+      "bank": "F",
+      "number": 37
+    },
+    {
+      "name": "control.booted",
+      "bank": "F",
+      "number": 38
+    },
+    {
+      "name": "control.sourceInside",
+      "bank": "F",
+      "number": 39
+    },
+    {
+      "name": "control.elevatorInside",
+      "bank": "F",
+      "number": 40
+    },
+    {
+      "name": "control.releasing",
+      "bank": "F",
+      "number": 41
+    },
+    {
+      "name": "control.fullStackWait",
+      "bank": "F",
+      "number": 42
+    },
+    {
+      "name": "control.guardLoaded",
+      "bank": "F",
+      "number": 43
+    },
+    {
+      "name": "control.guardReleasing",
+      "bank": "F",
+      "number": 44
+    },
+    {
+      "name": "control.orderWasActive",
+      "bank": "F",
+      "number": 45
+    },
+    {
+      "name": "control.statusRouteStable",
+      "bank": "F",
+      "number": 46
+    },
+    {
+      "name": "native.autoMode",
+      "bank": "F",
+      "number": 47
+    },
+    {
+      "name": "native.t1Mode",
+      "bank": "F",
+      "number": 48
+    },
+    {
+      "name": "native.t2Mode",
+      "bank": "F",
+      "number": 49
+    },
+    {
+      "name": "native.tpEnabled",
+      "bank": "F",
+      "number": 50
+    },
+    {
+      "name": "native.systemReady",
+      "bank": "F",
+      "number": 51
+    },
+    {
+      "name": "native.estopActive",
+      "bank": "F",
+      "number": 52
+    },
+    {
+      "name": "native.fault",
+      "bank": "F",
+      "number": 53
+    },
+    {
+      "name": "native.inputSimulated",
+      "bank": "F",
+      "number": 54
+    },
+    {
+      "name": "native.outputSimulated",
+      "bank": "F",
+      "number": 55
+    },
+    {
+      "name": "native.home",
+      "bank": "F",
+      "number": 56
+    },
+    {
+      "name": "native.taskRunning",
+      "bank": "F",
+      "number": 57
+    },
+    {
+      "name": "native.taskPaused",
+      "bank": "F",
+      "number": 58
+    },
+    {
+      "name": "taught.PR1",
+      "bank": "F",
+      "number": 59
+    },
+    {
+      "name": "taught.PR2",
+      "bank": "F",
+      "number": 60
+    },
+    {
+      "name": "taught.PR3",
+      "bank": "F",
+      "number": 61
+    },
+    {
+      "name": "taught.PR4",
+      "bank": "F",
+      "number": 62
+    },
+    {
+      "name": "taught.PR5",
+      "bank": "F",
+      "number": 63
+    },
+    {
+      "name": "taught.PR6",
+      "bank": "F",
+      "number": 64
+    },
+    {
+      "name": "taught.PR7",
+      "bank": "F",
+      "number": 65
+    },
+    {
+      "name": "taught.PR8",
+      "bank": "F",
+      "number": 66
+    },
+    {
+      "name": "taught.PR9",
+      "bank": "F",
+      "number": 67
+    },
+    {
+      "name": "taught.PR10",
+      "bank": "F",
+      "number": 68
+    },
+    {
+      "name": "taught.PR11",
+      "bank": "F",
+      "number": 69
+    },
+    {
+      "name": "taught.PR12",
+      "bank": "F",
+      "number": 70
+    },
+    {
+      "name": "taught.PR13",
+      "bank": "F",
+      "number": 71
+    },
+    {
+      "name": "taught.PR14",
+      "bank": "F",
+      "number": 72
+    },
+    {
+      "name": "taught.PR15",
+      "bank": "F",
+      "number": 73
+    },
+    {
+      "name": "taught.PR16",
+      "bank": "F",
+      "number": 74
+    },
+    {
+      "name": "taught.PR17",
+      "bank": "F",
+      "number": 75
+    },
+    {
+      "name": "taught.PR18",
+      "bank": "F",
+      "number": 76
+    },
+    {
+      "name": "taught.PR19",
+      "bank": "F",
+      "number": 77
+    },
+    {
+      "name": "taught.PR20",
+      "bank": "F",
+      "number": 78
+    },
+    {
+      "name": "taught.PR21",
+      "bank": "F",
+      "number": 79
+    },
+    {
+      "name": "taught.PR22",
+      "bank": "F",
+      "number": 80
+    },
+    {
+      "name": "taught.PR23",
+      "bank": "F",
+      "number": 81
+    },
+    {
+      "name": "taught.PR24",
+      "bank": "F",
+      "number": 82
+    },
+    {
+      "name": "taught.PR25",
+      "bank": "F",
+      "number": 83
+    },
+    {
+      "name": "taught.PR26",
+      "bank": "F",
+      "number": 84
+    },
+    {
+      "name": "taught.PR27",
+      "bank": "F",
+      "number": 85
+    },
+    {
+      "name": "taught.PR28",
+      "bank": "F",
+      "number": 86
+    },
+    {
+      "name": "taught.PR29",
+      "bank": "F",
+      "number": 87
+    },
+    {
+      "name": "taught.PR30",
+      "bank": "F",
+      "number": 88
+    },
+    {
+      "name": "taught.PR31",
+      "bank": "F",
+      "number": 89
+    },
+    {
+      "name": "taught.PR32",
+      "bank": "F",
+      "number": 90
+    },
+    {
+      "name": "taught.PR33",
+      "bank": "F",
+      "number": 91
+    },
+    {
+      "name": "taught.PR34",
+      "bank": "F",
+      "number": 92
+    },
+    {
+      "name": "taught.PR35",
+      "bank": "F",
+      "number": 93
+    },
+    {
+      "name": "taught.PR36",
+      "bank": "F",
+      "number": 94
+    },
+    {
+      "name": "taught.PR37",
+      "bank": "F",
+      "number": 95
+    },
+    {
+      "name": "taught.PR38",
+      "bank": "F",
+      "number": 96
+    },
+    {
+      "name": "taught.PR39",
+      "bank": "F",
+      "number": 97
+    },
+    {
+      "name": "taught.PR40",
+      "bank": "F",
+      "number": 98
+    }
+  ],
+  "register_ranges": [
+    [
+      1,
+      50
+    ],
+    [
+      177,
+      200
+    ]
+  ],
+  "flag_range": [
+    1,
+    98
+  ],
+  "states": {
+    "10": {
+      "title": "Oczekiwanie i przypisanie partii"
+    },
+    "200": {
+      "title": "Zadanie dostepu do zrodla"
+    },
+    "205": {
+      "title": "Oczekiwanie na dostep do zrodla"
+    },
+    "210": {
+      "title": "Dostep i dojazd do stosu"
+    },
+    "220": {
+      "title": "Wlaczenie prozni tacki"
+    },
+    "225": {
+      "title": "Ograniczone szukanie tacki"
+    },
+    "240": {
+      "title": "Podniesienie i wyjazd ze zrodla"
+    },
+    "245": {
+      "title": "Potwierdzenie pobrania tacki"
+    },
+    "250": {
+      "title": "ACK pobrania tacki"
+    },
+    "260": {
+      "title": "Zadanie dostepu do windy"
+    },
+    "270": {
+      "title": "Odlozenie pustej tacki"
+    },
+    "275": {
+      "title": "Zwolnienie tacki"
+    },
+    "280": {
+      "title": "Potwierdzenie zwolnienia tacki"
+    },
+    "285": {
+      "title": "ACK odlozenia tacki"
+    },
+    "290": {
+      "title": "Wycofanie z windy"
+    },
+    "295": {
+      "title": "Tacka gotowa"
+    },
+    "300": {
+      "title": "Przygotowanie pobrania z formy"
+    },
+    "310": {
+      "title": "Oczekiwanie na otwarta forme"
+    },
+    "320": {
+      "title": "Wejscie i proznia detali"
+    },
+    "330": {
+      "title": "Zadanie wyrzutnika"
+    },
+    "340": {
+      "title": "Potwierdzenie detali i wyrzutnika"
+    },
+    "350": {
+      "title": "Powrot wyrzutnika"
+    },
+    "360": {
+      "title": "Wyjazd z formy"
+    },
+    "370": {
+      "title": "Zdarzenie pobrania partii"
+    },
+    "380": {
+      "title": "ACK pobrania IMM"
+    },
+    "400": {
+      "title": "Wybor kolejnej grupy"
+    },
+    "410": {
+      "title": "Zadanie dostepu do odkladania"
+    },
+    "412": {
+      "title": "Oczekiwanie na dostep do windy"
+    },
+    "415": {
+      "title": "Droga do probek lub odrzutow"
+    },
+    "420": {
+      "title": "Dojazd nad tacke"
+    },
+    "430": {
+      "title": "Pozycja odlozenia grupy"
+    },
+    "440": {
+      "title": "Jednorazowe zwolnienie grupy"
+    },
+    "450": {
+      "title": "Potwierdzenie fizycznego odlozenia"
+    },
+    "460": {
+      "title": "ACK rozliczenia grupy"
+    },
+    "470": {
+      "title": "Zapis postepu po ACK"
+    },
+    "480": {
+      "title": "Wycofanie po odlozeniu"
+    },
+    "485": {
+      "title": "Zwolnienie obszaru windy"
+    },
+    "490": {
+      "title": "Partia rozliczona"
+    },
+    "500": {
+      "title": "Zdarzenie pelnej tacki"
+    },
+    "510": {
+      "title": "ACK pelnej tacki"
+    },
+    "520": {
+      "title": "Nastepna tacka"
+    },
+    "600": {
+      "title": "Zdarzenie pelnego stosu"
+    },
+    "610": {
+      "title": "ACK stosu"
+    },
+    "620": {
+      "title": "Oczekiwanie na nowy stos"
+    },
+    "700": {
+      "title": "Dojazd do postoju"
+    },
+    "710": {
+      "title": "Postoj po rozliczeniu"
+    },
+    "900": {
+      "title": "Wymagane uzgodnienie stanu"
+    }
+  }
+}

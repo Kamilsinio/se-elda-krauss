@@ -1,0 +1,15 @@
+/PROG RT_MAIN
+/ATTR
+OWNER = MNEDITOR;
+COMMENT = "Krauss tacki";
+PROTECT = READ_WRITE;
+DEFAULT_GROUP = 1,*,*,*,*;
+CONTROL_CODE = 00000000 00000000;
+/MN
+   1:  CALL RT_BOOT ;
+   2:  LBL[1] ;
+   3:  CALL RT_TICK ;
+   4:  WAIT   .02(sec) ;
+   5:  IF (F[14]),JMP LBL[1] ;
+/POS
+/END

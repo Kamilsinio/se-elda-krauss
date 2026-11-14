@@ -1,118 +1,118 @@
-﻿source,signal,label,usage,target_ids,action,note,gap
-ROBOT/A01_F2679_TACKI.LS,DI1,box production,21,p2r.production.expectedProgram,REPLACE_SEMANTICS,Porównaj kod programu z 1; nie traktuj UINT jako starego bitu.,
-ROBOT/A01_F2679_TACKI.LS,DI2,tray production,21,p2r.production.expectedProgram,REPLACE_SEMANTICS,Porównaj kod programu z 2; nie traktuj UINT jako starego bitu.,
-ROBOT/A01_F2679_TACKI.LS,DI3,cmd continiue job,"39,43",p2r.production.newOperationPermit;p2r.production.finishPermit;p2r.production.recoveryRequired,REPLACE_SEMANTICS,"Usuń Continue; odrębnie Start, dokończenie i recovery.",GAP-10;GAP-11
-ROBOT/A01_F2679_TACKI.LS,DI4,pallet ready,86,p2r.area.source.ready;p2r.area.source.granted,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,
-ROBOT/A01_F2679_TACKI.LS,DI5,elevator ready,"142,257",p2r.area.elevator.ready;p2r.area.elevator.granted,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,
-ROBOT/A01_F2679_TACKI.LS,DI6,cmd samples,236,p2r.samples.req,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,
-ROBOT/A01_F2679_TACKI.LS,DI8,ack stack finished,"309,311",p2r.event.stackFinished.ack,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,
-ROBOT/A01_F2679_TACKI.LS,DI32,vacuum 5 ok,"105,106,108,127,151",p2r.vac.5.ok;p2r.vac.5.valid,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,
-ROBOT/A01_F2679_TACKI.LS,DI101,reject,39,p2r.imm.reject,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,GAP-05;GAP-09
-ROBOT/A01_F2679_TACKI.LS,DI102,mould closed,"68,189,253",p2r.imm.mouldClosed,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,GAP-05;GAP-09
-ROBOT/A01_F2679_TACKI.LS,DI103,mould open,"68,189,253",p2r.imm.mouldOpen,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,GAP-05;GAP-09
-ROBOT/A01_F2679_TACKI.LS,DI106,ejector in back pos,COMMENTED:210,p2r.imm.ejectorBack,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,GAP-05;GAP-09
-ROBOT/A01_F2679_TACKI.LS,DI107,ejector in forward pos,COMMENTED:210,p2r.imm.ejectorForward,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,GAP-05;GAP-09
-ROBOT/A01_F2679_TACKI.LS,DO7,in home pos,10,r2p.production.home,REPLACE,Źródło systemowe lub monitor programu; potwierdzić w backupie. E-STOP tylko diagnostyczny.,GAP-04
-ROBOT/A01_F2679_TACKI.LS,DO14,cmd ack,"87,315",r2p.samples.ack;r2p.area.source.accessReq;r2p.area.elevator.accessReq,SPLIT,Ogólny impuls ACK zastąpić kanałem właściwej operacji; nie kopiować jeden do jednego.,
-ROBOT/A01_F2679_TACKI.LS,DO15,pallet placed,"152,153",r2p.event.blisterPlaced.req,REPLACE_SEMANTICS,Impuls zastąpić pełnym kanałem zdarzenia.,
-ROBOT/A01_F2679_TACKI.LS,DO16,samples placed,344,r2p.event.samplesPlaced.req,REPLACE,,
-ROBOT/A01_F2679_TACKI.LS,DO17,pallet finished,296,r2p.event.blisterFinished.req,REPLACE_SEMANTICS,Różne znaczenie DO17 w obu programach; bez aliasu.,
-ROBOT/A01_F2679_TACKI.LS,DO18,stack finished,"22,308,310",r2p.event.stackFinished.req,REPLACE,,
-ROBOT/A01_F2679_TACKI.LS,DO21,ack cmd continiue,"42,44",,REMOVE,Stary ACK Continue usunięty; wznowienie przez nadzór PLC i lokalne uruchomienie.,GAP-10;GAP-11
-ROBOT/A01_F2679_TACKI.LS,DO31,vacuum 5,"110,148",r2p.vac.5.cmdValid;r2p.vac.5.hold,REPLACE,,
-ROBOT/A01_F2679_TACKI.LS,DO32,blow-off 5,"111,149",r2p.vac.5.blowReq,REPLACE_SEMANTICS,Impuls zastąpić terminalnym REQ/ACK; czas realizuje PLC.,
-ROBOT/A01_F2679_TACKI.LS,DO101,mould area free,61,,SAFETY_REVIEW,Mould area free: poza zwykłym kontraktem do potwierdzenia funkcji safety.,GAP-05;GAP-09
-ROBOT/A01_F2679_TACKI.LS,DO102,enable mould closure,"16,62,184,232",r2p.imm.req.mouldClose,REPLACE,Procesowe żądanie; końcowe pozwolenie rozstrzyga PLC.,GAP-05;GAP-09
-ROBOT/A01_F2679_TACKI.LS,DO103,enable full mould openig,"63,185,233",r2p.imm.req.mouldFullOpen,REPLACE,Procesowe żądanie; końcowe pozwolenie rozstrzyga PLC.,GAP-05;GAP-09
-ROBOT/A01_F2679_TACKI.LS,DO104,free operation mode,"15,64",p2r.production.withRobot,PLC_OWNERSHIP,Tryb współpracy wyznacza PLC; bez bezpośredniej komendy robota free operation mode.,GAP-05;GAP-09
-ROBOT/A01_F2679_TACKI.LS,DO105,enable ejector back,"65,205,219,224,234",r2p.imm.req.ejectorBack,REPLACE,Procesowe żądanie; końcowe pozwolenie rozstrzyga PLC.,GAP-05;GAP-09
-ROBOT/A01_F2679_TACKI.LS,DO106,enable ejector forward,"66,206,218,225,235",r2p.imm.req.ejectorForward,REPLACE,Procesowe żądanie; końcowe pozwolenie rozstrzyga PLC.,GAP-05;GAP-09
-ROBOT/A01_F2679_TACKI.LS,DO111,gripper act 1 bwd,"173,248,292",r2p.cyl.V502.home,REPLACE,,GAP-03;GAP-08
-ROBOT/A01_F2679_TACKI.LS,DO112,gripper act 1 fwd,"174,249,291",r2p.cyl.V502.work,REPLACE,,GAP-03;GAP-08
-ROBOT/A01_F2679_TACKI.LS,DO119,axis-7 straight,"81,138,169,240,326,349",r2p.cyl.V501.home,VERIFY_POSITION,"PROPONOWANE straight=HOME, bend=WORK; potwierdzić fizycznie.",GAP-08
-ROBOT/A01_F2679_TACKI.LS,DO120,axis-7 bend,"82,137,170,241,327,348",r2p.cyl.V501.work,VERIFY_POSITION,"PROPONOWANE straight=HOME, bend=WORK; potwierdzić fizycznie.",GAP-08
-ROBOT/A01_F2679_TACKI.LS,RI1,vacuum 1 ok,"COMMENTED:212,283,342",p2r.vac.1.ok;p2r.vac.1.valid,REPLACE,,GAP-03;GAP-08
-ROBOT/A01_F2679_TACKI.LS,RI2,vacuum 2 ok,"COMMENTED:212,283,342",p2r.vac.2.ok;p2r.vac.2.valid,REPLACE,,GAP-03;GAP-08
-ROBOT/A01_F2679_TACKI.LS,RI3,vacuum 3 ok,"COMMENTED:212,283,342",p2r.vac.3.ok;p2r.vac.3.valid,REPLACE,,GAP-03;GAP-08
-ROBOT/A01_F2679_TACKI.LS,RI4,vacuum 4 ok,"COMMENTED:212,283,342",p2r.vac.4.ok;p2r.vac.4.valid,REPLACE,,GAP-03;GAP-08
-ROBOT/A01_F2679_TACKI.LS,RI5,axis-7 bend,"83,180,251,329,351",p2r.cyl.V501.atWork;p2r.cyl.V501.valid,VERIFY_POSITION,"PROPONOWANE straight=HOME, bend=WORK; potwierdzić orientację.",GAP-08
-ROBOT/A01_F2679_TACKI.LS,RI6,axis-7 straight,"83,180,251,329,351",p2r.cyl.V501.atHome;p2r.cyl.V501.valid,VERIFY_POSITION,"PROPONOWANE straight=HOME, bend=WORK; potwierdzić orientację.",GAP-08
-ROBOT/A01_F2679_TACKI.LS,RO1,vacuum 1,"193,272,333",r2p.vac.1.cmdValid;r2p.vac.1.hold,REPLACE,Usuń fizyczne RO; jawne żądanie próżni przez PLC.,GAP-03;GAP-08
-ROBOT/A01_F2679_TACKI.LS,RO2,blow-off 1,"194,273,334",r2p.vac.1.blowReq,REPLACE_SEMANTICS,Impuls zastąpić REQ/ACK; czas realizuje PLC.,GAP-03;GAP-08
-ROBOT/A01_F2679_TACKI.LS,RO3,vacuum 2,"195,274,335",r2p.vac.2.cmdValid;r2p.vac.2.hold,REPLACE,Usuń fizyczne RO; jawne żądanie próżni przez PLC.,GAP-03;GAP-08
-ROBOT/A01_F2679_TACKI.LS,RO4,blow-off 2,"196,275,336",r2p.vac.2.blowReq,REPLACE_SEMANTICS,Impuls zastąpić REQ/ACK; czas realizuje PLC.,GAP-03;GAP-08
-ROBOT/A01_F2679_TACKI.LS,RO5,vacuum 3,"197,276,337",r2p.vac.3.cmdValid;r2p.vac.3.hold,REPLACE,Usuń fizyczne RO; jawne żądanie próżni przez PLC.,GAP-03;GAP-08
-ROBOT/A01_F2679_TACKI.LS,RO6,blow-off 3,"198,277,338",r2p.vac.3.blowReq,REPLACE_SEMANTICS,Impuls zastąpić REQ/ACK; czas realizuje PLC.,GAP-03;GAP-08
-ROBOT/A01_F2679_TACKI.LS,RO7,vacuum 4,"199,278,339",r2p.vac.4.cmdValid;r2p.vac.4.hold,REPLACE,Usuń fizyczne RO; jawne żądanie próżni przez PLC.,GAP-03;GAP-08
-ROBOT/A01_F2679_TACKI.LS,RO8,blow-off 4,"200,279,340",r2p.vac.4.blowReq,REPLACE_SEMANTICS,Impuls zastąpić REQ/ACK; czas realizuje PLC.,GAP-03;GAP-08
-ROBOT/A01_F2679_TACKI.LS,CALL:BB_GRIPPER_RESET,BB_GRIPPER_RESET,dependency,,EXPORT_REQUIRED,Znaleziono binarny TP w backupie W716 (SRC-11); wymagany eksport/odczyt LS i audyt skutków. Patrz workspace-analysis.md.,GAP-04
-ROBOT/A01_F2679_TACKI.LS,CALL:BB_IMM_RESET,BB_IMM_RESET,dependency,,EXPORT_REQUIRED,Znaleziono binarny TP w backupie W716 (SRC-11); wymagany eksport/odczyt LS i audyt skutków. Patrz workspace-analysis.md.,GAP-04
-ROBOT/A01_F2679_TACKI.LS,CALL:BB_RESET_VAC5,BB_RESET_VAC5,dependency,,EXPORT_REQUIRED,Znaleziono binarny TP w backupie W716 (SRC-11); wymagany eksport/odczyt LS i audyt skutków. Patrz workspace-analysis.md.,GAP-04
-ROBOT/AAAA_MAIN_BOX_PRG.LS,DI1,box production,35,p2r.production.expectedProgram,REPLACE_SEMANTICS,Porównaj kod programu z 1; nie traktuj UINT jako starego bitu.,
-ROBOT/AAAA_MAIN_BOX_PRG.LS,DI2,tray production,35,p2r.production.expectedProgram,REPLACE_SEMANTICS,Porównaj kod programu z 2; nie traktuj UINT jako starego bitu.,
-ROBOT/AAAA_MAIN_BOX_PRG.LS,DI3,cmd continiue job,"50,54,300",p2r.production.newOperationPermit;p2r.production.finishPermit;p2r.production.recoveryRequired,REPLACE_SEMANTICS,"Usuń Continue; odrębnie Start, dokończenie i recovery.",GAP-10;GAP-11
-ROBOT/AAAA_MAIN_BOX_PRG.LS,DI5,elevator ready,"134,377,727,756",p2r.area.elevator.ready;p2r.area.elevator.granted,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,
-ROBOT/AAAA_MAIN_BOX_PRG.LS,DI6,cmd samples,348,p2r.samples.req,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,
-ROBOT/AAAA_MAIN_BOX_PRG.LS,DI8,ack stack finished,"753,755",p2r.event.stackFinished.ack,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,
-ROBOT/AAAA_MAIN_BOX_PRG.LS,DI10,storage ready,"685,723",p2r.area.storage.granted,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,
-ROBOT/AAAA_MAIN_BOX_PRG.LS,DI32,vacuum 5 ok,"697,698,699,714,736",p2r.vac.5.ok;p2r.vac.5.valid,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,
-ROBOT/AAAA_MAIN_BOX_PRG.LS,DI101,reject,50,p2r.imm.reject,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,GAP-05;GAP-09
-ROBOT/AAAA_MAIN_BOX_PRG.LS,DI102,mould closed,"211,328,375",p2r.imm.mouldClosed,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,GAP-05;GAP-09
-ROBOT/AAAA_MAIN_BOX_PRG.LS,DI103,mould open,"211,328,375",p2r.imm.mouldOpen,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,GAP-05;GAP-09
-ROBOT/AAAA_MAIN_BOX_PRG.LS,DI106,ejector in back pos,"341,356",p2r.imm.ejectorBack,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,GAP-05;GAP-09
-ROBOT/AAAA_MAIN_BOX_PRG.LS,DI107,ejector in forward pos,"341,356",p2r.imm.ejectorForward,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,GAP-05;GAP-09
-ROBOT/AAAA_MAIN_BOX_PRG.LS,DI112,act 1 in fwd pos,"125,152,171,313,413,450,654",p2r.cyl.V502.atWork;p2r.cyl.V502.valid,REPLACE,,GAP-03;GAP-08
-ROBOT/AAAA_MAIN_BOX_PRG.LS,DI113,act 1 in bwd pos,"125,152,171,313,413,450,654",p2r.cyl.V502.atHome;p2r.cyl.V502.valid,REPLACE,,GAP-03;GAP-08
-ROBOT/AAAA_MAIN_BOX_PRG.LS,DI114,act 2 in fwd pos,"126,153,172,314,477,514,655",p2r.cyl.V503.atWork;p2r.cyl.V503.valid,REPLACE,,GAP-03;GAP-08
-ROBOT/AAAA_MAIN_BOX_PRG.LS,DI115,act 2 in bwd pos,"126,153,172,314,477,514,655",p2r.cyl.V503.atHome;p2r.cyl.V503.valid,REPLACE,,GAP-03;GAP-08
-ROBOT/AAAA_MAIN_BOX_PRG.LS,DI116,act 3 in fwd pos,"127,154,173,315,541,578,656",p2r.cyl.V504.atWork;p2r.cyl.V504.valid,REPLACE,,GAP-03;GAP-08
-ROBOT/AAAA_MAIN_BOX_PRG.LS,DI117,act 3 in bwd pos,"127,154,173,315,541,578,656",p2r.cyl.V504.atHome;p2r.cyl.V504.valid,REPLACE,,GAP-03;GAP-08
-ROBOT/AAAA_MAIN_BOX_PRG.LS,DI118,act 4 in fwd pos,"128,155,174,316,605,643,657",p2r.cyl.V505.atWork;p2r.cyl.V505.valid,REPLACE,,GAP-03;GAP-08
-ROBOT/AAAA_MAIN_BOX_PRG.LS,DI119,act 4 in bwd pos,"128,155,174,316,605,643,657",p2r.cyl.V505.atHome;p2r.cyl.V505.valid,REPLACE,,GAP-03;GAP-08
-ROBOT/AAAA_MAIN_BOX_PRG.LS,DO7,in home pos,10,r2p.production.home,REPLACE,Źródło systemowe lub monitor programu; potwierdzić w backupie. E-STOP tylko diagnostyczny.,GAP-04
-ROBOT/AAAA_MAIN_BOX_PRG.LS,DO14,cmd ack,"135,378,761",r2p.samples.ack;r2p.area.source.accessReq;r2p.area.elevator.accessReq,SPLIT,Ogólny impuls ACK zastąpić kanałem właściwej operacji; nie kopiować jeden do jednego.,
-ROBOT/AAAA_MAIN_BOX_PRG.LS,DO15,pallet placed,737,r2p.event.spacerPlaced.req,REPLACE_SEMANTICS,Impuls zastąpić pełnym kanałem zdarzenia.,
-ROBOT/AAAA_MAIN_BOX_PRG.LS,DO16,samples placed,789,r2p.event.samplesPlaced.req,REPLACE,,
-ROBOT/AAAA_MAIN_BOX_PRG.LS,DO17,layer finished,"28,670",r2p.event.layerFinished.req,REPLACE_SEMANTICS,Różne znaczenie DO17 w obu programach; bez aliasu.,
-ROBOT/AAAA_MAIN_BOX_PRG.LS,DO18,stack finished,"29,752,754",r2p.event.stackFinished.req,REPLACE,,
-ROBOT/AAAA_MAIN_BOX_PRG.LS,DO21,ack cmd continiue,"53,55",,REMOVE,Stary ACK Continue usunięty; wznowienie przez nadzór PLC i lokalne uruchomienie.,GAP-10;GAP-11
-ROBOT/AAAA_MAIN_BOX_PRG.LS,DO22,storage access req,"27,684,722,801",r2p.area.storage.accessReq,REPLACE,,
-ROBOT/AAAA_MAIN_BOX_PRG.LS,DO23,box progress,"30,663,748,790",r2p.event.productsPlaced.req;r2p.event.spacerPlaced.req,REPLACE_SEMANTICS,Postęp rozdzielić na zdarzenia; nie naliczać dwukrotnie detali.,
-ROBOT/AAAA_MAIN_BOX_PRG.LS,DO31,vacuum 5,"700,734",r2p.vac.5.cmdValid;r2p.vac.5.hold,REPLACE,,
-ROBOT/AAAA_MAIN_BOX_PRG.LS,DO32,blow-off 5,"701,735",r2p.vac.5.blowReq,REPLACE_SEMANTICS,Impuls zastąpić terminalnym REQ/ACK; czas realizuje PLC.,
-ROBOT/AAAA_MAIN_BOX_PRG.LS,DO101,mould area free,205,,SAFETY_REVIEW,Mould area free: poza zwykłym kontraktem do potwierdzenia funkcji safety.,GAP-05;GAP-09
-ROBOT/AAAA_MAIN_BOX_PRG.LS,DO102,enable mould closure,"20,26,206,325,364",r2p.imm.req.mouldClose,REPLACE,Procesowe żądanie; końcowe pozwolenie rozstrzyga PLC.,GAP-05;GAP-09
-ROBOT/AAAA_MAIN_BOX_PRG.LS,DO103,enable full mould openig,"207,326,365",r2p.imm.req.mouldFullOpen,REPLACE,Procesowe żądanie; końcowe pozwolenie rozstrzyga PLC.,GAP-05;GAP-09
-ROBOT/AAAA_MAIN_BOX_PRG.LS,DO104,free operation mode,"19,25,208",p2r.production.withRobot,PLC_OWNERSHIP,Tryb współpracy wyznacza PLC; bez bezpośredniej komendy robota free operation mode.,GAP-05;GAP-09
-ROBOT/AAAA_MAIN_BOX_PRG.LS,DO105,enable ejector back,"209,339,355,359,366",r2p.imm.req.ejectorBack,REPLACE,Procesowe żądanie; końcowe pozwolenie rozstrzyga PLC.,GAP-05;GAP-09
-ROBOT/AAAA_MAIN_BOX_PRG.LS,DO106,enable ejector forward,"210,340,354,360,367",r2p.imm.req.ejectorForward,REPLACE,Procesowe żądanie; końcowe pozwolenie rozstrzyga PLC.,GAP-05;GAP-09
-ROBOT/AAAA_MAIN_BOX_PRG.LS,DO111,gripper act 1 bwd,"118,145,164,306,411,449,647",r2p.cyl.V502.home,REPLACE,,GAP-03;GAP-08
-ROBOT/AAAA_MAIN_BOX_PRG.LS,DO112,gripper act 1 fwd,"117,144,163,305,412,448,646",r2p.cyl.V502.work,REPLACE,,GAP-03;GAP-08
-ROBOT/AAAA_MAIN_BOX_PRG.LS,DO113,gripper act 2 bwd,"120,147,166,308,475,513,649",r2p.cyl.V503.home,REPLACE,,GAP-03;GAP-08
-ROBOT/AAAA_MAIN_BOX_PRG.LS,DO114,gripper act 2 fwd,"119,146,165,307,476,512,648",r2p.cyl.V503.work,REPLACE,,GAP-03;GAP-08
-ROBOT/AAAA_MAIN_BOX_PRG.LS,DO115,gripper act 3 fwd,"121,148,167,309,540,576,650",r2p.cyl.V504.work,REPLACE,,GAP-03;GAP-08
-ROBOT/AAAA_MAIN_BOX_PRG.LS,DO116,gripper act 3 bwd,"122,149,168,310,539,577,651",r2p.cyl.V504.home,REPLACE,,GAP-03;GAP-08
-ROBOT/AAAA_MAIN_BOX_PRG.LS,DO117,gripper act 4 fwd,"123,150,169,311,604,641,652",r2p.cyl.V505.work,REPLACE,,GAP-03;GAP-08
-ROBOT/AAAA_MAIN_BOX_PRG.LS,DO118,gripper act 4 bwd,"124,151,170,312,603,642,653",r2p.cyl.V505.home,REPLACE,,GAP-03;GAP-08
-ROBOT/AAAA_MAIN_BOX_PRG.LS,DO119,axis-7 straight,"129,319,370,679,769,793",r2p.cyl.V501.home,VERIFY_POSITION,"PROPONOWANE straight=HOME, bend=WORK; potwierdzić fizycznie.",GAP-08
-ROBOT/AAAA_MAIN_BOX_PRG.LS,DO120,axis-7 bend,"130,320,371,680,770,792",r2p.cyl.V501.work,VERIFY_POSITION,"PROPONOWANE straight=HOME, bend=WORK; potwierdzić fizycznie.",GAP-08
-ROBOT/AAAA_MAIN_BOX_PRG.LS,RI1,vacuum 1 ok,"88,94,100,106,112,140,342,430,782",p2r.vac.1.ok;p2r.vac.1.valid,REPLACE,,GAP-03;GAP-08
-ROBOT/AAAA_MAIN_BOX_PRG.LS,RI2,vacuum 2 ok,"89,95,101,107,113,141,343,494,783",p2r.vac.2.ok;p2r.vac.2.valid,REPLACE,,GAP-03;GAP-08
-ROBOT/AAAA_MAIN_BOX_PRG.LS,RI3,vacuum 3 ok,"90,96,102,108,114,142,344,558,784",p2r.vac.3.ok;p2r.vac.3.valid,REPLACE,,GAP-03;GAP-08
-ROBOT/AAAA_MAIN_BOX_PRG.LS,RI4,vacuum 4 ok,"91,97,103,109,115,143,345,622,785",p2r.vac.4.ok;p2r.vac.4.valid,REPLACE,,GAP-03;GAP-08
-ROBOT/AAAA_MAIN_BOX_PRG.LS,RI5,axis-7 bend,"131,322,374,681,771,794",p2r.cyl.V501.atWork;p2r.cyl.V501.valid,VERIFY_POSITION,"PROPONOWANE straight=HOME, bend=WORK; potwierdzić orientację.",GAP-08
-ROBOT/AAAA_MAIN_BOX_PRG.LS,RI6,axis-7 straight,"131,322,374,681,771,794",p2r.cyl.V501.atHome;p2r.cyl.V501.valid,VERIFY_POSITION,"PROPONOWANE straight=HOME, bend=WORK; potwierdzić orientację.",GAP-08
-ROBOT/AAAA_MAIN_BOX_PRG.LS,RO1,vacuum 1,"330,428,774",r2p.vac.1.cmdValid;r2p.vac.1.hold,REPLACE,Usuń fizyczne RO; jawne żądanie próżni przez PLC.,GAP-03;GAP-08
-ROBOT/AAAA_MAIN_BOX_PRG.LS,RO2,blow-off 1,"331,429,775",r2p.vac.1.blowReq,REPLACE_SEMANTICS,Impuls zastąpić REQ/ACK; czas realizuje PLC.,GAP-03;GAP-08
-ROBOT/AAAA_MAIN_BOX_PRG.LS,RO3,vacuum 2,"332,492,776",r2p.vac.2.cmdValid;r2p.vac.2.hold,REPLACE,Usuń fizyczne RO; jawne żądanie próżni przez PLC.,GAP-03;GAP-08
-ROBOT/AAAA_MAIN_BOX_PRG.LS,RO4,blow-off 2,"333,493,777",r2p.vac.2.blowReq,REPLACE_SEMANTICS,Impuls zastąpić REQ/ACK; czas realizuje PLC.,GAP-03;GAP-08
-ROBOT/AAAA_MAIN_BOX_PRG.LS,RO5,vacuum 3,"334,556,778",r2p.vac.3.cmdValid;r2p.vac.3.hold,REPLACE,Usuń fizyczne RO; jawne żądanie próżni przez PLC.,GAP-03;GAP-08
-ROBOT/AAAA_MAIN_BOX_PRG.LS,RO6,blow-off 3,"335,557,779",r2p.vac.3.blowReq,REPLACE_SEMANTICS,Impuls zastąpić REQ/ACK; czas realizuje PLC.,GAP-03;GAP-08
-ROBOT/AAAA_MAIN_BOX_PRG.LS,RO7,vacuum 4,"336,620,780",r2p.vac.4.cmdValid;r2p.vac.4.hold,REPLACE,Usuń fizyczne RO; jawne żądanie próżni przez PLC.,GAP-03;GAP-08
-ROBOT/AAAA_MAIN_BOX_PRG.LS,RO8,blow-off 4,"337,621,781",r2p.vac.4.blowReq,REPLACE_SEMANTICS,Impuls zastąpić REQ/ACK; czas realizuje PLC.,GAP-03;GAP-08
-ROBOT/AAAA_MAIN_BOX_PRG.LS,CALL:BB_GRIPPER_RESET,BB_GRIPPER_RESET,dependency,,EXPORT_REQUIRED,Znaleziono binarny TP w backupie W716 (SRC-11); wymagany eksport/odczyt LS i audyt skutków. Patrz workspace-analysis.md.,GAP-04
-ROBOT/AAAA_MAIN_BOX_PRG.LS,CALL:BB_IMM_RESET,BB_IMM_RESET,dependency,,EXPORT_REQUIRED,Znaleziono binarny TP w backupie W716 (SRC-11); wymagany eksport/odczyt LS i audyt skutków. Patrz workspace-analysis.md.,GAP-04
-ROBOT/AAAA_MAIN_BOX_PRG.LS,CALL:BB_RESET_VAC5,BB_RESET_VAC5,dependency,,EXPORT_REQUIRED,Znaleziono binarny TP w backupie W716 (SRC-11); wymagany eksport/odczyt LS i audyt skutków. Patrz workspace-analysis.md.,GAP-04
+source,signal,label,usage,target_ids,action,note,gap
+../Robot M20iD/old/ROBOT/A01_F2679_TACKI.LS,DI1,box production,21,p2r.production.expectedProgram,REPLACE_SEMANTICS,Porównaj kod programu z 1; nie traktuj UINT jako starego bitu.,
+../Robot M20iD/old/ROBOT/A01_F2679_TACKI.LS,DI2,tray production,21,p2r.production.expectedProgram,REPLACE_SEMANTICS,Porównaj kod programu z 2; nie traktuj UINT jako starego bitu.,
+../Robot M20iD/old/ROBOT/A01_F2679_TACKI.LS,DI3,cmd continiue job,"39,43",p2r.production.newOperationPermit;p2r.production.finishPermit;p2r.production.recoveryRequired,REPLACE_SEMANTICS,"Usuń Continue; odrębnie Start, dokończenie i recovery.",GAP-10;GAP-11
+../Robot M20iD/old/ROBOT/A01_F2679_TACKI.LS,DI4,pallet ready,86,p2r.area.source.ready;p2r.area.source.granted,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,
+../Robot M20iD/old/ROBOT/A01_F2679_TACKI.LS,DI5,elevator ready,"142,257",p2r.area.elevator.ready;p2r.area.elevator.granted,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,
+../Robot M20iD/old/ROBOT/A01_F2679_TACKI.LS,DI6,cmd samples,236,p2r.samples.req,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,
+../Robot M20iD/old/ROBOT/A01_F2679_TACKI.LS,DI8,ack stack finished,"309,311",p2r.event.stackFinished.ack,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,
+../Robot M20iD/old/ROBOT/A01_F2679_TACKI.LS,DI32,vacuum 5 ok,"105,106,108,127,151",p2r.vac.5.ok;p2r.vac.5.valid,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,
+../Robot M20iD/old/ROBOT/A01_F2679_TACKI.LS,DI101,reject,39,p2r.imm.reject,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,GAP-05;GAP-09
+../Robot M20iD/old/ROBOT/A01_F2679_TACKI.LS,DI102,mould closed,"68,189,253",p2r.imm.mouldClosed,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,GAP-05;GAP-09
+../Robot M20iD/old/ROBOT/A01_F2679_TACKI.LS,DI103,mould open,"68,189,253",p2r.imm.mouldOpen,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,GAP-05;GAP-09
+../Robot M20iD/old/ROBOT/A01_F2679_TACKI.LS,DI106,ejector in back pos,COMMENTED:210,p2r.imm.ejectorBack,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,GAP-05;GAP-09
+../Robot M20iD/old/ROBOT/A01_F2679_TACKI.LS,DI107,ejector in forward pos,COMMENTED:210,p2r.imm.ejectorForward,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,GAP-05;GAP-09
+../Robot M20iD/old/ROBOT/A01_F2679_TACKI.LS,DO7,in home pos,10,r2p.production.home,REPLACE,Źródło systemowe lub monitor programu; potwierdzić w backupie. E-STOP tylko diagnostyczny.,GAP-04
+../Robot M20iD/old/ROBOT/A01_F2679_TACKI.LS,DO14,cmd ack,"87,315",r2p.samples.ack;r2p.area.source.accessReq;r2p.area.elevator.accessReq,SPLIT,Ogólny impuls ACK zastąpić kanałem właściwej operacji; nie kopiować jeden do jednego.,
+../Robot M20iD/old/ROBOT/A01_F2679_TACKI.LS,DO15,pallet placed,"152,153",r2p.event.blisterPlaced.req,REPLACE_SEMANTICS,Impuls zastąpić pełnym kanałem zdarzenia.,
+../Robot M20iD/old/ROBOT/A01_F2679_TACKI.LS,DO16,samples placed,344,r2p.event.samplesPlaced.req,REPLACE,,
+../Robot M20iD/old/ROBOT/A01_F2679_TACKI.LS,DO17,pallet finished,296,r2p.event.blisterFinished.req,REPLACE_SEMANTICS,Różne znaczenie DO17 w obu programach; bez aliasu.,
+../Robot M20iD/old/ROBOT/A01_F2679_TACKI.LS,DO18,stack finished,"22,308,310",r2p.event.stackFinished.req,REPLACE,,
+../Robot M20iD/old/ROBOT/A01_F2679_TACKI.LS,DO21,ack cmd continiue,"42,44",,REMOVE,Stary ACK Continue usunięty; wznowienie przez nadzór PLC i lokalne uruchomienie.,GAP-10;GAP-11
+../Robot M20iD/old/ROBOT/A01_F2679_TACKI.LS,DO31,vacuum 5,"110,148",r2p.vac.5.cmdValid;r2p.vac.5.hold,REPLACE,,
+../Robot M20iD/old/ROBOT/A01_F2679_TACKI.LS,DO32,blow-off 5,"111,149",r2p.vac.5.blowReq,REPLACE_SEMANTICS,Impuls zastąpić terminalnym REQ/ACK; czas realizuje PLC.,
+../Robot M20iD/old/ROBOT/A01_F2679_TACKI.LS,DO101,mould area free,61,,SAFETY_REVIEW,Mould area free: poza zwykłym kontraktem do potwierdzenia funkcji safety.,GAP-05;GAP-09
+../Robot M20iD/old/ROBOT/A01_F2679_TACKI.LS,DO102,enable mould closure,"16,62,184,232",r2p.imm.req.mouldClose,REPLACE,Procesowe żądanie; końcowe pozwolenie rozstrzyga PLC.,GAP-05;GAP-09
+../Robot M20iD/old/ROBOT/A01_F2679_TACKI.LS,DO103,enable full mould openig,"63,185,233",r2p.imm.req.mouldFullOpen,REPLACE,Procesowe żądanie; końcowe pozwolenie rozstrzyga PLC.,GAP-05;GAP-09
+../Robot M20iD/old/ROBOT/A01_F2679_TACKI.LS,DO104,free operation mode,"15,64",p2r.production.withRobot,PLC_OWNERSHIP,Tryb współpracy wyznacza PLC; bez bezpośredniej komendy robota free operation mode.,GAP-05;GAP-09
+../Robot M20iD/old/ROBOT/A01_F2679_TACKI.LS,DO105,enable ejector back,"65,205,219,224,234",r2p.imm.req.ejectorBack,REPLACE,Procesowe żądanie; końcowe pozwolenie rozstrzyga PLC.,GAP-05;GAP-09
+../Robot M20iD/old/ROBOT/A01_F2679_TACKI.LS,DO106,enable ejector forward,"66,206,218,225,235",r2p.imm.req.ejectorForward,REPLACE,Procesowe żądanie; końcowe pozwolenie rozstrzyga PLC.,GAP-05;GAP-09
+../Robot M20iD/old/ROBOT/A01_F2679_TACKI.LS,DO111,gripper act 1 bwd,"173,248,292",r2p.cyl.V502.home,REPLACE,,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/A01_F2679_TACKI.LS,DO112,gripper act 1 fwd,"174,249,291",r2p.cyl.V502.work,REPLACE,,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/A01_F2679_TACKI.LS,DO119,axis-7 straight,"81,138,169,240,326,349",r2p.cyl.V501.home,VERIFY_POSITION,"PROPONOWANE straight=HOME, bend=WORK; potwierdzić fizycznie.",GAP-08
+../Robot M20iD/old/ROBOT/A01_F2679_TACKI.LS,DO120,axis-7 bend,"82,137,170,241,327,348",r2p.cyl.V501.work,VERIFY_POSITION,"PROPONOWANE straight=HOME, bend=WORK; potwierdzić fizycznie.",GAP-08
+../Robot M20iD/old/ROBOT/A01_F2679_TACKI.LS,RI1,vacuum 1 ok,"COMMENTED:212,283,342",p2r.vac.1.ok;p2r.vac.1.valid,REPLACE,,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/A01_F2679_TACKI.LS,RI2,vacuum 2 ok,"COMMENTED:212,283,342",p2r.vac.2.ok;p2r.vac.2.valid,REPLACE,,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/A01_F2679_TACKI.LS,RI3,vacuum 3 ok,"COMMENTED:212,283,342",p2r.vac.3.ok;p2r.vac.3.valid,REPLACE,,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/A01_F2679_TACKI.LS,RI4,vacuum 4 ok,"COMMENTED:212,283,342",p2r.vac.4.ok;p2r.vac.4.valid,REPLACE,,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/A01_F2679_TACKI.LS,RI5,axis-7 bend,"83,180,251,329,351",p2r.cyl.V501.atWork;p2r.cyl.V501.valid,VERIFY_POSITION,"PROPONOWANE straight=HOME, bend=WORK; potwierdzić orientację.",GAP-08
+../Robot M20iD/old/ROBOT/A01_F2679_TACKI.LS,RI6,axis-7 straight,"83,180,251,329,351",p2r.cyl.V501.atHome;p2r.cyl.V501.valid,VERIFY_POSITION,"PROPONOWANE straight=HOME, bend=WORK; potwierdzić orientację.",GAP-08
+../Robot M20iD/old/ROBOT/A01_F2679_TACKI.LS,RO1,vacuum 1,"193,272,333",r2p.vac.1.cmdValid;r2p.vac.1.hold,REPLACE,Usuń fizyczne RO; jawne żądanie próżni przez PLC.,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/A01_F2679_TACKI.LS,RO2,blow-off 1,"194,273,334",r2p.vac.1.blowReq,REPLACE_SEMANTICS,Impuls zastąpić REQ/ACK; czas realizuje PLC.,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/A01_F2679_TACKI.LS,RO3,vacuum 2,"195,274,335",r2p.vac.2.cmdValid;r2p.vac.2.hold,REPLACE,Usuń fizyczne RO; jawne żądanie próżni przez PLC.,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/A01_F2679_TACKI.LS,RO4,blow-off 2,"196,275,336",r2p.vac.2.blowReq,REPLACE_SEMANTICS,Impuls zastąpić REQ/ACK; czas realizuje PLC.,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/A01_F2679_TACKI.LS,RO5,vacuum 3,"197,276,337",r2p.vac.3.cmdValid;r2p.vac.3.hold,REPLACE,Usuń fizyczne RO; jawne żądanie próżni przez PLC.,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/A01_F2679_TACKI.LS,RO6,blow-off 3,"198,277,338",r2p.vac.3.blowReq,REPLACE_SEMANTICS,Impuls zastąpić REQ/ACK; czas realizuje PLC.,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/A01_F2679_TACKI.LS,RO7,vacuum 4,"199,278,339",r2p.vac.4.cmdValid;r2p.vac.4.hold,REPLACE,Usuń fizyczne RO; jawne żądanie próżni przez PLC.,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/A01_F2679_TACKI.LS,RO8,blow-off 4,"200,279,340",r2p.vac.4.blowReq,REPLACE_SEMANTICS,Impuls zastąpić REQ/ACK; czas realizuje PLC.,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/A01_F2679_TACKI.LS,CALL:BB_GRIPPER_RESET,BB_GRIPPER_RESET,dependency,,EXPORT_REQUIRED,Znaleziono binarny TP w backupie W716 (SRC-11); wymagany eksport/odczyt LS i audyt skutków. Patrz workspace-analysis.md.,GAP-04
+../Robot M20iD/old/ROBOT/A01_F2679_TACKI.LS,CALL:BB_IMM_RESET,BB_IMM_RESET,dependency,,EXPORT_REQUIRED,Znaleziono binarny TP w backupie W716 (SRC-11); wymagany eksport/odczyt LS i audyt skutków. Patrz workspace-analysis.md.,GAP-04
+../Robot M20iD/old/ROBOT/A01_F2679_TACKI.LS,CALL:BB_RESET_VAC5,BB_RESET_VAC5,dependency,,EXPORT_REQUIRED,Znaleziono binarny TP w backupie W716 (SRC-11); wymagany eksport/odczyt LS i audyt skutków. Patrz workspace-analysis.md.,GAP-04
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,DI1,box production,35,p2r.production.expectedProgram,REPLACE_SEMANTICS,Porównaj kod programu z 1; nie traktuj UINT jako starego bitu.,
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,DI2,tray production,35,p2r.production.expectedProgram,REPLACE_SEMANTICS,Porównaj kod programu z 2; nie traktuj UINT jako starego bitu.,
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,DI3,cmd continiue job,"50,54,300",p2r.production.newOperationPermit;p2r.production.finishPermit;p2r.production.recoveryRequired,REPLACE_SEMANTICS,"Usuń Continue; odrębnie Start, dokończenie i recovery.",GAP-10;GAP-11
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,DI5,elevator ready,"134,377,727,756",p2r.area.elevator.ready;p2r.area.elevator.granted,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,DI6,cmd samples,348,p2r.samples.req,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,DI8,ack stack finished,"753,755",p2r.event.stackFinished.ack,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,DI10,storage ready,"685,723",p2r.area.storage.granted,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,DI32,vacuum 5 ok,"697,698,699,714,736",p2r.vac.5.ok;p2r.vac.5.valid,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,DI101,reject,50,p2r.imm.reject,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,GAP-05;GAP-09
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,DI102,mould closed,"211,328,375",p2r.imm.mouldClosed,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,GAP-05;GAP-09
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,DI103,mould open,"211,328,375",p2r.imm.mouldOpen,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,GAP-05;GAP-09
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,DI106,ejector in back pos,"341,356",p2r.imm.ejectorBack,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,GAP-05;GAP-09
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,DI107,ejector in forward pos,"341,356",p2r.imm.ejectorForward,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,GAP-05;GAP-09
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,DI112,act 1 in fwd pos,"125,152,171,313,413,450,654",p2r.cyl.V502.atWork;p2r.cyl.V502.valid,REPLACE,,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,DI113,act 1 in bwd pos,"125,152,171,313,413,450,654",p2r.cyl.V502.atHome;p2r.cyl.V502.valid,REPLACE,,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,DI114,act 2 in fwd pos,"126,153,172,314,477,514,655",p2r.cyl.V503.atWork;p2r.cyl.V503.valid,REPLACE,,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,DI115,act 2 in bwd pos,"126,153,172,314,477,514,655",p2r.cyl.V503.atHome;p2r.cyl.V503.valid,REPLACE,,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,DI116,act 3 in fwd pos,"127,154,173,315,541,578,656",p2r.cyl.V504.atWork;p2r.cyl.V504.valid,REPLACE,,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,DI117,act 3 in bwd pos,"127,154,173,315,541,578,656",p2r.cyl.V504.atHome;p2r.cyl.V504.valid,REPLACE,,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,DI118,act 4 in fwd pos,"128,155,174,316,605,643,657",p2r.cyl.V505.atWork;p2r.cyl.V505.valid,REPLACE,,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,DI119,act 4 in bwd pos,"128,155,174,316,605,643,657",p2r.cyl.V505.atHome;p2r.cyl.V505.valid,REPLACE,,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,DO7,in home pos,10,r2p.production.home,REPLACE,Źródło systemowe lub monitor programu; potwierdzić w backupie. E-STOP tylko diagnostyczny.,GAP-04
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,DO14,cmd ack,"135,378,761",r2p.samples.ack;r2p.area.source.accessReq;r2p.area.elevator.accessReq,SPLIT,Ogólny impuls ACK zastąpić kanałem właściwej operacji; nie kopiować jeden do jednego.,
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,DO15,pallet placed,737,r2p.event.spacerPlaced.req,REPLACE_SEMANTICS,Impuls zastąpić pełnym kanałem zdarzenia.,
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,DO16,samples placed,789,r2p.event.samplesPlaced.req,REPLACE,,
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,DO17,layer finished,"28,670",r2p.event.layerFinished.req,REPLACE_SEMANTICS,Różne znaczenie DO17 w obu programach; bez aliasu.,
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,DO18,stack finished,"29,752,754",r2p.event.stackFinished.req,REPLACE,,
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,DO21,ack cmd continiue,"53,55",,REMOVE,Stary ACK Continue usunięty; wznowienie przez nadzór PLC i lokalne uruchomienie.,GAP-10;GAP-11
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,DO22,storage access req,"27,684,722,801",r2p.area.storage.accessReq,REPLACE,,
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,DO23,box progress,"30,663,748,790",r2p.event.productsPlaced.req;r2p.event.spacerPlaced.req,REPLACE_SEMANTICS,Postęp rozdzielić na zdarzenia; nie naliczać dwukrotnie detali.,
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,DO31,vacuum 5,"700,734",r2p.vac.5.cmdValid;r2p.vac.5.hold,REPLACE,,
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,DO32,blow-off 5,"701,735",r2p.vac.5.blowReq,REPLACE_SEMANTICS,Impuls zastąpić terminalnym REQ/ACK; czas realizuje PLC.,
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,DO101,mould area free,205,,SAFETY_REVIEW,Mould area free: poza zwykłym kontraktem do potwierdzenia funkcji safety.,GAP-05;GAP-09
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,DO102,enable mould closure,"20,26,206,325,364",r2p.imm.req.mouldClose,REPLACE,Procesowe żądanie; końcowe pozwolenie rozstrzyga PLC.,GAP-05;GAP-09
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,DO103,enable full mould openig,"207,326,365",r2p.imm.req.mouldFullOpen,REPLACE,Procesowe żądanie; końcowe pozwolenie rozstrzyga PLC.,GAP-05;GAP-09
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,DO104,free operation mode,"19,25,208",p2r.production.withRobot,PLC_OWNERSHIP,Tryb współpracy wyznacza PLC; bez bezpośredniej komendy robota free operation mode.,GAP-05;GAP-09
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,DO105,enable ejector back,"209,339,355,359,366",r2p.imm.req.ejectorBack,REPLACE,Procesowe żądanie; końcowe pozwolenie rozstrzyga PLC.,GAP-05;GAP-09
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,DO106,enable ejector forward,"210,340,354,360,367",r2p.imm.req.ejectorForward,REPLACE,Procesowe żądanie; końcowe pozwolenie rozstrzyga PLC.,GAP-05;GAP-09
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,DO111,gripper act 1 bwd,"118,145,164,306,411,449,647",r2p.cyl.V502.home,REPLACE,,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,DO112,gripper act 1 fwd,"117,144,163,305,412,448,646",r2p.cyl.V502.work,REPLACE,,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,DO113,gripper act 2 bwd,"120,147,166,308,475,513,649",r2p.cyl.V503.home,REPLACE,,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,DO114,gripper act 2 fwd,"119,146,165,307,476,512,648",r2p.cyl.V503.work,REPLACE,,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,DO115,gripper act 3 fwd,"121,148,167,309,540,576,650",r2p.cyl.V504.work,REPLACE,,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,DO116,gripper act 3 bwd,"122,149,168,310,539,577,651",r2p.cyl.V504.home,REPLACE,,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,DO117,gripper act 4 fwd,"123,150,169,311,604,641,652",r2p.cyl.V505.work,REPLACE,,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,DO118,gripper act 4 bwd,"124,151,170,312,603,642,653",r2p.cyl.V505.home,REPLACE,,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,DO119,axis-7 straight,"129,319,370,679,769,793",r2p.cyl.V501.home,VERIFY_POSITION,"PROPONOWANE straight=HOME, bend=WORK; potwierdzić fizycznie.",GAP-08
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,DO120,axis-7 bend,"130,320,371,680,770,792",r2p.cyl.V501.work,VERIFY_POSITION,"PROPONOWANE straight=HOME, bend=WORK; potwierdzić fizycznie.",GAP-08
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,RI1,vacuum 1 ok,"88,94,100,106,112,140,342,430,782",p2r.vac.1.ok;p2r.vac.1.valid,REPLACE,,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,RI2,vacuum 2 ok,"89,95,101,107,113,141,343,494,783",p2r.vac.2.ok;p2r.vac.2.valid,REPLACE,,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,RI3,vacuum 3 ok,"90,96,102,108,114,142,344,558,784",p2r.vac.3.ok;p2r.vac.3.valid,REPLACE,,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,RI4,vacuum 4 ok,"91,97,103,109,115,143,345,622,785",p2r.vac.4.ok;p2r.vac.4.valid,REPLACE,,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,RI5,axis-7 bend,"131,322,374,681,771,794",p2r.cyl.V501.atWork;p2r.cyl.V501.valid,VERIFY_POSITION,"PROPONOWANE straight=HOME, bend=WORK; potwierdzić orientację.",GAP-08
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,RI6,axis-7 straight,"131,322,374,681,771,794",p2r.cyl.V501.atHome;p2r.cyl.V501.valid,VERIFY_POSITION,"PROPONOWANE straight=HOME, bend=WORK; potwierdzić orientację.",GAP-08
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,RO1,vacuum 1,"330,428,774",r2p.vac.1.cmdValid;r2p.vac.1.hold,REPLACE,Usuń fizyczne RO; jawne żądanie próżni przez PLC.,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,RO2,blow-off 1,"331,429,775",r2p.vac.1.blowReq,REPLACE_SEMANTICS,Impuls zastąpić REQ/ACK; czas realizuje PLC.,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,RO3,vacuum 2,"332,492,776",r2p.vac.2.cmdValid;r2p.vac.2.hold,REPLACE,Usuń fizyczne RO; jawne żądanie próżni przez PLC.,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,RO4,blow-off 2,"333,493,777",r2p.vac.2.blowReq,REPLACE_SEMANTICS,Impuls zastąpić REQ/ACK; czas realizuje PLC.,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,RO5,vacuum 3,"334,556,778",r2p.vac.3.cmdValid;r2p.vac.3.hold,REPLACE,Usuń fizyczne RO; jawne żądanie próżni przez PLC.,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,RO6,blow-off 3,"335,557,779",r2p.vac.3.blowReq,REPLACE_SEMANTICS,Impuls zastąpić REQ/ACK; czas realizuje PLC.,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,RO7,vacuum 4,"336,620,780",r2p.vac.4.cmdValid;r2p.vac.4.hold,REPLACE,Usuń fizyczne RO; jawne żądanie próżni przez PLC.,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,RO8,blow-off 4,"337,621,781",r2p.vac.4.blowReq,REPLACE_SEMANTICS,Impuls zastąpić REQ/ACK; czas realizuje PLC.,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,CALL:BB_GRIPPER_RESET,BB_GRIPPER_RESET,dependency,,EXPORT_REQUIRED,Znaleziono binarny TP w backupie W716 (SRC-11); wymagany eksport/odczyt LS i audyt skutków. Patrz workspace-analysis.md.,GAP-04
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,CALL:BB_IMM_RESET,BB_IMM_RESET,dependency,,EXPORT_REQUIRED,Znaleziono binarny TP w backupie W716 (SRC-11); wymagany eksport/odczyt LS i audyt skutków. Patrz workspace-analysis.md.,GAP-04
+../Robot M20iD/old/ROBOT/AAAA_MAIN_BOX_PRG.LS,CALL:BB_RESET_VAC5,BB_RESET_VAC5,dependency,,EXPORT_REQUIRED,Znaleziono binarny TP w backupie W716 (SRC-11); wymagany eksport/odczyt LS i audyt skutków. Patrz workspace-analysis.md.,GAP-04
 GVLs/GVL_Robot.st,ST_RobotFromPLC.cmd_box_production,DI1,declaration,p2r.production.expectedProgram,REPLACE_SEMANTICS,Porównaj kod programu z 1; nie traktuj UINT jako starego bitu.,
 GVLs/GVL_Robot.st,ST_RobotFromPLC.cmd_tray_production,DI2,declaration,p2r.production.expectedProgram,REPLACE_SEMANTICS,Porównaj kod programu z 2; nie traktuj UINT jako starego bitu.,
 GVLs/GVL_Robot.st,ST_RobotFromPLC.cmd_continue_job,DI3,declaration,p2r.production.newOperationPermit;p2r.production.finishPermit;p2r.production.recoveryRequired,REPLACE_SEMANTICS,"Usuń Continue; odrębnie Start, dokończenie i recovery.",GAP-10;GAP-11
@@ -177,93 +177,93 @@ GVLs/GVL_Robot.st,ST_RobotToPLC.spare_do_29,DO29,declaration,,RESERVED,Stara rez
 GVLs/GVL_Robot.st,ST_RobotToPLC.spare_do_30,DO30,declaration,,RESERVED,Stara rezerwa nie jest kanałem nowego sprzętu.,
 GVLs/GVL_Robot.st,ST_RobotToPLC.cmd_vacuum_5,DO31,declaration,r2p.vac.5.cmdValid;r2p.vac.5.hold,REPLACE,,
 GVLs/GVL_Robot.st,ST_RobotToPLC.cmd_blow_off_5,DO32,declaration,r2p.vac.5.blowReq,REPLACE_SEMANTICS,Impuls zastąpić terminalnym REQ/ACK; czas realizuje PLC.,
-ROBOT/IOSTATE.DG,DI1,box production,historical_snapshot,p2r.production.expectedProgram,REPLACE_SEMANTICS,Porównaj kod programu z 1; nie traktuj UINT jako starego bitu.,
-ROBOT/IOSTATE.DG,DI2,tray production,historical_snapshot,p2r.production.expectedProgram,REPLACE_SEMANTICS,Porównaj kod programu z 2; nie traktuj UINT jako starego bitu.,
-ROBOT/IOSTATE.DG,DI3,cmd continiue job,historical_snapshot,p2r.production.newOperationPermit;p2r.production.finishPermit;p2r.production.recoveryRequired,REPLACE_SEMANTICS,"Usuń Continue; odrębnie Start, dokończenie i recovery.",GAP-10;GAP-11
-ROBOT/IOSTATE.DG,DI4,pallet ready,historical_snapshot,p2r.area.source.ready;p2r.area.source.granted,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,
-ROBOT/IOSTATE.DG,DI5,elevator ready,historical_snapshot,p2r.area.elevator.ready;p2r.area.elevator.granted,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,
-ROBOT/IOSTATE.DG,DI6,cmd samples,historical_snapshot,p2r.samples.req,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,
-ROBOT/IOSTATE.DG,DI7,ack pallet placed,historical_snapshot,p2r.event.blisterPlaced.ack;p2r.event.spacerPlaced.ack,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,
-ROBOT/IOSTATE.DG,DI8,ack stack finished,historical_snapshot,p2r.event.stackFinished.ack,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,
-ROBOT/IOSTATE.DG,DI9,plc fault,historical_snapshot,p2r.production.criticalBlock;p2r.production.blockCode,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,
-ROBOT/IOSTATE.DG,DI10,storage ready,historical_snapshot,p2r.area.storage.granted,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,
-ROBOT/IOSTATE.DG,DI32,vacuum 5 ok,historical_snapshot,p2r.vac.5.ok;p2r.vac.5.valid,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,
-ROBOT/IOSTATE.DG,DI101,reject,historical_snapshot,p2r.imm.reject,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,GAP-05;GAP-09
-ROBOT/IOSTATE.DG,DI102,mould closed,historical_snapshot,p2r.imm.mouldClosed,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,GAP-05;GAP-09
-ROBOT/IOSTATE.DG,DI103,mould open,historical_snapshot,p2r.imm.mouldOpen,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,GAP-05;GAP-09
-ROBOT/IOSTATE.DG,DI104,intermediate mould pos,historical_snapshot,p2r.imm.mouldIntermediate,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,GAP-05;GAP-09
-ROBOT/IOSTATE.DG,DI105,operation with robot,historical_snapshot,p2r.imm.withRobot,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,GAP-05;GAP-09
-ROBOT/IOSTATE.DG,DI106,ejector in back pos,historical_snapshot,p2r.imm.ejectorBack,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,GAP-05;GAP-09
-ROBOT/IOSTATE.DG,DI107,ejector in forward pos,historical_snapshot,p2r.imm.ejectorForward,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,GAP-05;GAP-09
-ROBOT/IOSTATE.DG,DI108,core 1 in pos 1,historical_snapshot,,EXTENSION_REQUIRED,Historyczny rdzeń; pełny backup i potwierdzenie użycia.,GAP-04;GAP-05
-ROBOT/IOSTATE.DG,DI109,core 1 in pos 2,historical_snapshot,,EXTENSION_REQUIRED,Historyczny rdzeń; pełny backup i potwierdzenie użycia.,GAP-04;GAP-05
-ROBOT/IOSTATE.DG,DI110,core 2 in pos 1,historical_snapshot,,EXTENSION_REQUIRED,Historyczny rdzeń; pełny backup i potwierdzenie użycia.,GAP-04;GAP-05
-ROBOT/IOSTATE.DG,DI111,core 2 in pos 2,historical_snapshot,,EXTENSION_REQUIRED,Historyczny rdzeń; pełny backup i potwierdzenie użycia.,GAP-04;GAP-05
-ROBOT/IOSTATE.DG,DI112,act 1 in fwd pos,historical_snapshot,p2r.cyl.V502.atWork;p2r.cyl.V502.valid,REPLACE,,GAP-03;GAP-08
-ROBOT/IOSTATE.DG,DI113,act 1 in bwd pos,historical_snapshot,p2r.cyl.V502.atHome;p2r.cyl.V502.valid,REPLACE,,GAP-03;GAP-08
-ROBOT/IOSTATE.DG,DI114,act 2 in fwd pos,historical_snapshot,p2r.cyl.V503.atWork;p2r.cyl.V503.valid,REPLACE,,GAP-03;GAP-08
-ROBOT/IOSTATE.DG,DI115,act 2 in bwd pos,historical_snapshot,p2r.cyl.V503.atHome;p2r.cyl.V503.valid,REPLACE,,GAP-03;GAP-08
-ROBOT/IOSTATE.DG,DI116,act 3 in fwd pos,historical_snapshot,p2r.cyl.V504.atWork;p2r.cyl.V504.valid,REPLACE,,GAP-03;GAP-08
-ROBOT/IOSTATE.DG,DI117,act 3 in bwd pos,historical_snapshot,p2r.cyl.V504.atHome;p2r.cyl.V504.valid,REPLACE,,GAP-03;GAP-08
-ROBOT/IOSTATE.DG,DI118,act 4 in fwd pos,historical_snapshot,p2r.cyl.V505.atWork;p2r.cyl.V505.valid,REPLACE,,GAP-03;GAP-08
-ROBOT/IOSTATE.DG,DI119,act 4 in bwd pos,historical_snapshot,p2r.cyl.V505.atHome;p2r.cyl.V505.valid,REPLACE,,GAP-03;GAP-08
-ROBOT/IOSTATE.DG,DO1,auto-mode,historical_snapshot,r2p.production.autoMode,REPLACE,Źródło systemowe lub monitor programu; potwierdzić w backupie. E-STOP tylko diagnostyczny.,GAP-04
-ROBOT/IOSTATE.DG,DO2,t1-mode,historical_snapshot,r2p.production.t1Mode,REPLACE,Źródło systemowe lub monitor programu; potwierdzić w backupie. E-STOP tylko diagnostyczny.,GAP-04
-ROBOT/IOSTATE.DG,DO3,t2-mode,historical_snapshot,r2p.production.t2Mode,REPLACE,Źródło systemowe lub monitor programu; potwierdzić w backupie. E-STOP tylko diagnostyczny.,GAP-04
-ROBOT/IOSTATE.DG,DO4,estop-state,historical_snapshot,r2p.production.estopActive,REPLACE,Źródło systemowe lub monitor programu; potwierdzić w backupie. E-STOP tylko diagnostyczny.,GAP-04
-ROBOT/IOSTATE.DG,DO5,input simulated,historical_snapshot,r2p.production.inputSimulated,REPLACE,Źródło systemowe lub monitor programu; potwierdzić w backupie. E-STOP tylko diagnostyczny.,GAP-04
-ROBOT/IOSTATE.DG,DO6,output simulated,historical_snapshot,r2p.production.outputSimulated,REPLACE,Źródło systemowe lub monitor programu; potwierdzić w backupie. E-STOP tylko diagnostyczny.,GAP-04
-ROBOT/IOSTATE.DG,DO7,in home pos,historical_snapshot,r2p.production.home,REPLACE,Źródło systemowe lub monitor programu; potwierdzić w backupie. E-STOP tylko diagnostyczny.,GAP-04
-ROBOT/IOSTATE.DG,DO8,system ready,historical_snapshot,r2p.production.systemReady,REPLACE,Źródło systemowe lub monitor programu; potwierdzić w backupie. E-STOP tylko diagnostyczny.,GAP-04
-ROBOT/IOSTATE.DG,DO9,prg running,historical_snapshot,r2p.production.running,REPLACE,Źródło systemowe lub monitor programu; potwierdzić w backupie. E-STOP tylko diagnostyczny.,GAP-04
-ROBOT/IOSTATE.DG,DO10,fault,historical_snapshot,r2p.production.fault,REPLACE,Źródło systemowe lub monitor programu; potwierdzić w backupie. E-STOP tylko diagnostyczny.,GAP-04
-ROBOT/IOSTATE.DG,DO11,tp enabled,historical_snapshot,r2p.production.tpEnabled,REPLACE,Źródło systemowe lub monitor programu; potwierdzić w backupie. E-STOP tylko diagnostyczny.,GAP-04
-ROBOT/IOSTATE.DG,DO12,current prg box,historical_snapshot,r2p.production.program,REPLACE_SEMANTICS,Kod faktycznie uruchomionego programu; źródło w backupie.,GAP-04
-ROBOT/IOSTATE.DG,DO13,current prg tray,historical_snapshot,r2p.production.program,REPLACE_SEMANTICS,Kod faktycznie uruchomionego programu; źródło w backupie.,GAP-04
-ROBOT/IOSTATE.DG,DO14,cmd ack,historical_snapshot,r2p.samples.ack;r2p.area.source.accessReq;r2p.area.elevator.accessReq,SPLIT,Ogólny impuls ACK zastąpić kanałem właściwej operacji; nie kopiować jeden do jednego.,
-ROBOT/IOSTATE.DG,DO15,pallet placed,historical_snapshot,r2p.event.blisterPlaced.req;r2p.event.spacerPlaced.req,SPLIT,Rozdzielić znaczenie według programu; opis snapshotu nie jest nadrzędny względem LS.,
-ROBOT/IOSTATE.DG,DO16,samples placed,historical_snapshot,r2p.event.samplesPlaced.req,REPLACE,,
-ROBOT/IOSTATE.DG,DO17,layer finished,historical_snapshot,r2p.event.blisterFinished.req;r2p.event.layerFinished.req,SPLIT,Rozdzielić znaczenie według programu; opis snapshotu nie jest nadrzędny względem LS.,
-ROBOT/IOSTATE.DG,DO18,stack finished,historical_snapshot,r2p.event.stackFinished.req,REPLACE,,
-ROBOT/IOSTATE.DG,DO19,perm elev clear,historical_snapshot,r2p.area.elevator.clear,REPLACE,,
-ROBOT/IOSTATE.DG,DO20,perm storage clear,historical_snapshot,r2p.area.storage.clear,REPLACE,,
-ROBOT/IOSTATE.DG,DO21,ack cmd continiue,historical_snapshot,,REMOVE,Stary ACK Continue usunięty; wznowienie przez nadzór PLC i lokalne uruchomienie.,GAP-10;GAP-11
-ROBOT/IOSTATE.DG,DO22,storage access req,historical_snapshot,r2p.area.storage.accessReq,REPLACE,,
-ROBOT/IOSTATE.DG,DO23,box progress,historical_snapshot,r2p.event.productsPlaced.req;r2p.event.spacerPlaced.req,REPLACE_SEMANTICS,Postęp rozdzielić na zdarzenia; nie naliczać dwukrotnie detali.,
-ROBOT/IOSTATE.DG,DO30,rob movement,historical_snapshot,,REVIEW_BACKUP,"GVL nazywa ten kanał rezerwą, ale historyczny IOSTATE ma opis rob movement. Ustalić rzeczywiste źródło i użycie w pełnym backupie.",GAP-04
-ROBOT/IOSTATE.DG,DO31,vacuum 5,historical_snapshot,r2p.vac.5.cmdValid;r2p.vac.5.hold,REPLACE,,
-ROBOT/IOSTATE.DG,DO32,blow-off 5,historical_snapshot,r2p.vac.5.blowReq,REPLACE_SEMANTICS,Impuls zastąpić terminalnym REQ/ACK; czas realizuje PLC.,
-ROBOT/IOSTATE.DG,DO101,mould area free,historical_snapshot,,SAFETY_REVIEW,Mould area free: poza zwykłym kontraktem do potwierdzenia funkcji safety.,GAP-05;GAP-09
-ROBOT/IOSTATE.DG,DO102,enable mould closure,historical_snapshot,r2p.imm.req.mouldClose,REPLACE,Procesowe żądanie; końcowe pozwolenie rozstrzyga PLC.,GAP-05;GAP-09
-ROBOT/IOSTATE.DG,DO103,enable full mould openig,historical_snapshot,r2p.imm.req.mouldFullOpen,REPLACE,Procesowe żądanie; końcowe pozwolenie rozstrzyga PLC.,GAP-05;GAP-09
-ROBOT/IOSTATE.DG,DO104,free operation mode,historical_snapshot,p2r.production.withRobot,PLC_OWNERSHIP,Tryb współpracy wyznacza PLC; bez bezpośredniej komendy robota free operation mode.,GAP-05;GAP-09
-ROBOT/IOSTATE.DG,DO105,enable ejector back,historical_snapshot,r2p.imm.req.ejectorBack,REPLACE,Procesowe żądanie; końcowe pozwolenie rozstrzyga PLC.,GAP-05;GAP-09
-ROBOT/IOSTATE.DG,DO106,enable ejector forward,historical_snapshot,r2p.imm.req.ejectorForward,REPLACE,Procesowe żądanie; końcowe pozwolenie rozstrzyga PLC.,GAP-05;GAP-09
-ROBOT/IOSTATE.DG,DO107,enable core 1 pos 1,historical_snapshot,,EXTENSION_REQUIRED,Historyczne pozwolenie rdzenia; pełny backup i GAP-05.,GAP-04;GAP-05
-ROBOT/IOSTATE.DG,DO108,enable core 1 pos 2,historical_snapshot,,EXTENSION_REQUIRED,Historyczne pozwolenie rdzenia; pełny backup i GAP-05.,GAP-04;GAP-05
-ROBOT/IOSTATE.DG,DO109,enable core 2 pos 1,historical_snapshot,,EXTENSION_REQUIRED,Historyczne pozwolenie rdzenia; pełny backup i GAP-05.,GAP-04;GAP-05
-ROBOT/IOSTATE.DG,DO110,enable core 2 pos 2,historical_snapshot,,EXTENSION_REQUIRED,Historyczne pozwolenie rdzenia; pełny backup i GAP-05.,GAP-04;GAP-05
-ROBOT/IOSTATE.DG,DO111,gripper act 1 bwd,historical_snapshot,r2p.cyl.V502.home,REPLACE,,GAP-03;GAP-08
-ROBOT/IOSTATE.DG,DO112,gripper act 1 fwd,historical_snapshot,r2p.cyl.V502.work,REPLACE,,GAP-03;GAP-08
-ROBOT/IOSTATE.DG,DO113,gripper act 2 bwd,historical_snapshot,r2p.cyl.V503.home,REPLACE,,GAP-03;GAP-08
-ROBOT/IOSTATE.DG,DO114,gripper act 2 fwd,historical_snapshot,r2p.cyl.V503.work,REPLACE,,GAP-03;GAP-08
-ROBOT/IOSTATE.DG,DO115,gripper act 3 fwd,historical_snapshot,r2p.cyl.V504.work,REPLACE,,GAP-03;GAP-08
-ROBOT/IOSTATE.DG,DO116,gripper act 3 bwd,historical_snapshot,r2p.cyl.V504.home,REPLACE,,GAP-03;GAP-08
-ROBOT/IOSTATE.DG,DO117,gripper act 4 fwd,historical_snapshot,r2p.cyl.V505.work,REPLACE,,GAP-03;GAP-08
-ROBOT/IOSTATE.DG,DO118,gripper act 4 bwd,historical_snapshot,r2p.cyl.V505.home,REPLACE,,GAP-03;GAP-08
-ROBOT/IOSTATE.DG,DO119,axis-7 straight,historical_snapshot,r2p.cyl.V501.home,VERIFY_POSITION,"PROPONOWANE straight=HOME, bend=WORK; potwierdzić fizycznie.",GAP-08
-ROBOT/IOSTATE.DG,DO120,axis-7 bend,historical_snapshot,r2p.cyl.V501.work,VERIFY_POSITION,"PROPONOWANE straight=HOME, bend=WORK; potwierdzić fizycznie.",GAP-08
-ROBOT/IOSTATE.DG,RI1,vacuum 1 ok,historical_snapshot,p2r.vac.1.ok;p2r.vac.1.valid,REPLACE,,GAP-03;GAP-08
-ROBOT/IOSTATE.DG,RI2,vacuum 2 ok,historical_snapshot,p2r.vac.2.ok;p2r.vac.2.valid,REPLACE,,GAP-03;GAP-08
-ROBOT/IOSTATE.DG,RI3,vacuum 3 ok,historical_snapshot,p2r.vac.3.ok;p2r.vac.3.valid,REPLACE,,GAP-03;GAP-08
-ROBOT/IOSTATE.DG,RI4,vacuum 4 ok,historical_snapshot,p2r.vac.4.ok;p2r.vac.4.valid,REPLACE,,GAP-03;GAP-08
-ROBOT/IOSTATE.DG,RI5,axis-7 bend,historical_snapshot,p2r.cyl.V501.atWork;p2r.cyl.V501.valid,VERIFY_POSITION,"PROPONOWANE straight=HOME, bend=WORK; potwierdzić orientację.",GAP-08
-ROBOT/IOSTATE.DG,RI6,axis-7 straight,historical_snapshot,p2r.cyl.V501.atHome;p2r.cyl.V501.valid,VERIFY_POSITION,"PROPONOWANE straight=HOME, bend=WORK; potwierdzić orientację.",GAP-08
-ROBOT/IOSTATE.DG,RO1,vacuum 1,historical_snapshot,r2p.vac.1.cmdValid;r2p.vac.1.hold,REPLACE,Usuń fizyczne RO; jawne żądanie próżni przez PLC.,GAP-03;GAP-08
-ROBOT/IOSTATE.DG,RO2,blow-off 1,historical_snapshot,r2p.vac.1.blowReq,REPLACE_SEMANTICS,Impuls zastąpić REQ/ACK; czas realizuje PLC.,GAP-03;GAP-08
-ROBOT/IOSTATE.DG,RO3,vacuum 2,historical_snapshot,r2p.vac.2.cmdValid;r2p.vac.2.hold,REPLACE,Usuń fizyczne RO; jawne żądanie próżni przez PLC.,GAP-03;GAP-08
-ROBOT/IOSTATE.DG,RO4,blow-off 2,historical_snapshot,r2p.vac.2.blowReq,REPLACE_SEMANTICS,Impuls zastąpić REQ/ACK; czas realizuje PLC.,GAP-03;GAP-08
-ROBOT/IOSTATE.DG,RO5,vacuum 3,historical_snapshot,r2p.vac.3.cmdValid;r2p.vac.3.hold,REPLACE,Usuń fizyczne RO; jawne żądanie próżni przez PLC.,GAP-03;GAP-08
-ROBOT/IOSTATE.DG,RO6,blow-off 3,historical_snapshot,r2p.vac.3.blowReq,REPLACE_SEMANTICS,Impuls zastąpić REQ/ACK; czas realizuje PLC.,GAP-03;GAP-08
-ROBOT/IOSTATE.DG,RO7,vacuum 4,historical_snapshot,r2p.vac.4.cmdValid;r2p.vac.4.hold,REPLACE,Usuń fizyczne RO; jawne żądanie próżni przez PLC.,GAP-03;GAP-08
-ROBOT/IOSTATE.DG,RO8,blow-off 4,historical_snapshot,r2p.vac.4.blowReq,REPLACE_SEMANTICS,Impuls zastąpić REQ/ACK; czas realizuje PLC.,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DI1,box production,historical_snapshot,p2r.production.expectedProgram,REPLACE_SEMANTICS,Porównaj kod programu z 1; nie traktuj UINT jako starego bitu.,
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DI2,tray production,historical_snapshot,p2r.production.expectedProgram,REPLACE_SEMANTICS,Porównaj kod programu z 2; nie traktuj UINT jako starego bitu.,
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DI3,cmd continiue job,historical_snapshot,p2r.production.newOperationPermit;p2r.production.finishPermit;p2r.production.recoveryRequired,REPLACE_SEMANTICS,"Usuń Continue; odrębnie Start, dokończenie i recovery.",GAP-10;GAP-11
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DI4,pallet ready,historical_snapshot,p2r.area.source.ready;p2r.area.source.granted,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DI5,elevator ready,historical_snapshot,p2r.area.elevator.ready;p2r.area.elevator.granted,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DI6,cmd samples,historical_snapshot,p2r.samples.req,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DI7,ack pallet placed,historical_snapshot,p2r.event.blisterPlaced.ack;p2r.event.spacerPlaced.ack,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DI8,ack stack finished,historical_snapshot,p2r.event.stackFinished.ack,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DI9,plc fault,historical_snapshot,p2r.production.criticalBlock;p2r.production.blockCode,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DI10,storage ready,historical_snapshot,p2r.area.storage.granted,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DI32,vacuum 5 ok,historical_snapshot,p2r.vac.5.ok;p2r.vac.5.valid,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DI101,reject,historical_snapshot,p2r.imm.reject,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,GAP-05;GAP-09
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DI102,mould closed,historical_snapshot,p2r.imm.mouldClosed,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,GAP-05;GAP-09
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DI103,mould open,historical_snapshot,p2r.imm.mouldOpen,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,GAP-05;GAP-09
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DI104,intermediate mould pos,historical_snapshot,p2r.imm.mouldIntermediate,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,GAP-05;GAP-09
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DI105,operation with robot,historical_snapshot,p2r.imm.withRobot,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,GAP-05;GAP-09
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DI106,ejector in back pos,historical_snapshot,p2r.imm.ejectorBack,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,GAP-05;GAP-09
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DI107,ejector in forward pos,historical_snapshot,p2r.imm.ejectorForward,REPLACE,Wymagana aktualna sesja i ważność grupy; gotowość nie zastępuje przyznania dostępu.,GAP-05;GAP-09
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DI108,core 1 in pos 1,historical_snapshot,,EXTENSION_REQUIRED,Historyczny rdzeń; pełny backup i potwierdzenie użycia.,GAP-04;GAP-05
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DI109,core 1 in pos 2,historical_snapshot,,EXTENSION_REQUIRED,Historyczny rdzeń; pełny backup i potwierdzenie użycia.,GAP-04;GAP-05
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DI110,core 2 in pos 1,historical_snapshot,,EXTENSION_REQUIRED,Historyczny rdzeń; pełny backup i potwierdzenie użycia.,GAP-04;GAP-05
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DI111,core 2 in pos 2,historical_snapshot,,EXTENSION_REQUIRED,Historyczny rdzeń; pełny backup i potwierdzenie użycia.,GAP-04;GAP-05
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DI112,act 1 in fwd pos,historical_snapshot,p2r.cyl.V502.atWork;p2r.cyl.V502.valid,REPLACE,,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DI113,act 1 in bwd pos,historical_snapshot,p2r.cyl.V502.atHome;p2r.cyl.V502.valid,REPLACE,,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DI114,act 2 in fwd pos,historical_snapshot,p2r.cyl.V503.atWork;p2r.cyl.V503.valid,REPLACE,,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DI115,act 2 in bwd pos,historical_snapshot,p2r.cyl.V503.atHome;p2r.cyl.V503.valid,REPLACE,,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DI116,act 3 in fwd pos,historical_snapshot,p2r.cyl.V504.atWork;p2r.cyl.V504.valid,REPLACE,,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DI117,act 3 in bwd pos,historical_snapshot,p2r.cyl.V504.atHome;p2r.cyl.V504.valid,REPLACE,,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DI118,act 4 in fwd pos,historical_snapshot,p2r.cyl.V505.atWork;p2r.cyl.V505.valid,REPLACE,,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DI119,act 4 in bwd pos,historical_snapshot,p2r.cyl.V505.atHome;p2r.cyl.V505.valid,REPLACE,,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DO1,auto-mode,historical_snapshot,r2p.production.autoMode,REPLACE,Źródło systemowe lub monitor programu; potwierdzić w backupie. E-STOP tylko diagnostyczny.,GAP-04
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DO2,t1-mode,historical_snapshot,r2p.production.t1Mode,REPLACE,Źródło systemowe lub monitor programu; potwierdzić w backupie. E-STOP tylko diagnostyczny.,GAP-04
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DO3,t2-mode,historical_snapshot,r2p.production.t2Mode,REPLACE,Źródło systemowe lub monitor programu; potwierdzić w backupie. E-STOP tylko diagnostyczny.,GAP-04
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DO4,estop-state,historical_snapshot,r2p.production.estopActive,REPLACE,Źródło systemowe lub monitor programu; potwierdzić w backupie. E-STOP tylko diagnostyczny.,GAP-04
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DO5,input simulated,historical_snapshot,r2p.production.inputSimulated,REPLACE,Źródło systemowe lub monitor programu; potwierdzić w backupie. E-STOP tylko diagnostyczny.,GAP-04
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DO6,output simulated,historical_snapshot,r2p.production.outputSimulated,REPLACE,Źródło systemowe lub monitor programu; potwierdzić w backupie. E-STOP tylko diagnostyczny.,GAP-04
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DO7,in home pos,historical_snapshot,r2p.production.home,REPLACE,Źródło systemowe lub monitor programu; potwierdzić w backupie. E-STOP tylko diagnostyczny.,GAP-04
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DO8,system ready,historical_snapshot,r2p.production.systemReady,REPLACE,Źródło systemowe lub monitor programu; potwierdzić w backupie. E-STOP tylko diagnostyczny.,GAP-04
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DO9,prg running,historical_snapshot,r2p.production.running,REPLACE,Źródło systemowe lub monitor programu; potwierdzić w backupie. E-STOP tylko diagnostyczny.,GAP-04
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DO10,fault,historical_snapshot,r2p.production.fault,REPLACE,Źródło systemowe lub monitor programu; potwierdzić w backupie. E-STOP tylko diagnostyczny.,GAP-04
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DO11,tp enabled,historical_snapshot,r2p.production.tpEnabled,REPLACE,Źródło systemowe lub monitor programu; potwierdzić w backupie. E-STOP tylko diagnostyczny.,GAP-04
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DO12,current prg box,historical_snapshot,r2p.production.program,REPLACE_SEMANTICS,Kod faktycznie uruchomionego programu; źródło w backupie.,GAP-04
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DO13,current prg tray,historical_snapshot,r2p.production.program,REPLACE_SEMANTICS,Kod faktycznie uruchomionego programu; źródło w backupie.,GAP-04
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DO14,cmd ack,historical_snapshot,r2p.samples.ack;r2p.area.source.accessReq;r2p.area.elevator.accessReq,SPLIT,Ogólny impuls ACK zastąpić kanałem właściwej operacji; nie kopiować jeden do jednego.,
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DO15,pallet placed,historical_snapshot,r2p.event.blisterPlaced.req;r2p.event.spacerPlaced.req,SPLIT,Rozdzielić znaczenie według programu; opis snapshotu nie jest nadrzędny względem LS.,
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DO16,samples placed,historical_snapshot,r2p.event.samplesPlaced.req,REPLACE,,
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DO17,layer finished,historical_snapshot,r2p.event.blisterFinished.req;r2p.event.layerFinished.req,SPLIT,Rozdzielić znaczenie według programu; opis snapshotu nie jest nadrzędny względem LS.,
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DO18,stack finished,historical_snapshot,r2p.event.stackFinished.req,REPLACE,,
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DO19,perm elev clear,historical_snapshot,r2p.area.elevator.clear,REPLACE,,
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DO20,perm storage clear,historical_snapshot,r2p.area.storage.clear,REPLACE,,
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DO21,ack cmd continiue,historical_snapshot,,REMOVE,Stary ACK Continue usunięty; wznowienie przez nadzór PLC i lokalne uruchomienie.,GAP-10;GAP-11
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DO22,storage access req,historical_snapshot,r2p.area.storage.accessReq,REPLACE,,
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DO23,box progress,historical_snapshot,r2p.event.productsPlaced.req;r2p.event.spacerPlaced.req,REPLACE_SEMANTICS,Postęp rozdzielić na zdarzenia; nie naliczać dwukrotnie detali.,
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DO30,rob movement,historical_snapshot,,REVIEW_BACKUP,"GVL nazywa ten kanał rezerwą, ale historyczny IOSTATE ma opis rob movement. Ustalić rzeczywiste źródło i użycie w pełnym backupie.",GAP-04
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DO31,vacuum 5,historical_snapshot,r2p.vac.5.cmdValid;r2p.vac.5.hold,REPLACE,,
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DO32,blow-off 5,historical_snapshot,r2p.vac.5.blowReq,REPLACE_SEMANTICS,Impuls zastąpić terminalnym REQ/ACK; czas realizuje PLC.,
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DO101,mould area free,historical_snapshot,,SAFETY_REVIEW,Mould area free: poza zwykłym kontraktem do potwierdzenia funkcji safety.,GAP-05;GAP-09
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DO102,enable mould closure,historical_snapshot,r2p.imm.req.mouldClose,REPLACE,Procesowe żądanie; końcowe pozwolenie rozstrzyga PLC.,GAP-05;GAP-09
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DO103,enable full mould openig,historical_snapshot,r2p.imm.req.mouldFullOpen,REPLACE,Procesowe żądanie; końcowe pozwolenie rozstrzyga PLC.,GAP-05;GAP-09
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DO104,free operation mode,historical_snapshot,p2r.production.withRobot,PLC_OWNERSHIP,Tryb współpracy wyznacza PLC; bez bezpośredniej komendy robota free operation mode.,GAP-05;GAP-09
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DO105,enable ejector back,historical_snapshot,r2p.imm.req.ejectorBack,REPLACE,Procesowe żądanie; końcowe pozwolenie rozstrzyga PLC.,GAP-05;GAP-09
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DO106,enable ejector forward,historical_snapshot,r2p.imm.req.ejectorForward,REPLACE,Procesowe żądanie; końcowe pozwolenie rozstrzyga PLC.,GAP-05;GAP-09
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DO107,enable core 1 pos 1,historical_snapshot,,EXTENSION_REQUIRED,Historyczne pozwolenie rdzenia; pełny backup i GAP-05.,GAP-04;GAP-05
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DO108,enable core 1 pos 2,historical_snapshot,,EXTENSION_REQUIRED,Historyczne pozwolenie rdzenia; pełny backup i GAP-05.,GAP-04;GAP-05
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DO109,enable core 2 pos 1,historical_snapshot,,EXTENSION_REQUIRED,Historyczne pozwolenie rdzenia; pełny backup i GAP-05.,GAP-04;GAP-05
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DO110,enable core 2 pos 2,historical_snapshot,,EXTENSION_REQUIRED,Historyczne pozwolenie rdzenia; pełny backup i GAP-05.,GAP-04;GAP-05
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DO111,gripper act 1 bwd,historical_snapshot,r2p.cyl.V502.home,REPLACE,,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DO112,gripper act 1 fwd,historical_snapshot,r2p.cyl.V502.work,REPLACE,,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DO113,gripper act 2 bwd,historical_snapshot,r2p.cyl.V503.home,REPLACE,,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DO114,gripper act 2 fwd,historical_snapshot,r2p.cyl.V503.work,REPLACE,,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DO115,gripper act 3 fwd,historical_snapshot,r2p.cyl.V504.work,REPLACE,,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DO116,gripper act 3 bwd,historical_snapshot,r2p.cyl.V504.home,REPLACE,,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DO117,gripper act 4 fwd,historical_snapshot,r2p.cyl.V505.work,REPLACE,,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DO118,gripper act 4 bwd,historical_snapshot,r2p.cyl.V505.home,REPLACE,,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DO119,axis-7 straight,historical_snapshot,r2p.cyl.V501.home,VERIFY_POSITION,"PROPONOWANE straight=HOME, bend=WORK; potwierdzić fizycznie.",GAP-08
+../Robot M20iD/old/ROBOT/IOSTATE.DG,DO120,axis-7 bend,historical_snapshot,r2p.cyl.V501.work,VERIFY_POSITION,"PROPONOWANE straight=HOME, bend=WORK; potwierdzić fizycznie.",GAP-08
+../Robot M20iD/old/ROBOT/IOSTATE.DG,RI1,vacuum 1 ok,historical_snapshot,p2r.vac.1.ok;p2r.vac.1.valid,REPLACE,,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/IOSTATE.DG,RI2,vacuum 2 ok,historical_snapshot,p2r.vac.2.ok;p2r.vac.2.valid,REPLACE,,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/IOSTATE.DG,RI3,vacuum 3 ok,historical_snapshot,p2r.vac.3.ok;p2r.vac.3.valid,REPLACE,,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/IOSTATE.DG,RI4,vacuum 4 ok,historical_snapshot,p2r.vac.4.ok;p2r.vac.4.valid,REPLACE,,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/IOSTATE.DG,RI5,axis-7 bend,historical_snapshot,p2r.cyl.V501.atWork;p2r.cyl.V501.valid,VERIFY_POSITION,"PROPONOWANE straight=HOME, bend=WORK; potwierdzić orientację.",GAP-08
+../Robot M20iD/old/ROBOT/IOSTATE.DG,RI6,axis-7 straight,historical_snapshot,p2r.cyl.V501.atHome;p2r.cyl.V501.valid,VERIFY_POSITION,"PROPONOWANE straight=HOME, bend=WORK; potwierdzić orientację.",GAP-08
+../Robot M20iD/old/ROBOT/IOSTATE.DG,RO1,vacuum 1,historical_snapshot,r2p.vac.1.cmdValid;r2p.vac.1.hold,REPLACE,Usuń fizyczne RO; jawne żądanie próżni przez PLC.,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/IOSTATE.DG,RO2,blow-off 1,historical_snapshot,r2p.vac.1.blowReq,REPLACE_SEMANTICS,Impuls zastąpić REQ/ACK; czas realizuje PLC.,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/IOSTATE.DG,RO3,vacuum 2,historical_snapshot,r2p.vac.2.cmdValid;r2p.vac.2.hold,REPLACE,Usuń fizyczne RO; jawne żądanie próżni przez PLC.,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/IOSTATE.DG,RO4,blow-off 2,historical_snapshot,r2p.vac.2.blowReq,REPLACE_SEMANTICS,Impuls zastąpić REQ/ACK; czas realizuje PLC.,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/IOSTATE.DG,RO5,vacuum 3,historical_snapshot,r2p.vac.3.cmdValid;r2p.vac.3.hold,REPLACE,Usuń fizyczne RO; jawne żądanie próżni przez PLC.,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/IOSTATE.DG,RO6,blow-off 3,historical_snapshot,r2p.vac.3.blowReq,REPLACE_SEMANTICS,Impuls zastąpić REQ/ACK; czas realizuje PLC.,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/IOSTATE.DG,RO7,vacuum 4,historical_snapshot,r2p.vac.4.cmdValid;r2p.vac.4.hold,REPLACE,Usuń fizyczne RO; jawne żądanie próżni przez PLC.,GAP-03;GAP-08
+../Robot M20iD/old/ROBOT/IOSTATE.DG,RO8,blow-off 4,historical_snapshot,r2p.vac.4.blowReq,REPLACE_SEMANTICS,Impuls zastąpić REQ/ACK; czas realizuje PLC.,GAP-03;GAP-08

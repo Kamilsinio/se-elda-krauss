@@ -1,0 +1,16 @@
+/PROG RE_IMMPICK
+/ATTR
+OWNER = MNEDITOR;
+COMMENT = "Krauss tacki";
+PROTECT = READ_WRITE;
+DEFAULT_GROUP = *,*,*,*,*;
+CONTROL_CODE = 00000000 00000000;
+/MN
+   1:  F[23]=(OFF) ;
+   2:  IF ((R[163]<>0) OR F[627]),JMP LBL[999] ;
+   3:  R[85]=(R[183]) ;
+   4:  R[86]=(R[189]) ;
+   5:  F[627]=(ON) ;
+   6:  LBL[999] ;
+/POS
+/END

@@ -1,6 +1,6 @@
 # Założenia projektowe SE-ELDA-Krauss
 
-Data bazowa: 2026-10-04. Status: specyfikacja adaptacji, przed implementacją zmian sterowania.
+Data bazowa: 2026-10-04. Status: wymagania adaptacji; źródła komunikacji v2, programu tacek i BG przygotowane offline. Integracja urządzeń i PLC pozostaje nieodebrana.
 
 Dokument opisuje zachowanie docelowe. Źródła ST/LS są odziedziczoną bazą poprzedniego stanowiska. Zapis wymagania nie jest potwierdzeniem jego realizacji ani odbioru maszyny.
 
@@ -65,6 +65,14 @@ Zwykły bit HOME nie zastępuje funkcji bezpieczeństwa ani sygnału „obszar f
 | DEC-16 | Robot żąda stanów każdego urządzenia chwytaka oddzielnie; PLC realizuje cewki, przedmuchy, blokady i potwierdzenia. Uzgodniono 2026-11-14. |
 | DEC-17 | Pozostają dwa programy produkcyjne ze wspólnymi procedurami; modernizacja warunków i pętli wymaga sprawdzenia instrukcji dostępnych na kontrolerze. Uzgodniono 2026-11-14. |
 | DEC-18 | Liczba detali jest parametrem operatora niezależnym od liczby obwodów próżni. Zastosowanie nowej wartości tylko przy wyłączonym zleceniu i niepracującej stacji; rozpoczęte partie zachowują przypisaną ilość. Uzgodniono 2026-11-14. |
+| DEC-19 | Przygotować sekwencję i punkty do nauki; ruch zablokowany do zatwierdzenia punktów, TCP i układów. |
+| DEC-20 | Program tacek używa konfigurowanego profilu chwytaka; nie zatwierdzać domyślnie F-2680/F-2844. |
+| DEC-21 | Odkładanie częściowe: grupa ma maskę obwodów i ilość; suma odpowiada ilości partii. |
+| DEC-22 | Cała partia mieści się w jednej tacce; pojemność jest wielokrotnością liczby odłożeń partii. |
+| DEC-23 | Parametry geometryczne tacek są ustawiane na robocie; ilość przypisaną do wtrysku dostarcza PLC. |
+| DEC-24 | Przyjęte żądanie próbek obejmuje cały następny komplet. |
+| DEC-25 | Odrzuty trafiają do miejsca próbek, z osobną identyfikacją i rozliczeniem. |
+| DEC-26 | Po przerwaniu krytycznym wymagane jest jawne uzgodnienie stanu; bez automatycznego powrotu. |
 
 ## 4. Model zlecenia i obsługi
 
@@ -131,7 +139,7 @@ Podawanie do robota ma pierwszeństwo przed buforowaniem. Transfer P3→P4 i P4�
 
 ## 8. Robot, Festo i tryb samodzielny Krauss
 
-Szczegóły logicznej wymiany określa [kontrakt PLC–robot v1](robot-plc-contract.md), opracowany 2026-11-14. Zachowuje wymagania tego dokumentu; nie potwierdza fizycznego wykonania kanałów.
+Szczegóły logicznej wymiany określa [kontrakt PLC–robot v2](robot-plc-contract.md), opracowany 2026-11-14. Zachowuje wymagania tego dokumentu; nie potwierdza fizycznego wykonania kanałów.
 
 Program wybiera i uruchamia operator na FANUC. PLC przesyła oczekiwany rodzaj produkcji, sprawdza zgodność programu i udziela pozwolenia procesowego. Nie projektować automatycznego uruchamiania przez UOP.
 

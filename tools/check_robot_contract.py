@@ -8,6 +8,7 @@ from collections import Counter
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+LEGACY = '../Robot M20iD/old/ROBOT'
 ACTIONS = {'REPLACE', 'REPLACE_SEMANTICS', 'SPLIT', 'REMOVE', 'RESERVED',
            'SAFETY_REVIEW', 'PLC_OWNERSHIP', 'VERIFY_POSITION',
            'MISSING_DEPENDENCY', 'EXPORT_REQUIRED', 'EXTENSION_REQUIRED', 'REVIEW_BACKUP'}
@@ -15,13 +16,13 @@ NO_TARGET = {'REMOVE', 'RESERVED', 'SAFETY_REVIEW', 'MISSING_DEPENDENCY', 'EXPOR
              'EXTENSION_REQUIRED', 'REVIEW_BACKUP'}
 EVENTS = ('blisterPicked', 'blisterPlaced', 'blisterFinished', 'spacerPlaced',
           'productsPlaced', 'samplesPlaced', 'layerFinished', 'stackFinished',
-          'immPickupCompleted')
+          'immPickupCompleted', 'rejectsPlaced')
 
 def expected_sources(root: Path) -> dict[tuple[str, str], str]:
     expected = {}
-    for path in sorted((root / 'ROBOT').glob('*.LS')):
+    for path in sorted((root / LEGACY).glob('*.LS')):
         text = path.read_text(encoding='utf-8').split('/POS')[0]
-        source = path.relative_to(root).as_posix()
+        source = LEGACY + '/' + path.name
         for bank, number in re.findall(r'\b(DI|DO|RI|RO)\[(\d+)(?=[:\]])', text):
             expected[source, bank + number] = 'io'
         for name in set(re.findall(r'\bCALL\s+(\w+)', text)):
@@ -31,11 +32,11 @@ def expected_sources(root: Path) -> dict[tuple[str, str], str]:
         # Read declarations, not address comments; changed comments must not hide a field.
         for field in re.findall(r'^\s*(\w+)\s*:\s*BOOL\s*;', body, re.M):
             expected['GVLs/GVL_Robot.st', name + '.' + field] = 'declaration'
-    for line in (root / 'ROBOT/IOSTATE.DG').read_text(encoding='utf-8').splitlines():
+    for line in (root / LEGACY / 'IOSTATE.DG').read_text(encoding='utf-8').splitlines():
         match = re.fullmatch(r'(DIN|DOUT|RI|RO)\[\s*(\d+)\][ \t]+(?:ON|OFF)[ \t]*(.*)', line)
         if match and match[3].strip():
             bank = {'DIN': 'DI', 'DOUT': 'DO', 'RI': 'RI', 'RO': 'RO'}[match[1]]
-            expected['ROBOT/IOSTATE.DG', bank + str(int(match[2]))] = 'snapshot'
+            expected[LEGACY + '/IOSTATE.DG', bank + str(int(match[2]))] = 'snapshot'
     return expected
 
 def validate(root: Path, contract: dict, rows: list[dict]) -> list[str]:
@@ -43,7 +44,7 @@ def validate(root: Path, contract: dict, rows: list[dict]) -> list[str]:
     def check(condition, message):
         if not condition:
             errors.append(message)
-    check(contract.get('contract_version') == 1, 'Unsupported contract version')
+    check(contract.get('contract_version') == 2, 'Unsupported contract version')
     check(contract.get('status') == 'SPECIFIED_NOT_DEPLOYED', 'Unexpected deployment status')
     signals = contract.get('signals', [])
     ids = [s.get('id', '') for s in signals]
@@ -69,9 +70,11 @@ def validate(root: Path, contract: dict, rows: list[dict]) -> list[str]:
         for d, suffix, kind in [('r2p', 'req', 'request'), ('p2r', 'ack', 'ack')]:
             key = f'{d}.event.{event}.{suffix}'
             check(key in by_id and by_id[key].get('kind') == kind, f'Missing event channel: {key}')
-    for event in ('productsPlaced', 'samplesPlaced'):
+    for event in ('productsPlaced', 'samplesPlaced', 'rejectsPlaced'):
         for field in ('count', 'cycleId', 'stackId'):
             check(f'r2p.event.{event}.{field}' in by_id, f'Missing independent event payload: {event}.{field}')
+    for name in ('p2r.imm.batchCount', 'p2r.production.startToken'):
+        check(name in by_id and by_id[name].get('type') == 'UINT' and by_id[name].get('validity') == 'SESSION', 'Missing v2 cycle/start field: ' + name)
     for number in range(1, 6):
         for d, fields in [('r2p', ('cmdValid', 'hold', 'blowReq')), ('p2r', ('valid', 'ok', 'holdApplied', 'accepted', 'busy', 'blowAck', 'blowResult', 'reason'))]:
             for field in fields:
@@ -91,7 +94,7 @@ def validate(root: Path, contract: dict, rows: list[dict]) -> list[str]:
         key = r.get('source', '') + ':' + r.get('signal', '')
         action = r.get('action', '')
         check(action in ACTIONS, f'Unknown migration action: {key}')
-        if r.get('source') == 'ROBOT/IOSTATE.DG':
+        if r.get('source') == LEGACY + '/IOSTATE.DG':
             check(action != 'RESERVED', f'Described snapshot channel incorrectly reserved: {key}')
         targets = [v for v in r.get('target_ids', '').split(';') if v]
         check(bool(targets) or action in NO_TARGET, f'Empty target: {key}')
@@ -101,7 +104,7 @@ def validate(root: Path, contract: dict, rows: list[dict]) -> list[str]:
         if action in {'SAFETY_REVIEW', 'MISSING_DEPENDENCY', 'EXPORT_REQUIRED', 'EXTENSION_REQUIRED', 'REVIEW_BACKUP', 'VERIFY_POSITION'}:
             check(bool(r.get('gap')), f'Missing blocking GAP: {key}')
     # Different meanings of DO17 must remain distinct even when both main programs change.
-    for source, target in [('ROBOT/A01_F2679_TACKI.LS', 'r2p.event.blisterFinished.req'), ('ROBOT/AAAA_MAIN_BOX_PRG.LS', 'r2p.event.layerFinished.req')]:
+    for source, target in [(LEGACY + '/A01_F2679_TACKI.LS', 'r2p.event.blisterFinished.req'), (LEGACY + '/AAAA_MAIN_BOX_PRG.LS', 'r2p.event.layerFinished.req')]:
         check(any(r.get('source') == source and r.get('signal') == 'DO17' and r.get('target_ids') == target for r in rows), 'DO17 semantics lost: ' + source)
     for r in rows:
         if r.get('signal') == 'DO101':
@@ -123,7 +126,7 @@ def main() -> int:
         return 1
     print(f"PASS static: {len(contract['signals'])} signal definitions; {len(rows)} migration rows")
     print('Sources:', dict(Counter(row['source'] for row in rows)))
-    print('NOT RUN: PLC compile, FANUC import, protocol simulation, FAT/SAT')
+    print('NOT RUN by this audit: PLC compile, FANUC import, protocol simulation, FAT/SAT')
     return 0
 
 if __name__ == '__main__':
