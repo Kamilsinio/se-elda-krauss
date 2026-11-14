@@ -12,7 +12,9 @@ Zacznij od [założeń](docs/project-assumptions.md). Szczegółowe wymagania RE
 4. Równolegle przygotuj szkielet Vijeo według rozdziału 4. Komendy podłączaj dopiero po implementacji i weryfikacji kontraktu PLC.
 5. Wszystkie projekty, eksporty, backupy i raporty zapisuj **wewnątrz se-elda-krauss**. Stare repozytorium i oryginały dokumentów są tylko do odczytu.
 
-Dokumentację HMI rozdzielono na trzy uzupełniające się mapy:
+Dokumentację HMI tworzą cztery uzupełniające się dokumenty:
+
+- [Ekrany i elementy HMI bez zmiennych](docs/hmi-instructions.md) — lista 20 paneli oraz typy i konfiguracja elementów na każdym panelu.
 
 - [Docelowe ekrany, przyciski, parametry i protokół komend](docs/hmi-vijeo-map.md) — projekt interfejsu do zaimplementowania.
 - [Wszystkie 208 obecnych pól GVL_HMI](docs/hmi-existing-variables.md) — rzeczywista baza migracji z ograniczeniami.
@@ -38,7 +40,7 @@ Kroki są praktycznym rozwinięciem E1–E5. Kontrakty robota, wtryskarki, alarm
 
 W kroku 1 ustal także minimalny szkielet OrderManager i reakcje alarmowe, aby urządzenia w krokach 3–6 korzystały z docelowych pozwoleń. Finalizacja w krokach 7–8 nie oznacza odkładania projektu tych zachowań na koniec.
 
-**Ważne podczas integracji Machine Expert:** PRG_Main już wywołuje PRG_IO_Read na początku oraz PRG_IO_Write na końcu. Nie dopisuj drugiego cyklicznego wywołania tych programów w konfiguracji zadania. Pliki ST są eksportami zawierającymi także TYPE; trzeba utworzyć właściwe obiekty DUT/GVL/POU w projekcie natywnym, a nie zakładać, że cały katalog importuje się jednym poleceniem.
+**Ważne podczas integracji Machine Expert:** PRG_Main już wywołuje PRG_IO_Read na początku oraz PRG_IO_Write na końcu. Nie dopisuj drugiego cyklicznego wywołania tych programów w konfiguracji zadania. Deklaracje TYPE są wydzielone do plików ST w `Modules/<moduł>/DUTs/`, a pliki FB zawierają deklaracje zmiennych i logikę bloku; trzeba utworzyć właściwe obiekty DUT/GVL/POU w projekcie natywnym, a nie zakładać, że cały katalog importuje się jednym poleceniem.
 
 Można równolegle: projektować ekrany, przygotować teksty alarmów i dokumentować I/O. Zmiany dwóch agentów w PRG_Main albo tym samym GVL prowadź kolejno; równoległe przeglądy mogą być tylko do odczytu.
 
@@ -119,20 +121,16 @@ Preferowany wariant projektowy to komunikacja symboliczna obsługiwana przez kon
 
 Sprawdź BOOL, 16-bitowe UINT/INT, REAL 32-bit oraz długość i kodowanie STRING. Enumy wyświetlaj poprzez jawny słownik liczb, bo Vijeo może otrzymać wartość liczbową bez etykiety. Nie zakładaj obsługi 64-bitowych typów. [Schneider — ograniczenia typów i enumów](https://www.se.com/uk/en/faqs/FA315437/)
 
-### 4.3. Szkielet ekranów do wykonania teraz
+### 4.3. Ekrany i elementy do przygotowania teraz
 
-| Panel | Co przygotować |
-|---|---|
-| HOME | Pięć ikon stacji, Auto/Manual, Praca z robotem, Reset alarmów; stan zlecenia i wykonania; komunikacja; pasek alarmów |
-| ZLECENIE | Pojemniki/Blistry, Start zlecenia, Koniec zlecenia, potwierdzone stany, przyczyna blokady; bez nowego przycisku startującego ruch |
-| ALARMY | Osobne klasy krytyczne/ostrzeżenia, aktywne i historia, stacja/źródło/krok, potwierdzenie i oddzielny Reset |
-| ST01–ST05 STATUS | Animacja procesu, czujniki, diagnostyka, numer kroku i tekst oczekiwania; nawigacja do Manual/Parametrów |
-| ST01–ST05 MANUAL | Obiekty według docelowej mapy; w Auto szare; informacja, dlaczego żądanie jest zablokowane |
-| ST01–ST05 PARAMETRY | Edytor i odczyt zatwierdzonej wartości; Zapisz/Anuluj; reset stanu stacji tylko Manual. Przy braku parametrów karta pozostaje pusta |
-| IMM / EUROMAP | Oddzielne kolumny wejść, żądań i końcowych pozwoleń; ręczne przyciski wyłącznie dla zatwierdzonych procesowych sygnałów |
-| DIAGNOSTYKA | PLC/HMI, robot, Festo z modułami, ATV320, ważność danych, wersja kontraktu oraz podgląd sygnałów z Excela |
+Przygotuj projekt według [HMI instructions — ekrany i elementy](docs/hmi-instructions.md). Dokument zawiera:
 
-Możesz utworzyć lokalne zmienne demonstracyjne do budowy ekranów, jednoznacznie oznaczając projekt jako demonstracyjny. Nie mogą pozostać podpięte zamiast rzeczywistych statusów w finalnym runtime. Nie twórz strony receptur.
+- listę 20 ekranów z numerami i przeznaczeniem;
+- listę elementów osobno dla każdego ekranu;
+- typy obiektów Vijeo, sposób działania, formaty, jednostki, kolory, dostępność i potwierdzenia;
+- wspólny szablon ekranów oraz konfigurację przycisków, odczytów, parametrów i alarmów.
+
+Ta lista służy przygotowaniu ekranów bez nazw zmiennych. Powiązania wykonuje się w kolejnym kroku z mapą Vijeo. Lokalne dane demonstracyjne jednoznacznie oznacz jako demonstracyjne; przy finalnej integracji zastąp je rzeczywistymi odczytami. Nie twórz strony receptur.
 
 ### 4.4. Zasady powiązania elementów
 

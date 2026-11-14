@@ -1,0 +1,6 @@
+TYPE ST_Cyl2PosIn :
+STRUCT
+    IsExt : BOOL;
+    IsRet : BOOL;
+END_STRUCT
+END_TYPE

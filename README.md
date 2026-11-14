@@ -8,13 +8,14 @@ PLC Schneider Electric M241 pośredniczy między robotem a wtryskarką: robot i 
 
 **Etap dokumentacyjny adaptacji: przygotowany. Implementacja zmian sterowania: przed rozpoczęciem.**
 
-Źródła PLC i FANUC są odziedziczoną bazą poprzedniego stanowiska. Dokumentacja opisuje uzgodnione zachowanie docelowe i wskazuje braki sprzętowe; nie potwierdza gotowości obecnego programu do pracy na nowej maszynie. W tym etapie nie zmieniono plików ST, LS, VA ani DG.
+Źródła PLC i FANUC są odziedziczoną bazą poprzedniego stanowiska. Dokumentacja opisuje uzgodnione zachowanie docelowe i wskazuje braki sprzętowe; nie potwierdza gotowości obecnego programu do pracy na nowej maszynie. W etapie dokumentacyjnym nie zmieniono plików ST, LS, VA ani DG. Następnie uporządkowano źródła PLC w `Modules/` i wydzielono typy do `DUTs/`, bez zmiany logiki sterowania.
 
 ## Dokumentacja
 
 | Dokument | Przeznaczenie |
 |---|---|
 | [Instrukcja dla człowieka](human-instructions.md) | Kolejność modułów, dobór modeli i poziomów rozumowania, przygotowanie projektu Vijeo |
+| [Ekrany i elementy HMI](docs/hmi-instructions.md) | Lista 20 ekranów i konfiguracja ich elementów bez nazw zmiennych |
 | [Docelowa mapa Vijeo](docs/hmi-vijeo-map.md) | Ekrany, nowe komendy i statusy, blokady, parametry, alarmy i próby HMI |
 | [Obecne zmienne HMI](docs/hmi-existing-variables.md) | Wszystkie 208 pól istniejącej GVL_HMI, ich powiązania i ograniczenia |
 | [Diagnostyka I/O dla HMI](docs/hmi-io-diagnostics.md) | Wszystkie 166 wierszy sygnałów i 12 urządzeń z kopii Excela |
@@ -27,7 +28,7 @@ PLC Schneider Electric M241 pośredniczy między robotem a wtryskarką: robot i 
 ## Struktura
 
 - `GVLs/` — obecne deklaracje I/O, robota i HMI.
-- `POUs/` — obecne FB urządzeń, sekwencery i programy PLC.
+- `Modules/` — każdy FB urządzenia lub sekwencer ma własny katalog z plikiem `FB_*.st` i podkatalogiem `DUTs/` (jeden typ danych na plik ST); programy `PRG_*.st` pozostają bezpośrednio w `Modules/`.
 - `ROBOT/` — dwa programy główne FANUC i częściowy eksport danych.
 - `agents/` — odsyłacze do aktualnych instrukcji oraz odziedziczony materiał Control_ATV.
 - `docs/` — dokumentacja adaptacji.

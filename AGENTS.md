@@ -17,7 +17,7 @@ Repozytorium zawiera eksporty źródeł PLC i FANUC odziedziczone po poprzednim 
 3. [Interfejsy i mapowanie](docs/interfaces.md) — kierunki danych, oznaczenia, odpowiedzialność i braki mapowania.
 4. [Plan implementacji](docs/implementation-plan.md) — etapy, REQ, AT i GAP oraz warunki rozpoczęcia prac.
 5. [Materiały źródłowe](docs/sources/README.md) — pochodzenie, rewizje i stan kopii.
-6. Dla prac HMI: [instrukcja człowieka](human-instructions.md), [mapa Vijeo](docs/hmi-vijeo-map.md), [obecne zmienne](docs/hmi-existing-variables.md) i [diagnostyka I/O](docs/hmi-io-diagnostics.md). Nowe symbole hmiV2/hmiIo są propozycją kontraktu, nie gotową implementacją.
+6. Dla prac HMI: [instrukcja człowieka](human-instructions.md), [ekrany i elementy bez zmiennych](docs/hmi-instructions.md), [mapa Vijeo](docs/hmi-vijeo-map.md), [obecne zmienne](docs/hmi-existing-variables.md) i [diagnostyka I/O](docs/hmi-io-diagnostics.md). Nowe symbole hmiV2/hmiIo są propozycją kontraktu, nie gotową implementacją.
 7. Dopiero potem pliki ST/LS dotyczące zadania.
 
 Bieżące instrukcje użytkownika mają pierwszeństwo. W dokumentacji rozróżniaj **POTWIERDZONE**, **DOMYŚLNE** i **OTWARTE**. Decyzje użytkownika z założeń zastępują sprzeczne opisy poprzedniego stanowiska. Rozbieżność źródeł sprzętowych wymaga wpisu GAP i potwierdzenia fizycznego mapowania; nie wolno traktować docelowej architektury jako dowodu wykonania okablowania.
@@ -77,7 +77,7 @@ Zachowaj przepływ: konfiguracja urządzeń i RAW → normalizacja/diagnostyka k
 
 ## Rzeczywisty stan źródeł
 
-Istnieją `GVLs/`, `POUs/` i `ROBOT/`. Główne programy robota to `A01_F2679_TACKI.LS` oraz `AAAA_MAIN_BOX_PRG.LS`. Repozytorium nie zawiera obecnie natywnego projektu Machine Expert ani HMI, EDS, pełnego backupu FANUC lub wszystkich wywoływanych podprogramów.
+Istnieją `GVLs/`, `Modules/` i `ROBOT/`. Każdy FB ma własny katalog w `Modules/` oraz `DUTs/` z osobnym plikiem ST dla każdego typu; programy `PRG_*.st` pozostają bezpośrednio w `Modules/`. Główne programy robota to `A01_F2679_TACKI.LS` oraz `AAAA_MAIN_BOX_PRG.LS`. Repozytorium nie zawiera obecnie natywnego projektu Machine Expert ani HMI, EDS, pełnego backupu FANUC lub wszystkich wywoływanych podprogramów.
 
 `FB_OrderManager`, `FB_StationDrain`, `FB_ImmInterface` i `FB_AlarmManager` opisane w dokumentacji są planowanymi modułami, dopóki etap implementacji nie potwierdzi ich utworzenia. Nie raportuj ich jako istniejących.
 

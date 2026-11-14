@@ -1,0 +1,6 @@
+TYPE ST_Cyl2PosOut :
+STRUCT
+    Q_Ext : BOOL;
+    Q_Ret : BOOL;
+END_STRUCT
+END_TYPE

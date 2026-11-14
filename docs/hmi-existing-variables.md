@@ -1,6 +1,6 @@
 # Istniejące zmienne HMI — inwentaryzacja do migracji
 
-Data: 2026-10-04. Źródło: [GVL_HMI.st](../GVLs/GVL_HMI.st); odczyty i przypisania: [PRG_Main.st](../POUs/PRG_Main.st). Wykaz opisuje odziedziczony kod, nie ukończoną adaptację Krauss.
+Data: 2026-10-04. Źródło: [GVL_HMI.st](../GVLs/GVL_HMI.st); odczyty i przypisania: [PRG_Main.st](../Modules/PRG_Main.st). Wykaz opisuje odziedziczony kod, nie ukończoną adaptację Krauss.
 
 **To baza migracji. Nie potwierdza eksportu symboli, komunikacji z panelem ani gotowości komend do wdrożenia na nowej maszynie.** Brakuje natywnego projektu PLC/HMI i konfiguracji Symbol Configuration. Docelowy kontrakt i ekrany opisuje [mapa Vijeo](hmi-vijeo-map.md), a kolejność prac [human-instructions.md](../human-instructions.md).
 
@@ -247,14 +247,14 @@ Statusy UINT wyświetlać z opisem właściwego enumu. Nie używać jednej tabel
 
 | Enum | Źródło | Wartości w kodzie |
 |---|---|---|
-| `E_ElevatorState` | [FB_Elevator.st](../POUs/FB_Elevator.st) | `DISABLED=0`, `IDLE=10`, `MANUAL_UP=20`, `MANUAL_DOWN=21`, `AUTO_UP=30`, `AUTO_DOWN=31`, `STOPPING=40`, `FAULT=900` |
-| `E_ConveyorState` | [FB_Conveyor.st](../POUs/FB_Conveyor.st) | `IDLE=0`, `RUN_FWD=10`, `RUN_BWD=20`, `DELAY_FWD=30`, `DELAY_BWD=40`, `FAULT=900` |
-| `E_SafetyDoorState` | [FB_SafetyDoor.st](../POUs/FB_SafetyDoor.st) | `DISABLED=0`, `UNLOCKED=10`, `LOCKED=20`, `UNLOCK_REQUEST=30`, `FAULT=900` |
-| `E_StorageState` | [FB_Storage.st](../POUs/FB_Storage.st) | `DISABLED=0`, `IDLE=10`, `ROBOT_WAIT_PERMISSION=20`, `ROBOT_OPENING=30`, `ROBOT_OPEN=40`, `ROBOT_CLOSING=50`, `CLOSING_FOR_OPERATOR=60`, `OPERATOR_WAIT_PERMISSION=70`, `OPERATOR_UNLOCKED=80`, `WAIT_OPERATOR_LOCK=90`, `FAULT=900` |
-| `E_TopFlowState` | [FB_TopFlowManager.st](../POUs/FB_TopFlowManager.st) | `INIT=0`, `IDLE=10`, `PREP_STOP=20`, `PREP_STOPPERS=30`, `RUN=40`, `WAIT_STOP=50`, `RETRACT_M5_GATE=55`, `WAIT_M5_RETRACT=57`, `LOCK_TARGET=60`, `WAIT_LOCK=70`, `COMPLETE=80`, `FAULT=900` |
-| `E_Bottom567State` | [FB_BottomAccumulator_567.st](../POUs/FB_BottomAccumulator_567.st) | `INIT=0`, `IDLE=10`, `PRECHECK=20`, `RUN_STEP=30`, `WAIT_STOP=40`, `COMPLETE=50`, `EMPTY_HOLD=60`, `EMPTY_RESYNC=70`, `FAULT=900` |
-| `E_TraySeqState` | [FB_TraySequencer.st](../POUs/FB_TraySequencer.st) | `DISABLED=0`, `IDLE=10`, `PAUSED=15`, `WAIT_STACK_READY=20`, `SIGNAL_ROBOT=70`, `WAIT_TRAY_DONE=80`, `CHECK_P4_OCCUPIED=82`, `POS_M6_CYCLE=85`, `ELEV_TO_EDGE=90`, `RETRACT_POS=110`, `ELEV_TO_BOTTOM=120`, `DISCHARGE=130`, `WAIT_ELEV_EMPTY=140`, `ELEV_RETURN_TOP=150`, `FAULT=900` |
-| `E_BoxSeqState` | [FB_BoxSequencer.st](../POUs/FB_BoxSequencer.st) | `DISABLED=0`, `IDLE=10`, `PAUSED=15`, `REQUEST_ELEVATOR_FEED=20`, `FEED_ELEVATOR=30`, `POS_M7_FWD=40`, `ELEV_TO_EDGE=50`, `SIGNAL_ROBOT=60`, `WAIT_PALLET_DONE=70`, `RETRACT_M7=80`, `ELEV_TO_BOTTOM=90`, `DISCHARGE=100`, `WAIT_ELEV_EMPTY=110`, `ELEV_RETURN_TOP=120`, `FAULT=900` |
+| `E_ElevatorState` | [FB_Elevator.st](../Modules/Elevator/FB_Elevator.st) | `DISABLED=0`, `IDLE=10`, `MANUAL_UP=20`, `MANUAL_DOWN=21`, `AUTO_UP=30`, `AUTO_DOWN=31`, `STOPPING=40`, `FAULT=900` |
+| `E_ConveyorState` | [FB_Conveyor.st](../Modules/Conveyor/FB_Conveyor.st) | `IDLE=0`, `RUN_FWD=10`, `RUN_BWD=20`, `DELAY_FWD=30`, `DELAY_BWD=40`, `FAULT=900` |
+| `E_SafetyDoorState` | [FB_SafetyDoor.st](../Modules/SafetyDoor/FB_SafetyDoor.st) | `DISABLED=0`, `UNLOCKED=10`, `LOCKED=20`, `UNLOCK_REQUEST=30`, `FAULT=900` |
+| `E_StorageState` | [FB_Storage.st](../Modules/Storage/FB_Storage.st) | `DISABLED=0`, `IDLE=10`, `ROBOT_WAIT_PERMISSION=20`, `ROBOT_OPENING=30`, `ROBOT_OPEN=40`, `ROBOT_CLOSING=50`, `CLOSING_FOR_OPERATOR=60`, `OPERATOR_WAIT_PERMISSION=70`, `OPERATOR_UNLOCKED=80`, `WAIT_OPERATOR_LOCK=90`, `FAULT=900` |
+| `E_TopFlowState` | [FB_TopFlowManager.st](../Modules/TopFlowManager/FB_TopFlowManager.st) | `INIT=0`, `IDLE=10`, `PREP_STOP=20`, `PREP_STOPPERS=30`, `RUN=40`, `WAIT_STOP=50`, `RETRACT_M5_GATE=55`, `WAIT_M5_RETRACT=57`, `LOCK_TARGET=60`, `WAIT_LOCK=70`, `COMPLETE=80`, `FAULT=900` |
+| `E_Bottom567State` | [FB_BottomAccumulator_567.st](../Modules/BottomAccumulator/FB_BottomAccumulator_567.st) | `INIT=0`, `IDLE=10`, `PRECHECK=20`, `RUN_STEP=30`, `WAIT_STOP=40`, `COMPLETE=50`, `EMPTY_HOLD=60`, `EMPTY_RESYNC=70`, `FAULT=900` |
+| `E_TraySeqState` | [FB_TraySequencer.st](../Modules/TraySequencer/FB_TraySequencer.st) | `DISABLED=0`, `IDLE=10`, `PAUSED=15`, `WAIT_STACK_READY=20`, `SIGNAL_ROBOT=70`, `WAIT_TRAY_DONE=80`, `CHECK_P4_OCCUPIED=82`, `POS_M6_CYCLE=85`, `ELEV_TO_EDGE=90`, `RETRACT_POS=110`, `ELEV_TO_BOTTOM=120`, `DISCHARGE=130`, `WAIT_ELEV_EMPTY=140`, `ELEV_RETURN_TOP=150`, `FAULT=900` |
+| `E_BoxSeqState` | [FB_BoxSequencer.st](../Modules/BoxSequencer/FB_BoxSequencer.st) | `DISABLED=0`, `IDLE=10`, `PAUSED=15`, `REQUEST_ELEVATOR_FEED=20`, `FEED_ELEVATOR=30`, `POS_M7_FWD=40`, `ELEV_TO_EDGE=50`, `SIGNAL_ROBOT=60`, `WAIT_PALLET_DONE=70`, `RETRACT_M7=80`, `ELEV_TO_BOTTOM=90`, `DISCHARGE=100`, `WAIT_ELEV_EMPTY=110`, `ELEV_RETURN_TOP=120`, `FAULT=900` |
 
 ## 6. Migracja znaczenia i brakujące zabezpieczenia
 
