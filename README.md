@@ -10,6 +10,8 @@ PLC Schneider Electric M241 pośredniczy między robotem a wtryskarką: robot i 
 
 Źródła PLC i FANUC są odziedziczoną bazą poprzedniego stanowiska. Dokumentacja opisuje uzgodnione zachowanie docelowe i wskazuje braki sprzętowe; nie potwierdza gotowości obecnego programu do pracy na nowej maszynie. W etapie dokumentacyjnym nie zmieniono plików ST, LS, VA ani DG. Następnie uporządkowano źródła PLC w `Modules/` i wydzielono typy do `DUTs/`, bez zmiany logiki sterowania.
 
+Aktualizacja 2026-11-14: przygotowano [kontrakt komunikacji PLC–robot](docs/robot-plc-contract.md), pełną migrację symboliczną dostępnych I/O oraz analizę modernizacji obu programów. Mapa fizyczna i przepisanie sterowania pozostają zależne od danych sprzętowych; [raport weryfikacji](docs/robot-communication-verification.md) rozróżnia wykonany przegląd od niewykonanych prób.
+
 ## Dokumentacja
 
 | Dokument | Przeznaczenie |
@@ -23,6 +25,9 @@ PLC Schneider Electric M241 pośredniczy między robotem a wtryskarką: robot i 
 | [Założenia projektowe](docs/project-assumptions.md) | Uzgodniony proces, zlecenia, tryby, stacje, alarmy i HMI |
 | [Interfejsy i mapowanie](docs/interfaces.md) | Podział I/O, kontrakty PLC–robot–Festo–wtryskarka oraz migracja oznaczeń |
 | [Plan implementacji i odbioru](docs/implementation-plan.md) | Etapy, macierz wymagań, scenariusze testów i rejestr braków |
+| [Kontrakt PLC–robot v1](docs/robot-plc-contract.md) | Żądania urządzeń, ACK zdarzeń, synchronizacja, Stop i EUROMAP; katalog JSON i migracja CSV |
+| [Modernizacja FANUC](docs/robot-modernization.md) | Wspólne procedury, zgodność instrukcji, rejestry i warunki przepisania dwóch main |
+| [Analiza materiałów współdzielonych](docs/workspace-analysis.md) | Pneumatyka, EUROMAP, kanały potwierdzeń, backupy, rozbieżności i parametr liczby detali |
 | [Robot i kontroler — tabliczki](docs/robot-hardware.md) | Potwierdzone modele, typy, numery seryjne, daty, masy i zasilanie; odczyt 2026-11-14 |
 | [Materiały źródłowe](docs/sources/README.md) | Dokumenty klienta, pochodzenie, rewizje, kopie i sumy kontrolne |
 
@@ -41,4 +46,4 @@ Najpierw zapoznaj się z założeniami, następnie wybierz etap z planu implemen
 
 Wszystkie zapisy, także tymczasowe, muszą pozostawać wewnątrz `se-elda-krauss`. Poprzednie repozytorium i zewnętrzne materiały wejściowe służą tylko do odczytu.
 
-W repozytorium nie ma obecnie natywnego projektu Machine Expert/HMI ani kompletnego środowiska budowania. Kompilacja, weryfikacja FANUC i próby na stanowisku są oddzielnymi etapami odbioru; nie zostały wykonane podczas przygotowania dokumentacji.
+Zewnętrzne projekty PLC/HMI, fizyczny backup FANUC i przykład EDS są dostępne i zarejestrowane w analizie źródeł; nie zostały skopiowane do repozytorium ani zatwierdzone jako kompletne środowisko budowania. Kompilacja, weryfikacja FANUC i próby na stanowisku są oddzielnymi etapami odbioru; nie zostały wykonane podczas przygotowania dokumentacji.

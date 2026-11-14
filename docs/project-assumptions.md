@@ -62,6 +62,9 @@ Zwykły bit HOME nie zastępuje funkcji bezpieczeństwa ani sygnału „obszar f
 | DEC-13 | Cały chwytak, oś pneumatyczna i podciśnienia BAT4 są obsługiwane przez PLC/Festo na żądania robota. |
 | DEC-14 | Brakujące dane i materiały stanowią rejestr do uzupełnienia przed zależnym etapem. |
 | DEC-15 | Zapisy i edycje są dozwolone wyłącznie wewnątrz se-elda-krauss. |
+| DEC-16 | Robot żąda stanów każdego urządzenia chwytaka oddzielnie; PLC realizuje cewki, przedmuchy, blokady i potwierdzenia. Uzgodniono 2026-11-14. |
+| DEC-17 | Pozostają dwa programy produkcyjne ze wspólnymi procedurami; modernizacja warunków i pętli wymaga sprawdzenia instrukcji dostępnych na kontrolerze. Uzgodniono 2026-11-14. |
+| DEC-18 | Liczba detali jest parametrem operatora niezależnym od liczby obwodów próżni. Zastosowanie nowej wartości tylko przy wyłączonym zleceniu i niepracującej stacji; rozpoczęte partie zachowują przypisaną ilość. Uzgodniono 2026-11-14. |
 
 ## 4. Model zlecenia i obsługi
 
@@ -128,6 +131,8 @@ Podawanie do robota ma pierwszeństwo przed buforowaniem. Transfer P3→P4 i P4�
 
 ## 8. Robot, Festo i tryb samodzielny Krauss
 
+Szczegóły logicznej wymiany określa [kontrakt PLC–robot v1](robot-plc-contract.md), opracowany 2026-11-14. Zachowuje wymagania tego dokumentu; nie potwierdza fizycznego wykonania kanałów.
+
 Program wybiera i uruchamia operator na FANUC. PLC przesyła oczekiwany rodzaj produkcji, sprawdza zgodność programu i udziela pozwolenia procesowego. Nie projektować automatycznego uruchamiania przez UOP.
 
 Praca z robotem:
@@ -175,6 +180,12 @@ Przed wznowieniem sprawdzić ładunki między czujnikami, pozycję windy, detal/
 **OTWARTE (GAP-11):** retencja zlecenia i liczników oraz procedura uzgadniania stanu po restarcie. Do rozstrzygnięcia pozostaje sposób odzyskania informacji, a nie zakaz automatycznego wznowienia.
 
 Natychmiastowy Stop krytyczny nie oznacza automatycznie wyłączenia wszystkich cewek. Stan zaworów i podciśnienia musi wynikać z rzeczywistej pneumatyki (GAP-08). Oprogramowanie nie może domyślnie wywołać zwolnienia trzymanego ładunku.
+
+## 10a. Liczba detali i źródła sprzętowe
+
+**POTWIERDZONE — DEC-18:** edycja liczby detali nie zmienia aktywnej nastawy podczas produkcji. PLC egzekwuje zastosowanie tylko przy zamkniętym zleceniu, potwierdzonym postoju i rozliczonych operacjach. Liczyć potwierdzone odłożenie partii, oddzielnie próbki i odrzuty. Liczby detali nie wyznaczać z liczby ssawek ani obwodów próżni.
+
+**POTWIERDZONE DOKUMENTACYJNIE:** schemat pneumatyczny wskazuje pięć obwodów oraz narzędzia F-2844 i F-2680 o różnym przypisaniu funkcji. Sprzeczne porty Y502/Y503 F-2680, brak pełnych pomiarów próżni i sygnału początku wtrysku pozostają OTWARTE. Szczegóły, wersje fizycznego i wirtualnego kontrolera oraz dostępne backupy/projekty opisuje [analiza źródeł](workspace-analysis.md).
 
 ## 11. Warunki przejścia do implementacji
 

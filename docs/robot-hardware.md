@@ -39,7 +39,7 @@ Napięcie 200–230 V AC dotyczy wejścia kontrolera. Zdjęcia nie określają z
 ## Wnioski dla adaptacji
 
 - **POTWIERDZONE:** model ramienia i rodzina kontrolera są zgodne z dotychczasową architekturą w [założeniach](project-assumptions.md). Numery typu i numery seryjne identyfikują urządzenia ze zdjęć; oba mają datę produkcji 2025-09.
-- **OTWARTE — GAP-04:** wersja oprogramowania, zainstalowane opcje (w tym EtherNet/IP), EDS/assembly i mapowanie I/O, pełny backup, brakujące podprogramy, źródło HOME i identyfikacji programu, UFRAME/UTOOL, dane obciążenia oraz punkty i trajektorie. Tabliczki nie potwierdzają tych danych ani konfiguracji współpracy robota z tym kontrolerem.
+- **Stan po analizie dodatkowych źródeł 2026-11-14:** znaleziono fizyczny backup V9.40P/80 z listą opcji, przykład EDS oraz podprogramy TP we wzorcu W716. [Analiza workspace](workspace-analysis.md) podaje dowody i rozróżnia bazę fizyczną od ROBOGUIDE. **OTWARTE — GAP-04:** zatwierdzenie mapowania i konfiguracji połączenia, odczyt/eksport i audyt podprogramów, źródło HOME/identyfikacji programu, UFRAME/UTOOL, obciążenia i trajektorie. Same tabliczki nie potwierdzają tych danych.
 - **OTWARTE — GAP-09:** wykonanie przewodowych sygnałów procesowych względem docelowej wymiany EtherNet/IP. Zdjęcia nie rozstrzygają rozbieżności schematu i docelowej architektury.
 
 Aktualizacja dotyczy dokumentacji sprzętu dla E1/E4 i zakresu REQ-13/15/22. Nie stanowi wykonania AT-09/10/14 ani zamknięcia GAP-04/09. Nie zmienia parametrów, kodu PLC/FANUC ani konfiguracji urządzeń.

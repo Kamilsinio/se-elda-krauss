@@ -1,0 +1,1135 @@
+{
+  "snapshot_date": "2026-11-14",
+  "origin_base": "Directory containing this manifest; origin paths are relative to docs/sources.",
+  "scope": "Evidence inventory for workspace analysis; no external file copied or modified. Physical backup: all top-level files. Other projects: selected entrypoints and evidence, not full recursive snapshots.",
+  "sources": [
+    {
+      "source_id": "SRC-09",
+      "role": "schemat",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/03_diagrams/2026-09-29 - P0001 - Krauss paletyzacja-Łukasz-1.PDF",
+      "status": "external_read_only",
+      "bytes": 1892971,
+      "sha256": "81f6c50ad3cdec51a13930bfea6311f13f2754f5ef89630fb13928928be226a9"
+    },
+    {
+      "source_id": "SRC-09",
+      "role": "schemat",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/03_diagrams/2026-10-28 - P0001 - robot  pneumatyka.PDF",
+      "status": "external_read_only",
+      "bytes": 233177,
+      "sha256": "bbf075e658778cdeda7e967bbf3415ac809f030d25ffe7b33ba7143c0aea6c38"
+    },
+    {
+      "source_id": "SRC-09",
+      "role": "dokument projektowy",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/02_docs/IO Map.xlsx",
+      "status": "external_read_only",
+      "bytes": 1075382,
+      "sha256": "157cf06f2ce46ec47f4acfee7193ae63f54859c118bb6fef5d887c4617016d36"
+    },
+    {
+      "source_id": "SRC-09",
+      "role": "dokument projektowy",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/02_docs/Wytyczne.docx",
+      "status": "external_read_only",
+      "bytes": 42694,
+      "sha256": "1a3ebd38aca509bd373de23c872c2b2cdd69f36511a86038eb451fcfdba32bc4"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/-BCKED8-.TP",
+      "status": "external_read_only",
+      "bytes": 74,
+      "sha256": "58022d058cb05ef314ddb38c7f7be2f463540fac045a8574161a17aeea5aaeab"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/-BCKED9-.TP",
+      "status": "external_read_only",
+      "bytes": 74,
+      "sha256": "c6066a0f50b78706950e12da292e67cb5e4c1ee9d8ae1865abd8d344f0ad16bb"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/-BCKEDT-.TP",
+      "status": "external_read_only",
+      "bytes": 74,
+      "sha256": "b2f76b869041ff0951f2dadb203997f811dd4678665309add65d5c306a81d6bf"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/AAVMFREEPOS.VR",
+      "status": "external_read_only",
+      "bytes": 107,
+      "sha256": "637a98712d5579eafd9eab2662b7df4b22b77c68b4aae9409475b6a0be38a2aa"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/AAVMMAIN.VR",
+      "status": "external_read_only",
+      "bytes": 1575,
+      "sha256": "903465c220e94fb3052e7101a17da23d0e1ff7259b16edc9970fbae738c83502"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/AMBERLED.GIF",
+      "status": "external_read_only",
+      "bytes": 1046,
+      "sha256": "40b4ea666e83bfa0f4ad47c9c83c408c6a33a69c59076fe1dbf54b4defa9ac4b"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/ATERRJOB.VR",
+      "status": "external_read_only",
+      "bytes": 64,
+      "sha256": "eeb3b4251ec4f2b7c0cf8148893687c070a7f0f7cdd32749284b8361dd8fb8fb"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/BACKDATE.DT",
+      "status": "external_read_only",
+      "bytes": 342,
+      "sha256": "3ceeda82534638c7b5d009ddf62d9047d914baa4ecdad521d35f72d5f3a4ee96"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/BICSETUP.VR",
+      "status": "external_read_only",
+      "bytes": 71,
+      "sha256": "66048509d047336cdca8719364bce82d5c8b6d0842f8ef625e3586db5cab96de"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/CBPARAM.VR",
+      "status": "external_read_only",
+      "bytes": 444,
+      "sha256": "8d623772ba2618dc52b7be8f2af7ec1da64583ae14e708dd5e8302b2896b47ad"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/CELLIO.SV",
+      "status": "external_read_only",
+      "bytes": 1471,
+      "sha256": "428506cdd6fde01268c4a920696d9a66dc3ad1c07a11cf664cd6d741e4a860a3"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/COMSET.VR",
+      "status": "external_read_only",
+      "bytes": 393,
+      "sha256": "202e0bbc823a37b76d34081be6091e2c5c8df1316f2b738c1d7a9bc22085b56c"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/CONSLOG.DG",
+      "status": "external_read_only",
+      "bytes": 14602,
+      "sha256": "e82de0d114fec782887a6b564d0184624382503d96ffba41f591902ba1d66720"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/DARKLED.GIF",
+      "status": "external_read_only",
+      "bytes": 1021,
+      "sha256": "bfab0344370a6255012d449aa441dbdd82103d216b49b2f37c4e88bcadd2a9b2"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/DCSCHG01.DG",
+      "status": "external_read_only",
+      "bytes": 4766,
+      "sha256": "8037416a49e660a33ff89fa104f37e6cad786855afe40826653704aeec063342"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/DCSCHG02.DG",
+      "status": "external_read_only",
+      "bytes": 28,
+      "sha256": "0a1846c5945d61535aae1e1a737e3fddbaa94e38f8dbdfe2acd6d73e63baf48f"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/DCSCHG03.DG",
+      "status": "external_read_only",
+      "bytes": 28,
+      "sha256": "0a1846c5945d61535aae1e1a737e3fddbaa94e38f8dbdfe2acd6d73e63baf48f"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/DCSDIFF.DG",
+      "status": "external_read_only",
+      "bytes": 620,
+      "sha256": "fdef373ad6b56301c973dc934cc8bb9f74351857a052cf60e9fa15d314572862"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/DCSIOC.SV",
+      "status": "external_read_only",
+      "bytes": 2123,
+      "sha256": "dbae478637aac30857c6f4e031c8d07356851f2decaf249591682c4bb1ebfd7b"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/DCSPOS.SV",
+      "status": "external_read_only",
+      "bytes": 9770,
+      "sha256": "a685529502ae18bb9388bcad6db2430bf17ecb7811e4dd39849c3a833a43a951"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/DCSVRFY.DG",
+      "status": "external_read_only",
+      "bytes": 14907,
+      "sha256": "26ada48d8137f121e4880d3d52375abf13600c44265fa5fbb3acbaf8530b0bb5"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/DF_LOGI1.DF",
+      "status": "external_read_only",
+      "bytes": 101,
+      "sha256": "5974c5cccc2a99d0ffd50a7a4d7a150163100f78bad8ae9f279b49579d2716b3"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/DF_LOGI2.DF",
+      "status": "external_read_only",
+      "bytes": 102,
+      "sha256": "6998c223ba0f809ae0b31173488d87f33add92f84a6be62486a6f18252e1cac1"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/DF_LOGI3.DF",
+      "status": "external_read_only",
+      "bytes": 101,
+      "sha256": "716e242906f572dd083a484d34fd09a57e31645a4bba1f0eb58aa4e7f0764ae2"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/DF_LOGI4.DF",
+      "status": "external_read_only",
+      "bytes": 101,
+      "sha256": "5678f0c459cdb84e453ba07a03e40347a987da7d737afc6e7215d9e5367f8e68"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/DF_LOGI5.DF",
+      "status": "external_read_only",
+      "bytes": 101,
+      "sha256": "0a3cf8012be007e193445e66aeeb549cec9f8bf53d03a5222d6411017ecc5058"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/DF_LOGI6.DF",
+      "status": "external_read_only",
+      "bytes": 101,
+      "sha256": "e74dce081b1a8522c1b7f6ebcc3858940bcba2a4ec00c7d3c5993ad5bea19aff"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/DIOCFGSV.IO",
+      "status": "external_read_only",
+      "bytes": 1955,
+      "sha256": "dc86ef900d16135842b5d4e46adfe704cddeef5f773c3a8181e9a7de281882b0"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/EIPLOG.DG",
+      "status": "external_read_only",
+      "bytes": 8192,
+      "sha256": "1bab66f2fcf421ec233cc9899f0fa48bdf76109a21db15ecd2edcf990fcec025"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/EMAIL.DG",
+      "status": "external_read_only",
+      "bytes": 17,
+      "sha256": "8af5e8872ac08b63027a88402bffbe0f2faca1843604a42f9d3151a7b8cb30d5"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/ERRACT.LS",
+      "status": "external_read_only",
+      "bytes": 175,
+      "sha256": "af86c198b0a3b2e51682b2c52df201a440f0d4bb909105fb87ecf2209eec4a23"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/ERRALL.LS",
+      "status": "external_read_only",
+      "bytes": 13554,
+      "sha256": "b7c1e3bf69bb77a5087981aa543afc6b1fba66cb851cd7349152b619ac89bb0f"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/ERRAPP.LS",
+      "status": "external_read_only",
+      "bytes": 54,
+      "sha256": "beda5c1299285deb64ae26c4dcdbe6c88935daa0cb57da1636933d256c4ee502"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/ERRCOMM.LS",
+      "status": "external_read_only",
+      "bytes": 1245,
+      "sha256": "3b2936dbba24b1e736df745f66a368db305a526733f4da5275b9acc77c751695"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/ERRCURR.LS",
+      "status": "external_read_only",
+      "bytes": 7525,
+      "sha256": "2000c1897a26f744e7f4fff64447707a3a54bb9232ed04c2b88a1c1fa07d3c08"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/ERREXT.LS",
+      "status": "external_read_only",
+      "bytes": 110,
+      "sha256": "c78049d62d2f749ec364d9c68e18fa32bc002c7a7c60ae904fe7b87a1fe5eace"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/ERRHIST.LS",
+      "status": "external_read_only",
+      "bytes": 7525,
+      "sha256": "935d0b2fee4c9a8032a2931c118e3263b74a6fe13381db2e24e3ce617d8de992"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/ERRMOT.LS",
+      "status": "external_read_only",
+      "bytes": 6054,
+      "sha256": "089b0b94c417aa3f7a70a97de7f3af8919905bbd3da32259dc5ccdbb5e76bc8e"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/ERRPWD.LS",
+      "status": "external_read_only",
+      "bytes": 54,
+      "sha256": "6694f34d1d31bd3319ca75f3bae644df9dd525d43a0c1e1bb536f733b37abcd1"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/ERRSYS.LS",
+      "status": "external_read_only",
+      "bytes": 7308,
+      "sha256": "afed0ebb1d2a22bafc172031579df9818902da3270325b33f216edc854fbc91a"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/ETHERNET.DG",
+      "status": "external_read_only",
+      "bytes": 6833,
+      "sha256": "6b314c00554a6fb587e744580f6c119ad3fd050a57ee1049f008670305bd4b17"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/FLEXEVENT.DG",
+      "status": "external_read_only",
+      "bytes": 430,
+      "sha256": "700f8949ba5c3dfc0f23738422ebe124dc6d16db7f4e9d169b09290f981ea9f0"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/FLEXUIF.XML",
+      "status": "external_read_only",
+      "bytes": 395657,
+      "sha256": "5548832c406619408c31feb090f0e89a7cb58a50f6597f6b88623276300ac8fc"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/FRAMEVAR.VR",
+      "status": "external_read_only",
+      "bytes": 53063,
+      "sha256": "8236c3efe0fb3f578e41ab2c96b5206dbb104a29d576589193c98586d64eeceb"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/FTPLOG.DG",
+      "status": "external_read_only",
+      "bytes": 174,
+      "sha256": "d156c91c9a7d20d38450308f6e6fffc8f6509a3c5d01582534d8480917237b1c"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/GEMDATA.VR",
+      "status": "external_read_only",
+      "bytes": 109,
+      "sha256": "bb0e71f7575e538fd93b0580375065bc22ec19f6ad532fd7a7092dfacdf5e75c"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/GETDATA.TP",
+      "status": "external_read_only",
+      "bytes": 177,
+      "sha256": "006c2f8686e2b128811552016d613662ad257faab40b4f1c23c2a2e646797b99"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/GIGELOG.DG",
+      "status": "external_read_only",
+      "bytes": 918,
+      "sha256": "2da70a24617cd266b4f031ffe1dc6c1b5fd0f8cc3b9f16519135508968cbf8ee"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/GREENLED.GIF",
+      "status": "external_read_only",
+      "bytes": 1046,
+      "sha256": "6eaf7985ff18b5be1708c619925106ff60d36744a972cdd84b9e469ef04a6234"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/HIST.LS",
+      "status": "external_read_only",
+      "bytes": 1593,
+      "sha256": "75b250f4cad7ca825c47d4fd65ec9f87a3ae1b64a3ea03bbcc7be05e256fdb7f"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/HTCOLREC.VR",
+      "status": "external_read_only",
+      "bytes": 201,
+      "sha256": "fe973515aab47dfb0ae97a109f6679fb4fad51eb84e3181f3eaa0e148b1ec1dc"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/HTTPKCL.VR",
+      "status": "external_read_only",
+      "bytes": 315,
+      "sha256": "4de7834dfa454e93a1cea89db6c37642d01ad37fb06fc8473ef61c370334f9b1"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/IOSTATUS.CM",
+      "status": "external_read_only",
+      "bytes": 352325,
+      "sha256": "bbe4877fd07cc95c82df98f5b1115fcb36e2ab5a5208791fdebebf8ed977e241"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/IPKDMP.ZIP",
+      "status": "external_read_only",
+      "bytes": 22,
+      "sha256": "8739c76e681f900923b900c9df0ef75cf421d39cabb54650c4b9ad19b6a76d85"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/IRC_COUNTER.VR",
+      "status": "external_read_only",
+      "bytes": 397,
+      "sha256": "e395b38f2881025ab19f8d06a380783c2ad7b41c43412ca702d07596644135b6"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/IRC_MSG.VR",
+      "status": "external_read_only",
+      "bytes": 382,
+      "sha256": "b42cdc265fdaba6f5eae1b02cdb8aa784300e9abbacdbfd6c29823a7100a7d62"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/IRC_STATUS.VR",
+      "status": "external_read_only",
+      "bytes": 382,
+      "sha256": "7342b4161617b878466237fd6200a6d12aa9c36e4b1a3fb00780671c087068fc"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/IRC_STLABEL.VR",
+      "status": "external_read_only",
+      "bytes": 389,
+      "sha256": "87ac58f63ffa9106aad93665a577d7c8282606e755d3ac848e0435088e0d5cb3"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/IRDG_REPORT.DG",
+      "status": "external_read_only",
+      "bytes": 1317,
+      "sha256": "3eb66471e9df415974dd4fad7d43cb16c2ed089f3e6a306b0cb8749fd8f24784"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/KLACTION.VR",
+      "status": "external_read_only",
+      "bytes": 123,
+      "sha256": "3662da04986831826ad983e0c98684e1d602700f374829e3d536ff0a2873e47e"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/LOGBOOK.LS",
+      "status": "external_read_only",
+      "bytes": 169296,
+      "sha256": "3585967f4a3d86892f4f128947340eda70f4f6b8340d557c40f9dd25cdbf865c"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/MD25.DT",
+      "status": "external_read_only",
+      "bytes": 778,
+      "sha256": "ef4514f2603930d5b91f9d3ae4df7aeaf9a5d11e50fd2500e4fb99086b70ad05"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/MEMCHECK.DG",
+      "status": "external_read_only",
+      "bytes": 54,
+      "sha256": "2cc6c62b678c32f89f24abdb9ce71f71e0cb6528d584d7df6799bcb4e331e138"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/MIXLOGIC.SV",
+      "status": "external_read_only",
+      "bytes": 1283,
+      "sha256": "b118e638abb8a571505e400608926a47b45fb2415ba7ca4f13a7c2558b5ea69c"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/MTPARAM.VR",
+      "status": "external_read_only",
+      "bytes": 1228,
+      "sha256": "43e296e68098fdcdbc091d65c52ba3ca61cae1d706f0018607a770ba605e1ef7"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/NBUTTON.GIF",
+      "status": "external_read_only",
+      "bytes": 969,
+      "sha256": "32773f88f007128077029ecf9d0f9930eb5e164e1660ccf655c784f394919f61"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/NOTIFY.DG",
+      "status": "external_read_only",
+      "bytes": 904,
+      "sha256": "15fd30254122e301505f06c723c7cbf50f38cb297c6bd1aac67e68c0d8fa7aa7"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/NUMREG.VR",
+      "status": "external_read_only",
+      "bytes": 746,
+      "sha256": "3242d87f7193e733d007d2fd0a487eec833114a7990af2dfa940d87d4553ba3c"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/ORDERFIL.DAT",
+      "status": "external_read_only",
+      "bytes": 1248,
+      "sha256": "72ffe07da2db254abb1c18f45e27b7a8d3a66b403d7288c6119651b97d1dcae4"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/PALREG.VR",
+      "status": "external_read_only",
+      "bytes": 249,
+      "sha256": "8cefb571aa0a6284af0acd4a6351db8b92e5e0752b3da6c4ef44369ee3df3b33"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/PANEL1.DT",
+      "status": "external_read_only",
+      "bytes": 588,
+      "sha256": "eb17005f5120f1055a899f60c496bc6d6be70d4778e04ea057d4c2e515f0d07e"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/PANEL1.STM",
+      "status": "external_read_only",
+      "bytes": 686,
+      "sha256": "270dc21bf01f2b167e79c9f213a93bc3801b7c6b002a688f7ec4d7d12f3c2dc3"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/PANEL2.DT",
+      "status": "external_read_only",
+      "bytes": 587,
+      "sha256": "b2b2f9124169606722c8b754bd4e3c49b318ad7761a57bf5aa5664addb5f5b69"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/PANEL2.STM",
+      "status": "external_read_only",
+      "bytes": 686,
+      "sha256": "6bf2f5e462fc829a938165c268fd3150c3454c9df594dd0708a317a8b5d6c5af"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/PANEL3.DT",
+      "status": "external_read_only",
+      "bytes": 587,
+      "sha256": "b2b2f9124169606722c8b754bd4e3c49b318ad7761a57bf5aa5664addb5f5b69"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/PANEL3.STM",
+      "status": "external_read_only",
+      "bytes": 686,
+      "sha256": "7529b99fa414299d6b7ef8f8faf5a51600fbd97c6f203962af700a9b36d5c936"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/PANEL4.DT",
+      "status": "external_read_only",
+      "bytes": 587,
+      "sha256": "b2b2f9124169606722c8b754bd4e3c49b318ad7761a57bf5aa5664addb5f5b69"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/PANEL4.STM",
+      "status": "external_read_only",
+      "bytes": 686,
+      "sha256": "ec732f597fd462685eed3af459684e1cf6b4275efe8a19076005ab6c601eaa18"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/PBUTTON.GIF",
+      "status": "external_read_only",
+      "bytes": 970,
+      "sha256": "799a78985751e736df782c2ee6f207f367ac1f48342558c690d97bf136e9d920"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/PMCCFG.SV",
+      "status": "external_read_only",
+      "bytes": 1538,
+      "sha256": "fa326ba2cd02419dda1a3ead447ad0b83cf8fdfe437340f15f21f884a89692a9"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/POSREG.VR",
+      "status": "external_read_only",
+      "bytes": 1608,
+      "sha256": "7ca912c3c8bdebc8a5409295bf7a89b39b1e13372060b278950dd753b02d6b95"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/PSRBWLD.CM",
+      "status": "external_read_only",
+      "bytes": 51,
+      "sha256": "f41ea897c2e4d216cebd5ddf4c89db029a2421dc1a14005606a0db26817ff174"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/RCMCFG.XML",
+      "status": "external_read_only",
+      "bytes": 32,
+      "sha256": "274543f081cc0e58bb3977857a4b5dc3607b1bbfd55d8077638361a78c1be0ce"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/RCMERR.DG",
+      "status": "external_read_only",
+      "bytes": 280,
+      "sha256": "6294be4cdb2e5c76fbde25c412319c8d78830402607db24600768202b5b49932"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/RCMSGLIB.DG",
+      "status": "external_read_only",
+      "bytes": 116,
+      "sha256": "d5abde78364fe57ff346056afca4c1e33c278184528255517bcac6508ab0f941"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/REDLED.GIF",
+      "status": "external_read_only",
+      "bytes": 1046,
+      "sha256": "05cc360b9b5de669c52391a905c5131b6d5d51fe06e1ce19b67e40e01976f4e3"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/REQMENU.TP",
+      "status": "external_read_only",
+      "bytes": 162,
+      "sha256": "14b4df5b2def35c5d5132066680cf8673892651aea87e28a755d0172738cd7a3"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/SECLOG.DG",
+      "status": "external_read_only",
+      "bytes": 426,
+      "sha256": "f157cf5d2850ff3969527a1c5ef813d5c1340915ca37d75625e33783ccba3786"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/SENDDATA.TP",
+      "status": "external_read_only",
+      "bytes": 178,
+      "sha256": "6f249a55f98351d8015ea5f48aee12b0e03bfe823469e1b3a437251fcb62e3ef"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/SENDEVNT.TP",
+      "status": "external_read_only",
+      "bytes": 145,
+      "sha256": "d8afe3b3a754fe78d2cb2f810c79ba5875e62f41425ca5790e534329bf74f4ec"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/SENDSYSV.TP",
+      "status": "external_read_only",
+      "bytes": 167,
+      "sha256": "16c93797e181f8c8c6512046f7437d91d286cde72e78254578f718653f7e9bd3"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/SHADOW.DG",
+      "status": "external_read_only",
+      "bytes": 460,
+      "sha256": "5a50d38fe1873d7d6bb05febd9b70eb3843a6b9aa22b0924f1dec0a1785af0f9"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/SMTPLOG.DG",
+      "status": "external_read_only",
+      "bytes": 40,
+      "sha256": "768fc182869a0c3d49d348cc88f5629af2f300d0e9f41da5b1a5c520b87dd384"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/SPACER.GIF",
+      "status": "external_read_only",
+      "bytes": 807,
+      "sha256": "9e501f7da27e18772e013124b2b83c3dea4937ef97c22d21d3ca6984d84f1bbb"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/STRREG.VR",
+      "status": "external_read_only",
+      "bytes": 885,
+      "sha256": "4b8528c94013df9c3c8dd3c1234319b8f87d0a5f53901879b3ef326f28bcd7d8"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/SUMMARY.DG",
+      "status": "external_read_only",
+      "bytes": 63743,
+      "sha256": "61b960b4aabd47e33dc23f465db76a6efd5c2a8a2dbe6a5cc92e69f7b4b26449"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/SWIUPDT.VR",
+      "status": "external_read_only",
+      "bytes": 64,
+      "sha256": "446bdd60410fc6002e9b27bae9c7623242961da4e725501647fb5616b6100801"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/SYSEIP.SV",
+      "status": "external_read_only",
+      "bytes": 6841,
+      "sha256": "7ea46ab58ee42ad9b48e92dc6ba8130d5c4f64b9b4ee72fb5c306fb695c85189"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/SYSFRAME.SV",
+      "status": "external_read_only",
+      "bytes": 611,
+      "sha256": "7bfa154327812b3a9ccc825856162724aadf77438c63f574121c104217d85bc9"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/SYSFSAC.SV",
+      "status": "external_read_only",
+      "bytes": 402,
+      "sha256": "00b6a97d919628c18175e007d1aea1181ed132bc7151eeaf686595ab680ae6cf"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/SYSHOST.SV",
+      "status": "external_read_only",
+      "bytes": 2708,
+      "sha256": "9815e9bf593a02956621cb1b3cb1776847a21728864ff5ff3974eacaab0d159f"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/SYSMACRO.SV",
+      "status": "external_read_only",
+      "bytes": 2555,
+      "sha256": "8e9f6f248c0066811093426c849506d1369bf8f66cdcc12ebe4837316d8e4359"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/SYSMAST.SV",
+      "status": "external_read_only",
+      "bytes": 2354,
+      "sha256": "481565e709c6ad64a95418dfb14bbea89dac1f7ee32f24f06279954fad249dcf"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/SYSPASS.SV",
+      "status": "external_read_only",
+      "bytes": 1149,
+      "sha256": "625905b4d9d6e4b20541aeb365e062eecb97b7cccca0aee092056525f4e2a081"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/SYSSERVO.SV",
+      "status": "external_read_only",
+      "bytes": 10972,
+      "sha256": "90699b7aa246fc5ff4b86e9f5f5e3d96675d2ee9160402149a48d46d42d5524f"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/SYSUIF.SV",
+      "status": "external_read_only",
+      "bytes": 5282,
+      "sha256": "6b2b2bac921e86ec717b3cc693e03e2bc7d09be8a778b065de7b968c10d4eeca"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/SYSVARS.SV",
+      "status": "external_read_only",
+      "bytes": 135926,
+      "sha256": "d4132e1e6715b2f8b614a2cadb2ffb7f99a2fc639969f0e80be65e1d2e3f8966"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/TBSWMD25.VR",
+      "status": "external_read_only",
+      "bytes": 909,
+      "sha256": "e3ccc0f8a345da43e04685cd1ae37ea4a5199ca54a878b82dfcd0f88d59d5492"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/TPACCN.DG",
+      "status": "external_read_only",
+      "bytes": 1268,
+      "sha256": "9f3e4b93f3d3f6b2152d42231496d03cf6f16175ee8488c7b18d44e140ee8837"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/TPEINS.XML",
+      "status": "external_read_only",
+      "bytes": 1747,
+      "sha256": "ebe0a08944db76f36f12f5380f68a582de2caec8acad3e2270c46ae16305329d"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/TPSNAP.VR",
+      "status": "external_read_only",
+      "bytes": 227,
+      "sha256": "39b29f8d02ee994e2a3961b6fb870e067aa0d3927a3891ead87d9d5e9cc42006"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/UPDATES.DAT",
+      "status": "external_read_only",
+      "bytes": 36,
+      "sha256": "7cc07be339b7fdc5d4996e8bfe692df8f119ff7a705f9115e84034ee9fdcc5fe"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/UPDTLOG.LS",
+      "status": "external_read_only",
+      "bytes": 342,
+      "sha256": "9471e9353a2bb7969e9174f53c9afe7072aabb3327f882373376f28d71707b06"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/VARCHG.XML",
+      "status": "external_read_only",
+      "bytes": 32,
+      "sha256": "fcacec66f41f4c63ddedcd593099febbecebcd0d69244f2f6a95308741977e9f"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/VC_MOVE.VR",
+      "status": "external_read_only",
+      "bytes": 64,
+      "sha256": "8499b7f904c3ddafa046a23a7f3054623e73606c28de298dc80c7cdb90e95710"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/VCMRINIT.VR",
+      "status": "external_read_only",
+      "bytes": 887,
+      "sha256": "180880eaa5f92daba96306557fc2cb13495ce6056b3fe1983f945a5a3b4f5e6a"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/VDEVDIAG.DAT",
+      "status": "external_read_only",
+      "bytes": 2,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/VIMGDIAG.ZIP",
+      "status": "external_read_only",
+      "bytes": 189,
+      "sha256": "2ff7029cc5c77a37f309cfae0a53b6b10a78a2646a5e2b360a07bb06a1c8ef04"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/VTRNDIAG.LS",
+      "status": "external_read_only",
+      "bytes": 21,
+      "sha256": "e5d357e1a9ed5ffe89e0ab6c9872e1a14a9ec2f151c39becd3010505d2c5bf7a"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/XXXXXLED.GIF",
+      "status": "external_read_only",
+      "bytes": 1082,
+      "sha256": "7570220f5c342eebdf53975d097602e2c0aaee9c60004568a50ef550d7a06d80"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/ZDLOG.DG",
+      "status": "external_read_only",
+      "bytes": 168,
+      "sha256": "0ead3967a336e22f063a1f885c937ef73b687b7bed28fba7ab667212f5e483d2"
+    },
+    {
+      "source_id": "SRC-10",
+      "role": "plik backupu fizycznego FANUC",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/20261020-FROM_ROBOT/20261020-FROM_ROBOT/ZDT_CFG_RPT.DG",
+      "status": "external_read_only",
+      "bytes": 4004,
+      "sha256": "cbcb559cd048d7bbf0e81d97b900f8617f93cafb8a46d2b0c119f36489b2ab74"
+    },
+    {
+      "source_id": "SRC-11",
+      "role": "archiwum wzorcowego backupu",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/05_devices/04_robot/00_template_backups/Robot W716 - Arburg/AOA_W716_20260925.7z",
+      "status": "external_read_only",
+      "bytes": 310535,
+      "sha256": "d256e92cf0ff749b6e1d750906cdf0716fb43b7d0fb688cd1ba892c7c7cc12c6"
+    },
+    {
+      "source_id": "SRC-11",
+      "role": "archiwum wzorcowego backupu",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/05_devices/04_robot/00_template_backups/Robot W590 - dentecowy/AOA_W590_20260925.7z",
+      "status": "external_read_only",
+      "bytes": 308839,
+      "sha256": "e1786eb67adba22379deca373491a911842bf647041ea976e62c156124f59f0d"
+    },
+    {
+      "source_id": "SRC-11",
+      "role": "plik wzorca W716",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/05_devices/04_robot/00_template_backups/Robot W716 - Arburg/AOA_W716_20260925/AOA_W716_20260925/SUMMARY.DG",
+      "status": "external_read_only",
+      "bytes": 39066,
+      "sha256": "961f3eca4b79706867c8b7ab58672ee4b5a22c0a7487a659438f624da30aef6f"
+    },
+    {
+      "source_id": "SRC-11",
+      "role": "plik wzorca W716",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/05_devices/04_robot/00_template_backups/Robot W716 - Arburg/AOA_W716_20260925/AOA_W716_20260925/BB_GRIPPER_RESET.TP",
+      "status": "external_read_only",
+      "bytes": 211,
+      "sha256": "b729bc6c86f39cbc3d79b882b862a48cdf3f025aec814bf7cbab56c2292ae787"
+    },
+    {
+      "source_id": "SRC-11",
+      "role": "plik wzorca W716",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/05_devices/04_robot/00_template_backups/Robot W716 - Arburg/AOA_W716_20260925/AOA_W716_20260925/BB_IMM_RESET.TP",
+      "status": "external_read_only",
+      "bytes": 178,
+      "sha256": "e2ea2c9ed3394d5c8bc46dd587e1586d79f5016ed66e9c98d9beb1cabf3dc63f"
+    },
+    {
+      "source_id": "SRC-11",
+      "role": "plik wzorca W716",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/05_devices/04_robot/00_template_backups/Robot W716 - Arburg/AOA_W716_20260925/AOA_W716_20260925/BB_RESET_VAC5.TP",
+      "status": "external_read_only",
+      "bytes": 135,
+      "sha256": "a81c9460f241a41fd6fa32a93908929935a1484cb857685b7cbc55fcc0b0fa6f"
+    },
+    {
+      "source_id": "SRC-12",
+      "role": "projekt lub zapis wirtualnego kontrolera",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/krausv6/krausv6/krausv6.frw",
+      "status": "external_read_only",
+      "bytes": 49883,
+      "sha256": "30cda2e2cc42b6f4c389f9da6de436d0651275e5d2566ce153afc308d5416c71"
+    },
+    {
+      "source_id": "SRC-12",
+      "role": "projekt lub zapis wirtualnego kontrolera",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/krausv6/krausv6/SavePoints/2026_10_20/Robot_1/SUMMARY.DG",
+      "status": "external_read_only",
+      "bytes": 67155,
+      "sha256": "9d076e4c13a50f0f4a2e2662f211c9f15113f016c72ff46c9333758726edf338"
+    },
+    {
+      "source_id": "SRC-12",
+      "role": "projekt lub zapis wirtualnego kontrolera",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/04_robot/krausv6/krausv6/SavePoints/2026_10_20/Robot_1/BACKDATE.DT",
+      "status": "external_read_only",
+      "bytes": 359,
+      "sha256": "7ec6d6b783e4cbcf35bd53d557b92579bee1860f80ad43d9581f8106b1f142ca"
+    },
+    {
+      "source_id": "SRC-13",
+      "role": "zewnętrzny projekt PLC lub eksport symboli",
+      "origin": "../../../../plc_project/Krauss_PLC-lukasz.project",
+      "status": "external_read_only",
+      "bytes": 2805440,
+      "sha256": "42b551b25c598509fb1e18e63c0a4f3395798f84946d107fd37fb64857463a12"
+    },
+    {
+      "source_id": "SRC-13",
+      "role": "zewnętrzny projekt PLC lub eksport symboli",
+      "origin": "../../../../plc_project/plc_soft.project",
+      "status": "external_read_only",
+      "bytes": 5003970,
+      "sha256": "45e74d30e71c2df187a8033a337fe6bd3c0ebcd87c7f75322f35bc80967a60e9"
+    },
+    {
+      "source_id": "SRC-13",
+      "role": "zewnętrzny projekt PLC lub eksport symboli",
+      "origin": "../../../../plc_project/plc_soft.MyController.Application.xml",
+      "status": "external_read_only",
+      "bytes": 25135,
+      "sha256": "1a2d86f06be817453453bc9558d1286889013536c6dca06048d42cb88174866e"
+    },
+    {
+      "source_id": "SRC-13",
+      "role": "zewnętrzny wzorzec HMI",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/03_hmi/01_se_project_template/5924_SE_COVER_20240104_1400.vdz",
+      "status": "external_read_only",
+      "bytes": 9379992,
+      "sha256": "78a6e455dc1409052ed95bc0eadec2321fb7ba97cbf46ab29a01d12d68673821"
+    },
+    {
+      "source_id": "SRC-13",
+      "role": "zewnętrzny wzorzec HMI",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/04_software/03_hmi/01_se_project_template/HMI_RFQ_BQT_50743_2025_06_10.vdz",
+      "status": "external_read_only",
+      "bytes": 7901413,
+      "sha256": "8facdad8391ba58ea89e7195e93d324edb30cdbe6ab3e50e0adc764e1e072c62"
+    },
+    {
+      "source_id": "SRC-14",
+      "role": "przykładowy EDS FANUC, do weryfikacji",
+      "origin": "../../../Robot M20iD/eds/fanucrobot_eip_v900.eds",
+      "status": "external_read_only",
+      "bytes": 81545,
+      "sha256": "33e5e91ec90db04245b96de37844440f99b970d7aec86aeeca9b6593aab9209b"
+    }
+  ]
+}

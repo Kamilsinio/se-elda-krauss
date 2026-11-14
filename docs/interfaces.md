@@ -68,6 +68,10 @@ ST.5: V501 to oś pneumatyczna „axis 7”, V502–V505 to siłowniki chwytaka 
 
 Brakuje pełnego przypisania potwierdzeń podciśnienia i komend przedmuchu. Rezerwy nie są wolnymi kanałami do dowolnego zagospodarowania bez sprawdzenia konfiguracji.
 
+### Uzupełnienie 2026-11-14 — schematy współdzielone
+
+[Analiza źródeł](workspace-analysis.md) wskazuje KEC3 I0–I7 dla HP/WP V502–V505 i BAT401 X0/X1 dla V501. To oznaczenia kanałów, nie adresy %IX ani offsety assembly. Pięć obwodów próżni ma przypisanie zależne od narzędzia; w F-2680 Y502/Y503 sterują grupami siłowników, a Y511/FIPA 3 obsługuje blistry. Rozbieżne porty Y502/Y503 w arkuszach 010/021 oraz pełne pomiary podciśnienia pozostają OTWARTE.
+
 ### Minimalny rekord zatwierdzonej mapy I/O
 
 Dla każdego sygnału zapisać: stacja, mechanizm/sygnał, źródło i odbiorca, kierunek z perspektywy PLC, nazwa logiczna, urządzenie/moduł/kanał lub bit assembly, adres z projektu, znaczenie 0/1, filtracja, właściciel wyjścia, zachowanie przy utracie danych oraz źródło potwierdzenia.
@@ -84,11 +88,13 @@ Dla zaworu dodatkowo: liczba i funkcja cewek, stan bez energii, sposób utrzyman
 - DO17 ma zależne od programu znaczenie: zakończenie palety w blistrach i warstwy w pojemnikach. Nie utożsamiać go z zakończeniem całego stosu.
 - HOME DO7 i identyfikacja programu DO12/13 nie są generowane w dostarczonych dwóch programach głównych. Potrzebny jest pełny backup i konfiguracja sygnałów.
 - W programie blistrów kroki LS 210/212 zawierają zapis `//WAIT` dotyczący wyrzutnika i próżni 1–4. Wymagają rozstrzygnięcia przy adaptacji.
-- Brakuje podprogramów `BB_GRIPPER_RESET`, `BB_IMM_RESET`, `BB_RESET_VAC5`.
+- Podprogramy `BB_GRIPPER_RESET`, `BB_IMM_RESET`, `BB_RESET_VAC5` znaleziono jako TP we wzorcu W716 (SRC-11). Brakuje odczytanego/wyeksportowanego LS i audytu skutków, nie samych plików TP.
 
 Schemat P0001 i arkusz nadal przedstawiają przewodowe sygnały procesowe robota. Zgodnie z decyzją docelowo proces jest wymieniany po EtherNet/IP, ale rzeczywiste wykonanie sprzętu trzeba uzgodnić w GAP-09. Nie pozostawiać dwóch równoległych źródeł sterowania.
 
 ## 4. PLC ↔ FANUC
+
+Szczegółową specyfikacją logiczną od 2026-11-14 jest [kontrakt v1](robot-plc-contract.md), z [katalogiem nazw](robot-plc-signals.json) i [migracją historycznych sygnałów](robot-plc-migration.csv). Poniższa tabela jest podsumowaniem. Nie jest to gotowa konfiguracja assembly ani wdrożona deklaracja ST. Zmiany nazw/semantyki prowadzić w katalogu i migracji, nie w niezależnych ręcznych listach.
 
 | Kierunek | Docelowe grupy danych |
 |---|---|
@@ -132,7 +138,7 @@ EUROMAP 67 B2 jest LOW dla współpracy z robotem i HIGH dla braku współpracy.
 
 Tryb współpracy: aktywne zlecenie, poprawny program, aktualne dane i spełnione pozwolenia. Tryb samodzielny: wyłączona współpraca i aktualne HOME, bez uzależnienia od zlecenia automatu. Ręczny: Manual, HOME i zatrzymana współpraca automatyczna; wejście w Auto kasuje ręczne wymuszenia.
 
-Przy zwykłym Stop nie odcinać mechanicznie wszystkich zezwoleń: sygnały wymagane do zakończenia rozpoczętej operacji muszą być utrzymane zgodnie z jej protokołem. Nowe cykle nie mogą się rozpocząć. Dokładny zestaw i momenty przejść wymagają GAP-05.
+Arkusz 153 pokazuje wspólne zasilanie styków KF204–KF210 przez KF203:14. Osobne zmienne PLC nie oznaczają niezależnego zasilania tych sygnałów. Przy zwykłym Stop nie odcinać mechanicznie wszystkich zezwoleń: sygnały wymagane do zakończenia rozpoczętej operacji muszą być utrzymane zgodnie z jej protokołem. Nowe cykle nie mogą się rozpocząć. Dokładny zestaw i momenty przejść wymagają GAP-05.
 
 ## 7. HMI ↔ PLC
 

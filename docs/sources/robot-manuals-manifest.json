@@ -1,0 +1,51 @@
+{
+  "snapshot_date": "2026-11-14",
+  "sources": [
+    {
+      "file": "R-30iB_basic_operator_manual_[B-83284EN_04].pdf",
+      "origin": "../../../Robot M20iD/manuals/R-30iB_basic_operator_manual_[B-83284EN_04].pdf",
+      "status": "external_read_only",
+      "sha256": "79c0afc14cfdc75975968bd8b8352abc632d4a794e863cfd0d43b6a32ac481d6",
+      "bytes": 13161448
+    },
+    {
+      "file": "R-30iB_HandlingTool_operator_manual_[8.30][MAROBHT8304141E_Rev.C].pdf",
+      "origin": "../../../Robot M20iD/manuals/R-30iB_HandlingTool_operator_manual_[8.30][MAROBHT8304141E_Rev.C].pdf",
+      "status": "external_read_only",
+      "sha256": "7fb6de83bbdddd371d5ce8727499bbbde0376dbf66bd46c24cf73147a1c6efe6",
+      "bytes": 20359258
+    },
+    {
+      "file": "R-30iB_Plus_EIP_operator_manual_[B-82854EN_03].pdf",
+      "origin": "../../../Robot M20iD/manuals/R-30iB_Plus_EIP_operator_manual_[B-82854EN_03].pdf",
+      "status": "external_read_only",
+      "sha256": "c19f7256f46ec01ee828cb281f7140fcabcb61cf7a96a97442ebc589d50cc159",
+      "bytes": 3385901
+    },
+    {
+      "file": "R-30iBMate_Plus_controller_maintenance_manual_[B-83525EN_09].pdf",
+      "origin": "../../../Robot M20iD/manuals/R-30iBMate_Plus_controller_maintenance_manual_[B-83525EN_09].pdf",
+      "status": "external_read_only",
+      "sha256": "6614463a40fef46dbe1aa08b7221a37a8e74b5088bfcff450d7c04e4ac08e9a6",
+      "bytes": 32455273
+    },
+    {
+      "source_id": "SRC-07",
+      "role": "dodatkowy manual odczytany w analizie",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/05_devices/04_robot/02_manuals/AM-120iD_Operator_Manual_[B-84074EN_04].pdf",
+      "status": "external_read_only",
+      "bytes": 11740369,
+      "sha256": "3600fdcd965aa72e606368c01c05b9acfdcbb31150a063ba677d3c24895e0b50",
+      "file": "AM-120iD_Operator_Manual_[B-84074EN_04].pdf"
+    },
+    {
+      "source_id": "SRC-07",
+      "role": "dodatkowy manual odczytany w analizie",
+      "origin": "../../../../../../../../SkyLogic x SE-ELDA - Dokumenty/P0001-Krauss/05_devices/04_robot/02_manuals/R-30iB_Plus_Ethernet-IP_operator_manual_[MAROU91EN02171E_Rev.C].pdf",
+      "status": "external_read_only",
+      "bytes": 2720653,
+      "sha256": "7e7b834838940388509c358491b07630e6a39c94e6e319c45c728454f59521d7",
+      "file": "R-30iB_Plus_Ethernet-IP_operator_manual_[MAROU91EN02171E_Rev.C].pdf"
+    }
+  ]
+}

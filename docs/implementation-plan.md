@@ -6,7 +6,9 @@ Data bazowa: 2026-10-04. Dokument wykonawczy dla kolejnych etapów adaptacji.
 
 Etap E0 przygotowuje instrukcję agenta, [założenia](project-assumptions.md), [interfejsy](interfaces.md), macierz wymagań, testy i rejestr braków. Stan załączników podaje [rejestr źródeł](sources/README.md).
 
-**Źródła sterowania ST/LS/VA/DG nie zostały zmienione w etapie E0. Etapy E1–E5 nie są zrealizowane.** Natywny projekt Machine Expert/HMI, EDS i pełny backup FANUC nie są dostępne w repozytorium.
+**Źródła sterowania ST/LS/VA/DG nie zostały zmienione w etapie E0. Etapy E1–E5 nie są zrealizowane.** Repozytorium przechowuje eksporty, a zewnętrzne źródła są zarejestrowane w [analizie workspace](workspace-analysis.md): fizyczny backup FANUC V9.40P/80, przykład EDS, wzorce W716/W590 oraz projekty PLC/HMI. Dostępność tych materiałów nie oznacza ich integracji ani odbioru.
+
+Aktualizacja 2026-11-14: przygotowano [kontrakt PLC–robot](robot-plc-contract.md), katalog sygnałów, migrację symboliczną LS/GVL/IOSTATE oraz [analizę modernizacji](robot-modernization.md). To dokumentacyjna część przygotowania E1/E4; fizyczne mapowanie i przepisanie kodu nie zostały wykonane. [Raport](robot-communication-verification.md) zawiera wynik audytu statycznego, scenariusze i konkretne bramki danych.
 
 Status każdego testu AT poniżej: **NIEWYKONANY**. Przegląd dokumentacji nie zmienia tego statusu. Przyszły raport testu ma podawać ID, wersję kodu, konfigurację sprzętu, rodzaj weryfikacji, warunki początkowe, przebieg, wynik i dowód. Oddzielać przegląd statyczny, kompilację, import FANUC, symulację i FAT/SAT.
 
@@ -122,18 +124,18 @@ Każdy scenariusz wykonać w obu trybach produkcji tam, gdzie ma zastosowanie. B
 
 ## 6. Rejestr braków i rozbieżności
 
-Wszystkie wpisy mają status **OTWARTE**. Uzupełniający zapis zamknięcia powinien zawierać źródło, datę, ustaloną wartość/zachowanie i zależne dokumenty. Użytkownik zaakceptował prowadzenie tego rejestru zamiast zgadywania danych.
+Wszystkie wpisy nadal mają status **OTWARTE w pozostałym zakresie**. Część danych wejściowych już odnaleziono; poniższe wpisy i [analiza workspace](workspace-analysis.md) określają konkretne nierozstrzygnięte części, bez ponownego żądania dostępnych materiałów. Uzupełniający zapis zamknięcia powinien zawierać źródło, datę, ustaloną wartość/zachowanie i zależne dokumenty. Użytkownik zaakceptował prowadzenie tego rejestru zamiast zgadywania danych.
 
 | ID | Brak/rozbieżność | Dowód potrzebny do zamknięcia | Zależny zakres |
 |---|---|---|---|
 | GAP-01 | Osobna bariera pełnego przejścia ST.1 | Oznaczenie, położenie, polaryzacja, wejście, mechanizm blokowania wjazdu i warunek pełnego przejazdu | ST.1, REQ-08, AT-06 |
 | GAP-02 | B205 nie ma pokazanego podłączenia sygnału do PLC w P0001 | Uzupełniony schemat i potwierdzony kanał/polaryzacja sygnału | Winda, obecność/poziom ładunku |
-| GAP-03 | Festo AP: EDS, moduły, cewki i dane | Konfiguracja, kanały/assembly, długości/offsety, RPI, diagnostyka, sygnały próżni/przedmuchu i reakcje wyjść | E1/E2, BAT4, AT-09/15 |
-| GAP-04 | Niepełny FANUC i brak W590; modele i identyfikatory sprzętu potwierdzone tabliczkami SRC-06 (2026-11-14, [odczyt](robot-hardware.md)), konfiguracja nadal OTWARTA | Backup z BB_GRIPPER_RESET/BB_IMM_RESET/BB_RESET_VAC5, opcje sieci, źródło HOME/identyfikacji programu, ramki/narzędzie i punkty | Adaptacja LS, zgodność programów, AT-10/14 |
-| GAP-05 | Krauss/EUROMAP, w tym KF211/KF403 i początek cyklu | Zatwierdzona lista używanych sygnałów, funkcje, zaciski i polaryzacje, rozpoczęcie/zakończenie wtrysku, podtrzymanie zezwoleń, granica obwodów bezpieczeństwa | ImmInterface, Stop przy nakładaniu cykli |
-| GAP-06 | Natywny projekt i środowisko PLC | Projekt Machine Expert, wersje bibliotek/firmware, zadania, skaner, adresy, konfiguracja ATV320/Axis_Ref i potwierdzenia układu bezpieczeństwa | Kompilacja, rzeczywista mapa i diagnostyka |
-| GAP-07 | HMI W716 oraz wzorzec C30 | Projekt bazowy, uzgodniony wzorzec, kompletny model panelu i wersja narzędzia | Wykonanie ekranów, integracja HMI |
-| GAP-08 | Mechanika M→V/B i pneumatyka | Potwierdzona tabela mechanizmów, par równoległych i cewek, HOME/WORK, stan zaworów i podciśnienia przy Stop/błędzie/utracie danych i energii | E2, reakcje na awarie, AT-07/15 |
+| GAP-03 | Festo AP: kody VTUX i typy zaworów dostępne w SRC-09; nadal brak zatwierdzonego obrazu procesowego i pełnych pomiarów próżni | Konfiguracja, kanały/assembly, długości/offsety, RPI, diagnostyka, sygnały próżni/przedmuchu i reakcje wyjść | E1/E2, BAT4, AT-09/15 |
+| GAP-04 | Dostępne: fizyczny backup V9.40P/80, opcje EIP, wzorce W716/W590 i trzy podprogramy TP (SRC-10/11); eksport LS i audyt pozostają OTWARTE | Odczyt/eksport TP, źródło HOME/identyfikacji programu, potwierdzenie instrukcji i konfiguracji EIP, ramki/narzędzie/obciążenia i punkty | Adaptacja LS, zgodność programów, AT-10/14 |
+| GAP-05 | EUROMAP: brak rozpoznania początku wtrysku i niepełne KF211/KF403; odkryte wspólne zasilanie KF204–KF210 przez KF203:14 | Lista używanych sygnałów, zaciski/polaryzacje, początek/koniec wtrysku, podtrzymanie pozwoleń z uwzględnieniem wspólnego zasilania, granica safety | ImmInterface, Stop przy nakładaniu cykli |
+| GAP-06 | Znaleziono zewnętrzne projekty PLC i eksport symboli (SRC-13); wersja docelowa i środowisko niezatwierdzone | Wybór projektu, biblioteki/firmware, zadania, skaner i obraz I/O, ATV320/Axis_Ref oraz potwierdzenia układu bezpieczeństwa | Kompilacja, rzeczywista mapa i diagnostyka |
+| GAP-07 | Znaleziono dwa wzorce HMI Vijeo .vdz (SRC-13); zgodność z W716/C30 nadal do weryfikacji | Wskazanie projektu bazowego i wzorca, kompletny model panelu i wersja narzędzia | Wykonanie ekranów, integracja HMI |
+| GAP-08 | Pneumatyka SRC-09 potwierdza pięć obwodów i warianty F-2844/F-2680; porty Y502/Y503 sprzeczne między arkuszami 010/021 | Rozstrzygnięcie portów i HP/WP, przypisanie narzędzi, grup siłowników i ilości detali, utrzymanie ładunku/cewek przy Stop i awarii | E2, reakcje na awarie, AT-07/15 |
 | GAP-09 | Przewodowe procesowe sygnały robota w schemacie/arkuszu vs docelowy EtherNet/IP | Aktualizacja lub jednoznaczne oznaczenie rewizji, wykaz pozostających przewodowych funkcji i usunięcie konkurujących kanałów sterowania | Docelowa mapa robot–PLC–IMM |
 | GAP-10 | Szczegóły obsługi postoju/Manual/opróżniania i starego HMI Start | Uzgodnione Stop/Start podczas opróżniania, przejście do Manual, Koniec zlecenia z postoju, dostępność starego HMI Start i wydania lokalnego podczas pauzy | Odpowiednie przejścia OrderManager/StationDrain/HMI |
 | GAP-11 | Retencja i odzyskiwanie po restarcie | Lista zachowywanych danych oraz procedura uzgodnienia ładunków, robota i wtryskarki przed Start; bez automatycznego wznowienia | Inicjalizacja, AT-13 |
@@ -159,7 +161,7 @@ Poniższe pozycje są faktami z przeglądu, nie wykonanymi poprawkami. Numery w 
 | POUs/PRG_Main.st:635 i :735 | HMI Stop używany jako AbortAuto obu sekwencji | Oddzielić Stop, krytyczne przerwanie i Koniec zlecenia |
 | POUs/PRG_Main.st:849 | Stop natychmiast przerywa opróżnianie | Zastąpić po rozstrzygnięciu GAP-10, zachowując stan transferu |
 | POUs/PRG_Main.st:1351 | Alarmy zbierane w programie głównym; brak FB_AlarmManager | Wprowadzić rzeczywisty moduł i podział klas alarmów |
-| ROBOT — oba programy | Wywołują nieobecne BB_GRIPPER_RESET, BB_IMM_RESET, BB_RESET_VAC5 | Pozyskać źródła; nie tworzyć pustych zastępników |
+| ROBOT — oba programy | Wywołują BB_GRIPPER_RESET, BB_IMM_RESET, BB_RESET_VAC5; od 2026-11-14 znalezione jako TP we wzorcu W716 | Wyeksportować/odczytać LS i sprawdzić skutki; nie tworzyć pustych zastępników |
 | Dawne instrukcje | Nieistniejąca nazwa AA_MAIN_TRAY_PRG.LS i nieaktualny model robota | W E0 zastąpione aktualnymi instrukcjami i odsyłaczami |
 
 Dla ATV320 dodatkowo sprawdzić `FB_Elevator`: xVfdCommOk jest wyprowadzane z GIATV, a niektóre warunki korzystają również z wejścia xCommOk ustawianego na TRUE. To konkretna niespójność do oceny, nie dowód braku wszystkich mechanizmów diagnostycznych.

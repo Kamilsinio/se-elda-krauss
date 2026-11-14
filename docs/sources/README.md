@@ -1,6 +1,6 @@
 # Materiały źródłowe SE-ELDA-Krauss
 
-Stan rejestru: 2026-11-14 (dodano SRC-06; stan kopii SRC-01–SRC-03 z 2026-10-04 bez zmian). Materiały są wejściem do adaptacji, a nie potwierdzeniem gotowej konfiguracji urządzeń.
+Stan rejestru: 2026-11-14 (dodano SRC-06–SRC-15; stan kopii SRC-01–SRC-03 z 2026-10-04 bez zmian). Materiały są wejściem do adaptacji, a nie potwierdzeniem gotowej konfiguracji urządzeń.
 
 ## Kopie i pochodzenie
 
@@ -14,8 +14,17 @@ Oryginały znajdowały się w katalogu nadrzędnym względem repozytorium. Pozos
 | SRC-04 | Odpowiedzi użytkownika podczas planowania | Potwierdzone decyzje DEC-01–DEC-15 zapisano w [założeniach](../project-assumptions.md). Nie są częścią oryginalnego Worda. |
 | SRC-05 | Kod PLC/FANUC odziedziczony w repozytorium | Baza do adaptacji, nie nadrzędny opis nowego procesu. Konkretne rozbieżności zestawiono w [planie](../implementation-plan.md). |
 | SRC-06 | Zdjęcia tabliczek znamionowych robota i kontrolera przekazane przez użytkownika 2026-11-14 | [Transkrypcja i analiza](../robot-hardware.md): modele, typy, numery seryjne, daty, masy i parametry zasilania. Zdjęcia dostępne w rozmowie; brak kopii plików zdjęć w repozytorium i brak SHA-256. Nie potwierdzają opcji sieci ani konfiguracji urządzeń. |
+| SRC-07 | Manuale FANUC w `Robot M20iD/manuals` oraz katalogu współdzielonym; sześć dokumentów w osobnym manifeście | Zewnętrzne pliki tylko do odczytu. [Osobny manifest](robot-manuals-manifest.json) zawiera pochodzenie, rozmiary i SHA-256; [macierz instrukcji](../robot-modernization.md) podaje wykorzystane rozdziały i ograniczenia zgodności. Nie są backupem ani potwierdzeniem opcji kontrolera. |
+| SRC-08 | Plan komunikacji zaakceptowany przez użytkownika 2026-11-14 | DEC-16/17: polecenia poszczególnych urządzeń, dwa main ze wspólnymi modułami; [kontrakt v1](../robot-plc-contract.md) i [raport wykonania](../robot-communication-verification.md). |
+| SRC-09 | Schematy, IO Map.xlsx i Wytyczne.docx z folderu SkyLogic x SE-ELDA | [Raport analizy](../workspace-analysis.md) i [manifest](workspace-analysis-manifest.json). Elektryka zgodna z SRC-03; pneumatyka 2026-10-28 jest nowym źródłem ze sprzecznymi portami F-2680. Współdzielony Excel zachowano oddzielnie od SRC-02. |
+| SRC-10 | Fizyczny backup 20261020-FROM_ROBOT | V9.40P/80; 122 pliki zgodne z lokalną kopią w Robot M20iD. Manifest obejmuje wszystkie te pliki; nie są kopiowane do Git. |
+| SRC-11 | Wzorce W716 i W590 | Archiwa oraz podprogramy resetu W716 dostępne jako TP. W590 zawiera m.in. F2680BOX/F2680TACKI/F2844. Wymagany eksport/odczyt LS i audyt. |
+| SRC-12 | Projekt ROBOGUIDE krausv6 | Zapis wirtualnego kontrolera V9.10P/19, odrębny od fizycznego V9.40P/80. Manifest rejestruje projekt i wybrane dowody, nie całą scenę. |
+| SRC-13 | Zewnętrzne projekty PLC i wzorce HMI | Dwa natywne projekty PLC, eksport symboli i dwa wzorce .vdz znalezione w workspace/katalogu współdzielonym; wersja docelowa i kompilacja niepotwierdzone. |
+| SRC-14 | Przykładowy fanucrobot_eip_v900.eds | Punkt wyjścia do adaptera; zgodność z urządzeniem, rozmiary i parametry połączenia wymagają weryfikacji. |
+| SRC-15 | Doprecyzowanie użytkownika o ilości detali | DEC-18: liczba parametryzowana, zastosowanie nowej wartości tylko przy wyłączonym zleceniu i niepracującej stacji. Liczba obwodów wynika ze schematu, nie z nastawy ilości. |
 
-Manifest obejmuje wyłącznie kopie plikowe SRC-01–SRC-03. SRC-06 jest zarejestrowanym źródłem z rozmowy, zachowanym w repozytorium jako transkrypcja.
+Manifest `manifest.json` obejmuje wyłącznie kopie plikowe SRC-01–SRC-03. Zewnętrzne źródła SRC-09–SRC-14 opisuje `workspace-analysis-manifest.json`; manuale mają osobny manifest. Pliki źródłowe pozostają bez zmian i bez kopiowania całych projektów do repozytorium. SRC-06 jest zarejestrowanym źródłem z rozmowy, zachowanym w repozytorium jako transkrypcja.
 
 SHA-256 wykonanych kopii:
 

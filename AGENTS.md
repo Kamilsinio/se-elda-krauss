@@ -16,15 +16,16 @@ Repozytorium zawiera eksporty źródeł PLC i FANUC odziedziczone po poprzednim 
 2. [Założenia projektowe](docs/project-assumptions.md) — wymagania i decyzje użytkownika.
 3. [Interfejsy i mapowanie](docs/interfaces.md) — kierunki danych, oznaczenia, odpowiedzialność i braki mapowania.
 4. [Plan implementacji](docs/implementation-plan.md) — etapy, REQ, AT i GAP oraz warunki rozpoczęcia prac.
-5. [Materiały źródłowe](docs/sources/README.md) — pochodzenie, rewizje i stan kopii.
-6. Dla prac HMI: [instrukcja człowieka](human-instructions.md), [ekrany i elementy bez zmiennych](docs/hmi-instructions.md), [mapa Vijeo](docs/hmi-vijeo-map.md), [obecne zmienne](docs/hmi-existing-variables.md) i [diagnostyka I/O](docs/hmi-io-diagnostics.md). Nowe symbole hmiV2/hmiIo są propozycją kontraktu, nie gotową implementacją.
-7. Dopiero potem pliki ST/LS dotyczące zadania.
+5. Dla komunikacji i LS: [kontrakt PLC–robot](docs/robot-plc-contract.md), [katalog sygnałów](docs/robot-plc-signals.json), [migracja](docs/robot-plc-migration.csv), [modernizacja](docs/robot-modernization.md) i [raport weryfikacji](docs/robot-communication-verification.md). Są specyfikacją, nie wdrożoną konfiguracją. Nie podłączaj obecnych ST/LS do tego kontraktu przez proste przepisanie numerów.
+6. [Materiały źródłowe](docs/sources/README.md) — pochodzenie, rewizje i stan kopii.
+7. Dla prac HMI: [instrukcja człowieka](human-instructions.md), [ekrany i elementy bez zmiennych](docs/hmi-instructions.md), [mapa Vijeo](docs/hmi-vijeo-map.md), [obecne zmienne](docs/hmi-existing-variables.md) i [diagnostyka I/O](docs/hmi-io-diagnostics.md). Nowe symbole hmiV2/hmiIo są propozycją kontraktu, nie gotową implementacją.
+8. Dopiero potem pliki ST/LS dotyczące zadania.
 
 Bieżące instrukcje użytkownika mają pierwszeństwo. W dokumentacji rozróżniaj **POTWIERDZONE**, **DOMYŚLNE** i **OTWARTE**. Decyzje użytkownika z założeń zastępują sprzeczne opisy poprzedniego stanowiska. Rozbieżność źródeł sprzętowych wymaga wpisu GAP i potwierdzenia fizycznego mapowania; nie wolno traktować docelowej architektury jako dowodu wykonania okablowania.
 
 ## Docelowa architektura
 
-- PLC Schneider Electric M241; schemat P0001 wskazuje TM241CE24T. Projekt natywny, firmware i biblioteki wymagają uzupełnienia.
+- PLC Schneider Electric M241; schemat P0001 wskazuje TM241CE24T. Zewnętrzne projekty natywne znaleziono; wybór docelowej wersji, firmware i bibliotek wymaga weryfikacji (SRC-13).
 - Robot FANUC M-20iD/25, kontroler R-30iB Mate Plus.
 - PLC jest skanerem EtherNet/IP dla robota i bramki Festo AP; szczegóły połączeń wynikną z EDS i konfiguracji urządzeń.
 - PLC pośredniczy pomiędzy robotem a wtryskarką Krauss. Interfejs wtryskarki to sygnały elektryczne EUROMAP 67.
@@ -41,6 +42,7 @@ Bieżące instrukcje użytkownika mają pierwszeństwo. W dokumentacji rozróżn
 - Koniec zlecenia kończy rozpoczęte operacje, potem opróżnia całą stację pojedynczymi pojemnikami/stosami, również niepełnymi i pustymi. Kolejny wyjazd wymaga odebrania poprzedniego przy B304.
 - Lokalny przycisk rozładunku wydaje jeden gotowy stos. Nie uruchamia pełnego opróżniania.
 - Zmiana Pojemniki/Blistry jest możliwa po zamknięciu zlecenia.
+- Liczba detali jest parametrem niezależnym od liczby obwodów; nowa wartość obowiązuje tylko po zastosowaniu przy wyłączonym zleceniu i niepracującej stacji (DEC-18). Rozpoczęte partie zachowują przypisaną ilość.
 - Ostrzeżenie siłownika w ST.1–ST.4 blokuje zależny ruch bez globalnego Stop. Nie eskaluj tego samego oczekiwania do krytycznego alarmu w nadrzędnym sekwencerze.
 - Przenoszenie między transporterami wymaga współpracy obu napędów. Stopery zmieniają położenie przy zatrzymanej taśmie.
 - V201/V202 poruszają się równocześnie w Auto, mają oddzielną diagnostykę i ręczne sterowanie.
@@ -77,7 +79,7 @@ Zachowaj przepływ: konfiguracja urządzeń i RAW → normalizacja/diagnostyka k
 
 ## Rzeczywisty stan źródeł
 
-Istnieją `GVLs/`, `Modules/` i `ROBOT/`. Każdy FB ma własny katalog w `Modules/` oraz `DUTs/` z osobnym plikiem ST dla każdego typu; programy `PRG_*.st` pozostają bezpośrednio w `Modules/`. Główne programy robota to `A01_F2679_TACKI.LS` oraz `AAAA_MAIN_BOX_PRG.LS`. Repozytorium nie zawiera obecnie natywnego projektu Machine Expert ani HMI, EDS, pełnego backupu FANUC lub wszystkich wywoływanych podprogramów.
+Istnieją `GVLs/`, `Modules/` i `ROBOT/`. Każdy FB ma własny katalog w `Modules/` oraz `DUTs/` z osobnym plikiem ST dla każdego typu; programy `PRG_*.st` pozostają bezpośrednio w `Modules/`. Główne programy robota to `A01_F2679_TACKI.LS` oraz `AAAA_MAIN_BOX_PRG.LS`. Poza repozytorium znaleziono fizyczny backup FANUC V9.40P/80, przykład EDS, wzorce W716/W590 z brakującymi wcześniej podprogramami TP oraz projekty PLC/HMI. [Analiza workspace](docs/workspace-analysis.md) i manifesty są źródłem aktualnego stanu dostępności. Podprogramy wymagają eksportu/odczytu LS, a konfiguracje i docelowa wersja projektów nadal wymagają weryfikacji. Nie traktować wirtualnego ROBOGUIDE V9.10P/19 jako fizycznego kontrolera.
 
 `FB_OrderManager`, `FB_StationDrain`, `FB_ImmInterface` i `FB_AlarmManager` opisane w dokumentacji są planowanymi modułami, dopóki etap implementacji nie potwierdzi ich utworzenia. Nie raportuj ich jako istniejących.
 
