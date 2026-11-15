@@ -9,7 +9,7 @@ class MainCell:
         self.r=station_runtime();r=self.r
         r.load('tools/fixtures/NativeAtv.st')
         r.definitions['GIATV.Control_ATV']=r.definitions['NativeAtv']
-        r.load('Modules/Conveyor/FB_Conveyor.st','Modules/Elevator/FB_Elevator.st',
+        r.load('Modules/StationController/FB_StationController.st','Modules/ElevatorDriveAdapter/FB_ElevatorDriveAdapter.st','Modules/Conveyor/FB_Conveyor.st','Modules/Elevator/FB_Elevator.st',
                'Modules/SafetyDoor/FB_SafetyDoor.st','Modules/PRG_IO_Read.st',
                'Modules/PRG_IO_Write.st','Modules/PRG_Main.st')
         self.g={}

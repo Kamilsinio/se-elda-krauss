@@ -23,6 +23,7 @@ VAR
 
     // plan ruchu
     planned : BOOL;
+    motionCfg : ST_TopFlowCfg;
     desiredHoldP1 : BOOL;
     desiredHoldP2 : BOOL;
     desiredHoldP3 : BOOL;
@@ -42,6 +43,8 @@ VAR
     sPos2_stable : BOOL;
     sPos3_stable : BOOL;
 END_VAR
+
+Outp.TransferDonePulse := FALSE;
 
 // --- 1) Permisywy ---
 permissive := Cmd.EnableAuto AND Cmd.SafetyOK AND (NOT Diag.Fault);
@@ -250,6 +253,8 @@ CASE Sts.State OF
         END_IF;
 
         IF planned THEN
+            motionCfg := Cfg;
+            Outp.AcceptedId := Cmd.OperationId;
             xP2SeenForP1 := FALSE;
             xP2PassedForP1 := FALSE;
             Sts.P1ReleasedForLoad := FALSE;
@@ -264,7 +269,7 @@ CASE Sts.State OF
         // Zatrzymaj taśmę i odczekaj przed ruchem stoperów
         Outp.TopConveyor_Run := FALSE;
 
-        tStopDelay(IN := TRUE, PT := Cfg.tMotorStopDelay);
+        tStopDelay(IN := TRUE, PT := motionCfg.tMotorStopDelay);
 
         IF tStopDelay.Q THEN
             tStopDelay(IN := FALSE);
@@ -309,7 +314,7 @@ CASE Sts.State OF
             ((Outp.HoldPos3_Up AND Inp.StopP3_IsUp) OR ((NOT Outp.HoldPos3_Up) AND Inp.StopP3_IsDown)) AND
             (NOT desiredM5 OR Inp.M5_IsUp);  // jeśli TrayMode+TG_P3: poczekaj na M5 w górze
 
-        tStopperTO(IN := NOT allStoppersInPos, PT := Cfg.tStopperTimeout);
+        tStopperTO(IN := NOT allStoppersInPos, PT := motionCfg.tStopperTimeout);
 
         IF allStoppersInPos THEN
             tStopperTO(IN := FALSE);
@@ -336,7 +341,7 @@ CASE Sts.State OF
 
         Outp.TopConveyor_Run := TRUE;
 
-        tMoveTO(IN := TRUE, PT := Cfg.tMoveTimeout);
+        tMoveTO(IN := TRUE, PT := motionCfg.tMoveTimeout);
 
         // warunek stopu zależnie od celu
         IF (Sts.Target = E_TopTarget.TG_P2) AND Inp.sPos2_raw AND (Sts.SrcPos <> E_TopPos.P1 OR xP2PassedForP1) THEN
@@ -377,7 +382,7 @@ CASE Sts.State OF
 
     E_TopFlowState.RELEASE_P1:
         Outp.TopConveyor_Run := FALSE; Outp.ElevConv_RunFwd := FALSE;
-        tStopDelay(IN := NOT Inp.TopConveyorRunning, PT := Cfg.tMotorStopDelay);
+        tStopDelay(IN := NOT Inp.TopConveyorRunning, PT := motionCfg.tMotorStopDelay);
         IF tStopDelay.Q THEN
             tStopDelay(IN := FALSE); Outp.HoldPos1_Up := TRUE;
             Sts.State := E_TopFlowState.WAIT_P1_LOCK;
@@ -396,7 +401,7 @@ CASE Sts.State OF
             Outp.M5_Extend := TRUE;
         END_IF;
 
-        tStopDelay(IN := TRUE, PT := Cfg.tMotorStopDelay);
+        tStopDelay(IN := TRUE, PT := motionCfg.tMotorStopDelay);
 
         IF tStopDelay.Q THEN
             tStopDelay(IN := FALSE);
@@ -415,7 +420,7 @@ CASE Sts.State OF
     E_TopFlowState.RETRACT_M5_GATE:
         // (TrayMode+TG_P3) Cofnij M5 po przybyciu stosu, zanim podniesiemy M4
         Outp.M5_Extend := FALSE;
-        tStopperTO(IN := NOT Inp.M5_IsDown, PT := Cfg.tStopperTimeout);
+        tStopperTO(IN := NOT Inp.M5_IsDown, PT := motionCfg.tStopperTimeout);
 
         IF Inp.M5_IsDown THEN
             tStopperTO(IN := FALSE);
@@ -442,7 +447,7 @@ CASE Sts.State OF
 
     E_TopFlowState.WAIT_LOCK:
         // czekaj aż target stoper potwierdzi UP
-        tStopperTO(IN := TRUE, PT := Cfg.tStopperTimeout);
+        tStopperTO(IN := TRUE, PT := motionCfg.tStopperTimeout);
 
         IF (Sts.Target = E_TopTarget.TG_P2) AND Inp.StopP2_IsUp THEN
             tStopperTO(IN := FALSE);
@@ -455,6 +460,8 @@ CASE Sts.State OF
         END_IF;
 
     E_TopFlowState.COMPLETE:
+        Outp.TransferDonePulse := TRUE;
+        Outp.CompletedId := Outp.AcceptedId;
         // Aktualizacja zajętości logicznej po zakończonym ruchu
         // (celowo nie opieramy się tu o migające czujniki w trakcie ruchu)
 

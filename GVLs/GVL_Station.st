@@ -2,6 +2,7 @@
 VAR_GLOBAL
  ElevatorCfg : ST_ElevatorPar;
  ElevatorCfgVerified : BOOL;
+ DriveFrequencyValid : BOOL;
     DiagnosticValue : ST_StationIoValues;
     DiagnosticValid : ST_StationIoValues;
  IoCfg : ST_StationIoCfg;

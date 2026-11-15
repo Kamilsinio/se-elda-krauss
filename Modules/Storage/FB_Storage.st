@@ -16,6 +16,10 @@ VAR
     leftWork : TON;
     rightWork : TON;
     moveTimer : TON;
+    leftMove : TON;
+    rightMove : TON;
+    wasManualHome : ARRAY[1..2] OF BOOL;
+    wasManualWork : ARRAY[1..2] OF BOOL;
     button : R_TRIG;
     operatorRequest : BOOL;
     wantOpen : BOOL;
@@ -35,7 +39,7 @@ Sts.Empty := Inp.Empty;
 Sts.LowLevel := Inp.LowLevel;
 button(CLK := Inp.BtnOpenClose);
 IF Cmd.ResetFault AND NOT contradiction AND valid THEN
-    Diag.Fault := FALSE; Diag.Code := E_StorageFault.NONE; Diag.Text := '';
+    Diag.Fault := FALSE; Diag.LeftFault := FALSE; Diag.RightFault := FALSE; Diag.Code := E_StorageFault.NONE; Diag.Text := '';
 END_IF;
 IF contradiction THEN
     Diag.Fault := TRUE; Diag.Code := E_StorageFault.SENSOR_CONTRADICTION;
@@ -75,8 +79,8 @@ IF Cmd.Enable AND valid AND NOT Diag.Fault AND NOT Cmd.Manual THEN
     END_IF;
 END_IF;
 IF Cmd.Manual AND Cmd.Enable AND valid AND NOT Diag.Fault THEN
-    Outp.Q_V401Home := Inp.Left.lossHome; Outp.Q_V401Work := Inp.Left.lossWork;
-    Outp.Q_V402Home := Inp.Right.lossHome; Outp.Q_V402Work := Inp.Right.lossWork;
+    IF wasManualHome[1] OR wasManualWork[1] THEN Outp.Q_V401Home := Inp.Left.lossHome; Outp.Q_V401Work := Inp.Left.lossWork; END_IF;
+    IF wasManualHome[2] OR wasManualWork[2] THEN Outp.Q_V402Home := Inp.Right.lossHome; Outp.Q_V402Work := Inp.Right.lossWork; END_IF;
     IF NOT Cmd.RobotReserved AND NOT operatorRequest THEN
         IF Cmd.ManualHome[1] AND NOT Cmd.ManualWork[1] AND Inp.Left.homeAllowed AND Inp.RobotSideOpeningPermission THEN
             Outp.Q_V401Home := TRUE; Outp.Q_V401Work := FALSE;
@@ -92,11 +96,16 @@ IF Cmd.Manual AND Cmd.Enable AND valid AND NOT Diag.Fault THEN
 END_IF;
 Sts.Busy := valid AND Cmd.Enable AND NOT Cmd.Manual AND ((wantOpen AND NOT Sts.RobotSideOpen) OR
     (NOT Cmd.RobotReserved AND NOT wantOpen AND NOT Sts.RobotSideClosed));
-moveTimer(IN := Sts.Busy, PT := Cfg.tM8Timeout);
-IF moveTimer.Q THEN
-    Diag.Fault := TRUE; Diag.Code := E_StorageFault.M8_TIMEOUT;
-    Diag.Text := 'V401/V402: timeout. Zablokowany zalezny dostep.';
+leftMove(IN := Cmd.Enable AND valid AND ((Outp.Q_V401Home AND NOT leftHome.Q) OR (Outp.Q_V401Work AND NOT leftWork.Q)), PT := Cfg.tM8Timeout);
+rightMove(IN := Cmd.Enable AND valid AND ((Outp.Q_V402Home AND NOT rightHome.Q) OR (Outp.Q_V402Work AND NOT rightWork.Q)), PT := Cfg.tM8Timeout);
+IF leftMove.Q THEN Diag.LeftFault := TRUE; END_IF;
+IF rightMove.Q THEN Diag.RightFault := TRUE; END_IF;
+IF Diag.LeftFault OR Diag.RightFault THEN
+ Diag.Fault := TRUE; Diag.Code := E_StorageFault.M8_TIMEOUT;
+ Diag.Text := 'V401: timeout lewej osłony.';
+ IF Diag.RightFault THEN Diag.Text := 'V402: timeout prawej osłony.'; END_IF;
 END_IF;
+wasManualHome := Cmd.ManualHome; wasManualWork := Cmd.ManualWork;
 IF NOT Cmd.Enable OR NOT valid OR Diag.Fault THEN
     Outp.Q_UnlockOperatorSide := FALSE; Outp.Q_UnlockRobotSide := FALSE;
     Sts.RobotAccessGranted := FALSE;

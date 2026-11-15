@@ -8,5 +8,8 @@ STRUCT
     AdvanceReq : BOOL;
     SingleUnloadReq : BOOL;
     FinishPermit : BOOL;
+    DischargeId : UDINT;
+    UnloadId : UDINT;
+    AdvanceId : UDINT;
 END_STRUCT
 END_TYPE

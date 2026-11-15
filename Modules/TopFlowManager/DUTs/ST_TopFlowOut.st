@@ -16,5 +16,8 @@ STRUCT
     Elev_TransferReq : BOOL;
     Elev_TransferActive : BOOL;
     Elev_SourcePos : E_TopPos;
+    TransferDonePulse : BOOL;
+    AcceptedId : UDINT;
+    CompletedId : UDINT;
 END_STRUCT
 END_TYPE

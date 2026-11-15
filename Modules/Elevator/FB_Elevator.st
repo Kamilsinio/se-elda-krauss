@@ -18,7 +18,7 @@ END_VAR
 
 VAR
   // sterowanie falownikiem przez bibliotekę Schneider Electric
-  fbAtv        : GIATV.Control_ATV;
+  stoppedTimer : TON;
   wAtvStatus   : WORD;
   xAtvEnable   : BOOL;
   xAtvFwd      : BOOL;
@@ -65,14 +65,15 @@ END_VAR
 // 1) Status falownika
 // -------------------------
 // Status pobierany z Control_ATV; aktualna prędkość zostaje z wejścia diagnostycznego.
-wAtvStatus := fbAtv.q_wStatusword;
+wAtvStatus := stIn.drive.statusword;
 stStat.wVfdStatus  := wAtvStatus;
-stStat.xVfdFault   := fbAtv.q_xAlrm OR ((wAtvStatus AND stPar.wStsMask_Fault)   <> 0);
+stStat.xVfdFault   := ((wAtvStatus AND stPar.wStsMask_Fault)   <> 0);
 stStat.xVfdReady   := (wAtvStatus AND stPar.wStsMask_Ready)   <> 0;
 stStat.xVfdRunning := (wAtvStatus AND stPar.wStsMask_Running) <> 0;
 stStat.xVfdRemote  := (wAtvStatus AND stPar.wStsMask_Remote)  <> 0;
-stStat.xVfdCommOk  := fbAtv.q_xEn AND NOT fbAtv.q_xAlrm;
-stStat.rVfdOutHz   := UINT_TO_REAL(stIn.stVfdRx.uiOutFreq_0p1Hz_3202) / 10.0;
+stStat.xVfdCommOk := stIn.xCommOk AND (NOT stPar.requireDriveFeedback OR stIn.drive.commHealthy);
+stStat.rVfdOutHz := UINT_TO_REAL(stIn.stVfdRx.uiOutFreq_0p1Hz_3202) / 10.0;
+IF stPar.requireDriveFeedback THEN stStat.rVfdOutHz := stIn.drive.actualHz; END_IF;
 
 
 // -------------------------
@@ -123,11 +124,12 @@ xPermCommon :=
   xEnable AND
   stIn.xSafetyOk AND
   stIn.xDoorClosed AND
-  stIn.xCommOk AND
+  stStat.xVfdCommOk AND
+  (NOT stPar.requireDriveFeedback OR stIn.drive.valid) AND
   NOT stStat.xVfdFault;
 
-xPermUp   := xPermCommon AND (NOT stIn.xLS_Top);
-xPermDown := xPermCommon AND (NOT stIn.xLS_Bottom);
+xPermUp := xPermCommon AND NOT stIn.xLS_Top AND NOT stIn.xInPos1;
+xPermDown := xPermCommon AND NOT stIn.xLS_Bottom AND NOT stIn.xInPos4;
 
 
 // -------------------------
@@ -191,7 +193,11 @@ tonStop(
   PT := stPar.tStopTimeout
 );
 
-xDriveStopped := stStat.rVfdOutHz < stPar.rStopSpeedThreshold_Hz;
+stStat.xStandstillValid := stIn.xCommOk AND (NOT stPar.requireDriveFeedback OR stIn.drive.valid);
+stoppedTimer(IN := stStat.xStandstillValid AND ABS(stStat.rVfdOutHz) < stPar.rStopSpeedThreshold_Hz,
+ PT := stPar.tStandstillStable);
+xDriveStopped := stStat.xStandstillValid AND stoppedTimer.Q;
+stStat.xStandstill := xDriveStopped;
 
 
 // -------------------------
@@ -277,6 +283,7 @@ ELSE
       // latch target w AUTO na zboczu
       IF (stCmd.eMode = E_ElevatorMode.AUTO) AND rtAutoGo.Q THEN
         stStat.eTargetLatched := stCmd.eAutoTarget;
+        stStat.AcceptedId := stCmd.OperationId;
 
         // Przelicz warunek celu po zlapaniu nowego targetu.
         CASE stStat.eTargetLatched OF
@@ -440,9 +447,14 @@ ELSE
 
     E_ElevatorState.STOPPING:
       // Pozostań w STOPPING aż falownik faktycznie wyhamuje (rVfdOutHz < próg)
-      // lub upłynie bezpieczny timeout tonStop (watchdog na wypadek utraty feedbacku VFD)
-      IF xDriveStopped OR tonStop.Q THEN
+      // Timeout oznacza błąd; nie jest dowodem zatrzymania.
+      IF xDriveStopped THEN
+        stStat.CompletedId := stStat.AcceptedId;
         stStat.eState := E_ElevatorState.IDLE;
+      ELSIF tonStop.Q THEN
+        stStat.xFault := TRUE; stStat.uiFaultId := 70;
+        stStat.sDiagText := 'Winda: brak potwierdzonego zatrzymania.';
+        stStat.eState := E_ElevatorState.FAULT;
       END_IF;
 
     E_ElevatorState.FAULT:
@@ -498,7 +510,7 @@ END_IF;
 IF xMoveUpReq OR xMoveDownReq THEN
   IF (stCmd.eMode = E_ElevatorMode.AUTO) AND
      (stStat.eTargetLatched = E_ElevatorTarget.posContainerEdge) THEN
-    // Zjazd o wysokość tacki zawsze z prędkością 5 Hz.
+    // Zjazd o wysokość tacki z zatwierdzoną prędkością wolną.
     rCmdHz := stCmd.rSpeedSlow_Hz;
   ELSIF xCmdFast THEN
     rCmdHz := stCmd.rSpeedFast_Hz;
@@ -522,7 +534,7 @@ uiRef_0p1Hz := REAL_TO_UINT(rCmdHz * 10.0);
 
 
 // -------------------------
-// 10) Sterowanie falownikiem przez Control_ATV
+// 10) Komenda logiczna do jedynego adaptera napędu
 // -------------------------
 xAtvFwd := FALSE;
 xAtvRev := FALSE;
@@ -542,32 +554,20 @@ ELSIF xMoveDownReq AND NOT xMoveUpReq THEN
   END_IF;
 END_IF;
 
-xAtvEnable := xEnable AND stIn.xSafetyOk AND stIn.xDoorClosed AND stIn.xCommOk;
+xAtvEnable := xEnable AND stIn.xSafetyOk AND stIn.xDoorClosed AND stStat.xVfdCommOk AND
+ (NOT stPar.requireDriveFeedback OR stIn.drive.valid);
 
-fbAtv(
-  Axis := Altivar_320,
-  i_xEn := xAtvEnable,
-  i_xKeepOpEn := TRUE,
-  i_xFwd := xAtvFwd,
-  i_xRev := xAtvRev,
-  i_xQckStop := TRUE,
-  i_xFreeWhl := TRUE,
-  i_xFltRst := tpVfdReset.Q,
-  i_wSpdRef := UINT_TO_WORD(uiRef_0p1Hz)
-);
-
-wAtvStatus := fbAtv.q_wStatusword;
-stStat.wVfdStatus  := wAtvStatus;
-stStat.xVfdFault   := fbAtv.q_xAlrm OR ((wAtvStatus AND stPar.wStsMask_Fault)   <> 0);
-stStat.xVfdReady   := (wAtvStatus AND stPar.wStsMask_Ready)   <> 0;
-stStat.xVfdRunning := (wAtvStatus AND stPar.wStsMask_Running) <> 0;
-stStat.xVfdRemote  := (wAtvStatus AND stPar.wStsMask_Remote)  <> 0;
-stStat.xVfdCommOk  := fbAtv.q_xEn AND NOT fbAtv.q_xAlrm;
+stOut.Drive.enable := xAtvEnable;
+stOut.Drive.forward := xAtvFwd; stOut.Drive.reverse := xAtvRev;
+stOut.Drive.reset := tpVfdReset.Q; stOut.Drive.reference := UINT_TO_WORD(uiRef_0p1Hz);
 
 stOut.xRunUp   := xMoveUpReq;
 stOut.xRunDown := xMoveDownReq;
 
-stStat.xBusy := xMoveUpReq OR xMoveDownReq;
+stStat.xBusy := xMoveUpReq OR xMoveDownReq OR stStat.eState = E_ElevatorState.STOPPING OR
+ (stStat.xStandstillValid AND NOT stStat.xStandstill);
+stStat.xAtTarget := xAtTargetInt AND stStat.xStandstill;
+stStat.xVfdRunning := stStat.xStandstillValid AND NOT stStat.xStandstill;
 
 
 // Stan windy jako UINT - do odczytu z PRG_Main / HMI

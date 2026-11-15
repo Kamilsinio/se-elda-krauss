@@ -1,6 +1,6 @@
 # PLC–FANUC v2 — implementacja źródeł i integracja
 
-Aktualizacja stacyjna 2026-11-15: opisane niżej ograniczenie Drain do samego interfejsu dotyczy poprzedniego pakietu. Aktualny wykonawca, transport, alarmy i rozszerzenie HMI są w [implementacji modułów stacji](station-plc-implementation.md). Kontekst PLC ma schema=3, HMI wersję 3; wire FANUC nadal v2/80 B.
+Aktualizacja stacyjna 2026-11-15: opisane niżej ograniczenie Drain do samego interfejsu dotyczy poprzedniego pakietu. Aktualny wykonawca, transport, alarmy i rozszerzenie HMI są w [implementacji modułów stacji](station-plc-implementation.md). Kontekst PLC ma schema=4, HMI wersję 4; wire FANUC nadal v2/80 B.
 
 Stan: 2026-11-15. **ŹRÓDŁA I TESTY OFFLINE. NIE SKOMPILOWANO W MACHINE EXPERT, NIE URUCHOMIONO NA URZĄDZENIACH.**
 
@@ -25,7 +25,7 @@ Każdy nowy FB ma osobny katalog w Modules. Wspólne kontrakty są w RobotInterf
 | FB_RobotController | Kolejność wykonania powyższych modułów, próbki, status i ramka TX |
 | FB_StationCoils | Końcowe komendy M1–M7: bez nowego celu przed Start, zachowanie komend przy zwykłym Stop, osobna zatwierdzona polityka krytyczna |
 
-PRG_Main zawiera integrację z istniejącymi blokami stacji. FB_TraySequencer i FB_BoxSequencer odbierają zarejestrowane zadania zamiast historycznych impulsów. FB_Storage obsługuje oddzielnie V401/V402: HOME otwarte, WORK zamknięte; wspólny warunek gotowości wymaga obu czujników.
+PRG_Main wywołuje typowany FB_StationController oraz osobny adapter napędu; [integracja stacji](station-integration.md) opisuje aktualną kolejność i granice. FB_TraySequencer i FB_BoxSequencer odbierają zarejestrowane zadania zamiast historycznych impulsów. FB_Storage obsługuje oddzielnie V401/V402: HOME otwarte, WORK zamknięte; wspólny warunek gotowości wymaga obu czujników.
 
 Generator tools/build_plc_robot.py tworzy dwa typy wire, kodek i docs/plc-robot-wire.json. Nie poprawiać ich ręcznie. Aktualny kontrakt pozostaje v2: 227 pól, 80 B/kierunek, bez zmian offsetów i skrótu layoutu.
 

@@ -128,7 +128,7 @@ CASE Sts.State OF
             // operator zwolnił komendę - wracamy do IDLE
             tReversal(IN := FALSE);
             Sts.State := E_ConveyorState.IDLE;
-        ELSIF tReversal.Q THEN
+        ELSIF tReversal.Q AND (NOT Cfg.requireStoppedFeedback OR (Inp.feedbackValid AND Inp.stopped)) THEN
             tReversal(IN := FALSE);
             Sts.State := E_ConveyorState.RUN_FWD;
         END_IF;
@@ -144,7 +144,7 @@ CASE Sts.State OF
         IF NOT Cmd.RunBwd THEN
             tReversal(IN := FALSE);
             Sts.State := E_ConveyorState.IDLE;
-        ELSIF tReversal.Q THEN
+        ELSIF tReversal.Q AND (NOT Cfg.requireStoppedFeedback OR (Inp.feedbackValid AND Inp.stopped)) THEN
             tReversal(IN := FALSE);
             Sts.State := E_ConveyorState.RUN_BWD;
         END_IF;
@@ -156,3 +156,5 @@ CASE Sts.State OF
         Sts.Direction := 0;
 
 END_CASE;
+
+Sts.Running := Outp.Q_Fwd OR Outp.Q_Bwd;

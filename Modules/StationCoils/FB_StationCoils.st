@@ -4,6 +4,8 @@
 FUNCTION_BLOCK FB_StationCoils
 VAR_INPUT
     NewPermit : BOOL;
+    UseCommandValid : BOOL;
+    CommandValid : ARRAY[1..10] OF BOOL;
     GateChanges : BOOL;
     ChangeAllowed : ARRAY[1..10] OF BOOL;
     Manual : BOOL;
@@ -23,6 +25,7 @@ VAR
     i : INT;
     wasManual : BOOL;
     wasActive : ARRAY[1..10] OF BOOL;
+    releasePending : ARRAY[1..10] OF BOOL;
     validPolicy : BOOL;
     validCommands : BOOL;
 END_VAR
@@ -33,17 +36,21 @@ FOR i := 1 TO 10 DO
     IF Cmd[i].home AND Cmd[i].work THEN validCommands := FALSE; END_IF;
     IF Manual AND (NOT ReleaseVerified OR (ReleasePolicy[i].home AND ReleasePolicy[i].work)) THEN validPolicy := FALSE; END_IF;
 END_FOR;
+FOR i := 1 TO 10 DO
+    IF wasActive[i] AND (NOT ManualActive[i] OR (wasManual AND NOT Manual)) THEN releasePending[i] := TRUE; END_IF;
+END_FOR;
 Fault := NOT validPolicy OR NOT validCommands;
 IF Critical AND validPolicy THEN
     Applied := LossPolicy;
+    FOR i := 1 TO 10 DO releasePending[i] := FALSE; END_FOR;
 ELSIF NOT Critical AND NOT Fault THEN
     FOR i := 1 TO 10 DO
         IF NOT GateChanges OR ChangeAllowed[i] THEN
-            IF Manual THEN
-                IF NewPermit AND ManualActive[i] THEN Applied[i] := Cmd[i];
-                ELSIF wasActive[i] AND ReleaseVerified THEN Applied[i] := ReleasePolicy[i]; END_IF;
-            ELSIF wasManual AND wasActive[i] AND ReleaseVerified THEN Applied[i] := ReleasePolicy[i];
-            ELSIF NewPermit THEN Applied[i] := Cmd[i]; END_IF;
+            IF releasePending[i] AND ReleaseVerified THEN
+                Applied[i] := ReleasePolicy[i]; releasePending[i] := FALSE;
+            ELSIF Manual THEN
+                IF NewPermit AND ManualActive[i] AND (NOT UseCommandValid OR CommandValid[i]) THEN Applied[i] := Cmd[i]; END_IF;
+            ELSIF NewPermit AND (NOT UseCommandValid OR CommandValid[i]) THEN Applied[i] := Cmd[i]; END_IF;
         END_IF;
     END_FOR;
 END_IF;

@@ -9,5 +9,8 @@ STRUCT
     commit : BOOL;
     manualMoved : BOOL;
     pending : BOOL;
+    useEvents : BOOL;
+    restoredEventId : UDINT;
+    events : ARRAY[1..8] OF ST_StationMaterialEvent;
 END_STRUCT
 END_TYPE

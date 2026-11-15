@@ -9,7 +9,7 @@ def validate():
     for path in ['Modules/Cyl2Pos/FB_Cyl2Pos.st','Modules/StopperPair/FB_StopperPair.st','Modules/Conveyor/FB_Conveyor.st',
                  'Modules/TopFlowManager/FB_TopFlowManager.st',
                  'Modules/BottomAccumulator/FB_BottomAccumulator_567.st',
-                 'Modules/Elevator/FB_Elevator.st','Modules/SafetyDoor/FB_SafetyDoor.st',
+                 'Modules/Elevator/FB_Elevator.st','Modules/ElevatorDriveAdapter/FB_ElevatorDriveAdapter.st','Modules/StationController/FB_StationController.st','Modules/SafetyDoor/FB_SafetyDoor.st',
                  'Modules/PRG_IO_Read.st','Modules/PRG_IO_Write.st','Modules/PRG_Main.st']:
         r.load(path)
     globals={}

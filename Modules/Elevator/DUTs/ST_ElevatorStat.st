@@ -27,5 +27,9 @@ STRUCT
   xFault             : BOOL;
   uiFaultId          : UINT;
   sDiagText          : STRING[120];
+    xStandstillValid : BOOL;
+    xStandstill : BOOL;
+    AcceptedId : UDINT;
+    CompletedId : UDINT;
 END_STRUCT
 END_TYPE

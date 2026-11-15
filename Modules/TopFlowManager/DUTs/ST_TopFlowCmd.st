@@ -11,5 +11,6 @@ STRUCT
     TrayMode : BOOL;
     ResetFault : BOOL;
     AllowNewTransfers : BOOL;
+    OperationId : UDINT;
 END_STRUCT
 END_TYPE

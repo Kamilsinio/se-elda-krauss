@@ -45,7 +45,7 @@ FOR i := 1 TO 10 DO
     Commit[i] := FALSE;
     IF TaskDone[i] THEN Context.tasks[i].pending := FALSE; END_IF;
 END_FOR;
-IF NOT Context.valid OR Context.schema <> 3 THEN Fault := TRUE; END_IF;
+IF NOT Context.valid OR Context.schema <> 4 THEN Fault := TRUE; END_IF;
 IF Context.assigned AND ((Context.assignedSlot < 1) OR (Context.assignedSlot > 2)) THEN Fault := TRUE; END_IF;
 FOR i := 1 TO 2 DO
     delta[i] := 0;

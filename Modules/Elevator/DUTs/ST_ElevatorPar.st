@@ -21,5 +21,7 @@ STRUCT
   // Wyhamowanie: próg prędkości i timeout bezpieczny STOPPING
   rStopSpeedThreshold_Hz : REAL;  // [Hz] próg "zatrzymany" np. 1.5
   tStopTimeout           : TIME;  // bezpieczny timeout STOPPING np. T#5s
+    requireDriveFeedback : BOOL;
+    tStandstillStable : TIME;
 END_STRUCT
 END_TYPE

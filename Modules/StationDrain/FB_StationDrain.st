@@ -35,7 +35,7 @@ CASE Sts.state OF
    ELSIF Inp.occupied[4] AND Inp.lowerCanAccept THEN
     IF Inp.atBottom THEN Sts.action := E_StationAction.DISCHARGE; ELSE Sts.action := E_StationAction.ELEV_BOTTOM; END_IF;
    ELSIF Inp.occupied[5] OR Inp.occupied[6] OR Inp.occupied[7] THEN Sts.action := E_StationAction.UNLOAD;
-   ELSIF Inp.occupied[1] OR Inp.occupied[2] OR Inp.occupied[3] THEN
+   ELSIF NOT Inp.occupied[4] AND (Inp.occupied[1] OR Inp.occupied[2] OR Inp.occupied[3]) THEN
     IF NOT Inp.atTop THEN Sts.action := E_StationAction.ELEV_TOP; ELSE Sts.action := E_StationAction.FEED; END_IF;
    END_IF;
 

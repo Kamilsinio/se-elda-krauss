@@ -291,8 +291,9 @@ class Runtime:
         if k=="call":
             if e[1][0]=="name":
                 name=e[1][1].upper()
-                if name in ("TO_UINT","TO_UDINT","TO_INT","TO_BYTE","TO_TIME","SHL","SHR","WORD_TO_UINT","UINT_TO_WORD","REAL_TO_UINT","UINT_TO_REAL","BOOL_TO_INT"):
+                if name in ("TO_UINT","TO_UDINT","TO_INT","TO_BYTE","TO_TIME","SHL","SHR","WORD_TO_UINT","UINT_TO_WORD","REAL_TO_UINT","UINT_TO_REAL","BOOL_TO_INT","ABS"):
                     args=[self.eval(x,env) for _,x in e[2]]
+                    if name=="ABS": return abs(args[0])
                     if name=="SHL": return (args[0]<<args[1]) & 0xFFFFFFFF
                     if name=="SHR": return args[0]>>args[1]
                     if name=="TO_UINT": return int(args[0]) & 65535

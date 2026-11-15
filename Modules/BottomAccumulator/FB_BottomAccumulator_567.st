@@ -15,6 +15,16 @@ VAR
  requestEdge : R_TRIG;
  unloadEdge : R_TRIG;
  advanceEdge : R_TRIG;
+ dischargeAccepted : BOOL;
+ unloadAccepted : BOOL;
+ advanceAccepted : BOOL;
+ motionCfg : ST_Bottom567Cfg;
+ receiptStable : TIME;
+ lastDischargeId : UDINT;
+ lastUnloadId : UDINT;
+ lastAdvanceId : UDINT;
+ motionId : UDINT;
+ receiptId : UDINT;
  source : UINT;
  target : UINT;
  unload : BOOL;
@@ -30,9 +40,13 @@ VAR
  receiptOn : TON;
  receiptOff : TON;
 END_VAR
+IF NOT Cmd.DischargeReq THEN dischargeAccepted := FALSE; END_IF;
+IF NOT Cmd.SingleUnloadReq THEN unloadAccepted := FALSE; END_IF;
+IF NOT Cmd.AdvanceReq THEN advanceAccepted := FALSE; END_IF;
 requestEdge(CLK := Cmd.DischargeReq);
 unloadEdge(CLK := Cmd.SingleUnloadReq);
 advanceEdge(CLK := Cmd.AdvanceReq);
+Outp.SingleUnloadIssuedPulse := FALSE; Outp.MaterialMovedPulse := FALSE;
 Outp.StepDonePulse := FALSE; Outp.DischargeDonePulse := FALSE;
 Outp.SingleUnloadDonePulse := FALSE; Outp.AcceptedPulse := FALSE;
 Outp.ConvRun := FALSE; Outp.ElevConv_RunBwd := FALSE;
@@ -52,8 +66,8 @@ allowed := Cmd.SafetyOK AND Inp.Valid AND Sts.Known AND Cfg.stopsConfigured AND 
  (Cmd.EnableAuto OR Cmd.FinishPermit);
 Sts.Busy := Sts.State <> E_Bottom567State.IDLE AND Sts.State <> E_Bottom567State.INIT;
 IF Cmd.SafetyOK AND Inp.Valid AND Sts.Known AND Cfg.stopsConfigured AND NOT Diag.Fault AND Sts.State = E_Bottom567State.IDLE THEN
- Sts.CanAcceptFromElev := NOT Sts.Occ5 AND NOT Sts.WaitingPickup;
- Sts.CanAdvance := Sts.Occ5 AND NOT Sts.Occ6 AND NOT Sts.WaitingPickup;
+ Sts.CanAcceptFromElev := NOT Sts.Occ5;
+ Sts.CanAdvance := Sts.Occ5 AND NOT Sts.Occ6;
  Sts.SingleUnloadReady := (Sts.Occ5 OR Sts.Occ6 OR Sts.Occ7) AND NOT Sts.WaitingPickup;
 END_IF;
 IF NOT allowed THEN
@@ -65,22 +79,29 @@ CASE Sts.State OF
   (* Tylko jawny Reconcile nadaje Known. *)
  E_Bottom567State.IDLE:
   Sts.Busy := FALSE;
-  Sts.CanAcceptFromElev := NOT Sts.Occ5 AND NOT Sts.WaitingPickup;
-  Sts.CanAdvance := Sts.Occ5 AND NOT Sts.Occ6 AND NOT Sts.WaitingPickup;
+  Sts.CanAcceptFromElev := NOT Sts.Occ5;
+  Sts.CanAdvance := Sts.Occ5 AND NOT Sts.Occ6;
   Sts.SingleUnloadReady := (Sts.Occ5 OR Sts.Occ6 OR Sts.Occ7) AND NOT Sts.WaitingPickup;
   source := 0; target := 0; unload := FALSE;
   IF Cmd.EnableAuto AND Inp.BeltsStopped AND NOT Inp.StopWarning THEN
-   IF unloadEdge.Q AND Sts.SingleUnloadReady THEN
+   IF Cmd.SingleUnloadReq AND (NOT unloadAccepted OR (Cmd.UnloadId <> 0 AND Cmd.UnloadId <> lastUnloadId)) AND Sts.SingleUnloadReady THEN
     unload := TRUE; target := 7;
     IF Sts.Occ7 THEN source := 7; ELSIF Sts.Occ6 THEN source := 6; ELSE source := 5; END_IF;
-   ELSIF requestEdge.Q AND Sts.CanAcceptFromElev THEN source := 4; target := 5;
-   ELSIF advanceEdge.Q AND Sts.CanAdvance THEN source := 5; target := 6;
+   ELSIF Cmd.DischargeReq AND (NOT dischargeAccepted OR (Cmd.DischargeId <> 0 AND Cmd.DischargeId <> lastDischargeId)) AND Sts.CanAcceptFromElev THEN source := 4; target := 5;
+   ELSIF Cmd.AdvanceReq AND (NOT advanceAccepted OR (Cmd.AdvanceId <> 0 AND Cmd.AdvanceId <> lastAdvanceId)) AND Sts.CanAdvance THEN source := 5; target := 6;
    END_IF;
   END_IF;
   IF source <> 0 THEN
+   IF unload THEN motionId := Cmd.UnloadId; lastUnloadId := Cmd.UnloadId; receiptId := motionId;
+   ELSIF source = 4 THEN motionId := Cmd.DischargeId; lastDischargeId := Cmd.DischargeId;
+   ELSE motionId := Cmd.AdvanceId; lastAdvanceId := Cmd.AdvanceId; END_IF;
+   Outp.AcceptedId := motionId;
+   motionCfg := Cfg;
+   IF unload THEN receiptStable := Cfg.tSensorStable; unloadAccepted := TRUE;
+   ELSIF source = 4 THEN dischargeAccepted := TRUE; ELSE advanceAccepted := TRUE; END_IF;
    Outp.AcceptedPulse := TRUE; Sts.Busy := TRUE; Sts.PickupSeen := FALSE;
    seenSource := FALSE; sourceGone := FALSE;
-   IF source = 7 THEN Sts.WaitingPickup := TRUE; Sts.State := E_Bottom567State.WAIT_RECEIPT;
+   IF source = 7 THEN Sts.WaitingPickup := TRUE; Outp.SingleUnloadIssuedPulse := TRUE; Sts.State := E_Bottom567State.IDLE;
    ELSE Sts.State := E_Bottom567State.PRECHECK; END_IF;
   END_IF;
  E_Bottom567State.PRECHECK:
@@ -103,8 +124,8 @@ CASE Sts.State OF
    targetSensor := Inp.sPos5_raw;
    IF target = 6 THEN targetSensor := Inp.sPos6_raw; END_IF;
    IF target = 7 THEN targetSensor := Inp.sPos7_raw; END_IF;
-   arriveTimer(IN := targetSensor AND sourceGone, PT := Cfg.tSensorStable);
-   moveTimer(IN := TRUE, PT := Cfg.tStepTimeout);
+   arriveTimer(IN := targetSensor AND sourceGone, PT := motionCfg.tSensorStable);
+   moveTimer(IN := TRUE, PT := motionCfg.tStepTimeout);
    IF arriveTimer.Q THEN
     Outp.ConvRun := FALSE; Outp.ElevConv_RunBwd := FALSE;
     moveTimer(IN := FALSE); arriveTimer(IN := FALSE); Sts.State := E_Bottom567State.WAIT_STOP;
@@ -116,7 +137,7 @@ CASE Sts.State OF
   ELSE moveTimer(IN := FALSE); arriveTimer(IN := FALSE); END_IF;
  E_Bottom567State.WAIT_STOP:
   Outp.HoldStop5 := source <> 5; Outp.HoldStop6 := source <> 6;
-  stopTimer(IN := Inp.BeltsStopped, PT := Cfg.tMotorStopDelay);
+  stopTimer(IN := Inp.BeltsStopped, PT := motionCfg.tMotorStopDelay);
   IF stopTimer.Q THEN stopTimer(IN := FALSE); Sts.State := E_Bottom567State.LOCK_STOPS; END_IF;
  E_Bottom567State.LOCK_STOPS:
   IF Inp.BeltsStopped AND Inp.Stop5Holding AND Inp.Stop6Holding AND NOT Inp.StopWarning THEN
@@ -125,23 +146,29 @@ CASE Sts.State OF
    IF target = 5 THEN Sts.Occ5 := TRUE; END_IF;
    IF target = 6 THEN Sts.Occ6 := TRUE; END_IF;
    IF target = 7 THEN Sts.Occ7 := TRUE; END_IF;
-   IF unload THEN Sts.WaitingPickup := TRUE; Sts.State := E_Bottom567State.WAIT_RECEIPT;
+   Outp.MaterialMovedPulse := TRUE; Outp.MaterialSource := source; Outp.MaterialTarget := target;
+   IF unload THEN Sts.WaitingPickup := TRUE; Outp.SingleUnloadIssuedPulse := TRUE; Sts.State := E_Bottom567State.IDLE;
    ELSE Sts.State := E_Bottom567State.COMPLETE; END_IF;
   END_IF;
  E_Bottom567State.WAIT_RECEIPT:
-  receiptOn(IN := Inp.sPos7_raw AND Inp.BeltsStopped, PT := Cfg.tSensorStable);
-  receiptOff(IN := NOT Inp.sPos7_raw AND Sts.PickupSeen AND Inp.BeltsStopped, PT := Cfg.tSensorStable);
-  IF receiptOn.Q THEN Sts.PickupSeen := TRUE; END_IF;
-  IF receiptOff.Q THEN
-   Sts.Occ7 := FALSE; Sts.WaitingPickup := FALSE;
-   receiptOn(IN := FALSE); receiptOff(IN := FALSE); Sts.State := E_Bottom567State.COMPLETE;
-  END_IF;
+  Sts.State := E_Bottom567State.IDLE;
  E_Bottom567State.COMPLETE:
   Outp.StepDonePulse := TRUE;
   Outp.DischargeDonePulse := source = 4;
+  IF source = 4 THEN Outp.DischargeDoneId := motionId; ELSE Outp.AdvanceDoneId := motionId; END_IF;
   Outp.SingleUnloadDonePulse := unload;
   Sts.Busy := FALSE; Sts.State := E_Bottom567State.IDLE;
  E_Bottom567State.FAULT:
   Sts.Known := FALSE;
 END_CASE;
 Outp.AlarmQueueFull := Sts.Occ5 AND Sts.Occ6;
+
+(* Potwierdzenie odbioru jest rozliczane także podczas innych operacji bufora. *)
+receiptOn(IN := Sts.WaitingPickup AND Inp.sPos7_raw AND Inp.Valid, PT := receiptStable);
+receiptOff(IN := Sts.WaitingPickup AND NOT Inp.sPos7_raw AND Sts.PickupSeen AND Inp.Valid, PT := receiptStable);
+IF receiptOn.Q THEN Sts.PickupSeen := TRUE; END_IF;
+IF receiptOff.Q THEN
+ Sts.Occ7 := FALSE; Sts.WaitingPickup := FALSE; Sts.PickupSeen := FALSE;
+ Outp.SingleUnloadDonePulse := TRUE; Outp.UnloadDoneId := receiptId;
+ receiptOn(IN := FALSE); receiptOff(IN := FALSE);
+END_IF;

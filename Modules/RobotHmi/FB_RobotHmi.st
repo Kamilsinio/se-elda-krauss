@@ -38,7 +38,7 @@ VAR
 END_VAR
 Cmd := emptyCmd;
 StationKey := 0;
-Hmi.link.uiContractVersion := 3;
+Hmi.link.uiContractVersion := 4;
 Hmi.link.uiPlcHeartbeat := TO_UINT((TO_UDINT(Hmi.link.uiPlcHeartbeat) + 1) MOD 65536);
 req[1] := Hmi.cmd.orderOpen;
 rsp[1] := Hmi.rsp.orderOpen;
@@ -106,7 +106,7 @@ FOR i := 1 TO 5 DO
         NOT Hmi.manual.vacValid[i] AND NOT Hmi.manual.blowReq[i];
 END_FOR;
 FOR i := 1 TO 16 DO
- neutral := neutral AND NOT Hmi.stationManual.positive[i] AND NOT Hmi.stationManual.negative[i];
+ neutral := neutral AND NOT Hmi.stationManual.positive[i] AND NOT Hmi.stationManual.negative[i] AND NOT Hmi.immManual.positive[i] AND NOT Hmi.immManual.negative[i];
 END_FOR;
 IF NOT initialized THEN
     active := FALSE; Pending := FALSE; initialized := TRUE;

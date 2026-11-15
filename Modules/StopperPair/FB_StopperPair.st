@@ -25,6 +25,8 @@ VAR
     targetReached : BOOL;
 END_VAR
 
+Sts.Valid := NOT Cfg.requireValid OR Inp.valid;
+
 // reset błędu
 IF ResetFault THEN
     Diag.Fault := FALSE;
@@ -32,7 +34,8 @@ IF ResetFault THEN
     Diag.Text := '';
 END_IF;
 
-IF NOT Enable OR Diag.Fault THEN
+IF NOT Enable OR NOT Sts.Valid OR Diag.Fault THEN
+    tMoveTO(IN := FALSE);
     Outp.Q_Fwd := FALSE;
     Outp.Q_Bwd := FALSE;
     Sts.Busy := FALSE;
@@ -46,8 +49,8 @@ contradiction :=
     (Inp.ind_2_fwd AND Inp.ind_2_bwd);
 
 // 2) stabilizacja: uznaj “UP” dopiero jak oba fwd są TRUE przez tStable, analogicznie dla DOWN
-tFwdStable(IN := (Inp.ind_1_fwd AND Inp.ind_2_fwd) AND (NOT contradiction), PT := Cfg.tStable);
-tBwdStable(IN := (Inp.ind_1_bwd AND Inp.ind_2_bwd) AND (NOT contradiction), PT := Cfg.tStable);
+tFwdStable(IN := Sts.Valid AND (Inp.ind_1_fwd AND Inp.ind_2_fwd) AND (NOT contradiction), PT := Cfg.tStable);
+tBwdStable(IN := Sts.Valid AND (Inp.ind_1_bwd AND Inp.ind_2_bwd) AND (NOT contradiction), PT := Cfg.tStable);
 
 fwdStable := tFwdStable.Q;
 bwdStable := tBwdStable.Q;
@@ -63,7 +66,7 @@ IF contradiction AND Enable AND (NOT Diag.Fault) THEN
 END_IF;
 
 // 4) sterowanie ruchem
-IF Enable AND (NOT Diag.Fault) THEN
+IF Enable AND Sts.Valid AND (NOT Diag.Fault) THEN
 
     // cel osiągnięty?
     IF HoldUp THEN
@@ -76,7 +79,7 @@ IF Enable AND (NOT Diag.Fault) THEN
     Sts.Busy := NOT targetReached;
 
     // timeout liczony tylko gdy jedziemy i cel nie osiagniety
-    tMoveTO(IN := Sts.Busy, PT := Cfg.tTimeout);
+    tMoveTO(IN := Sts.Busy AND (NOT Cfg.requireApplied OR Inp.commandApplied), PT := Cfg.tTimeout);
 
     IF tMoveTO.Q THEN
         Diag.Fault := TRUE;
@@ -104,3 +107,5 @@ IF Enable AND (NOT Diag.Fault) THEN
     END_IF;
 
 END_IF;
+
+IF Diag.Fault THEN Outp.Q_Fwd := FALSE; Outp.Q_Bwd := FALSE; END_IF;

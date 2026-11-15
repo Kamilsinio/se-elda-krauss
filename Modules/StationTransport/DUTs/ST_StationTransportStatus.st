@@ -8,5 +8,11 @@ STRUCT
     done : BOOL;
     fault : BOOL;
     reason : UINT;
+    operationId : UDINT;
+    resources : ARRAY[1..6] OF ST_StationOperation;
+    productionTopAllowed : BOOL;
+    productionAxisAllowed : BOOL;
+    productionElevatorAllowed : BOOL;
+    productionBottomAllowed : BOOL;
 END_STRUCT
 END_TYPE

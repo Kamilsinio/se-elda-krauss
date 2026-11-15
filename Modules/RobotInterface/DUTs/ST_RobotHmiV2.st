@@ -15,5 +15,6 @@ link : ST_RobotHmiLink;
     stationRevision : ARRAY[1..4] OF UINT;
     stationEditRevision : ARRAY[1..4] OF UINT;
     station : ST_StationHmiStatus;
+    immManual : ST_StationManualCmd;
 END_STRUCT
 END_TYPE

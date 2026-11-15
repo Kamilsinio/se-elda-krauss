@@ -1,5 +1,7 @@
 # SE-ELDA-Krauss
 
+Integracja 2026-11-15: typowany StationController, cienki PRG_Main, adapter GIATV, lokalne recovery, rezerwacje zasobów oraz zdarzeniowy model materiału. Kontekst i HMI mają wersję 4, wire robota pozostaje v2. [Architektura, migracja i dalsze uruchomienie](docs/station-integration.md).
+
 Aktualizacja modułów stacji 2026-11-15: zaimplementowano osiem nowych FB, pełny wykonawca Drain, pojedyncze wydanie ST.3, rozdzielenie V201/V202, alarmy, Manual, parametry i interfejs HMI. [Zakres, kontrakty i granice odbioru](docs/station-plc-implementation.md). Źródła są testowane offline; konfiguracja urządzeń i kompilacja natywna pozostają niewykonane.
 
 Adaptacja stanowiska paletyzacji do wtryskarki Krauss, robota **FANUC M-20iD/25 z R-30iB Mate Plus** oraz rozproszonych I/O **Festo AP**.
@@ -10,7 +12,7 @@ PLC Schneider Electric M241 pośredniczy między robotem a wtryskarką: robot i 
 
 **Komunikacja FANUC v2 i jej integracja w źródłach PLC są przygotowane i testowane offline. Kompilacja Machine Expert, konfiguracja urządzeń, import FANUC i uruchomienie pozostają do wykonania.**
 
-Pakiet PLC obejmuje sesję, 227 pól/80 B w każdym kierunku, rejestr N/N+1, zdarzenia, cały chwytak, obszary, IMM, zlecenie/Stop, recovery oraz podzbiór HMI v2. Opis symboli, importu, retencji i nieuzbrojonych bindingów: [implementacja PLC v2](docs/plc-robot-implementation.md). Pełne opróżnianie ma tylko jawny interfejs Drain; nie uruchamia starego algorytmu. Zmienione sekwencery odbierają zapisane zadania, a BOX utrzymuje nieruchomą windę podczas napełniania.
+Pakiet PLC obejmuje sesję, 227 pól/80 B w każdym kierunku, rejestr N/N+1, zdarzenia, cały chwytak, obszary, IMM, zlecenie/Stop, recovery oraz podzbiór HMI v2. Opis symboli, importu, retencji i nieuzbrojonych bindingów: [implementacja PLC v2](docs/plc-robot-implementation.md). Pełne opróżnianie wykonuje FB_StationDrain przez wspólny scheduler zasobów i wykonawców transportu. Zmienione sekwencery odbierają zapisane zadania, a BOX utrzymuje nieruchomą windę podczas napełniania.
 
 Źródła PLC i archiwalne programy FANUC są odziedziczoną bazą poprzedniego stanowiska. Dokumentacja opisuje uzgodnione zachowanie docelowe i wskazuje braki sprzętowe; nie potwierdza gotowości obecnego programu do pracy na nowej maszynie. W etapie dokumentacyjnym nie zmieniono plików ST, LS, VA ani DG. Następnie uporządkowano źródła PLC w `Modules/` i wydzielono typy do `DUTs/`, bez zmiany logiki sterowania.
 

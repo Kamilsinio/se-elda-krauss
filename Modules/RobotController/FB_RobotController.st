@@ -149,6 +149,7 @@ IF Panel.Pending AND Panel.Key > 11 THEN
  replyComplete := Plant.stationCommandComplete;
  replyReason := Plant.stationCommandReason;
 END_IF;
+IF Panel.Pending AND Panel.Key = 8 AND Plant.stationRecoveryConfirmed THEN replyReason := 0; END_IF;
 Panel(DataValid := ScannerHealthy AND ImageFresh, GenerationValid := Plant.retentionVerified,
     Timeout := Cfg.hmiTimeout, Complete := replyComplete, CompleteReason := replyReason,
     Hmi := Hmi, Context := Context);
@@ -157,7 +158,7 @@ replyReason := 0;
 (* Sesja jest uniewazniana w tym samym skanie co bledy wejscia. *)
 Link(Cfg := Cfg.link, ScannerHealthy := ScannerHealthy, ImageFresh := ImageFresh, Rx := Rx,
     Recover := Recovery.Approved, Neutral := neutral,
-    Invalidate := Link.Session AND (protocolFault OR criticalNow OR (Plant.stationRecoveryRequired AND NOT Order.Sts.manual)));
+    Invalidate := Link.Session AND (protocolFault OR criticalNow));
 IF wasSession AND NOT Link.Session THEN sampleReq := FALSE; sampleState := 0; END_IF;
 IF Recovery.Required AND NOT wasRecovery THEN Proposal := Context; END_IF;
 Recovery(Invalidate := (wasSession AND NOT Link.Session) OR criticalNow OR (protocolFault AND NOT Recovery.Required) OR
@@ -462,7 +463,7 @@ Hmi.permit.modeAuto.xAllowed := Hmi.link.xArmed AND NOT Order.Sts.running AND St
 Hmi.permit.robotEnable.xAllowed := Hmi.link.xArmed AND NOT Order.Sts.running AND Sts.settled AND homeValid;
 Hmi.permit.robotDisable.xAllowed := Hmi.permit.robotEnable.xAllowed;
 Hmi.permit.station5ParamApply.xAllowed := Hmi.link.xArmed AND NOT Context.orderActive AND Sts.settled AND NOT Sts.recoveryRequired;
-Hmi.permit.recoveryConfirm.xAllowed := Hmi.link.xArmed AND Link.State = E_RobotLinkState.RECOVERY;
+Hmi.permit.recoveryConfirm.xAllowed := Hmi.link.xArmed AND (Link.State = E_RobotLinkState.RECOVERY OR (Plant.stationRecoveryRequired AND Plant.physicalIdle));
 Hmi.permit.newEmptyContext.xAllowed := Hmi.permit.recoveryConfirm.xAllowed AND Plant.stationEmptyConfirmed;
 Hmi.permit.samples.xAllowed := Hmi.link.xArmed AND Sts.order.newPermit AND NOT Context.sampleAccepted AND sampleState = 0;
 IF NOT Hmi.permit.orderOpen.xAllowed THEN Hmi.permit.orderOpen.sReason := 'Wymagany zamkniety uzgodniony postoj, Auto, ilosc i wybor produkcji.'; END_IF;

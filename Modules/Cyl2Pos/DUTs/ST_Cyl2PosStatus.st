@@ -3,5 +3,6 @@ STRUCT
     AtExt : BOOL;
     AtRet : BOOL;
     Busy  : BOOL;
+    Valid : BOOL;
 END_STRUCT
 END_TYPE

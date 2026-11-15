@@ -26,10 +26,11 @@ IF ResetFault THEN
     Diag.Text := '';
 END_IF;
 
+Sts.Valid := NOT Cfg.requireValid OR Inp.valid;
 contradiction := Inp.IsExt AND Inp.IsRet;
 
-tExt(IN := Enable AND Inp.IsExt AND (NOT contradiction), PT := Cfg.tStable);
-tRet(IN := Enable AND Inp.IsRet AND (NOT contradiction), PT := Cfg.tStable);
+tExt(IN := Sts.Valid AND Inp.IsExt AND (NOT contradiction), PT := Cfg.tStable);
+tRet(IN := Sts.Valid AND Inp.IsRet AND (NOT contradiction), PT := Cfg.tStable);
 
 Sts.AtExt := tExt.Q;
 Sts.AtRet := tRet.Q;
@@ -40,7 +41,8 @@ IF contradiction AND Enable AND (NOT Diag.Fault) THEN
     Diag.Text := 'Cylinder: sprzeczne czujniki EXT/RET.';
 END_IF;
 
-IF NOT Enable OR Diag.Fault THEN
+IF NOT Enable OR NOT Sts.Valid OR Diag.Fault THEN
+    tTO(IN := FALSE);
     Outp.Q_Ext := FALSE;
     Outp.Q_Ret := FALSE;
     Sts.Busy := FALSE;
@@ -53,7 +55,7 @@ ELSE
 
     Sts.Busy := NOT targetReached;
 
-    tTO(IN := Sts.Busy, PT := Cfg.tTimeout);
+    tTO(IN := Sts.Busy AND (NOT Cfg.requireApplied OR Inp.commandApplied), PT := Cfg.tTimeout);
     IF tTO.Q THEN
         Diag.Fault := TRUE;
         Diag.Code := E_Cyl2PosFault.TIMEOUT;

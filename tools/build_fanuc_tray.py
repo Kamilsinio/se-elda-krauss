@@ -514,6 +514,14 @@ def template(mode="TRAY"):
               iff(f"!{c['session']} OR {c['guardRequest']} OR {b['needsRecovery']}",goto(900)),
               iff(f"{rx['p2r.production.expectedProgram']}<>2",goto(900)),
               iff(f"{b['armed']} AND !{rx['p2r.production.orderActive']}",goto(900)),
+              # Po recovery zlecenie można zakończyć przed pierwszym Start produkcji.
+              # Potwierdzamy wyłącznie już obserwowany HOME z pustym chwytakiem i bez partii.
+              put(b['safe'],f"({p['state']}=10) AND !{b['armed']} AND !{b['batchAssigned']}"),
+              put(b['safe'],f"{b['safe']} AND !{b['pickupConfirmed']} AND ({p['remaining']}=0) AND {raw['home']}"),
+              put(b['safe'],f"{b['safe']} AND {app['r2p.production.loadKnown']} AND ({app['r2p.production.loadMask']}=0)"),
+              put(b['safe'],f"{b['safe']} AND ({rx['p2r.production.stopRequest']} OR {rx['p2r.production.endOrderRequest']})"),
+              put(b['safe'],f"{b['safe']} AND {rx['p2r.imm.settled']} AND ({rx['p2r.imm.unsettledCount']}=0)"),
+              iff(b['safe'],goto(710)),
               put(p['dispatch'],p['state']),
               iff(f"{p['state']}<>710",no(app['r2p.production.operationsSettled'])),
               'CALL RT_IMMREQ',

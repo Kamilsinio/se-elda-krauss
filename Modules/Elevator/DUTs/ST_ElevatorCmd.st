@@ -19,5 +19,6 @@ STRUCT
   xManUp         : BOOL;
   xManDown       : BOOL;
   xManFast       : BOOL;             // TRUE => jedź na rSpeedFast_Hz, FALSE => rSpeedSlow_Hz
+    OperationId : UDINT;
 END_STRUCT
 END_TYPE

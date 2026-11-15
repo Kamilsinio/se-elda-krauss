@@ -1,7 +1,7 @@
 (* PLC v2; brak przypisania sprzetowego. *)
 TYPE ST_RobotContext :
 STRUCT
-(* Zachowywac kontekst, nigdy pozwolenia ruchu; wersja 3. *)
+(* Zachowywac kontekst, nigdy pozwolenia ruchu; wersja 4. *)
     schema : UINT;
     drainRequested : BOOL;
     drainResumeRequired : BOOL;
@@ -48,5 +48,6 @@ STRUCT
     bottomTransferOwner : UINT;
     bottomDonePendingTray : BOOL;
     bottomDonePendingBox : BOOL;
+    station : ST_StationContext;
 END_STRUCT
 END_TYPE

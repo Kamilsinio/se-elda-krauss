@@ -1,233 +1,246 @@
 {
   "date": "2026-11-15",
   "verification": "offline only",
-  "contextSchema": 3,
-  "hmiVersion": 3,
+  "hashNormalization": "UTF-8 source with LF line endings",
+  "contextSchema": 4,
+  "hmiVersion": 4,
   "robotWireVersion": 2,
   "files": [
     {
       "path": "GVLs/GVL_HMI.st",
-      "sha256": "c9fdbae42631558c26e9459e0c52b9cdad308b18cd6bef0aa3efe75560514c16"
+      "sha256": "cd3c5360e2bd981e8be3dea2d3fc3dee7d3f3334c99bdeefbd87ae94836d40c1"
     },
     {
       "path": "GVLs/GVL_IO.st",
-      "sha256": "3572bdbec91aaed813e9f919fe57dfdb3cec45790b8943cbbbeaf332f2ead647"
+      "sha256": "940f64adc5caa5c0b846f03536e36f7ede747563ecf5f66d477133d099f6e321"
     },
     {
       "path": "GVLs/GVL_IO_RAW.st",
-      "sha256": "b600166151df5a40d3b6ee393b34683fdf6bffaaadbe8a0c3d9b9251bf8041e8"
+      "sha256": "f1239e3c5cef4b3a5f2ebe6f70cde9092756162d30b8a25e673857ccf3db9332"
     },
     {
       "path": "GVLs/GVL_Robot.st",
-      "sha256": "5d8eb1fbddc405ece5795ac739dc13eccf58f774142f3e63c38e7009a031a301"
+      "sha256": "bbb5e0a4b6b535187524ac85d165bcc9b22c63430a249b16a99f744eda601584"
     },
     {
       "path": "GVLs/GVL_RobotRetain.st",
-      "sha256": "f41995182c15d433467aabad017bc87ad3ca799574f3f5f797869a19998176ae"
+      "sha256": "5797effd73edb4a0a835fe49ea078b5b740a7883ebd49f315691821ca81c1aad"
     },
     {
       "path": "GVLs/GVL_Station.st",
-      "sha256": "f532eae5c94fa1bb05a720a04771962da01e8522eef1bf4184f1899798e31cec"
+      "sha256": "b174fe9e141c3f19e3d37ccbcc9120ef6658aec455a969756a2bd5621c6bfcaa"
     },
     {
       "path": "Modules/AlarmManager/DUTs/ST_StationAlarmCfg.st",
-      "sha256": "5c5060cd4be592c6afc7271df6630c34f71f09361c6f6828196888478cf3a436"
+      "sha256": "110eb296f59d8c1c46e22aabdbfb7c70317dc33ef15789bdbec51da2f6dc5dcc"
     },
     {
       "path": "Modules/AlarmManager/DUTs/ST_StationAlarmEntry.st",
-      "sha256": "f6c15947397dcb7d53a53ecd653447179a06007a233a0483290fd9b736ae87a3"
+      "sha256": "c6ee43550c347af6042a3808ddcfe291e08b273079ed2856211de25eb84ad38b"
     },
     {
       "path": "Modules/AlarmManager/DUTs/ST_StationAlarmIn.st",
-      "sha256": "8d7ac05d729bb89a5ca18e47a985bcaafeea9aaf49fdcd81a61108b95e877e19"
+      "sha256": "803efe60a104ce342a26adf8da83fb9388e12a9c15d584bdc80c0065b7f1b74c"
     },
     {
       "path": "Modules/AlarmManager/DUTs/ST_StationAlarmStatus.st",
-      "sha256": "aad6632547b4c9a1d8e107774da300c3cca54ea286d491e52326208ffdb1695c"
+      "sha256": "be4f42cd235817ab01c7a377d2f1a35ceff7859e7cc36861c8f805446978faac"
     },
     {
       "path": "Modules/AlarmManager/FB_AlarmManager.st",
-      "sha256": "ef9443de956520fdf1b84051115bed138646b7e196aec9d1b999d86fa30ac661"
+      "sha256": "1e74017465ec4e925fda342a258268c477e6384af7715d984b45e52665886997"
     },
     {
       "path": "Modules/BottomAccumulator/DUTs/E_Bottom567Fault.st",
-      "sha256": "34bff9c13c59ba28eee42c896cdaecba64e00b2fbfeb4a763a54cb06732494d4"
+      "sha256": "5bb63b5fa28fc30f2af0e3aed6b4da9bb36cec009888de250722a01ba00356ee"
     },
     {
       "path": "Modules/BottomAccumulator/DUTs/E_Bottom567State.st",
-      "sha256": "1b43c4f78853f8394e185aa81b805646867ce457f15abbb89db63d59433ff9f9"
+      "sha256": "9ac840f78adf013bd82317ffcd2c37daa72eadf91eab7538eddfc3508d633881"
     },
     {
       "path": "Modules/BottomAccumulator/DUTs/ST_Bottom567Cfg.st",
-      "sha256": "ec6db74acce16ddd8411c33f8d49643c95bb5ce6005a0b135ec41cdb574da6bf"
+      "sha256": "a14bcb53c3772e607640bf93845cb2f65bb8f2f1c891e85e927fbf31b2633886"
     },
     {
       "path": "Modules/BottomAccumulator/DUTs/ST_Bottom567Cmd.st",
-      "sha256": "0e2027953b5ae84b8f1ca15540802cc76671eefe1e201785c80a07e3ece8d6dc"
+      "sha256": "e73e1d1f9107d58e4ef2647f4b01f763faa3dd761b9b403c186977d4dad6f517"
     },
     {
       "path": "Modules/BottomAccumulator/DUTs/ST_Bottom567Diag.st",
-      "sha256": "c830079177b6a77caf6d4abd29700eb36be68a9b3e826c8cb82291d4b7a77db0"
+      "sha256": "7550839c1ecd8945ff60b66b439860b9c1eb2a98b4b1d3df1818b65b978e8824"
     },
     {
       "path": "Modules/BottomAccumulator/DUTs/ST_Bottom567In.st",
-      "sha256": "f93038140c95aa5a0c07af2a96fb62869783bd0a1d54708e5e6815cbb980b34c"
+      "sha256": "7cdbc09cf7f86460bffc57ddbcd6148aa6d36e2e0ae01a3505c46099177a31db"
     },
     {
       "path": "Modules/BottomAccumulator/DUTs/ST_Bottom567Out.st",
-      "sha256": "bff23b100af4703c54b81599f80781d54aaad7b230d5204dfcb13158fa1ab687"
+      "sha256": "64f5b46a23ad425849d6e112cb88c6c8f9da8474de0ebb3984ebbd4d124115de"
     },
     {
       "path": "Modules/BottomAccumulator/DUTs/ST_Bottom567Status.st",
-      "sha256": "5a396d41eb7e639d95b1c4cd1a9d9720e91427e48339affd0d71e128577580f5"
+      "sha256": "a5c6ec5cdcd44708d19f4c8769abfdf14cf2d66b5fc123f6f211e4f6a155149f"
     },
     {
       "path": "Modules/BottomAccumulator/FB_BottomAccumulator_567.st",
-      "sha256": "9c7b39628a1d18c0931a0bacf44a8acb706a9067a0bc81dfe1cd6af16a545f56"
+      "sha256": "64c36031ce82a888b812db21760d10eb4faeea9345301819d311e404bbbcc02a"
     },
     {
       "path": "Modules/BoxSequencer/DUTs/E_BoxSeqFault.st",
-      "sha256": "36ff20b86597451d4930562efbe56776aafc6e50dbb20adcde1e3b81b178c11d"
+      "sha256": "c95586fcecc37987a5872deba01687480b10abc01648ce62374fe24bac222207"
     },
     {
       "path": "Modules/BoxSequencer/DUTs/E_BoxSeqState.st",
-      "sha256": "079c41b653ab99c3f2115921c9e813f885ba34d14268e8724483490c7b64c4a0"
+      "sha256": "2cb52b3bab3586d13f4c8bd132cc38f29ec35702a47618dc681bcece72105719"
     },
     {
       "path": "Modules/BoxSequencer/DUTs/ST_BoxSeqCfg.st",
-      "sha256": "ed3f36de6cb70af9e6632b21e2fd5f4bf1102a7ce53a6d7c7855e7b4d9186c17"
+      "sha256": "31107a208607ac15cf05fe13e48076747145b0d14cf5d60a1dce814198ecc1bf"
     },
     {
       "path": "Modules/BoxSequencer/DUTs/ST_BoxSeqCmd.st",
-      "sha256": "f84028fa197204a2597d424f1b2016459a4e9c1e35384f764c67c884fe105881"
+      "sha256": "51ac1aa6312d029fba88c30dfb8f42897c71537b8b041434fd3f393b06335196"
     },
     {
       "path": "Modules/BoxSequencer/DUTs/ST_BoxSeqDiag.st",
-      "sha256": "8e701a6353917b7a1d34700ef459921f51103b5d13c584071068e3390a7d8d4b"
+      "sha256": "847a0725f69ff76f41723b832f0477a827aaccab6aac347dbfd569422e1bd4cb"
     },
     {
       "path": "Modules/BoxSequencer/DUTs/ST_BoxSeqIn.st",
-      "sha256": "6a1513352ae26afbcdbc93a726df81949b430579027495ade0d893147e679f92"
+      "sha256": "89eb9d1eb55461f1c6e014cf94d326df25d55543de67041263c1c0db731c2060"
     },
     {
       "path": "Modules/BoxSequencer/DUTs/ST_BoxSeqOut.st",
-      "sha256": "20e9d5c4adcc2083bb6320253ea051032e406d8ede3b2b851a8775f66cc03ec1"
+      "sha256": "12234b66167d99382bc3470bca8f68b213baae044d7fc78d4ad068ba4eac36ce"
     },
     {
       "path": "Modules/BoxSequencer/DUTs/ST_BoxSeqStatus.st",
-      "sha256": "0d14e223e76bb98a71ceb2892997526a3e3912636fc136c60128c7703c78c827"
+      "sha256": "9fdfa3db885ffcae9367b703749221811d3a37f8e551495719dad1c72f545606"
     },
     {
       "path": "Modules/BoxSequencer/FB_BoxSequencer.st",
-      "sha256": "86703b2d9bfa768efda61fd8769248a1601a4a0c54a72e9d1b758254b7db34ab"
+      "sha256": "da1c3d37f56cb02152f487beb4906d3cfdb4fd056a5ea62063825d29de335b58"
     },
     {
       "path": "Modules/Conveyor/DUTs/E_ConveyorFault.st",
-      "sha256": "721723b3f5d2d686cd37de6b2e77df4eacca10a777225468abe7338df90f09f9"
+      "sha256": "a528232c4acfe4c7921265bb6c591907a9c46dd8d489f4023dc51272e6c2222b"
     },
     {
       "path": "Modules/Conveyor/DUTs/E_ConveyorState.st",
-      "sha256": "f3d8bfd141010e3d8e38dfa08965fba9fd7a0311a358b224fdf18d2087ed2809"
+      "sha256": "b7e1a0ccbcad2017d84bd6afc79f765012b8ecc6d3580d98dc6761c623afc19c"
     },
     {
       "path": "Modules/Conveyor/DUTs/ST_ConveyorCfg.st",
-      "sha256": "b27bada2df77f33df5ec5cc5ce09708a9752dc08c2a39c7e206b06c59543846a"
+      "sha256": "2d6d643dc80825654dd7cd1cac3a0b0d1e2a2492bf90c0a3b4f91a299182dc0f"
     },
     {
       "path": "Modules/Conveyor/DUTs/ST_ConveyorCmd.st",
-      "sha256": "8d5ad43118380d6baf5bb6a8a67a3c8f7b8d994d1fa12fc6c199bfafaa33bd43"
+      "sha256": "ae2bb0a9386b3aab7ab420e94c95cf3729ee346c049637b4ea496647365f0a5b"
     },
     {
       "path": "Modules/Conveyor/DUTs/ST_ConveyorDiag.st",
-      "sha256": "ae3f9ff4c5392e3ab93dffb6fe057e9f21e33542ed0754390877b37ca1b47326"
+      "sha256": "bf265c926e871ac88bca2f8e5cd4aed979c76185d305d5f5264a3c049a12a013"
     },
     {
       "path": "Modules/Conveyor/DUTs/ST_ConveyorIn.st",
-      "sha256": "5addba3a7bfebea4dd6f4c5ee4820d4612e95d2ba1d6bbfc9c819cffe11142d3"
+      "sha256": "bbd3f0c20417169ca9354bbfacf03ab904367c584554ce424835c2ff496eff2a"
     },
     {
       "path": "Modules/Conveyor/DUTs/ST_ConveyorOut.st",
-      "sha256": "567274d5e10b0b5ae621333a78b64be2ce7c4c506bbe828a39f8559bbc4f8467"
+      "sha256": "8ac7a5c9f44f45f5fa042f040884b436409224bfcdfba5cacb258d6bebf94b2c"
     },
     {
       "path": "Modules/Conveyor/DUTs/ST_ConveyorStatus.st",
-      "sha256": "ff69b8200de1ad1ade4b09e5abcc83c6437f456a5bb52a64d8488d9514b84cf2"
+      "sha256": "3ed3afe7a4555c04c0707d195f471a3a915670ec6835ddad08fd5c57e8cc60da"
     },
     {
       "path": "Modules/Conveyor/FB_Conveyor.st",
-      "sha256": "75765140464fde4073fcd961cfb9c164835cc6124996ce9747fb7358403642fe"
+      "sha256": "84c8dc20e5aeb6cf680b9acd9227fbbf98e7a935579a3231f5b6901840850e34"
     },
     {
       "path": "Modules/Cyl2Pos/DUTs/E_Cyl2PosFault.st",
-      "sha256": "0bab7a37acf4f8c0a3ba704116cf0af61fe38cda999fb7acd1b032e7e771ad47"
+      "sha256": "a47336b722318d546a1f398b315ee4c190dd54217ab673da6b70b5a874b35e60"
     },
     {
       "path": "Modules/Cyl2Pos/DUTs/ST_Cyl2PosCfg.st",
-      "sha256": "4a857b1d6039bc0701afc53daf8d294366942b66837e973fa67cade0dffebe8b"
+      "sha256": "392ed43d46a6d303a148b307003ffc0509e5b593158ce6d76e9c8902d4d5bab7"
     },
     {
       "path": "Modules/Cyl2Pos/DUTs/ST_Cyl2PosDiag.st",
-      "sha256": "7aeb77f8efd9918dda2ce0232dea3b5c2a8dc700a1f35deaec4e9d94f33dcfb1"
+      "sha256": "d8cba9044fa298811437d6a89ed7fb77f1596f6764a31e298d6d3c2eea244b3d"
     },
     {
       "path": "Modules/Cyl2Pos/DUTs/ST_Cyl2PosIn.st",
-      "sha256": "e8fd7a7d8ff6bb4ab61836bae527168ff2047832c3378e870a8b861caddda504"
+      "sha256": "b95e383e84462ed2c0c4756bdb2bbfc623bf25ec74eee10f591f99211c73fc79"
     },
     {
       "path": "Modules/Cyl2Pos/DUTs/ST_Cyl2PosOut.st",
-      "sha256": "de49b83e5efcf9da4ee569b2cfdf1de463bc69ab527515fbadb4e74c1ee07769"
+      "sha256": "abd4bf911e45af56e0dd6d2146255865dbdcb3109ccda2ca0b77c7211d4aa9ba"
     },
     {
       "path": "Modules/Cyl2Pos/DUTs/ST_Cyl2PosStatus.st",
-      "sha256": "d9ac36df22131cfbf0b661e7c23dce508f0330966d64acabf9c46b77b61946a9"
+      "sha256": "a1bc3d96e46aeb2a15642228a62a9358ec7b565541d6361e05989a70f310bd39"
     },
     {
       "path": "Modules/Cyl2Pos/FB_Cyl2Pos.st",
-      "sha256": "e8cc8c7bad1f66bfba5336c11e8b29dd1e30b36c9d4bb08f028d3ec91a5862c0"
+      "sha256": "88c0cae76b25f8cef24305a6124407c2fb96e6218e0e12560f92edc43eaf0ee8"
     },
     {
       "path": "Modules/Elevator/DUTs/E_ElevatorMode.st",
-      "sha256": "46439af7e17cce257984d611b54313c50f777c9bde78671870d09944c0fe7856"
+      "sha256": "d84641aba7458ec9d6f997069e235308bb80af20e4331365190f206264ad090e"
     },
     {
       "path": "Modules/Elevator/DUTs/E_ElevatorPos.st",
-      "sha256": "d01c032d82297d6bcc16f8f902c636a6c10822e6bceb5627032d9f3a0b35ea8c"
+      "sha256": "63b9aa45e7897c1245277817351f8fa47449de655b6af1abb7dc65d023edc8ac"
     },
     {
       "path": "Modules/Elevator/DUTs/E_ElevatorState.st",
-      "sha256": "36e24b19c9a7cf9ce3499a43c9f108c6cf1f5a9f69ff06e9f76385debeb36041"
+      "sha256": "caaff55b893276b6c051bfcf7df7f4ace4f82fa664109550cdaa954ed53078f6"
     },
     {
       "path": "Modules/Elevator/DUTs/E_ElevatorTarget.st",
-      "sha256": "cd9652d29d96b1f4aa11040235d68e51b4c5890acc68b0d9baf490d0b6ff7dfa"
+      "sha256": "07a74adcd18d344116c2fa8fa871d5c3bdc6f57936ceff3e84f74d5f066a1286"
     },
     {
       "path": "Modules/Elevator/DUTs/ST_ATV320_Rx.st",
-      "sha256": "0ec57191754a8f3a6426f48d93ea293f8082d5c90bf52467027dc1142e538629"
+      "sha256": "47650f14338a3262652df05e8cc46047b0cbae33bc20d8ed39c667313d2aeecf"
     },
     {
       "path": "Modules/Elevator/DUTs/ST_ElevatorCmd.st",
-      "sha256": "30f04b6043282b019db392479a9a2afbfb9d58b594fb3aa34fa36fc2d0aae570"
+      "sha256": "a1e63935061f230e1d4ab0d127b767e971033f5b32985acde0713e6dbc40f517"
     },
     {
       "path": "Modules/Elevator/DUTs/ST_ElevatorIn.st",
-      "sha256": "c6d9a7838bbebf4fb0dea0da15bf4c6650eb26508f7a20088e253518750842e0"
+      "sha256": "0a0ff229be580d98d5a3012384319f6544b877061b2297f86f427316e69ecab7"
     },
     {
       "path": "Modules/Elevator/DUTs/ST_ElevatorOut.st",
-      "sha256": "e04ebb5239826a54562a219c46980765c570242873e171b82993f89df636f741"
+      "sha256": "d9bc1d8ac3c3a520537bb9cf282d3d884e707a9b1e712c629e49914009de997b"
     },
     {
       "path": "Modules/Elevator/DUTs/ST_ElevatorPar.st",
-      "sha256": "6efe558764b91adc37ece9179dda387b88977bf01300ae52f4105d9e1021986b"
+      "sha256": "a532b2f751c46ec93869f45109756c76f15b8823c2f6fc23765ccf02eece9ad5"
     },
     {
       "path": "Modules/Elevator/DUTs/ST_ElevatorStat.st",
-      "sha256": "e78db90d0701bbdd1d61606a8abec6c95771762390e2cf19f8cd87cef398e23a"
+      "sha256": "ad7c177e76cb115377dffe4bfc270b2137d064ff30657601c74af7ec59720663"
     },
     {
       "path": "Modules/Elevator/FB_Elevator.st",
-      "sha256": "434980575fdd6355433a5de8817a570cd74c8f461615708bd1d33d050f772374"
+      "sha256": "e0059d2e0e249e241a590b253021d652b1a97ea63d658b060563228df7d7a6e9"
+    },
+    {
+      "path": "Modules/ElevatorDriveAdapter/DUTs/ST_ElevatorDriveCmd.st",
+      "sha256": "af5b03ae02b6c07d29f1b9be9deb9b7c182cff056020b3762ee44e42a654e11e"
+    },
+    {
+      "path": "Modules/ElevatorDriveAdapter/DUTs/ST_ElevatorDriveIn.st",
+      "sha256": "6f95b63399081444b25ee983d50a037820b2fdf082773200891df78d6a3d1d4f"
+    },
+    {
+      "path": "Modules/ElevatorDriveAdapter/FB_ElevatorDriveAdapter.st",
+      "sha256": "38ec2d67e4ec4fdc03bdb5cf3b5111319180faa054b5e3ece7c39dc7458d6c3e"
     },
     {
       "path": "Modules/ImmInterface/FB_ImmInterface.st",
@@ -235,19 +248,19 @@
     },
     {
       "path": "Modules/OrderManager/FB_OrderManager.st",
-      "sha256": "41f228b66325aaf8795a2f8b923cd3cc1e556bc0cc66114e14ffaddf88428f36"
+      "sha256": "78689d2dbdd2c9d253ba5704484025620cd2c63c9aae71a5516b35d365a2924a"
     },
     {
       "path": "Modules/PRG_IO_Read.st",
-      "sha256": "85c7bc3b0dda1699b4207d387a92ced04595d83db52934ebe4750d3e9b355470"
+      "sha256": "23565f7665f8480ebcfa8064be76ad711a58bde322596020d6c3b33600a5aa3c"
     },
     {
       "path": "Modules/PRG_IO_Write.st",
-      "sha256": "b326ae29fcf3f47a2e8bb1b77e6a354ac2f861d5a1f81e37df9033ac452e449d"
+      "sha256": "6dbaba5bd39e85f079e7eb945019e27b1c260d08a0fef2acda33136d4a019aa7"
     },
     {
       "path": "Modules/PRG_Main.st",
-      "sha256": "730dc261fa960f22083935740a8412db7f16a596061c12f328ee0f80103fd043"
+      "sha256": "614f5d925cd3102024b9edaf30dcb71e66626b4ee205092026af826fafcac3b6"
     },
     {
       "path": "Modules/RobotAreas/FB_RobotAreas.st",
@@ -255,15 +268,15 @@
     },
     {
       "path": "Modules/RobotCodec/FB_RobotCodec.st",
-      "sha256": "be7ecdcead063c1cfcdd7bcb14e24cd23e9c747e1ca7b1f47ee2174dcb57cfe5"
+      "sha256": "dff4489caaf386ae0a36b5474202cf95dee1f31d378acb1c3753b20dec9a6eb6"
     },
     {
       "path": "Modules/RobotController/FB_RobotController.st",
-      "sha256": "851f346dde8d2a12cd45a8badab3ef80d42b499161f149697dbba80ce30725a2"
+      "sha256": "c56989cb373f2a0a42807a4609894876957182e3f1b4f0a9bd161503b699b105"
     },
     {
       "path": "Modules/RobotCycleLedger/FB_RobotCycleLedger.st",
-      "sha256": "37bf11edbb6e34a30117bbb3bab0509f9656134db67566812f0112819febadb5"
+      "sha256": "efad9c676f7cda4343469c183ef49b63093d7286cac3ee1a1822a373a335d11b"
     },
     {
       "path": "Modules/RobotEvents/FB_RobotEvents.st",
@@ -275,7 +288,7 @@
     },
     {
       "path": "Modules/RobotHmi/FB_RobotHmi.st",
-      "sha256": "f0aacb577acc142e8089c9c1f7be220e77fc41cf569d7023bee0ca92ec930e49"
+      "sha256": "65f284f34568c9db65c6328212ca49dded92272eca8212c76f4cd5d5cd524f09"
     },
     {
       "path": "Modules/RobotInterface/DUTs/E_RobotLinkState.st",
@@ -299,7 +312,7 @@
     },
     {
       "path": "Modules/RobotInterface/DUTs/ST_RobotContext.st",
-      "sha256": "dd4d9223d82a004c79d9b69554e27586e234c6c06c296bd48dff5f192d08a818"
+      "sha256": "e0fc786a31f1e9992d5b83ab74ebf7c6e6dbd8889445ce8f045dd613803d46d6"
     },
     {
       "path": "Modules/RobotInterface/DUTs/ST_RobotCycle.st",
@@ -319,7 +332,7 @@
     },
     {
       "path": "Modules/RobotInterface/DUTs/ST_RobotDrain.st",
-      "sha256": "cd5578bf6f357dbd31c652dd2b2d85dae8fe386820a79a373d4379d4c0b86885"
+      "sha256": "45d3513338108b110d023212172cdcd2949fb3f35cb1cf312966642b0a15d312"
     },
     {
       "path": "Modules/RobotInterface/DUTs/ST_RobotEvent.st",
@@ -331,7 +344,7 @@
     },
     {
       "path": "Modules/RobotInterface/DUTs/ST_RobotHmiCmd.st",
-      "sha256": "efbf13b3a6b94d1bf2a38abd270605da8bb8f883c84eab1e81dd684af8c5f33d"
+      "sha256": "f55cc5bd0fe26574e1bd46e99800423fd5cccdd86440b1d97c239e18444b13d9"
     },
     {
       "path": "Modules/RobotInterface/DUTs/ST_RobotHmiLink.st",
@@ -343,11 +356,11 @@
     },
     {
       "path": "Modules/RobotInterface/DUTs/ST_RobotHmiPermit.st",
-      "sha256": "4a69c9ba331fa72e78437fbe89e4f30bd6ce7f38fbec93e376e07d4ab0ce5039"
+      "sha256": "3d178bcff66b167decda52ddc58b69361a31fc9c7c392338816ea1697050442e"
     },
     {
       "path": "Modules/RobotInterface/DUTs/ST_RobotHmiPermits.st",
-      "sha256": "61e6fa76771a08be31f6f8cc55b698df0bab37888410ee3af6f47c96c38d78ee"
+      "sha256": "e8dd0bee6c4580f09e6e8eb16d0bd5737ee8d8fa5f273b56fd7aeaaba0d534c5"
     },
     {
       "path": "Modules/RobotInterface/DUTs/ST_RobotHmiRequest.st",
@@ -359,7 +372,7 @@
     },
     {
       "path": "Modules/RobotInterface/DUTs/ST_RobotHmiRsp.st",
-      "sha256": "4b5b45e18a0364831c1a3ef8527bd9222c17b2b45218b121e20e614a315e3ad4"
+      "sha256": "036f6ce3d72b9a10ece3a194c628aa217019115544f45891d18bc0acf1187456"
     },
     {
       "path": "Modules/RobotInterface/DUTs/ST_RobotHmiState.st",
@@ -367,7 +380,7 @@
     },
     {
       "path": "Modules/RobotInterface/DUTs/ST_RobotHmiV2.st",
-      "sha256": "c6a4520b0c2360fba5a83957530d6131f90c00386a90bf2a1f21b5991e4fcc3b"
+      "sha256": "65cebe767b6c1d795b4c998269658e784264aa6cead9138a95ecb4f0d5c028d2"
     },
     {
       "path": "Modules/RobotInterface/DUTs/ST_RobotImmIn.st",
@@ -391,11 +404,11 @@
     },
     {
       "path": "Modules/RobotInterface/DUTs/ST_RobotPlant.st",
-      "sha256": "ced48a10c17c151ceec6c1fc00ffc7a1eb3fed76f4d3fc26da943f08f0b7644f"
+      "sha256": "8df90454cb6f76fd7297a2a99f99be2e757e60f9fa4e7f07dad28c5852cb136d"
     },
     {
       "path": "Modules/RobotInterface/DUTs/ST_RobotRxV2.st",
-      "sha256": "9b4a6cf7feebe7dcbc8fe326a0d51408df684e23b4ee5f777dd7595bae73c8f9"
+      "sha256": "686ccb9e73dcfafb4b6ec972b0dcf1836ff019d917e78ce6c24cabb92c9cf2f1"
     },
     {
       "path": "Modules/RobotInterface/DUTs/ST_RobotStatus.st",
@@ -407,7 +420,7 @@
     },
     {
       "path": "Modules/RobotInterface/DUTs/ST_RobotTxV2.st",
-      "sha256": "05de4f73417ab98ecdf15b301c0863d2be31ca90c051c8f0d9a9fbf1384d5b41"
+      "sha256": "67a473cc3d82a0b2d76ecbc83aa9392ab397de760f9cac36b4ae73d30240ccdc"
     },
     {
       "path": "Modules/RobotInterface/DUTs/ST_RobotVacuumIn.st",
@@ -431,311 +444,599 @@
     },
     {
       "path": "Modules/RobotRecovery/FB_RobotRecovery.st",
-      "sha256": "5a805642850f1e3622f0a913d6ec909fe110758e84a684ae78aabf2079ff038c"
+      "sha256": "0e2ddf8fcc0fbaaca69afd228f1874c8b30c292fcb147f151bad617160a64037"
     },
     {
       "path": "Modules/SafetyDoor/DUTs/E_SafetyDoorFault.st",
-      "sha256": "275df9939f099ad0ddb3cabca7e3fc86c25f77c1e8118250815749775200fe11"
+      "sha256": "189ee33d6a1f7e78f4266ba2c273f780678d181e0c6ceca8d2174d30791babdd"
     },
     {
       "path": "Modules/SafetyDoor/DUTs/E_SafetyDoorState.st",
-      "sha256": "1302fabfe0135b7ec044baec10845de09133b22a268422c0a466600152192163"
+      "sha256": "f7dab83cca1848206526f4bc422f8ce77a4f2f2e0c5556156efcd40d6e951cd7"
     },
     {
       "path": "Modules/SafetyDoor/DUTs/ST_SafetyDoorCfg.st",
-      "sha256": "5242c60d7659e14aadd25e765bd344d725fbb8891c57853c79b766846a9df5b1"
+      "sha256": "d380286af03f248f7f28e503dab7203cf887209c199fdd054c04c050e47e78e3"
     },
     {
       "path": "Modules/SafetyDoor/DUTs/ST_SafetyDoorDiag.st",
-      "sha256": "7690fc5539ccfd58e4db5c9a6dc32aec9ca80d227635d4cd51e9a4bed08f8819"
+      "sha256": "2a1faad6376be6743b464e7fa3a32be045f2816e609b28d8c22968255ac547d9"
     },
     {
       "path": "Modules/SafetyDoor/DUTs/ST_SafetyDoorIn.st",
-      "sha256": "78791969a637d736135b2954bb1c96040500cc177960b6e6cb4bdcb95f2d9dd8"
+      "sha256": "271db4866c0b20db68e333e619f9e12504abf542a92fbf7ff64dcb30f332d22c"
     },
     {
       "path": "Modules/SafetyDoor/DUTs/ST_SafetyDoorOut.st",
-      "sha256": "f10d583d38c732d0ffec5b6122cbf27c319cb4cda51f81e69204b32eb17103f5"
+      "sha256": "2fb69a0711efc3d5f49878af5e6f27af0f8ccab82c7a80f464fd25f9621f149f"
     },
     {
       "path": "Modules/SafetyDoor/DUTs/ST_SafetyDoorStatus.st",
-      "sha256": "b88a0f91989f6af035aceaad2ddcc84e3f6bbbe3fa0077ef9cd8d5d43a45380c"
+      "sha256": "739741c9fdf72a8643ef1e86aa864ad8028c9ccd1cbcb5f338305fb3b77c1f2f"
     },
     {
       "path": "Modules/SafetyDoor/FB_SafetyDoor.st",
-      "sha256": "3a53636cf5860366c9a23ca8df689a9e974e1d83a53112f026092bb097c407a0"
+      "sha256": "9a0d57e8f8505af17c21effd09a5c7fd5e2d0725d70e350272f118cd6b196a4f"
     },
     {
       "path": "Modules/StationCoils/FB_StationCoils.st",
-      "sha256": "bffbea1c416a03f0c25c508916ae3dfc825ee0a74c1072c7bd0f3415a33e0f7d"
+      "sha256": "b701186f98b184bb0d457d5655ddd47f193a8028880708a75aed21d747645947"
+    },
+    {
+      "path": "Modules/StationController/DUTs/ST_HmiAlarm.st",
+      "sha256": "da6e996420c98329cce9e21c887aee1965895d32e1e00c8741574320d744a7ba"
+    },
+    {
+      "path": "Modules/StationController/DUTs/ST_HmiCommands.st",
+      "sha256": "f1b1c2c498902e16bb3e84b406fca1660aa27b39e74140876e43e7a3866980ca"
+    },
+    {
+      "path": "Modules/StationController/DUTs/ST_HmiStationStatus.st",
+      "sha256": "7d0d0a9371270ae3e8809aea1e28a7f1bc147a24bb0a0ece5ec9242d45ed539f"
+    },
+    {
+      "path": "Modules/StationController/DUTs/ST_IO_DI.st",
+      "sha256": "d0e1bc57983e1ee77be6cb53fe036817a7e914d7a345b32ff83387f7c6bee485"
+    },
+    {
+      "path": "Modules/StationController/DUTs/ST_IO_DO.st",
+      "sha256": "10ab17d24c629ea177519419203a2e068e08f47b86512b2d815109afe3cbf2e8"
+    },
+    {
+      "path": "Modules/StationController/DUTs/ST_StationCfg.st",
+      "sha256": "6019001cdcfc0aea69994335b4c12020340813c35d715d2929f5f4b8bed98f23"
+    },
+    {
+      "path": "Modules/StationController/DUTs/ST_StationContext.st",
+      "sha256": "28499df961271cd9ed68877c82f52dbe932e001fde358cf0f0af8a8dc439625b"
+    },
+    {
+      "path": "Modules/StationController/DUTs/ST_StationInputs.st",
+      "sha256": "14f604f0cef4a7a3507897c7ff83a06dc901c36ec66970ef2aa8df191109f666"
+    },
+    {
+      "path": "Modules/StationController/DUTs/ST_StationOutputs.st",
+      "sha256": "242fddd7c4046385f251913a24ecbf510b61843925e30349d23082388d95e0b9"
+    },
+    {
+      "path": "Modules/StationController/FB_StationController.st",
+      "sha256": "6307ff1bd058344e15e7943c92419ee37cb1a67702f5a1ea213d12cf31018753"
     },
     {
       "path": "Modules/StationDrain/DUTs/E_StationDrainState.st",
-      "sha256": "b537f7cf43d47599c422c294ebf2483a86ee90db28c3f69481e40de2b17a39a8"
+      "sha256": "832fcbab2d7f81adc782209d3382f772489d304b24af24479541f69ad1a23ad6"
     },
     {
       "path": "Modules/StationDrain/DUTs/ST_StationDrainIn.st",
-      "sha256": "a80d7418941f529590775f7f8ec8874d8506c59af49c855366565f998574768a"
+      "sha256": "585af2383c24c25121ad345dc9f56e8dc97d5f87717ba5d5b8cb537f4c30f7b0"
     },
     {
       "path": "Modules/StationDrain/DUTs/ST_StationDrainStatus.st",
-      "sha256": "2b22543c7b8e04e4d247777879539d69761525b663d95724a31091967e5d769b"
+      "sha256": "423b43963b1a32abf4574ac2029a9165696640985c1ac3339620d5d4560c6cc8"
     },
     {
       "path": "Modules/StationDrain/FB_StationDrain.st",
-      "sha256": "3898c9d27f6a5503ee0dd37e31c18cd62428dbed642eed60c5c287adec8d164e"
+      "sha256": "f0efd455d3667b470c0d1f8a8d2c729bf8ae7fc6fc43fb3e969dc7b5fe53257a"
     },
     {
       "path": "Modules/StationHmi/DUTs/ST_StationHmiIn.st",
-      "sha256": "eef791a2fc098d1d03d33019c7d7646034f0ec9211c2f9621259d2fe84a1bc70"
+      "sha256": "66e4db2c834db4fc5e4e6e605070fe608ce3ca2f2cc15387dd2e60f9facc0e3c"
     },
     {
       "path": "Modules/StationHmi/DUTs/ST_StationHmiIo.st",
-      "sha256": "1482310c913e84c95a35b556a3e56126cc47221f5157acd77555d3167b078052"
+      "sha256": "817a8e661cfa82368be9765ad98abef44a842b5e5b163f67f843b3620af0b7cf"
     },
     {
       "path": "Modules/StationHmi/DUTs/ST_StationHmiRequest.st",
-      "sha256": "8d22d454d786372d8ce476f16b15c97d5dd98437f037e3a414b9f1dcce0b95dc"
+      "sha256": "18d7244f659b5cd1fde79aac20fbe750c14ca2f4de6a6bca33515fefbeaa2b05"
     },
     {
       "path": "Modules/StationHmi/DUTs/ST_StationHmiStatus.st",
-      "sha256": "fb1bab224bc8fc5bd66b5b37fd132ee7afaa048016812ed9c3ef5827922eb035"
+      "sha256": "c87a69fa173fb1daae8a062d9a78ab8d89ff879edfd3d4daf19b91f6e05c11b9"
     },
     {
       "path": "Modules/StationHmi/DUTs/ST_StationIoValues.st",
-      "sha256": "fd209e14d69ae2c4352036964169d37cfe749ceceacf25cfc69c46039430ae5a"
+      "sha256": "d15c56e140074d1dbbeabc9935295d1bb49ba4c1296af7c37d8ce4ecdbce8175"
     },
     {
       "path": "Modules/StationHmi/FB_StationHmi.st",
-      "sha256": "f1a6e7e30d0ef1b893235597106f4a6f2e6b7cd9d857fbfd9b18b0e1972a1841"
+      "sha256": "c29d020d7665b9f5ef1c67571c72aece8f8eb966805117a66a8f695f80f3d9ec"
     },
     {
       "path": "Modules/StationIo/DUTs/ST_StationIoCfg.st",
-      "sha256": "47acfeda1d90064ea71a17654ee062e49022ae693c5572b43ea7c4444945c6d8"
+      "sha256": "b504db898f6b25bab58f016a4c2ed351f88085dba728517eb14728f7e6a87151"
     },
     {
       "path": "Modules/StationIo/DUTs/ST_StationIoIn.st",
-      "sha256": "2ad12b5907b84d693a7eaf90d7d4346cec2ccf549837aa01fc7dab9b79aa7acf"
+      "sha256": "f0e04b3b9f43ae69bbc161ad48c55e26df2adb720eda62e49b52d8a8b5785e7c"
     },
     {
       "path": "Modules/StationIo/DUTs/ST_StationIoStatus.st",
-      "sha256": "32d2f1eca67779e20d7db7613582b78dcfa90f71249f5d7012b1551b4c2f4123"
+      "sha256": "5d6d31b4accbc1819c4203143dc8902835c9297b24d994e258df9e4b37e68304"
     },
     {
       "path": "Modules/StationIo/FB_StationIo.st",
-      "sha256": "4885f5813e716e9dd735d1fe0d602bfd56a28ff1dfec96b6f4018b58808bd7e0"
+      "sha256": "5c981ca7a75bf8d0bec9915a1bd0ab96a4feab24f0addebf39f8e58d9cba0da6"
     },
     {
       "path": "Modules/StationManual/DUTs/ST_StationManualCmd.st",
-      "sha256": "2a1e90a3a66cbf3adb10b1d29e1d89d1ae68bd17c7f544f1a96cf26db4926c68"
+      "sha256": "c51b0503bd5e3690214dca8c797c9cf11a04df070b0eb48ec6a18236c5847b46"
     },
     {
       "path": "Modules/StationManual/DUTs/ST_StationManualIn.st",
-      "sha256": "4eef84e4f9ac52335fc742e4d5c2f175da0f98433fc480eb801c39c5d983d047"
+      "sha256": "3b7b532420fbce2ee1c1e1b5270c3f6449a39300464de2eb40887a39fe57fa5d"
     },
     {
       "path": "Modules/StationManual/DUTs/ST_StationManualStatus.st",
-      "sha256": "109d9bb15e25d61c055982cd06986e8f09e83f1ee8f0f184a1de436eaa78e415"
+      "sha256": "bdd50c239cbc7755873ca5752d5ce30f4529e5afe083a92b0c8ec143d9d056da"
     },
     {
       "path": "Modules/StationManual/FB_StationManual.st",
-      "sha256": "acf49d1ca0eea477bd4471523b643cefc309c21893e7cf9746dadd81df68bc6b"
+      "sha256": "42d29e26d6d0334eeb2b2aeea57a5f22f23adb13abec23a9844862034d2e08ca"
+    },
+    {
+      "path": "Modules/StationMaterial/DUTs/ST_StationMaterialEvent.st",
+      "sha256": "e93fab7b4459e47d0227e86716b32fadbdfc9bbfbb8547c233b21cebdf2853a3"
     },
     {
       "path": "Modules/StationMaterial/DUTs/ST_StationMaterialIn.st",
-      "sha256": "94582119d868f2aa1f04adf89a90577152125795e763f4a5144c986c36f54efb"
+      "sha256": "10404fec98e564d9ee6e4cb50b74a276079d15718e693f16d233ce1028e96907"
     },
     {
       "path": "Modules/StationMaterial/DUTs/ST_StationMaterialStatus.st",
-      "sha256": "8fd72daa99b26f883ed154bc250fff69c59b150877e3d9f1258a43f5fbd2c979"
+      "sha256": "e127192d8809d1f4f7a90d9ebf995c57250402404ead07b04433da775fc090a1"
     },
     {
       "path": "Modules/StationMaterial/FB_StationMaterial.st",
-      "sha256": "192d634252f412c32470ab34315b66b9d3641990f77b5f0ca5d8bebb32cfeb93"
+      "sha256": "af4073f2a352b2868083d1743e42fbb21f04e453b9cc55c4918d7a9196f129d2"
     },
     {
       "path": "Modules/StationParameters/DUTs/ST_StationParameterCfg.st",
-      "sha256": "963ab48cbe8899aa2f9b33f33b54b0c23bf1b8715d12033f431fae16637ea3d1"
+      "sha256": "31856c1169ba0d2a60f04db9f26be9f695bd8e73f6ec47d859350e7b8a80d8cf"
     },
     {
       "path": "Modules/StationParameters/DUTs/ST_StationParameterSet.st",
-      "sha256": "70ae92cefe6d54410e331eb0c1ff80aa68046f68b2a9a675c78107dd844c17a9"
+      "sha256": "5e9da22ca662a4454a1db3aa93c4f0244444a47cd6e11e459e71ebfeb5773f15"
     },
     {
       "path": "Modules/StationParameters/DUTs/ST_StationParametersIn.st",
-      "sha256": "ac77edfa4b011e48f7e5a04a2c9fde79c8b8f8110a1c681a0942870d72627ed3"
+      "sha256": "3fab9ab192a49414be5df9ff9424f913aae96620f0ec8f68fec86694c5aa7c07"
     },
     {
       "path": "Modules/StationParameters/DUTs/ST_StationParametersStatus.st",
-      "sha256": "ef37095d5501127d20e0fce4a6ab4847d627e24e87f9a2c9e112a48f379aae3b"
+      "sha256": "7485a2946142fa1f8b568925094a62451ecaeb418bc30d37571e75b911aad9bd"
     },
     {
       "path": "Modules/StationParameters/FB_StationParameters.st",
-      "sha256": "f58e2c7339aef817327dccdbf9820afbbb50c519558aad8c6fb8387bb27ab790"
+      "sha256": "a4d9d881b3d8349331f441a51c1c73420244f2e0f65a2dce79cff3035b46ebfd"
+    },
+    {
+      "path": "Modules/StationRecovery/FB_StationRecovery.st",
+      "sha256": "5aeecc9a1445ca6770da95feebc49969999a1dd27a7bbc3c578bb171af9e338b"
     },
     {
       "path": "Modules/StationTransport/DUTs/E_StationAction.st",
-      "sha256": "dd685390d927231e3f0435914a3dfd78a2b1b14f6505078ce56e0337dd71d4dc"
+      "sha256": "f5927edb83f67f5d3cd3ca6a3d5b1ebfa239b1676c5add12095371574e78e062"
     },
     {
       "path": "Modules/StationTransport/DUTs/E_StationOwner.st",
-      "sha256": "615f9773bc2154a9f364910333f6c260d5f8b7a699b3086601b6e5269b33bade"
+      "sha256": "ef65d2ed0e5cc2acacdcb28f63fb9e9c54cd44efb391b991daef26008624b893"
+    },
+    {
+      "path": "Modules/StationTransport/DUTs/ST_StationOperation.st",
+      "sha256": "874419546e271d374318709368d98d1e98f1de7afaca4aca74d908dedfc28408"
     },
     {
       "path": "Modules/StationTransport/DUTs/ST_StationTransportIn.st",
-      "sha256": "e98124a41175cd1302d34373ab28215db09ab62cfebe65ee6cb4b1ec93aff6d6"
+      "sha256": "8a54202b0c2854b5e272afd528f05b52ec846d048d0b72ec0c0e195a6982aedc"
     },
     {
       "path": "Modules/StationTransport/DUTs/ST_StationTransportStatus.st",
-      "sha256": "5067d03588761e177559bf62cfffff244f53b134d2c10704cd4d20946e986b14"
+      "sha256": "8bb4d6b9063db5a5646a93b5454b8daf963a8c845248bacef5aeae4706ca3a48"
     },
     {
       "path": "Modules/StationTransport/FB_StationTransport.st",
-      "sha256": "ccc99d0b22699ef38a8cda22e52d95a10111a444edf63ec9f3970fc21d84a505"
+      "sha256": "b1f7c10269f4926f153fe3056ac2336d4c59eec231ab6afc43569d2a2cc92b28"
     },
     {
       "path": "Modules/StopperPair/DUTs/E_StopperFault.st",
-      "sha256": "4dc5ee25d68dd26bdbedc6670b23caa7300d10ee7bb752b089f0607a574a270c"
+      "sha256": "dc20947bb87fd89562e03f6d1f9a50c9f7c522d6149e43fce9d43c62ae4a5503"
     },
     {
       "path": "Modules/StopperPair/DUTs/ST_StopperPairCfg.st",
-      "sha256": "af8b9110a85a1bb6fb916ccd2470f94f349553b62102e3995a261179aa64b4bc"
+      "sha256": "9104bd40e8df8e01a6b179dfe98c4581d8bbe863f1f3ff719526656fdb8973cc"
     },
     {
       "path": "Modules/StopperPair/DUTs/ST_StopperPairDiag.st",
-      "sha256": "7ba198191ccd215e239426a766d1f7a07460511e850b00666e6708030a90754e"
+      "sha256": "ce692e8c9f04a23c527aadf5c38c19e463d1ec99333558d1c870274c6dfd3fef"
     },
     {
       "path": "Modules/StopperPair/DUTs/ST_StopperPairIn.st",
-      "sha256": "4176c532f5de7ad4af57499d0937708442e0e4d099994cb99db2702c39057f24"
+      "sha256": "d6d92cfd813ea61ef5258f58f17ab19d387e59732bf7748f7d53892ca9d26daf"
     },
     {
       "path": "Modules/StopperPair/DUTs/ST_StopperPairOut.st",
-      "sha256": "3f3b3e876a9ca5e947bf2dc490951a34035acb95e105dd7f780463037cc17159"
+      "sha256": "2247cc6904483f42c89a96ac77f5c1b5d0fc113109882f4ed4f31693f18be2df"
     },
     {
       "path": "Modules/StopperPair/DUTs/ST_StopperPairStatus.st",
-      "sha256": "b64d9a4247100854e1ada2e68c0593e6889b32e76acf4cbfe09ed38c8ab8e727"
+      "sha256": "b9a9bac170cfcbf64e604878dce8018b2bfd055378181ee3148a3a767d694e72"
     },
     {
       "path": "Modules/StopperPair/FB_StopperPair.st",
-      "sha256": "fa63b260a2c1594f932e9f21eff5d09957c58e456cedf70022cbc85c7a91cee3"
+      "sha256": "14f5a73d88b2d83b48e449a8d258d74db6d191355b4c618127210a89fae05ccc"
     },
     {
       "path": "Modules/Storage/DUTs/E_StorageFault.st",
-      "sha256": "aacdf6f8950785ebf1d4aa152d738d1a5005ee343df8185960f0b4f0a2d2adf2"
+      "sha256": "bb64f71faf9e3660f8eb609bc75ec62c746b1ce9b985d2951f453ca88ea118b1"
     },
     {
       "path": "Modules/Storage/DUTs/E_StorageState.st",
-      "sha256": "7c77302830082a8ab9bace0c9d20b46d4c66956aa867fbf54ac326c937ca8f86"
+      "sha256": "9347079a103bedf4c4075377fa523f034ea1d16a670fb53d6ef500846ff06f0d"
     },
     {
       "path": "Modules/Storage/DUTs/ST_StorageCfg.st",
-      "sha256": "f98b026df9d2e5786b72fd3e0b6b69c7a95c904378c8e176eccd99bb93d31409"
+      "sha256": "c2921c4080dc25ecdff51c66473e4eedbaafd7cc3d6e5e7c56de2d941a419539"
     },
     {
       "path": "Modules/Storage/DUTs/ST_StorageCmd.st",
-      "sha256": "514d75e29da96ab9b225f1bffd6484e605df3607e71e6f195f39a68a107a42a8"
+      "sha256": "5522d599c80db708b9f8cfc5d00e50771de62ed8ee6f2564d19e4b45d332736b"
     },
     {
       "path": "Modules/Storage/DUTs/ST_StorageDiag.st",
-      "sha256": "3c3d94d9a818641b040ac997f87e7a75c7a924c5aa506dac21cccbe96e6137dc"
+      "sha256": "d3bb367a105e7d55b8346132c91fc4193087c24eafb5fc6e593c20491d65b529"
     },
     {
       "path": "Modules/Storage/DUTs/ST_StorageIn.st",
-      "sha256": "5ad65280f8f6945058a920efdcc8000b62cfa144f49ecf887a776202fbff378c"
+      "sha256": "0034f2adf1d82eedc477fb6e243848ea2dbe7737ed6de2cf1d395a3fcfc29539"
     },
     {
       "path": "Modules/Storage/DUTs/ST_StorageOut.st",
-      "sha256": "5c92fbad5d4f1cab2d1ffe8d98b6e9ae8c3e0676f4caef233ebdf48aa6ba35b6"
+      "sha256": "288e5cff4a8e11bd6ba158644d53e9564317cbb902d1e0c7c671ec97bd0f7de0"
     },
     {
       "path": "Modules/Storage/DUTs/ST_StorageStatus.st",
-      "sha256": "1f6aaadaf983df881b1799c1b720abcf7d481deac29963a9d463974c4fea35bc"
+      "sha256": "939add2e763ada32ba110796c7050eb42f233effaefd55584b38eb8c671bafce"
     },
     {
       "path": "Modules/Storage/FB_Storage.st",
-      "sha256": "32308c85ce8f3b8511a8fa86a5407730685fa9bff188421682872587f0c0cf9a"
+      "sha256": "8ac7beaa3fba3ade88ce578730594f181d4f1bf45fafd9f5646f476beb120ecd"
     },
     {
       "path": "Modules/TopFlowManager/DUTs/E_TopFault.st",
-      "sha256": "4fbc702536a14362e5b1e90698cd7ecc2dbf1dc73aeef0bde8397978548bcfb4"
+      "sha256": "68849edce976f6c77962f05de569975e90112ae8e071a0e35953bc753fe89a8a"
     },
     {
       "path": "Modules/TopFlowManager/DUTs/E_TopFlowState.st",
-      "sha256": "59c529b3fd934f1c319aa6b0a00bcc4658f2e6932bfbf2eb41cd15f2f55b2369"
+      "sha256": "2d0f579b040a1c2f76e4fa672bb37bf53dd342f82a85c515dbf1184aa4b006f1"
     },
     {
       "path": "Modules/TopFlowManager/DUTs/E_TopPos.st",
-      "sha256": "aafa211f1d7f4db7a5e3c61f58fac21c9f768d01b2b62341b46e25875f56d813"
+      "sha256": "a177cde2f713c883a10aebc859be01bef9dc91e8b557df49df5cf8199dfb3185"
     },
     {
       "path": "Modules/TopFlowManager/DUTs/E_TopTarget.st",
-      "sha256": "48cef105b7c1771887011c3c69a6cab6eebde329ab6c7f7bce7859f6297060a2"
+      "sha256": "cd467523f1a1ba7d8b5a7ce81d463b58aafb4c4979648facec84da1ef3062649"
     },
     {
       "path": "Modules/TopFlowManager/DUTs/ST_TopFlowCfg.st",
-      "sha256": "79131d320c9201a24eceacf6771dd922a6388571e8d765085ea4f3b63e59c7bd"
+      "sha256": "fcda88bdad1112ea43948ce242a55857cb06274dad485fabfdf7226124bba314"
     },
     {
       "path": "Modules/TopFlowManager/DUTs/ST_TopFlowCmd.st",
-      "sha256": "daa14aedd7fd9d373b2c2d5da06dcc0061c256a05ab1d9803aeb1560cf3cacef"
+      "sha256": "12a7fc9543ac3cc6e78955a0ce47172817913881baf880b2537293d78d157536"
     },
     {
       "path": "Modules/TopFlowManager/DUTs/ST_TopFlowDiag.st",
-      "sha256": "70ad7476ac23d0860df9c999cf5c72414a912d076a7d477390d5de7150a53803"
+      "sha256": "3007e2adc3f80c6e946e83ea9e05beddbbcfc84fb68723f63e35c02ff4d00734"
     },
     {
       "path": "Modules/TopFlowManager/DUTs/ST_TopFlowIn.st",
-      "sha256": "a5a38cb23ae35aa36d569b5ab125f3d38751daf656188782721a3b8b5b1fdbff"
+      "sha256": "6c2a77cf4d70af34773b3d04228dc58cddcc28ea67a52bd6f58d7e9c271e9ec2"
     },
     {
       "path": "Modules/TopFlowManager/DUTs/ST_TopFlowOut.st",
-      "sha256": "ffd64b1f1a8cb9049227d668f17c06fe88b5a771eab130fcf0967143610cfc8d"
+      "sha256": "c8049566ea620b732f65115a2950cc200edf95abdb20e96e5b75bb7c186bc8f8"
     },
     {
       "path": "Modules/TopFlowManager/DUTs/ST_TopFlowStatus.st",
-      "sha256": "8c484c21e5549a807f9088cae3fd0cfc280e36efe7a17c9c12305748a6b60f08"
+      "sha256": "a0bf7ad05556eb19b8686de79da4495800d0f9bbd03e52472933bb45690ffb15"
     },
     {
       "path": "Modules/TopFlowManager/FB_TopFlowManager.st",
-      "sha256": "7c45de2a0829ad9c7d202da003f4c31a48cd3360704aa9c485c39fd3f12b296a"
+      "sha256": "aac1df317d645f522c598dc5afb70604a3439d9d53dbc94ecbc2abdc908c4291"
     },
     {
       "path": "Modules/TraySequencer/DUTs/E_TraySeqFault.st",
-      "sha256": "bda6974d290071b2db9b5928f9b3da12f44722b2a20c3a6d7bc6a57508de32bf"
+      "sha256": "20e3685c4c59e0212f598d7befeeb1094b5909221144c74af8d712efdff4b7ca"
     },
     {
       "path": "Modules/TraySequencer/DUTs/E_TraySeqState.st",
-      "sha256": "e012a66328c9ed49ef45af54fab5bd6fd3686daba15b9607c6b170915f629562"
+      "sha256": "2fd445f2a2879aaf9829efe407f4a28481da4de9c7201b3c6d61b7392d1dda21"
     },
     {
       "path": "Modules/TraySequencer/DUTs/ST_TraySeqCfg.st",
-      "sha256": "12786ab8a45304522d14fae60bd891f6aab2227bdf3ab3625c6d99139742aaf0"
+      "sha256": "c0f71c59b64306f45d269510350e165bf0465743df1e903d0ccaa5246f016198"
     },
     {
       "path": "Modules/TraySequencer/DUTs/ST_TraySeqCmd.st",
-      "sha256": "53a7ec7a1c3666a8a499604d900f8f5fc28ad429173a273e5c098977b04a2117"
+      "sha256": "233f837f568945d7a10842c07d9e1b8488a639f85e6a3b5857e1a51b71147d96"
     },
     {
       "path": "Modules/TraySequencer/DUTs/ST_TraySeqDiag.st",
-      "sha256": "2ac57deaef1c87a989af502c51448dd40d48722e8cf2a7f3c9195c708251e9b2"
+      "sha256": "edc804edd336cd5c44d86e3bac3795e8f6a015700f84bb007c68f7731a7c2ce9"
     },
     {
       "path": "Modules/TraySequencer/DUTs/ST_TraySeqIn.st",
-      "sha256": "255b1756ab2d2affd41bd527881b675af574fce5ca890f7ea1a0712856dc2257"
+      "sha256": "ad36633015b6332356e7b12305a14599fca38ca2de3b5dedce3c6ad67d7afbf4"
     },
     {
       "path": "Modules/TraySequencer/DUTs/ST_TraySeqOut.st",
-      "sha256": "9cde956631f31071b06dedd34998955cbf4be80d6245cbfdf36cefd7665391e2"
+      "sha256": "f64020b32a39ac75a249a0a03e9d789105f7babf0e2c10deac9ce2e34a37afd7"
     },
     {
       "path": "Modules/TraySequencer/DUTs/ST_TraySeqStatus.st",
-      "sha256": "1d240004e99975fea23dae9b74b5f84ee0c64106d0bcc601da40b25a88ac8c5a"
+      "sha256": "1ebbc24f369e96692a745bb5409aa16438376de6eebdfeb24077c9f0351bee0b"
     },
     {
       "path": "Modules/TraySequencer/FB_TraySequencer.st",
-      "sha256": "60c86230c48662791891013cd44f70cc22697f078d0bde39cba0b8029e93fce8"
+      "sha256": "a08c7f89b0b88a1de6eb1ff7f10d97cf0fdb0a60615e053487a22c6aee869613"
+    },
+    {
+      "path": "ROBOT/BG/BG_BIND.LS",
+      "sha256": "be8c52e4e0baf2582faa5737a0e6259911cf700aebb75f14cb170d090242a483"
+    },
+    {
+      "path": "ROBOT/BG/BG_GUARD.LS",
+      "sha256": "73a05db1fa3dc562de82d460c59b5a4a0e1e3c92cad6736605d7796be19a8582"
+    },
+    {
+      "path": "ROBOT/BG/BG_STATUS.LS",
+      "sha256": "6f667515260ef6fcd3fff7c3fa87b91a2d020f626ddae573b7f92f34f31e12fe"
+    },
+    {
+      "path": "ROBOT/BG/bindings.json",
+      "sha256": "308e924fc3e39684272a36b9303180ee60b36b57dcca26a212c2fdd8f21283d3"
+    },
+    {
+      "path": "ROBOT/BOX/MAIN_BOX.LS",
+      "sha256": "859fb411b47724be5b76cf667649e4bf79bbaaafb8f10d2f29af64a272219a07"
+    },
+    {
+      "path": "ROBOT/BOX/points.csv",
+      "sha256": "7ae18c647dabe6d80dc31ed9230588e52087d9e96165223ce0885816362d1efc"
+    },
+    {
+      "path": "ROBOT/BOX/resources.json",
+      "sha256": "0ecef06830cdac5471345728a3fb70a0dba31108af98f23c9970b8fea5b9a566"
+    },
+    {
+      "path": "ROBOT/COMM/BG_PLC.LS",
+      "sha256": "5172d70872c7c1381a686855f34df76aafa2107700ab7e96480f4f926de4587e"
+    },
+    {
+      "path": "ROBOT/COMM/PLC_AREA.LS",
+      "sha256": "28eafd1b4c1923bed3734a3ef0045338f8d7f86b9211749b07569fb4f63ae2e7"
+    },
+    {
+      "path": "ROBOT/COMM/PLC_CMD.LS",
+      "sha256": "1f935f39452e5a48f6ef272640b5bf8eabc334716e30850252b407c7366c6ea9"
+    },
+    {
+      "path": "ROBOT/COMM/PLC_CYL.LS",
+      "sha256": "317aaca80919a4f49b463f8d094ba60751c8835543fa3ab5a3cf712a99aef7b0"
+    },
+    {
+      "path": "ROBOT/COMM/PLC_EVT.LS",
+      "sha256": "ab59339b382ee0270e0ed818d1a6eb5e13c828a58fc6e1b18f189649f7a0a339"
+    },
+    {
+      "path": "ROBOT/COMM/PLC_IMM.LS",
+      "sha256": "d546d56c319d44cc513dc3c7b58c987385cdcc17e2e5fad5c47caf61b1b3059a"
+    },
+    {
+      "path": "ROBOT/COMM/PLC_INIT.LS",
+      "sha256": "fdba9df3e23c5a24d96ec854dbfbded8a80e9c01cbff9a789a28536c575ed6c0"
+    },
+    {
+      "path": "ROBOT/COMM/PLC_LINK.LS",
+      "sha256": "c303f101d359a57a03f9c36fd836ede905471b4a4fcc37da0b7d6d60b00c1761"
+    },
+    {
+      "path": "ROBOT/COMM/PLC_LIVE.LS",
+      "sha256": "455ab7884b0000c10a11588e4a74b86d1a63909cbf27e848a8cff78a51d48eec"
+    },
+    {
+      "path": "ROBOT/COMM/PLC_LOST.LS",
+      "sha256": "4b21fbc2d1b54efc67990c3db2f658959abe850617b8a5e25c3bb231c06bd935"
+    },
+    {
+      "path": "ROBOT/COMM/PLC_REC.LS",
+      "sha256": "0c8a6b60963cf70194a97cd5545da1412d2130a69528b5b93a261449069503e6"
+    },
+    {
+      "path": "ROBOT/COMM/PLC_RX.LS",
+      "sha256": "d238813c4f44d43f4a68ad86f83b49d9660b34fff4977d19ed9f60d7d8b46e8a"
+    },
+    {
+      "path": "ROBOT/COMM/PLC_SCAN.LS",
+      "sha256": "a58fbacc4c650398af8fad68757aaf9df28cac553f1a0d2d8cf211611ca252e2"
+    },
+    {
+      "path": "ROBOT/COMM/PLC_SMPL.LS",
+      "sha256": "a80c8c5ded29c7fe529596b45048165e9879d75fa885d4d75b0b0fbef168ef7b"
+    },
+    {
+      "path": "ROBOT/COMM/PLC_SVC.LS",
+      "sha256": "41d50fc95a243e77931ba79e6e4ca516a0913d56af89e2915027151a92b6adb4"
+    },
+    {
+      "path": "ROBOT/COMM/PLC_TX.LS",
+      "sha256": "09640af3f0851c0a5e9b267f86a1a2423b8b746060a6f0f7ecec07e72ab74953"
+    },
+    {
+      "path": "ROBOT/COMM/PLC_VAC.LS",
+      "sha256": "cae4eb70423fae5e6cf0f52cb634a417caac1af1964ad42c357f6c6e5a0896d2"
+    },
+    {
+      "path": "ROBOT/COMM/descriptions.csv",
+      "sha256": "0e8d7ffa90736a3388d663181b0ba0030421b9c3a0087ea0623417cea3e611c5"
+    },
+    {
+      "path": "ROBOT/COMM/descriptions.json",
+      "sha256": "816aecff53ca10c19a43a56d8925dd5893e87e509d789a98dc92faa2512fbd11"
+    },
+    {
+      "path": "ROBOT/COMM/mapping.csv",
+      "sha256": "549bd3f9eb1ac4d9a621779f9a7df8741231ab9cf881b48559e913cd18e4efa1"
+    },
+    {
+      "path": "ROBOT/COMM/mapping.json",
+      "sha256": "1d679bf59dfbf054b0087fc54e7fd21ded05434b06d35ca605308d698c4a431d"
+    },
+    {
+      "path": "ROBOT/COMM/resources.json",
+      "sha256": "c0cd09fbf757e64c1de32cb99cc5ce079efe0b42588c8391be7843eeed89a79e"
+    },
+    {
+      "path": "ROBOT/COMMON/descriptions.csv",
+      "sha256": "cd4ea4984e77f76f3241c3e23b8e50436fa769ae81c0ba800d5ee831a05d53f3"
+    },
+    {
+      "path": "ROBOT/COMMON/descriptions.json",
+      "sha256": "4601eb44c367c3b38e25d1cb4265f9e67f6edb33be171f4dc37ac03c38e558df"
+    },
+    {
+      "path": "ROBOT/COMMON/resources.json",
+      "sha256": "308df5b22b5bbaddde38ccd2ca9664458d39502c22fa8459543e3c2af4ccde51"
+    },
+    {
+      "path": "ROBOT/TEST/COMM/BG_PLC.LS",
+      "sha256": "8c1ba0459aacfd34a2f38c42f904c2cb666e3e854477f4fac282a6ae12c31f3b"
+    },
+    {
+      "path": "ROBOT/TEST/COMM/PLC_AREA.LS",
+      "sha256": "28eafd1b4c1923bed3734a3ef0045338f8d7f86b9211749b07569fb4f63ae2e7"
+    },
+    {
+      "path": "ROBOT/TEST/COMM/PLC_CMD.LS",
+      "sha256": "1f935f39452e5a48f6ef272640b5bf8eabc334716e30850252b407c7366c6ea9"
+    },
+    {
+      "path": "ROBOT/TEST/COMM/PLC_CYL.LS",
+      "sha256": "317aaca80919a4f49b463f8d094ba60751c8835543fa3ab5a3cf712a99aef7b0"
+    },
+    {
+      "path": "ROBOT/TEST/COMM/PLC_EVT.LS",
+      "sha256": "ab59339b382ee0270e0ed818d1a6eb5e13c828a58fc6e1b18f189649f7a0a339"
+    },
+    {
+      "path": "ROBOT/TEST/COMM/PLC_IMM.LS",
+      "sha256": "d546d56c319d44cc513dc3c7b58c987385cdcc17e2e5fad5c47caf61b1b3059a"
+    },
+    {
+      "path": "ROBOT/TEST/COMM/PLC_INIT.LS",
+      "sha256": "2372931138f29d9dbc8a6cd7cf10965035c3bd5bdf64a8a4e2d4e70865dfec78"
+    },
+    {
+      "path": "ROBOT/TEST/COMM/PLC_LINK.LS",
+      "sha256": "c303f101d359a57a03f9c36fd836ede905471b4a4fcc37da0b7d6d60b00c1761"
+    },
+    {
+      "path": "ROBOT/TEST/COMM/PLC_LIVE.LS",
+      "sha256": "b441f4eebb9c4737371e90e0731bc37c0810ddc0c45aaeb7d6a9b7034dd1b17e"
+    },
+    {
+      "path": "ROBOT/TEST/COMM/PLC_LOST.LS",
+      "sha256": "4b21fbc2d1b54efc67990c3db2f658959abe850617b8a5e25c3bb231c06bd935"
+    },
+    {
+      "path": "ROBOT/TEST/COMM/PLC_REC.LS",
+      "sha256": "0c8a6b60963cf70194a97cd5545da1412d2130a69528b5b93a261449069503e6"
+    },
+    {
+      "path": "ROBOT/TEST/COMM/PLC_RX.LS",
+      "sha256": "9e0047a8e029c4d8710417b70bd552c5cc5272bfb867c128bc80a8350f4a2008"
+    },
+    {
+      "path": "ROBOT/TEST/COMM/PLC_SCAN.LS",
+      "sha256": "a58fbacc4c650398af8fad68757aaf9df28cac553f1a0d2d8cf211611ca252e2"
+    },
+    {
+      "path": "ROBOT/TEST/COMM/PLC_SMPL.LS",
+      "sha256": "a80c8c5ded29c7fe529596b45048165e9879d75fa885d4d75b0b0fbef168ef7b"
+    },
+    {
+      "path": "ROBOT/TEST/COMM/PLC_SVC.LS",
+      "sha256": "41d50fc95a243e77931ba79e6e4ca516a0913d56af89e2915027151a92b6adb4"
+    },
+    {
+      "path": "ROBOT/TEST/COMM/PLC_TEST.LS",
+      "sha256": "02ba4cc7b54f18c20e93e763c1eadf4a037e653b7afb2295c124eb32e05fefcc"
+    },
+    {
+      "path": "ROBOT/TEST/COMM/PLC_TX.LS",
+      "sha256": "ce4a6b76f025f10fba385b8064b59a19925ff45a72fae1621ce043e1ffa165c3"
+    },
+    {
+      "path": "ROBOT/TEST/COMM/PLC_VAC.LS",
+      "sha256": "cae4eb70423fae5e6cf0f52cb634a417caac1af1964ad42c357f6c6e5a0896d2"
+    },
+    {
+      "path": "ROBOT/TEST/COMM/descriptions.csv",
+      "sha256": "c20443d0f3bfe3a90aa02829e997593c70aead662b8a8c37a8925aede4336c81"
+    },
+    {
+      "path": "ROBOT/TEST/COMM/descriptions.json",
+      "sha256": "7a9992a15319a0061a010ef35da19e27e3ea1f7166d39158d63a545289a9853a"
+    },
+    {
+      "path": "ROBOT/TEST/COMM/mapping.csv",
+      "sha256": "549bd3f9eb1ac4d9a621779f9a7df8741231ab9cf881b48559e913cd18e4efa1"
+    },
+    {
+      "path": "ROBOT/TEST/COMM/mapping.json",
+      "sha256": "c68f75b2d685eaddf243e5ca2a3838a2fd80c317c9e86c08735c34bd2b09e303"
+    },
+    {
+      "path": "ROBOT/TEST/COMM/resources.json",
+      "sha256": "4fb7af015d894651a1bc232b892baeaf1dafc1de2d5f46a1cfc2e9ade43b361b"
+    },
+    {
+      "path": "ROBOT/TRAY/MAIN_TRAY.LS",
+      "sha256": "41a29876c7454964a487c7e3b1924ee5b00c8a148b731f7da8d98bf491ec2c53"
+    },
+    {
+      "path": "ROBOT/TRAY/points.csv",
+      "sha256": "65d6f4a6d30dbfa57b95ba872df2ea095c8958e193e6d98cb533441bee5930d4"
+    },
+    {
+      "path": "ROBOT/TRAY/resources.json",
+      "sha256": "15287bc5c03800026184d6e03c6bf83ba2fb0aaf245fadd68deb4aecab4d3aa1"
+    },
+    {
+      "path": "ROBOT/program-migration.csv",
+      "sha256": "5d37861ee3b6bbedc4adf75807dee1e3c132d3d5884fcef53e4e7ddb9c6f26d0"
     },
     {
       "path": "tools/build_fanuc_comm.py",
@@ -743,7 +1044,7 @@
     },
     {
       "path": "tools/build_fanuc_tray.py",
-      "sha256": "f0cf97c3f7240aeebda2a1a446bf18b2821d0ee45cbe9347de3378913836fc0c"
+      "sha256": "2d7f269744d2c580f5fea52f0d06fbd75787d1b158f65df7ba6931c2ba58fbb3"
     },
     {
       "path": "tools/build_plc_robot.py",
@@ -767,15 +1068,15 @@
     },
     {
       "path": "tools/check_plc_release.py",
-      "sha256": "6a9b1d6dc132209f6ba1136fafa9131e8f18395a362e6bb10f2ac00fb1cece65"
+      "sha256": "28e55ba76917e93958c3e4cfbd2563eddf832033b8e5946620eb866a6fd6d974"
     },
     {
       "path": "tools/check_plc_robot.py",
-      "sha256": "8561cef4ddc132ec4ab82fd86d61b17e6115084a1a16e6c9f2ba8538624d6576"
+      "sha256": "4cb6021daaba121def974784fb84cf22d66a553924ecbc778ce5fa99ee258432"
     },
     {
       "path": "tools/check_plc_structure.py",
-      "sha256": "95a0823a4bea1006fdf9b3db789cc6885a05e300121a2df819f2773a2679b91e"
+      "sha256": "7ff55abd22eb8fb980c6601ab2c8de6553a2fe263b04e9b5f232597fae21a239"
     },
     {
       "path": "tools/check_robot_contract.py",
@@ -783,7 +1084,11 @@
     },
     {
       "path": "tools/check_station.py",
-      "sha256": "e250b267527f824415e05d7da082752523a53b11776f5305849060467a4eb3ab"
+      "sha256": "02ff292acebaa68bd698874127dc4e81d1d2c2c6bb5c03ef0979d5d72e553bb5"
+    },
+    {
+      "path": "tools/check_station_integration.py",
+      "sha256": "faf2da82cbc7bfa3c538dfe18e209ef6e31decb33c679357989553a51b57802e"
     },
     {
       "path": "tools/fanuc_box.py",
@@ -802,20 +1107,28 @@
       "sha256": "fc94961fef7efa464a2c45051e687c3dab172ae10525786c31bd8748ece54f3c"
     },
     {
+      "path": "tools/fanuc_meanings.csv",
+      "sha256": "6ec7bf455fd2bed2b66f87ad85910ce121990a3f9695eceb1fae442920613c58"
+    },
+    {
       "path": "tools/fixtures/NativeAtv.st",
-      "sha256": "cb92d767c7d85b9af39b0133433f53172cbc3a4f239badd2f71be2a5960578b1"
+      "sha256": "d0134cfd9162078d6bf567370581d6f5b9ee4fa21c45d0f6afbc7a40dc467bbe"
     },
     {
       "path": "tools/plc_robot_cosim.py",
-      "sha256": "4dd550f690544ae67e04ef939e2d0727ace13635bc1080be88cec8239615a03b"
+      "sha256": "4cec890c5b99a0e1bc9093d546685020e0078a703d08a1830311f33952cadd17"
     },
     {
       "path": "tools/plc_st_runtime.py",
-      "sha256": "c47112c029bbda6a6ae4e491eed050f63372868cc133537ff250d58cf7b34329"
+      "sha256": "80b6b502b6fdb551862941bacbc55b040ea6f1eae351d6df6e8d4e5d6408ab32"
+    },
+    {
+      "path": "tools/plc_station_cosim.py",
+      "sha256": "53bac48ba6ecec73fca8b48a781df185215c0f47d293a448f3f9a1122b0e5d92"
     },
     {
       "path": "tools/plc_station_main.py",
-      "sha256": "f4ac5ea70081688ed2b131805187f7985e5a4e58244d300622a47ed3af5c3ec9"
+      "sha256": "d7097c3cf2823856142cc84bc08d6b131151822098ec8a8038887b8a25e74466"
     }
   ]
 }

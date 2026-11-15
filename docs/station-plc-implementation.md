@@ -2,12 +2,17 @@
 
 Stan: 2026-11-15. **ŹRÓDŁA I TESTY OFFLINE. Nie wykonano kompilacji Machine Expert, importu FANUC ani FAT/SAT.**
 
-Pakiet uzupełnia [integrację PLC–robot](plc-robot-implementation.md). Kontrakt robota pozostaje v2: 227 pól, 80 B/kierunek, niezmieniony layout. Kontekst PLC ma teraz **schema=3**, a interfejs HMI **uiContractVersion=3**. Są to niezależne wersje.
+Pakiet uzupełnia [integrację PLC–robot](plc-robot-implementation.md). Kontrakt robota pozostaje v2: 227 pól, 80 B/kierunek, niezmieniony layout. Kontekst PLC ma teraz **schema=4**, a interfejs HMI **uiContractVersion=4**. Są to niezależne wersje.
+
+Aktualną architekturę Controller/DriveAdapter/StationRecovery, zasoby, ID operacji i migrację opisuje [integracja całej stacji](station-integration.md).
 
 ## 1. Moduły i odpowiedzialność
 
 | Moduł | Odpowiedzialność | Wymagania / próby |
 |---|---|---|
+| FB_StationController | Typowane porty, kolejność skanu i końcowa finalizacja wyjść | REQ-01–22, próby integracyjne |
+| FB_ElevatorDriveAdapter | Jedyny natywny GIATV i ważny feedback prędkości | GAP-06, odbiór natywny OTWARTY |
+| FB_StationRecovery | Uzgodnienie materiału po Manual i przerwanym transferze | REQ-19/21, AT-13 |
 | FB_StationIo | Filtracja obu stanów wejść, ważność obrazu i modułów, osobna bariera ST.1 | REQ-08/13, AT-06/09 |
 | FB_StationMaterial | Model P1–P7 i windy; zachowanie ładunku między czujnikami, odroczony commit po ruchu | REQ-05/19/21, AT-04/13 |
 | FB_StationTransport | Właściciel produkcja/drain/lokalny/manual, zachowanie rozpoczętej operacji | REQ-03/05/06/21, AT-02/04/05 |
@@ -56,7 +61,7 @@ Wszystkie ustawienia verified/configured i ważności startują od FALSE. RAW i 
 - Najpierw zwalniane jest potrzebne miejsce na dole i ładunek windy; następnie reszta górnych buforów. Pozostały pusty stos blistrów jedzie w całości. Ostatni odbiór jest warunkiem zamknięcia zlecenia.
 - Timeout siłownika ST.1–ST.4 blokuje zależną czynność. TopFlow nie dodaje wtórnego krytycznego timeoutu tego samego oczekiwania.
 
-Retencja schema=3 obejmuje dodatkowo fazę i właściciela opróżniania, odbiór B304, aktywne nastawy i rewizje. Schema=2 jest odrzucane przez walidację. Zachować kopię dotychczasowych danych; nie nadpisywać ich pustym kontekstem w celu obejścia migracji. Proposal wymaga jawnego uzgodnienia ładunków, cykli i transferów do postoju. Stan kroku jest diagnostyczny, bez automatycznego odtwarzania ruchu w połowie transferu.
+Retencja schema=4 obejmuje dodatkowo fazę i właściciela opróżniania, odbiór B304, aktywne nastawy i rewizje. Schema=2/3 jest odrzucane przez walidację. Zachować kopię dotychczasowych danych; nie nadpisywać ich pustym kontekstem w celu obejścia migracji. Proposal wymaga jawnego uzgodnienia ładunków, cykli i transferów do postoju. Stan kroku jest diagnostyczny, bez automatycznego odtwarzania ruchu w połowie transferu.
 
 Ruch Manual unieważnia model materiału. Dopuszczone ruchy ręczne można zakończyć w Manual; po powrocie do Auto nadzór wymusza recovery. ResetState nie usuwa ładunków, liczników ani zobowiązań i również wymaga uzgodnienia. Reset i powrót łączności nie udzielają Start.
 
@@ -64,7 +69,7 @@ Ruch Manual unieważnia model materiału. Dopuszczone ruchy ręczne można zako�
 
 Sesję, monotoniczne ID, neutralizację i czterofazową transakcję nadal prowadzi jeden FB_RobotHmi. Dodano station1–4ParamApply, station1–5ParamReload, station1–5ResetState i alarmAckAll. Dalszy wynik semantyczny wraca z głównej integracji; samo przyjęcie transportu HMI nie oznacza zakończenia ruchu. Snapshot parametrów jest zamrożony przy przyjęciu żądania.
 
-Publiczne pola: hmiV2.station, stationManual, stationEdit[1..4], stationActual, stationRevision, stationEditRevision oraz dotychczasowe edit/actual dla ilości ST.5. Apply wymaga postoju, zgodnej rewizji i zweryfikowanych zakresów ParameterCfg; zlecenie może pozostać otwarte. Ilość detali nadal wymaga zamkniętego zlecenia. Reload kopiuje aktywne dane i rewizję. Nie zerować rewizji po wyczerpaniu UINT bez kontrolowanej migracji.
+Publiczne pola: hmiV2.station, stationManual, immManual, stationEdit[1..4], stationActual, stationRevision, stationEditRevision oraz dotychczasowe edit/actual dla ilości ST.5. Apply wymaga postoju, zgodnej rewizji i zweryfikowanych zakresów ParameterCfg; zlecenie może pozostać otwarte. Ilość detali nadal wymaga zamkniętego zlecenia. Reload kopiuje aktywne dane i rewizję. Nie zerować rewizji po wyczerpaniu UINT bez kontrolowanej migracji.
 
 Zestaw ST.1–ST.4 zawiera sensorStableMs, stopDelayMs, moveTimeoutMs, actuatorTimeoutMs, a ST.2 także slowHz/fastHz. Czasy interfejsu są UDINT w ms; walidacja ogranicza je przed TO_TIME. Parametry techniczne napędu i polityki cewek nie są edytowane przez ten interfejs. Winda do krawędzi korzysta z aktywnej prędkości wolnej.
 
@@ -76,7 +81,7 @@ hmiIo.value/valid zawiera komplet **159 nazw z 166 wierszy** mapy źródłowej i
 
 ## 5. Weryfikacja i przekazanie
 
-`python -B tools/check_plc_release.py` uruchamia 11 kontroli. W pakiecie stacyjnym wykonywane są rzeczywiste źródła ST, w tym PRG_Main. Jego GIATV oraz I/O są jawnymi fixture testowymi w tools, a nie zaimportowaną biblioteką ani modelem mechaniki. Nie importować tools/fixtures do PLC.
+`python -B tools/check_plc_release.py` uruchamia 12 kontroli. W pakiecie stacyjnym wykonywane są rzeczywiste źródła ST, w tym PRG_Main. Jego GIATV oraz I/O są jawnymi fixture testowymi w tools, a nie zaimportowaną biblioteką ani modelem mechaniki. Nie importować tools/fixtures do PLC.
 
 Zakres prób: wszystkie 128 kombinacji początkowej zajętości obu produkcji w modelu koordynacji, Stop/Start/Manual, ostatni odbiór, B304 stale 0/1, brak kolejkowania lokalnego żądania, utrata ważności, retencja ładunku podczas ruchu, osobne watchdogi, konflikty, rewizje i atomowe Apply, alarm ACK/Reset, zamrożony payload HMI oraz brak ruchu niepowiązanego PRG_Main. Mechanika przejazdów w modelu opróżniania jest syntetyczna; osobne testy wykonują ST.1 i ST.3.
 
@@ -84,4 +89,4 @@ Pozostają otwarte fizyczne GAP-01–09 oraz zależny zakres GAP-11/12. GAP-10 r
 
 Kolejność przekazania: DUT/FB/GVL/PRG → kompilacja Machine Expert z właściwymi bibliotekami → fizyczne bindingi i diagnostyka → import rzeczywistych symboli do Vijeo → próby pojedynczych urządzeń → wspólne próby robot–IMM–transport → FAT/SAT. PRG_IO_Read/Write są wywoływane raz wewnątrz PRG_Main; nie dodawać ich ponownie do zadania.
 
-Wynik końcowy: **11/11 kontroli, 137 testów offline**, w tym 32 testy stacji. [Raport i granice weryfikacji](station-verification.md).
+Wynik końcowy: **12/12 kontroli, 159 testów offline**, w tym 32 testy modułów stacji i 22 regresje integracyjne. [Raport i granice weryfikacji](station-verification.md).

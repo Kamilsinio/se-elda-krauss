@@ -29,5 +29,7 @@ STRUCT
     cylinders : ARRAY[1..5] OF ST_RobotCylinderIn;
     vacuum : ARRAY[1..5] OF ST_RobotVacuumIn;
     imm : ST_RobotImmIn;
+    physicalIdle : BOOL;
+    stationRecoveryConfirmed : BOOL;
 END_STRUCT
 END_TYPE

@@ -26,6 +26,7 @@ FOR i := 1 TO 16 DO
  IF i = 2 OR i = 4 OR (i >= 10 AND i <= 12) THEN expectedPanel := 112; END_IF;
  IF i = 3 OR i = 13 OR i = 14 THEN expectedPanel := 113; END_IF;
  IF i >= 15 THEN expectedPanel := 114; END_IF;
+ IF Inp.panelOverride > 0 THEN expectedPanel := Inp.panelOverride; END_IF;
  held := Cmd.positive[i] OR Cmd.negative[i];
  IF lastSession <> Inp.sessionId OR lastPanel <> Inp.panel OR NOT valid OR Inp.panel <> expectedPanel THEN released[i] := FALSE; END_IF;
  IF valid AND Inp.panel = expectedPanel AND NOT held THEN released[i] := TRUE; END_IF;

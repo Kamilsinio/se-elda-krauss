@@ -198,3 +198,10 @@ Przygotowano źródła integracji kontraktu v2 z PLC: transport, sesję, zdarzen
 Potwierdzone ustalenia pakietu: Manual jest odrzucany do zakończenia operacji i nie jest kolejkowany; recovery dopuszcza jawnie uzgodniony częściowy kontekst; pełne opróżnianie ma wyłącznie interfejs do osobnego wykonawcy. Stare Start/Continue/Abort i bezpośrednia próżnia nie obchodzą nowego nadzoru.
 
 REQ-01–04/09–19/21/22 mają częściową realizację źródłową. REQ-05/06/07 i pełne warianty opróżniania pozostają do osobnego etapu. Testy modelowe AT nie zamykają odbiorów sprzętowych. Nie wykonano kompilacji Machine Expert, konfiguracji EIP/Festo, uruchomienia HMI ani FAT/SAT. GAP-03/04/05/06/08/09/11/12 pozostają otwarte w zależnym zakresie.
+
+
+## 11. Integracja modułów stacji — 2026-11-15
+
+W źródłach wykonano StationController, osobny adapter GIATV, StationRecovery oraz pełne połączenie Drain z wykonawcami. Rozdzielono rezerwacje zasobów, potwierdzenia operacji i zdarzenia materiałowe. Usunięto odtworzone błędy starych urządzeń i granicy recovery. Aktualne kontrakty to schema=4, HMI v4, wire robota nadal v2/80 B. [Architektura, migracja i kolejność uruchomienia](station-integration.md) oraz [raport offline](station-verification.md) zastępują powyższe historyczne opisy ograniczenia Drain do samego interfejsu i zakresu REQ-05/06/07 jako niewykonanego źródłowo.
+
+Realizacja źródłowa nie zamyka etapów natywnych E1–E5 ani fizycznych AT. GAP-10 rozstrzygnięto funkcjonalnie przez zachowanie opisane w implementacji stacji; pozostałe zależne GAP, w tym macierz GAP-12 i retencja projektu natywnego GAP-11, pozostają otwarte.

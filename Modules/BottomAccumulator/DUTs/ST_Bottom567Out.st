@@ -10,5 +10,13 @@ STRUCT
     HoldStop6 : BOOL;
     SingleUnloadDonePulse : BOOL;
     AcceptedPulse : BOOL;
+    SingleUnloadIssuedPulse : BOOL;
+    MaterialMovedPulse : BOOL;
+    MaterialSource : UINT;
+    MaterialTarget : UINT;
+    AcceptedId : UDINT;
+    DischargeDoneId : UDINT;
+    UnloadDoneId : UDINT;
+    AdvanceDoneId : UDINT;
 END_STRUCT
 END_TYPE

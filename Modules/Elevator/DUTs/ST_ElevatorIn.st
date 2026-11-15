@@ -18,5 +18,6 @@ STRUCT
   // Komunikacja i feedback z falownika
   xCommOk        : BOOL;
   stVfdRx        : ST_ATV320_Rx;
+    drive : ST_ElevatorDriveIn;
 END_STRUCT
 END_TYPE
