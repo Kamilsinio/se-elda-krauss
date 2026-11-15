@@ -1,13 +1,13 @@
 TYPE ST_TraySeqIn :
 STRUCT
-    TopFlow_OccP3 : BOOL;
+    TopFlow_OccP3 : BOOL; // LEGACY: nieuzywane w v4; patrz docs/plc-review-fixes.md.
     TopFlow_StackReadyAtP3 : BOOL;
-    TopFlow_Busy : BOOL;
-    TopFlow_Fault : BOOL;
-    TopFlow_ElevDeliveredAtP4 : BOOL;
+    TopFlow_Busy : BOOL; // LEGACY: nieuzywane w v4; patrz docs/plc-review-fixes.md.
+    TopFlow_Fault : BOOL; // LEGACY: nieuzywane w v4; patrz docs/plc-review-fixes.md.
+    TopFlow_ElevDeliveredAtP4 : BOOL; // LEGACY: nieuzywane w v4; patrz docs/plc-review-fixes.md.
     Elev_AtTop : BOOL;
     Elev_AtBottom : BOOL;
-    Elev_AtTarget : BOOL;
+    Elev_AtTarget : BOOL; // LEGACY: nieuzywane w v4; patrz docs/plc-review-fixes.md.
     Elev_Busy : BOOL;
     Elev_CommandReady : BOOL;
     Elev_Fault : BOOL;

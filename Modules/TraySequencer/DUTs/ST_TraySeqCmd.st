@@ -3,7 +3,7 @@ STRUCT
     Enable : BOOL;
     NewOperations : BOOL;
     FinishOperations : BOOL;
-    StopRequested : BOOL;
+    StopRequested : BOOL; // LEGACY: nieuzywane w v4; patrz docs/plc-review-fixes.md.
     RecoveryRequired : BOOL;
     SafetyOK : BOOL;
     ResetFault : BOOL;

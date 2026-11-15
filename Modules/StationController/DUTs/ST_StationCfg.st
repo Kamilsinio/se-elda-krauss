@@ -9,6 +9,8 @@ STRUCT
     station_ParameterCfg : ST_StationParameterCfg;
     station_ElevatorCfg : ST_ElevatorPar;
     station_ElevatorCfgVerified : BOOL;
+    station_LocalFaultPolicyVerified : BOOL;
+    station_LocalFaultPolicy : ARRAY[1..10] OF ST_StationCoil;
     station_ManualReleaseVerified : BOOL;
     station_ManualRelease : ARRAY[1..10] OF ST_StationCoil;
 

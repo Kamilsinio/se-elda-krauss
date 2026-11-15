@@ -68,3 +68,7 @@ Zmiana LS powstała w generatorze, bez ręcznej korekty wygenerowanych programó
 [Raport weryfikacji](station-verification.md) rozdziela przegląd statyczny, wykonanie ST/LS w interpreterach i niewykonane próby natywne. `tools/plc_station_cosim.py` wykonuje rzeczywisty StationController i oba wygenerowane main przez kodek 80 B. Syntetyczne są wyłącznie źródła native, czujniki i mechanika urządzeń. Model nie wpisuje ACK zakończenia do kontekstu PLC. Parametry i zweryfikowane flagi fixture nie stanowią zatwierdzenia nastaw maszyny.
 
 Oddzielny test 256 wariantów początkowej zajętości używa modelu koordynacji z syntetycznym wykonawcą przejazdu. Nie należy przedstawiać go jako 256 prób całego fizycznego kontrolera. Pełna symulacja obejmuje dwa stosy obu produkcji, Stop N+1, opróżnianie z pauzą i końcowym odbiorem, Manual/recovery, zanik I/O oraz blokadę krytyczną bieżącego skanu.
+
+## Poprawki po review
+
+[Pakiet poprawek](plc-review-fixes.md) zmienia kolejność końca skanu: wykonawcy Storage/Elevator → bieżące alarmy → StationCoils i końcowa finalizacja. FB_StationOutputPolicy waliduje polityki przed nadzorem. LocalFaultPolicy jest obowiązkową, odrębną macierzą serwisową; brak zatwierdzenia nie jest zastępowany TRUE. Po lokalnej usterce sam Reset nie wznawia ruchu. Recovery zamyka odrzucone zdarzenia do bieżącego nextMaterialEventId bez cofania licznika. Wire v2, Context schema=4 i HMI v4 pozostają bez zmian; nowe porty wymagają ponownego importu symboli.

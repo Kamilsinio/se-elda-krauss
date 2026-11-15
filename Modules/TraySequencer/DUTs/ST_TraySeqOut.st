@@ -1,8 +1,8 @@
 TYPE ST_TraySeqOut :
 STRUCT
     TopFlow_Enable : BOOL;
-    TopFlow_Elev_RequestFeed : BOOL;
-    TopFlow_Elev_CanAccept : BOOL;
+    TopFlow_Elev_RequestFeed : BOOL; // LEGACY: nieuzywane w v4; patrz docs/plc-review-fixes.md.
+    TopFlow_Elev_CanAccept : BOOL; // LEGACY: nieuzywane w v4; patrz docs/plc-review-fixes.md.
     TopFlow_StackConsumed : BOOL;
     Elev_AutoGo : BOOL;
     Elev_AutoTarget : E_ElevatorTarget;

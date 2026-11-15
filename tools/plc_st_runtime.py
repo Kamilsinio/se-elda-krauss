@@ -162,6 +162,25 @@ class Parser:
         assert self.p==q and self.p>start
         return out
 
+class TypedValues(dict):
+    """Declared scalar types without retaining/copying the whole Runtime."""
+    def __init__(self, values, types):
+        super().__init__(values); self.iec_types=types
+
+
+def scalar_assignment(value, typ):
+    widths={"BYTE":(8,False),"WORD":(16,False),"DWORD":(32,False),
+            "UINT":(16,False),"UDINT":(32,False),"INT":(16,True),"DINT":(32,True)}
+    if not isinstance(typ,str): return value
+    typ=typ.upper()
+    if typ in widths:
+        bits,signed=widths[typ]; result=int(value) % (1 << bits)
+        return result-(1 << bits) if signed and result >= (1 << (bits-1)) else result
+    if typ=="BOOL": return bool(value)
+    if typ in ("REAL","LREAL"): return float(value)
+    return value
+
+
 class Ref:
     def __init__(self, owner, key): self.owner=owner; self.key=key
     def resolved_key(self):
@@ -175,7 +194,9 @@ class Ref:
     def set(self,v):
         key=self.resolved_key()
         if isinstance(self.owner.get(key),Ref): self.owner[key].set(v)
-        else: self.owner[key]=copy.deepcopy(v)
+        else:
+            typ=getattr(self.owner,'iec_types',{}).get(key)
+            self.owner[key]=copy.deepcopy(scalar_assignment(v,typ))
 
 class Timer:
     def __init__(self, edge=False): self.v={"IN":False,"PT":0,"Q":False,"ET":0,"CLK":False}; self.edge=edge; self.previous=False
@@ -239,10 +260,10 @@ class Runtime:
             self.definitions[name]=(rows,body,inputs,inouts)
     def value(self,typ):
         if isinstance(typ,tuple):
-            _,lo,hi,item=typ; return {i:self.value(item) for i in range(lo,hi+1)}
+            _,lo,hi,item=typ; return TypedValues({i:self.value(item) for i in range(lo,hi+1)}, {i:item for i in range(lo,hi+1)})
         if typ in self.enums: return next(iter(self.enums[typ].values()))
         if typ in self.types:
-            value={n:self.value(t) for n,t,_ in self.types[typ]}
+            value=TypedValues({n:self.value(t) for n,t,_ in self.types[typ]}, {n:t for n,t,_ in self.types[typ]})
             for n,_,initial in self.types[typ]:
                 if initial is not None: value[n]=self.eval(initial,value)
             return value
@@ -291,11 +312,16 @@ class Runtime:
         if k=="call":
             if e[1][0]=="name":
                 name=e[1][1].upper()
-                if name in ("TO_UINT","TO_UDINT","TO_INT","TO_BYTE","TO_TIME","SHL","SHR","WORD_TO_UINT","UINT_TO_WORD","REAL_TO_UINT","UINT_TO_REAL","BOOL_TO_INT","ABS"):
+                if name in ("TO_UINT","TO_UDINT","TO_INT","TO_BYTE","TO_TIME","SHL","SHR","WORD_TO_UINT","UINT_TO_WORD","REAL_TO_UINT","UINT_TO_REAL","INT_TO_REAL","WORD_TO_INT","BOOL_TO_INT","ABS"):
                     args=[self.eval(x,env) for _,x in e[2]]
                     if name=="ABS": return abs(args[0])
                     if name=="SHL": return (args[0]<<args[1]) & 0xFFFFFFFF
                     if name=="SHR": return args[0]>>args[1]
+                    if name in ("UINT_TO_REAL","INT_TO_REAL"): return float(args[0])
+                    if name=="WORD_TO_INT": return (int(args[0])+32768)%65536-32768
+                    if name=="REAL_TO_UINT":
+                        if not 0 <= args[0] <= 65535: raise ValueError("REAL_TO_UINT outside UINT range")
+                        return round(args[0])
                     if name=="TO_UINT": return int(args[0]) & 65535
                     if name=="TO_UDINT": return int(args[0]) & 0xFFFFFFFF
                     if name=="TO_BYTE": return int(args[0]) & 255
@@ -346,7 +372,7 @@ class Instance:
     def __init__(self,runtime,name):
         self.runtime=runtime; self.name=name
         self.rows,self.body,self.inputs,self.inouts=runtime.definitions[name]
-        self.v={n:runtime.value(t) for n,t,_ in self.rows}
+        self.v=TypedValues({n:runtime.value(t) for n,t,_ in self.rows}, {n:t for n,t,_ in self.rows})
         for n,_,init in self.rows:
             if init is not None: self.v[n]=runtime.eval(init,self.v)
     def run(self,dt=None,**args):

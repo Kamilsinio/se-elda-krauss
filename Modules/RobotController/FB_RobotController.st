@@ -54,6 +54,7 @@ VAR
     sampleState : UINT;
     reconciledIdle : BOOL;
     resumeReady : BOOL;
+    quantityIdle : BOOL;
     sampleEdge : R_TRIG;
     i : INT;
     emptyTx : ST_RobotTxV2;
@@ -192,6 +193,13 @@ IF Recovery.Approved AND Ledger.Unsettled = 0 AND allTasksIdle AND Plant.station
    Plant.loadsConfirmed AND Plant.cyclesConfirmed AND Plant.robotContextConfirmed AND Rx.production_loadMask = 0 THEN
     reconciledIdle := TRUE;
 END_IF;
+quantityIdle := Plant.stationIdleConfirmed AND Plant.physicalIdle AND NOT Plant.transferBusy;
+FOR i := 1 TO 5 DO
+ quantityIdle := quantityIdle AND Plant.cylinders[i].valid AND
+  (Plant.cylinders[i].atHome XOR Plant.cylinders[i].atWork) AND NOT Gripper.Cyl[i].busy AND
+  NOT Gripper.Vac[i].busy AND NOT Gripper.Vac[i].blow AND NOT
+  (Hmi.manual.cylHome[i] OR Hmi.manual.cylWork[i] OR Hmi.manual.vacValid[i] OR Hmi.manual.blowReq[i]);
+END_FOR;
 Order(Cmd := Panel.Cmd, PhysicalStart := Plant.physicalStart, PhysicalStop := Plant.physicalStop,
     Session := Link.Session, ProgramOK := programOK, HomeValid := homeValid,
     ProcessOK := processOK AND NOT Rx.production_fault AND Rx.production_autoMode AND
@@ -199,7 +207,7 @@ Order(Cmd := Panel.Cmd, PhysicalStart := Plant.physicalStart, PhysicalStop := Pl
     RecoveryRequired := Recovery.Required OR protocolFault OR Plant.stationRecoveryRequired,
     Critical := criticalNow, OperationsSettled := Link.Session AND (Rx.production_operationsSettled OR reconciledIdle) AND
     Plant.imm.settled AND Plant.imm.cycleKnown AND Ledger.Unsettled = 0 AND Events.Idle AND allTasksIdle,
-    TransferBusy := Plant.transferBusy, AreasClear := areasClearNow, StationIdle := NOT Plant.transferBusy,
+    TransferBusy := Plant.transferBusy, AreasClear := areasClearNow, StationIdle := quantityIdle,
     RecoveryResumeAllowed := resumeReady AND Rx.production_loadKnown AND Plant.robotContextConfirmed AND Plant.loadsConfirmed,
     Context := Context, Drain := Drain);
 IF Order.Sts.startAccepted THEN reconciledIdle := FALSE; resumeReady := FALSE; END_IF;
@@ -246,6 +254,7 @@ Imm(Inp := Plant.imm, Session := Link.Session, HomeValid := homeValid,
     FreeSlot := Ledger.FreeSlot, Unsettled := Ledger.Unsettled,
     ReqClose := Rx.imm_req_mouldClose, ReqOpen := Rx.imm_req_mouldFullOpen,
     ReqBack := Rx.imm_req_ejectorBack, ReqForward := Rx.imm_req_ejectorForward);
+Sts.allMotionIdle := quantityIdle;
 Sts.session := Link.Session AND NOT Recovery.Required AND NOT protocolFault AND NOT criticalNow;
 Sts.diagnosticValid := Link.HeaderValid;
 Sts.recoveryRequired := Recovery.Required OR protocolFault OR criticalNow OR Plant.stationRecoveryRequired;
@@ -462,7 +471,7 @@ Hmi.permit.modeManual.xAllowed := Hmi.link.xArmed AND NOT Order.Sts.running AND 
 Hmi.permit.modeAuto.xAllowed := Hmi.link.xArmed AND NOT Order.Sts.running AND Sts.settled;
 Hmi.permit.robotEnable.xAllowed := Hmi.link.xArmed AND NOT Order.Sts.running AND Sts.settled AND homeValid;
 Hmi.permit.robotDisable.xAllowed := Hmi.permit.robotEnable.xAllowed;
-Hmi.permit.station5ParamApply.xAllowed := Hmi.link.xArmed AND NOT Context.orderActive AND Sts.settled AND NOT Sts.recoveryRequired;
+Hmi.permit.station5ParamApply.xAllowed := Hmi.link.xArmed AND quantityIdle AND NOT Context.orderActive AND Sts.settled AND NOT Sts.recoveryRequired;
 Hmi.permit.recoveryConfirm.xAllowed := Hmi.link.xArmed AND (Link.State = E_RobotLinkState.RECOVERY OR (Plant.stationRecoveryRequired AND Plant.physicalIdle));
 Hmi.permit.newEmptyContext.xAllowed := Hmi.permit.recoveryConfirm.xAllowed AND Plant.stationEmptyConfirmed;
 Hmi.permit.samples.xAllowed := Hmi.link.xArmed AND Sts.order.newPermit AND NOT Context.sampleAccepted AND sampleState = 0;

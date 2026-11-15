@@ -14,7 +14,7 @@ POUS=[f'Modules/{n.removeprefix("FB_")}/{n}.st' for n in (
 POUS += ['Modules/ImmInterface/FB_ImmInterface.st','Modules/OrderManager/FB_OrderManager.st',
          'Modules/RobotRecovery/FB_RobotRecovery.st','Modules/TraySequencer/FB_TraySequencer.st',
          'Modules/BoxSequencer/FB_BoxSequencer.st','Modules/Storage/FB_Storage.st']
-POUS += ['Modules/StationCoils/FB_StationCoils.st']
+POUS += ['Modules/StationCoils/FB_StationCoils.st','Modules/StationOutputPolicy/FB_StationOutputPolicy.st']
 POUS += [f'Modules/{n}/FB_{n}.st' for n in ('StationIo','StationMaterial','StationTransport','StationDrain','AlarmManager','StationManual','StationParameters','StationHmi')]
 POUS += [f'Modules/{n}/FB_{n}.st' for n in ('Cyl2Pos','StopperPair','Conveyor','TopFlowManager','Elevator','SafetyDoor','StationController','ElevatorDriveAdapter','StationRecovery')]
 POUS += ['Modules/BottomAccumulator/FB_BottomAccumulator_567.st']
@@ -30,7 +30,7 @@ def context(r):
 def plant(r):
     p=r.value('ST_RobotPlant')
     for k in ['safetyValid','safetyOK','processOK','mappingVerified','retentionVerified','contextRestored',
-              'physicalIdle','robotContextConfirmed','loadsConfirmed','cyclesConfirmed','stationEmptyConfirmed','transfersConfirmedIdle']:
+              'physicalIdle','stationIdleConfirmed','robotContextConfirmed','loadsConfirmed','cyclesConfirmed','stationEmptyConfirmed','transfersConfirmedIdle']:
         p[k]=True
     for a in p['areas'].values():a.update(valid=True,ready=True,recoveryClearConfirmed=True)
     p['imm'].update(configured=True,valid=True,startSignalValid=True,cycleKnown=True,

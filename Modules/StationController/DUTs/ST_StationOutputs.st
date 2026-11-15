@@ -8,6 +8,7 @@ STRUCT
     station_Io : ST_StationIoStatus;
     station_Alarms : ST_StationAlarmStatus;
     station_Coils : ARRAY[1..10] OF ST_StationCoil;
+    station_LocalRestartRequired : ARRAY[1..10] OF BOOL;
     station_Transport : ST_StationTransportStatus;
     station_DrainStatus : ST_StationDrainStatus;
     station_Material : ST_StationMaterialStatus;

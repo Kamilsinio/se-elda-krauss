@@ -1,9 +1,9 @@
 TYPE ST_BoxSeqCfg :
 STRUCT
-    tPositionerTimeout : TIME := T#3s;
-    tRobotAckTimeout   : TIME := T#180s;  // kuweta ma więcej produktów niż tacka
-    tDischargeTimeout  : TIME := T#15s;
-    tTransferTimeout   : TIME := T#12s;   // timeout transferu top->elev razem ze stabilnym P4
-    tElevReturnTimeout : TIME := T#30s;
+    tPositionerTimeout : TIME := T#3s; // LEGACY: nieuzywane w v4; patrz docs/plc-review-fixes.md.
+    tRobotAckTimeout   : TIME := T#180s; // LEGACY: nieuzywane w v4; patrz docs/plc-review-fixes.md.
+    tDischargeTimeout  : TIME := T#15s; // LEGACY: nieuzywane w v4; patrz docs/plc-review-fixes.md.
+    tTransferTimeout   : TIME := T#12s; // LEGACY: nieuzywane w v4; patrz docs/plc-review-fixes.md.
+    tElevReturnTimeout : TIME := T#30s; // LEGACY: nieuzywane w v4; patrz docs/plc-review-fixes.md.
 END_STRUCT
 END_TYPE

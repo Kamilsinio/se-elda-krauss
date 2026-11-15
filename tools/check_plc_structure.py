@@ -1,6 +1,8 @@
 """Static member/call audit of PLC source interfaces. Not a vendor compiler."""
 from __future__ import annotations
 import re
+import json
+import hashlib
 from check_plc_robot import runtime, ROOT
 from plc_st_runtime import Parser
 
@@ -81,6 +83,16 @@ def validate():
         if typ not in ('BOOL','UINT','INT','TIME') or initial is not None:continue
         if re.search(r'\b'+name+r'\b',main) and not re.search(r'\b'+name+r'\s*:=',main):
             errors.append('PRG_Main: scalar without producer: '+name)
+    # Reproducible LF-normalized source identity, independent of checkout line endings.
+    manifest=json.loads((ROOT/'docs/station-source-manifest.json').read_text(encoding='utf-8'))
+    for row in manifest['files']:
+        path=(ROOT/row['path']).resolve()
+        if not path.is_relative_to(ROOT.resolve()) or 'irrelevant' in path.parts:
+            errors.append('Invalid manifest path: '+row['path']); continue
+        if not path.is_file():
+            errors.append('Missing manifest source: '+row['path']); continue
+        digest=hashlib.sha256(path.read_text(encoding='utf-8').encode('utf-8')).hexdigest()
+        if digest != row['sha256']: errors.append('Stale source manifest: '+row['path'])
     return errors
 
 if __name__=='__main__':

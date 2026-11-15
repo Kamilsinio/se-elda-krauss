@@ -1,5 +1,7 @@
 # SE-ELDA-Krauss
 
+Aktualizacja po review 2026-11-15: poprawiono blokady Manual, końcowe wyjścia, lokalne timeouty, recovery materiału, warunki Apply i signed RFR. Dodano jawne lokalne polityki usterek, testy regresji i CI. [Zmiany, nowe porty i migracja](docs/plc-review-fixes.md). Kompilacja natywna i odbiór sprzętowy nadal niewykonane.
+
 Integracja 2026-11-15: typowany StationController, cienki PRG_Main, adapter GIATV, lokalne recovery, rezerwacje zasobów oraz zdarzeniowy model materiału. Kontekst i HMI mają wersję 4, wire robota pozostaje v2. [Architektura, migracja i dalsze uruchomienie](docs/station-integration.md).
 
 Aktualizacja modułów stacji 2026-11-15: zaimplementowano osiem nowych FB, pełny wykonawca Drain, pojedyncze wydanie ST.3, rozdzielenie V201/V202, alarmy, Manual, parametry i interfejs HMI. [Zakres, kontrakty i granice odbioru](docs/station-plc-implementation.md). Źródła są testowane offline; konfiguracja urządzeń i kompilacja natywna pozostają niewykonane.

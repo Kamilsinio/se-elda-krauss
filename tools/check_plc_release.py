@@ -16,6 +16,7 @@ CHECKS=[
     ('check_plc_robot.py',),
     ('check_station.py',),
     ('check_station_integration.py',),
+    ('check_plc_review.py',),
     ('check_fanuc_comm.py',),
     ('check_fanuc_tray.py',),
     ('check_fanuc_box.py',),

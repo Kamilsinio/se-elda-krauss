@@ -14,7 +14,7 @@ class StationCell:
         self.proposal=copy.deepcopy(self.c);self.hmi=r.value('ST_RobotHmiV2')
         self.cfg['robot_Cfg']=config(r);self.cfg['robot_Cfg']['link'].update(peerTimeout=20000,syncTimeout=50000)
         self.cfg.update(robot_stationIoBound=True,robot_stationCoilPolicyVerified=True,
-            station_ElevatorCfgVerified=True,station_ManualReleaseVerified=True)
+            station_ElevatorCfgVerified=True,station_ManualReleaseVerified=True,station_LocalFaultPolicyVerified=True)
         self.cfg['station_IoCfg'].update(configured=True,stable=10)
         self.cfg['station_IoCfg']['required']={i:True for i in range(1,13)}
         self.cfg['station_AlarmCfg']['policyVerified']=True

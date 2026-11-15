@@ -1,5 +1,6 @@
 TYPE ST_RobotStatus :
 STRUCT
+    allMotionIdle : BOOL; // Potwierdzony postoj stacji, chwytaka i brak zadan recznych.
     session : BOOL;
     diagnosticValid : BOOL;
     recoveryRequired : BOOL;

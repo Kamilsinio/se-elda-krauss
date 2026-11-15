@@ -15,6 +15,8 @@ cfg.station_AlarmCfg := GVL_Station.AlarmCfg;
 cfg.station_ParameterCfg := GVL_Station.ParameterCfg;
 cfg.station_ElevatorCfg := GVL_Station.ElevatorCfg;
 cfg.station_ElevatorCfgVerified := GVL_Station.ElevatorCfgVerified;
+cfg.station_LocalFaultPolicyVerified := GVL_Station.LocalFaultPolicyVerified;
+cfg.station_LocalFaultPolicy := GVL_Station.LocalFaultPolicy;
 cfg.station_ManualReleaseVerified := GVL_Station.ManualReleaseVerified;
 cfg.station_ManualRelease := GVL_Station.ManualRelease;
 inp.robot_ScannerHealthy := GVL_Robot.ScannerHealthy;
@@ -40,6 +42,7 @@ GVL_Robot.singleUnloadRequest := station.Outp.robot_singleUnloadRequest;
 GVL_Station.Io := station.Outp.station_Io;
 GVL_Station.Alarms := station.Outp.station_Alarms;
 GVL_Station.Coils := station.Outp.station_Coils;
+GVL_Station.LocalRestartRequired := station.Outp.station_LocalRestartRequired;
 GVL_Station.Transport := station.Outp.station_Transport;
 GVL_Station.DrainStatus := station.Outp.station_DrainStatus;
 GVL_Station.Material := station.Outp.station_Material;
@@ -55,5 +58,5 @@ GVL_Robot.Drain := station.Outp.drain;
 GVL_Station.ReconcileRequired := station.Outp.reconcileRequired;
 driveAdapter(Cmd := station.Outp.drive, MappingVerified := GVL_Station.ElevatorCfgVerified,
  CommHealthy := GVL_Robot.vfdCommHealthy, FrequencyValid := GVL_Station.DriveFrequencyValid,
- ActualHz := UINT_TO_REAL(WORD_TO_UINT(GVL_IO.di.ATV320_currentFreq)) / 10.0);
+ ActualHz := INT_TO_REAL(WORD_TO_INT(GVL_IO.di.ATV320_currentFreq)) / 10.0);
 PRG_IO_Write();

@@ -34,6 +34,9 @@ IF Proposal.orderActive AND ((Proposal.program <> 1 AND Proposal.program <> 2) O
 END_IF;
 FOR i := 1 TO 2 DO
     IF Proposal.cycles[i].occupied AND (Proposal.cycles[i].quantity = 0 OR
+       Proposal.cycles[i].good > TO_UDINT(Proposal.cycles[i].quantity) OR
+       Proposal.cycles[i].samples > TO_UDINT(Proposal.cycles[i].quantity) OR
+       Proposal.cycles[i].rejects > TO_UDINT(Proposal.cycles[i].quantity) OR
        Proposal.cycles[i].good + Proposal.cycles[i].samples + Proposal.cycles[i].rejects >
        TO_UDINT(Proposal.cycles[i].quantity)) THEN validProposal := FALSE; END_IF;
 END_FOR;

@@ -1,11 +1,15 @@
 {
   "date": "2026-11-15",
-  "verification": "offline only",
+  "verification": "offline source review fixes; native compile and FAT/SAT not performed",
   "hashNormalization": "UTF-8 source with LF line endings",
   "contextSchema": 4,
   "hmiVersion": 4,
   "robotWireVersion": 2,
   "files": [
+    {
+      "path": ".github/workflows/plc-source-checks.yml",
+      "sha256": "39d1c96ef19fb26b394d4cec06c2af60c95eb649a157481dffbedbfc8f939a64"
+    },
     {
       "path": "GVLs/GVL_HMI.st",
       "sha256": "cd3c5360e2bd981e8be3dea2d3fc3dee7d3f3334c99bdeefbd87ae94836d40c1"
@@ -28,7 +32,7 @@
     },
     {
       "path": "GVLs/GVL_Station.st",
-      "sha256": "b174fe9e141c3f19e3d37ccbcc9120ef6658aec455a969756a2bd5621c6bfcaa"
+      "sha256": "f899d367676b5eda134911eef65f03f0e42bff4821d97de896a65dcfc43de440"
     },
     {
       "path": "Modules/AlarmManager/DUTs/ST_StationAlarmCfg.st",
@@ -96,11 +100,11 @@
     },
     {
       "path": "Modules/BoxSequencer/DUTs/ST_BoxSeqCfg.st",
-      "sha256": "31107a208607ac15cf05fe13e48076747145b0d14cf5d60a1dce814198ecc1bf"
+      "sha256": "8ba17bb180525203fff35e53b2e6ee0e42f63227a2a15b6a5119bc32433037d2"
     },
     {
       "path": "Modules/BoxSequencer/DUTs/ST_BoxSeqCmd.st",
-      "sha256": "51ac1aa6312d029fba88c30dfb8f42897c71537b8b041434fd3f393b06335196"
+      "sha256": "a535d688a614a8c2b5e2ea38471bcb85e2eca804c77e2e30ea7f02edb5e4d809"
     },
     {
       "path": "Modules/BoxSequencer/DUTs/ST_BoxSeqDiag.st",
@@ -108,11 +112,11 @@
     },
     {
       "path": "Modules/BoxSequencer/DUTs/ST_BoxSeqIn.st",
-      "sha256": "89eb9d1eb55461f1c6e014cf94d326df25d55543de67041263c1c0db731c2060"
+      "sha256": "f4ed9ace84267ff3b0b3b80a1acbed9d64ac9f7f0b4ffce0ffb99eb8aafb7f91"
     },
     {
       "path": "Modules/BoxSequencer/DUTs/ST_BoxSeqOut.st",
-      "sha256": "12234b66167d99382bc3470bca8f68b213baae044d7fc78d4ad068ba4eac36ce"
+      "sha256": "474969088fca9b3e1884da4113e1c0f7e008df109baf8ebb04e1282c65e8762c"
     },
     {
       "path": "Modules/BoxSequencer/DUTs/ST_BoxSeqStatus.st",
@@ -228,7 +232,7 @@
     },
     {
       "path": "Modules/Elevator/FB_Elevator.st",
-      "sha256": "e0059d2e0e249e241a590b253021d652b1a97ea63d658b060563228df7d7a6e9"
+      "sha256": "e087d1fde6b23bad6889a6e41c4ee42f8793a49a458674dd6557667fdc4c24a2"
     },
     {
       "path": "Modules/ElevatorDriveAdapter/DUTs/ST_ElevatorDriveCmd.st",
@@ -260,7 +264,7 @@
     },
     {
       "path": "Modules/PRG_Main.st",
-      "sha256": "614f5d925cd3102024b9edaf30dcb71e66626b4ee205092026af826fafcac3b6"
+      "sha256": "ac43494848efd8cc10fb96ac0049f0b32298af6d5d1341111c4dbf0058465a01"
     },
     {
       "path": "Modules/RobotAreas/FB_RobotAreas.st",
@@ -272,11 +276,11 @@
     },
     {
       "path": "Modules/RobotController/FB_RobotController.st",
-      "sha256": "c56989cb373f2a0a42807a4609894876957182e3f1b4f0a9bd161503b699b105"
+      "sha256": "b0c64b8585aa19b2a8ea80312fc4c72670366ca6069648238ca16bb36c0e7a05"
     },
     {
       "path": "Modules/RobotCycleLedger/FB_RobotCycleLedger.st",
-      "sha256": "efad9c676f7cda4343469c183ef49b63093d7286cac3ee1a1822a373a335d11b"
+      "sha256": "f0f9a1fd85d97ef40b2d1229f75ac9465a1ad5d4d7ce09f9f938a610000f2f17"
     },
     {
       "path": "Modules/RobotEvents/FB_RobotEvents.st",
@@ -284,7 +288,7 @@
     },
     {
       "path": "Modules/RobotGripper/FB_RobotGripper.st",
-      "sha256": "0032dd77f9fe7292ee0356449fcbdb1438a5f56939f052456434e0b360772230"
+      "sha256": "392f13f493d11d93e5e988a50ebafc2e9ea140fe39a2661c39b39370e263dd2c"
     },
     {
       "path": "Modules/RobotHmi/FB_RobotHmi.st",
@@ -324,7 +328,7 @@
     },
     {
       "path": "Modules/RobotInterface/DUTs/ST_RobotCylinderOut.st",
-      "sha256": "b30e44b2416b33048eaad23ca931a9eb9de2b2bd5f0eb3b87dbcbe013845d440"
+      "sha256": "e1f025a71ecbfc4268671fa6406a4a9b6a5142ad3d0a7bca133c245e160761cf"
     },
     {
       "path": "Modules/RobotInterface/DUTs/ST_RobotDiag.st",
@@ -404,7 +408,7 @@
     },
     {
       "path": "Modules/RobotInterface/DUTs/ST_RobotPlant.st",
-      "sha256": "8df90454cb6f76fd7297a2a99f99be2e757e60f9fa4e7f07dad28c5852cb136d"
+      "sha256": "832377220ef017b51f1a08e1da0364c483e56e1d85e1d79dbf623967cae1fa87"
     },
     {
       "path": "Modules/RobotInterface/DUTs/ST_RobotRxV2.st",
@@ -412,7 +416,7 @@
     },
     {
       "path": "Modules/RobotInterface/DUTs/ST_RobotStatus.st",
-      "sha256": "261f59718040e82fc6d269fedb372d1ceed03a94b22c718a107d5fff3b7bd9bd"
+      "sha256": "6a42ee4e00b864218e10b7c37878dcbe17bf77248f18130dab39fe4008f3d4f9"
     },
     {
       "path": "Modules/RobotInterface/DUTs/ST_RobotTask.st",
@@ -428,7 +432,7 @@
     },
     {
       "path": "Modules/RobotInterface/DUTs/ST_RobotVacuumOut.st",
-      "sha256": "5ddd33e81aba96ebc12bd9d948715e98bfa18faf3ecdba04cc1aad6d91e9eec5"
+      "sha256": "ccb9ab5124e51034ad49e854d0bf8c994ddbdf4457443dae586eafab3a2a7cec"
     },
     {
       "path": "Modules/RobotInterface/DUTs/ST_StationCoil.st",
@@ -444,7 +448,7 @@
     },
     {
       "path": "Modules/RobotRecovery/FB_RobotRecovery.st",
-      "sha256": "0e2ddf8fcc0fbaaca69afd228f1874c8b30c292fcb147f151bad617160a64037"
+      "sha256": "c3803936301d18349c6b98b86e5060b044a63998795461cba0b656569e5e3450"
     },
     {
       "path": "Modules/SafetyDoor/DUTs/E_SafetyDoorFault.st",
@@ -480,7 +484,7 @@
     },
     {
       "path": "Modules/StationCoils/FB_StationCoils.st",
-      "sha256": "b701186f98b184bb0d457d5655ddd47f193a8028880708a75aed21d747645947"
+      "sha256": "6c6c1c772cd4d591bfe70c9cbee36d9aff1eaec86fe5c683527a849bcadda44d"
     },
     {
       "path": "Modules/StationController/DUTs/ST_HmiAlarm.st",
@@ -504,7 +508,7 @@
     },
     {
       "path": "Modules/StationController/DUTs/ST_StationCfg.st",
-      "sha256": "6019001cdcfc0aea69994335b4c12020340813c35d715d2929f5f4b8bed98f23"
+      "sha256": "5ed3c94eb524b70b6f8fbe3eda1825e66bf30985613e2b1bc48b405cbe796bb7"
     },
     {
       "path": "Modules/StationController/DUTs/ST_StationContext.st",
@@ -516,11 +520,11 @@
     },
     {
       "path": "Modules/StationController/DUTs/ST_StationOutputs.st",
-      "sha256": "242fddd7c4046385f251913a24ecbf510b61843925e30349d23082388d95e0b9"
+      "sha256": "57ebb19a83bb2edf9a7eee89cc75392aba0fe0220565de2181ad1d70eac9b17b"
     },
     {
       "path": "Modules/StationController/FB_StationController.st",
-      "sha256": "6307ff1bd058344e15e7943c92419ee37cb1a67702f5a1ea213d12cf31018753"
+      "sha256": "52779af66f6d434484cc7918a64a886e820d89cabe93463d5e34b3691885a23f"
     },
     {
       "path": "Modules/StationDrain/DUTs/E_StationDrainState.st",
@@ -592,7 +596,7 @@
     },
     {
       "path": "Modules/StationManual/FB_StationManual.st",
-      "sha256": "42d29e26d6d0334eeb2b2aeea57a5f22f23adb13abec23a9844862034d2e08ca"
+      "sha256": "2ff21bb43a2e27ceeb4e60b2e8357adc52d463823df1664333cba0d4a455b04c"
     },
     {
       "path": "Modules/StationMaterial/DUTs/ST_StationMaterialEvent.st",
@@ -609,6 +613,10 @@
     {
       "path": "Modules/StationMaterial/FB_StationMaterial.st",
       "sha256": "af4073f2a352b2868083d1743e42fbb21f04e453b9cc55c4918d7a9196f129d2"
+    },
+    {
+      "path": "Modules/StationOutputPolicy/FB_StationOutputPolicy.st",
+      "sha256": "a9b25de974be91c563f59059cf4816f6f5a52a70941f04041ad508ef50b435ec"
     },
     {
       "path": "Modules/StationParameters/DUTs/ST_StationParameterCfg.st",
@@ -632,7 +640,7 @@
     },
     {
       "path": "Modules/StationRecovery/FB_StationRecovery.st",
-      "sha256": "5aeecc9a1445ca6770da95feebc49969999a1dd27a7bbc3c578bb171af9e338b"
+      "sha256": "013e9845f05ee7b9520e1e01cea0f11b3da315bfd26cd4c20f36cb4b98baad67"
     },
     {
       "path": "Modules/StationTransport/DUTs/E_StationAction.st",
@@ -720,7 +728,7 @@
     },
     {
       "path": "Modules/Storage/FB_Storage.st",
-      "sha256": "8ac7beaa3fba3ade88ce578730594f181d4f1bf45fafd9f5646f476beb120ecd"
+      "sha256": "bac2ff427cdfe9e08557e94d023c09c0c3e9f52437d44011944f59f86147737f"
     },
     {
       "path": "Modules/TopFlowManager/DUTs/E_TopFault.st",
@@ -776,11 +784,11 @@
     },
     {
       "path": "Modules/TraySequencer/DUTs/ST_TraySeqCfg.st",
-      "sha256": "c0f71c59b64306f45d269510350e165bf0465743df1e903d0ccaa5246f016198"
+      "sha256": "2fad5055226ab61c77863641d7ecbd91d8bb22f861185b053377c1cb735ede49"
     },
     {
       "path": "Modules/TraySequencer/DUTs/ST_TraySeqCmd.st",
-      "sha256": "233f837f568945d7a10842c07d9e1b8488a639f85e6a3b5857e1a51b71147d96"
+      "sha256": "1ca75391f2bb1dd00ad36c088a111cb7c4ba5f640f69489882f4cf50587e41e0"
     },
     {
       "path": "Modules/TraySequencer/DUTs/ST_TraySeqDiag.st",
@@ -788,11 +796,11 @@
     },
     {
       "path": "Modules/TraySequencer/DUTs/ST_TraySeqIn.st",
-      "sha256": "ad36633015b6332356e7b12305a14599fca38ca2de3b5dedce3c6ad67d7afbf4"
+      "sha256": "e3735ef5cf64211a9dee773cf3dfdc71ba11921cc32f93723232463d8ce4f9bb"
     },
     {
       "path": "Modules/TraySequencer/DUTs/ST_TraySeqOut.st",
-      "sha256": "f64020b32a39ac75a249a0a03e9d789105f7babf0e2c10deac9ce2e34a37afd7"
+      "sha256": "4d6cec7862893835d350c9be96036f60577d0afd0c747525c3ff8432868673d5"
     },
     {
       "path": "Modules/TraySequencer/DUTs/ST_TraySeqStatus.st",
@@ -1068,15 +1076,19 @@
     },
     {
       "path": "tools/check_plc_release.py",
-      "sha256": "28e55ba76917e93958c3e4cfbd2563eddf832033b8e5946620eb866a6fd6d974"
+      "sha256": "c94bd9aebfd14e16621a5de4d6f15f00d39a63b8b83f36b83738fb5d82d49c35"
+    },
+    {
+      "path": "tools/check_plc_review.py",
+      "sha256": "edb8f319481aa0b9aa5cc6f1cc4e09f5d5565abf28f2a08e020a4418c1e23277"
     },
     {
       "path": "tools/check_plc_robot.py",
-      "sha256": "4cb6021daaba121def974784fb84cf22d66a553924ecbc778ce5fa99ee258432"
+      "sha256": "5b613a694c4d12e460aa0dc1412d1ce4707aeac813da9b2cfe12250ec682437a"
     },
     {
       "path": "tools/check_plc_structure.py",
-      "sha256": "7ff55abd22eb8fb980c6601ab2c8de6553a2fe263b04e9b5f232597fae21a239"
+      "sha256": "adb15c97ec1da3f024a2ee08a69c995b04e40a05076e6c5d723b63d2fff01918"
     },
     {
       "path": "tools/check_robot_contract.py",
@@ -1120,15 +1132,19 @@
     },
     {
       "path": "tools/plc_st_runtime.py",
-      "sha256": "80b6b502b6fdb551862941bacbc55b040ea6f1eae351d6df6e8d4e5d6408ab32"
+      "sha256": "664e8aaded817ac06acd6315bc7a54416f72510b34fa21d1f498a9aa12228512"
     },
     {
       "path": "tools/plc_station_cosim.py",
-      "sha256": "53bac48ba6ecec73fca8b48a781df185215c0f47d293a448f3f9a1122b0e5d92"
+      "sha256": "4d5189993af382d6e49077a6ba448925e81c88482f9bb709bd410f6f542e515c"
     },
     {
       "path": "tools/plc_station_main.py",
       "sha256": "d7097c3cf2823856142cc84bc08d6b131151822098ec8a8038887b8a25e74466"
     }
-  ]
+  ],
+  "checksPassed": 13,
+  "behaviorReadabilityTestsPassed": 179,
+  "nativeCompile": "NOT RUN",
+  "fatSat": "NOT RUN"
 }

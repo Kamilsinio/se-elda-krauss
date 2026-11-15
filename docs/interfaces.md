@@ -1,6 +1,6 @@
 # Interfejsy i mapowanie SE-ELDA-Krauss
 
-Aktualizacja stacyjna 2026-11-15: [aktualne interfejsy PLC stacji](station-plc-implementation.md) obejmują GVL_Station, wykonawca Drain, HMI v3 i kontekst schema=3. Poniższe historyczne opisy „planowane” nie są wykazem aktualnych deklaracji. Fizyczna mapa pozostaje niezatwierdzona.
+Aktualizacja stacyjna 2026-11-15: [aktualne interfejsy PLC stacji](station-plc-implementation.md) obejmują GVL_Station, wykonawca Drain, HMI v4 i kontekst schema=4. Poniższe historyczne opisy „planowane” nie są wykazem aktualnych deklaracji. Fizyczna mapa pozostaje niezatwierdzona.
 
 Status: kontrakty docelowe do implementacji; adresy sprzętowe niezatwierdzone. Data bazowa: 2026-10-04.
 
@@ -174,3 +174,8 @@ Zaimplementowano logiczną stronę PLC według kontraktu v2. Publiczne symbole, 
 Nowe wyjścia Festo i IMM mają jawne logiczne interfejsy bez przypisanych adresów. Stary zapis M8/próżni 5 i robotowych bitów 32-bitowych jest odłączony. Fizyczny Stop pozostaje osobnym bindingiem; nie przypisano go do historycznego Continue.
 
 Podzbiór HMI używa cmd/rsp/permit oraz sesji. Koniec zlecenia publikuje Drain.request, ale nie zamyka zlecenia bez potwierdzonego wykonawcy opróżniania. Ta aktualizacja nie zatwierdza konfiguracji urządzeń ani mapy zacisków.
+
+
+## Kontrakty po review
+
+[Pakiet poprawek](plc-review-fixes.md) zmienia kolejność końca skanu: wykonawcy Storage/Elevator → bieżące alarmy → StationCoils i końcowa finalizacja. FB_StationOutputPolicy waliduje polityki przed nadzorem. LocalFaultPolicy jest obowiązkową, odrębną macierzą serwisową; brak zatwierdzenia nie jest zastępowany TRUE. Po lokalnej usterce sam Reset nie wznawia ruchu. Recovery zamyka odrzucone zdarzenia do bieżącego nextMaterialEventId bez cofania licznika. Wire v2, Context schema=4 i HMI v4 pozostają bez zmian; nowe porty wymagają ponownego importu symboli.

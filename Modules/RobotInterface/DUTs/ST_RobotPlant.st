@@ -30,6 +30,7 @@ STRUCT
     vacuum : ARRAY[1..5] OF ST_RobotVacuumIn;
     imm : ST_RobotImmIn;
     physicalIdle : BOOL;
+    stationIdleConfirmed : BOOL; // Controller: postoj stacji i brak aktualnych zadan Manual.
     stationRecoveryConfirmed : BOOL;
 END_STRUCT
 END_TYPE

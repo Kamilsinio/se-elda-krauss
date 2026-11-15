@@ -12,7 +12,8 @@ Wersję badanych źródeł identyfikuje [manifest SHA-256](station-source-manife
 | Testy modułów stacji | PASS, 32 testy |
 | Regresje integracji całego kontrolera | PASS, 22 testy, w tym scenariusze ST–LS obu produkcji |
 | FANUC COMM/TRAY/BOX/czytelność | PASS, 16+21+24+4 = 65 testów |
-| Cały zestaw | **12/12 kontroli, 159 testów zachowania/czytelności** |
+| Regresje po review PLC | PASS, 20 testów; obejmują końcowe wyjścia, Reset, recovery, Apply i signed RFR |
+| Cały zestaw | **13/13 kontroli, 179 testów zachowania/czytelności** |
 | git diff --check | PASS |
 | Kompilacja Machine Expert, biblioteki i konfiguracja M241 | NIE WYKONANO |
 | Import/natywne wykonanie FANUC | NIE WYKONANO |
@@ -33,3 +34,9 @@ Nowa symulacja `plc_station_cosim.StationCell` wykonuje rzeczywisty FB_StationCo
 Regresje odtwarzają siedem usterek: komendę ruchu stopera po timeout, znikające HOME wyłączonego cylindra, zgubione zwolnienie Manual, zgubione żądanie dolnego transportera, błędny powrót zajętej windy, timeout STOPPING uznany za postój oraz recovery zależne od logicznego owner. Dodatkowo sprawdzono atomowe zdarzenia materiałowe i duplikaty, stary wynik operacji, zachowanie monotonicznych ID, rozdzielenie taśmy i B304, niezatwierdzony adapter, bieżącą blokadę krytyczną, powrót I/O i pomiaru napędu bez wznowienia oraz indywidualny watchdog i stronę ręcznego EUROMAP.
 
 Nie potwierdzono czasów skanu, opóźnień sieci, bezwładności rzeczywistej osi/taśm ani reakcji sprzętu. Parametry i verified w fixture są danymi próby. [Integracja i migracja v4](station-integration.md) opisuje pozostałe kroki odbioru.
+
+## Poprawki po review — 2026-11-15
+
+Dodano tools/check_plc_review.py do zestawu wydania. Testy wykonują rzeczywiste ST i StationController z syntetycznymi urządzeniami oraz LS. Obejmują końcowe cewki po timeout, brak wznowienia od Reset, konflikty Manual na granicy skanów, odebranie kierunku, błędne polityki, zgodność applied, recovery po odrzuconym zdarzeniu, Apply przy ruchu chwytaka, alarmy odmowy i signed RFR. [Kontrakty i migracja](plc-review-fixes.md). Odbiór natywny, fizyczny i FAT/SAT pozostają NIE WYKONANO.
+
+Wynik końcowy po poprawkach: **13/13 kontroli, 179 testów zachowania/czytelności — PASS**. Sprawdzono także składnię zmienionych modułów testowych, manifest 284 plików i git diff --check. Zestaw uruchomiono lokalnie; workflow GitHub Actions przygotowano, ale nie wykonano go na GitHub w tym zadaniu.

@@ -25,6 +25,8 @@ VAR
     wantOpen : BOOL;
     valid : BOOL;
     contradiction : BOOL;
+    leftBlocked : BOOL;
+    rightBlocked : BOOL;
 END_VAR
 leftHome(IN := Inp.Left.valid AND Inp.Left.atHome AND NOT Inp.Left.atWork, PT := Cfg.tStable);
 rightHome(IN := Inp.Right.valid AND Inp.Right.atHome AND NOT Inp.Right.atWork, PT := Cfg.tStable);
@@ -32,7 +34,8 @@ leftWork(IN := Inp.Left.valid AND Inp.Left.atWork AND NOT Inp.Left.atHome, PT :=
 rightWork(IN := Inp.Right.valid AND Inp.Right.atWork AND NOT Inp.Right.atHome, PT := Cfg.tStable);
 contradiction := (Inp.Left.atHome AND Inp.Left.atWork) OR (Inp.Right.atHome AND Inp.Right.atWork);
 valid := Inp.Left.configured AND Inp.Left.valid AND Inp.Right.configured AND Inp.Right.valid AND
-    Inp.Left.lossPolicyVerified AND Inp.Right.lossPolicyVerified AND Cfg.tStable > T#0ms AND Cfg.tM8Timeout > T#0ms;
+    Inp.Left.lossPolicyVerified AND Inp.Right.lossPolicyVerified AND
+    NOT (Inp.Left.lossHome AND Inp.Left.lossWork) AND NOT (Inp.Right.lossHome AND Inp.Right.lossWork) AND Cfg.tStable > T#0ms AND Cfg.tM8Timeout > T#0ms;
 Sts.RobotSideOpen := valid AND leftHome.Q AND rightHome.Q;
 Sts.RobotSideClosed := valid AND leftWork.Q AND rightWork.Q;
 Sts.Empty := Inp.Empty;
@@ -94,10 +97,18 @@ IF Cmd.Manual AND Cmd.Enable AND valid AND NOT Diag.Fault THEN
         END_IF;
     END_IF;
 END_IF;
+(* Utrata dopuszczenia nie kasuje rezerwacji obszaru robota. *)
+leftBlocked := (Outp.Q_V401Home AND (NOT Inp.Left.homeAllowed OR NOT Inp.RobotSideOpeningPermission)) OR
+    (Outp.Q_V401Work AND NOT Inp.Left.workAllowed);
+rightBlocked := (Outp.Q_V402Home AND (NOT Inp.Right.homeAllowed OR NOT Inp.RobotSideOpeningPermission)) OR
+    (Outp.Q_V402Work AND NOT Inp.Right.workAllowed);
+IF leftBlocked AND valid THEN Outp.Q_V401Home := Inp.Left.lossHome; Outp.Q_V401Work := Inp.Left.lossWork; END_IF;
+IF rightBlocked AND valid THEN Outp.Q_V402Home := Inp.Right.lossHome; Outp.Q_V402Work := Inp.Right.lossWork; END_IF;
+IF leftBlocked OR rightBlocked THEN Sts.RobotAccessGranted := FALSE; Outp.Q_UnlockRobotSide := FALSE; END_IF;
 Sts.Busy := valid AND Cmd.Enable AND NOT Cmd.Manual AND ((wantOpen AND NOT Sts.RobotSideOpen) OR
     (NOT Cmd.RobotReserved AND NOT wantOpen AND NOT Sts.RobotSideClosed));
-leftMove(IN := Cmd.Enable AND valid AND ((Outp.Q_V401Home AND NOT leftHome.Q) OR (Outp.Q_V401Work AND NOT leftWork.Q)), PT := Cfg.tM8Timeout);
-rightMove(IN := Cmd.Enable AND valid AND ((Outp.Q_V402Home AND NOT rightHome.Q) OR (Outp.Q_V402Work AND NOT rightWork.Q)), PT := Cfg.tM8Timeout);
+leftMove(IN := Cmd.Enable AND valid AND NOT leftBlocked AND ((Outp.Q_V401Home AND NOT leftHome.Q) OR (Outp.Q_V401Work AND NOT leftWork.Q)), PT := Cfg.tM8Timeout);
+rightMove(IN := Cmd.Enable AND valid AND NOT rightBlocked AND ((Outp.Q_V402Home AND NOT rightHome.Q) OR (Outp.Q_V402Work AND NOT rightWork.Q)), PT := Cfg.tM8Timeout);
 IF leftMove.Q THEN Diag.LeftFault := TRUE; END_IF;
 IF rightMove.Q THEN Diag.RightFault := TRUE; END_IF;
 IF Diag.LeftFault OR Diag.RightFault THEN
@@ -109,7 +120,7 @@ wasManualHome := Cmd.ManualHome; wasManualWork := Cmd.ManualWork;
 IF NOT Cmd.Enable OR NOT valid OR Diag.Fault THEN
     Outp.Q_UnlockOperatorSide := FALSE; Outp.Q_UnlockRobotSide := FALSE;
     Sts.RobotAccessGranted := FALSE;
-    IF Inp.Left.lossPolicyVerified THEN Outp.Q_V401Home := Inp.Left.lossHome; Outp.Q_V401Work := Inp.Left.lossWork; END_IF;
-    IF Inp.Right.lossPolicyVerified THEN Outp.Q_V402Home := Inp.Right.lossHome; Outp.Q_V402Work := Inp.Right.lossWork; END_IF;
+    IF Inp.Left.lossPolicyVerified AND NOT (Inp.Left.lossHome AND Inp.Left.lossWork) THEN Outp.Q_V401Home := Inp.Left.lossHome; Outp.Q_V401Work := Inp.Left.lossWork; END_IF;
+    IF Inp.Right.lossPolicyVerified AND NOT (Inp.Right.lossHome AND Inp.Right.lossWork) THEN Outp.Q_V402Home := Inp.Right.lossHome; Outp.Q_V402Work := Inp.Right.lossWork; END_IF;
 END_IF;
 Outp.Q_LEDOpenClose := operatorRequest OR Sts.Busy OR Diag.Fault;

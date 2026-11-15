@@ -15,12 +15,32 @@ VAR
  lastPanel : UINT;
  expectedPanel : UINT;
  i : INT;
+ j : INT;
+ request : ARRAY[1..16] OF BOOL;
+ conflict : ARRAY[1..16] OF BOOL;
  valid : BOOL;
  held : BOOL;
 END_VAR
 Sts.active := FALSE; Sts.reason := 0;
 valid := Inp.armed AND Inp.manual AND Inp.safe AND Inp.idle AND Inp.timeout > T#0ms AND
  Cmd.sessionId = Inp.sessionId AND Inp.sessionId <> 0;
+FOR i := 1 TO 16 DO
+ request[i] := Cmd.positive[i] OR Cmd.negative[i]; conflict[i] := FALSE;
+END_FOR;
+IF Inp.panelOverride = 0 THEN
+ (* Konflikty aktualnych zadan, niezaleznie od opoznienia statusow napedow. *)
+ FOR i := 1 TO 16 DO
+  FOR j := i + 1 TO 16 DO
+   IF request[i] AND request[j] AND
+    ((i = 1 AND j >= 5 AND j <= 9) OR
+     (i = 2 AND (j = 4 OR (j >= 10 AND j <= 12))) OR
+     (i = 3 AND j >= 13 AND j <= 14) OR
+     (i = 4 AND j >= 10 AND j <= 12)) THEN
+    conflict[i] := TRUE; conflict[j] := TRUE; Sts.reason := 40;
+   END_IF;
+  END_FOR;
+ END_FOR;
+END_IF;
 FOR i := 1 TO 16 DO
  expectedPanel := 111;
  IF i = 2 OR i = 4 OR (i >= 10 AND i <= 12) THEN expectedPanel := 112; END_IF;
@@ -32,7 +52,11 @@ FOR i := 1 TO 16 DO
  IF valid AND Inp.panel = expectedPanel AND NOT held THEN released[i] := TRUE; END_IF;
  watchdog[i](IN := held AND Cmd.holdCounter[i] = lastCounter[i], PT := Inp.timeout);
  lastCounter[i] := Cmd.holdCounter[i];
- IF watchdog[i].Q OR (Cmd.positive[i] AND Cmd.negative[i]) THEN released[i] := FALSE; END_IF;
+ (* Utrata dopuszczenia trzymanego kierunku wymaga ponownego nacisniecia. *)
+ IF watchdog[i].Q OR conflict[i] OR (Cmd.positive[i] AND Cmd.negative[i]) OR
+  (Cmd.positive[i] AND NOT Inp.allowPositive[i]) OR (Cmd.negative[i] AND NOT Inp.allowNegative[i]) THEN
+  released[i] := FALSE;
+ END_IF;
  Sts.positive[i] := valid AND Inp.panel = expectedPanel AND released[i] AND NOT watchdog[i].Q AND
   Cmd.positive[i] AND NOT Cmd.negative[i] AND Inp.allowPositive[i];
  Sts.negative[i] := valid AND Inp.panel = expectedPanel AND released[i] AND NOT watchdog[i].Q AND

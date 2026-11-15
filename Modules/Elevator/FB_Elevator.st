@@ -72,7 +72,7 @@ stStat.xVfdReady   := (wAtvStatus AND stPar.wStsMask_Ready)   <> 0;
 stStat.xVfdRunning := (wAtvStatus AND stPar.wStsMask_Running) <> 0;
 stStat.xVfdRemote  := (wAtvStatus AND stPar.wStsMask_Remote)  <> 0;
 stStat.xVfdCommOk := stIn.xCommOk AND (NOT stPar.requireDriveFeedback OR stIn.drive.commHealthy);
-stStat.rVfdOutHz := UINT_TO_REAL(stIn.stVfdRx.uiOutFreq_0p1Hz_3202) / 10.0;
+stStat.rVfdOutHz := INT_TO_REAL(TO_INT(stIn.stVfdRx.uiOutFreq_0p1Hz_3202)) / 10.0;
 IF stPar.requireDriveFeedback THEN stStat.rVfdOutHz := stIn.drive.actualHz; END_IF;
 
 

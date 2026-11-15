@@ -51,7 +51,11 @@ FOR i := 1 TO 2 DO
     delta[i] := 0;
     accounted[i] := Context.cycles[i].good + Context.cycles[i].samples + Context.cycles[i].rejects;
     IF Context.cycles[i].occupied AND
-       ((Context.cycles[i].quantity = 0) OR (accounted[i] > TO_UDINT(Context.cycles[i].quantity))) THEN Fault := TRUE; END_IF;
+       ((Context.cycles[i].quantity = 0) OR
+        Context.cycles[i].good > TO_UDINT(Context.cycles[i].quantity) OR
+        Context.cycles[i].samples > TO_UDINT(Context.cycles[i].quantity) OR
+        Context.cycles[i].rejects > TO_UDINT(Context.cycles[i].quantity) OR
+        (accounted[i] > TO_UDINT(Context.cycles[i].quantity))) THEN Fault := TRUE; END_IF;
 END_FOR;
 IF Context.cycles[1].occupied AND Context.cycles[2].occupied AND
    Context.cycles[1].id = Context.cycles[2].id THEN Fault := TRUE; END_IF;

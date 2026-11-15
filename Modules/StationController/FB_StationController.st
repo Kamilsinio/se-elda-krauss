@@ -153,12 +153,19 @@ VAR
  productionAdvanceId : UDINT;
  productionElevatorId : UDINT;
  autoGoRequest : R_TRIG;
+  outputPolicy : FB_StationOutputPolicy;
+  localValveFault : ARRAY[1..10] OF BOOL;
+  stationCommandFault : BOOL;
+  currentCritical : BOOL;
+  localRestart : R_TRIG;
 END_VAR
 
 
 
 io(Cfg := Cfg.station_IoCfg, Inp := Inp.station_Inputs);
 Outp.station_Io := io.Sts;
+localRestart(CLK := Inp.io_di.ind_button_start_process AND Cfg.robot_stationIoBound AND io.Sts.valid);
+outputPolicy(Cfg := Cfg, Plant := Inp.robot_Plant, Storage := Inp.robot_storageIn);
 stationParametersReady := TRUE;
 FOR i := 1 TO 4 DO
  stationParametersReady := stationParametersReady AND Context.stationParameters[i].verified;
@@ -175,7 +182,7 @@ fbSafetyDoor.Inp.DoorLocked := Inp.io_di.ind_robot_cell_doors_locked;
 fbSafetyDoor.Inp.DeviceError := NOT Inp.io_di.ind_robot_cell_doors_error;
 fbSafetyDoor();
 xSafetyOK := Inp.robot_Plant.safetyValid AND Inp.robot_Plant.safetyOK AND fbSafetyDoor.Sts.ReadyToRun;
-xGlobalEnable := io.Sts.valid AND Inp.drive.valid AND Inp.drive.commHealthy AND Cfg.station_ElevatorCfgVerified AND Cfg.robot_stationIoBound AND Cfg.robot_stationCoilPolicyVerified AND xSafetyOK AND NOT Inp.io_di.ind_low_pressure;
+xGlobalEnable := outputPolicy.Ready AND io.Sts.valid AND Inp.drive.valid AND Inp.drive.commHealthy AND Cfg.station_ElevatorCfgVerified AND Cfg.robot_stationIoBound AND Cfg.robot_stationCoilPolicyVerified AND xSafetyOK AND NOT Inp.io_di.ind_low_pressure;
 Outp.io_dout.ctrl_open_robot_cell_doors_lock := fbSafetyDoor.Outp.Q_Unlock;
 Outp.io_dout.ctrl_robot_cell_doors_LED_open_close := fbSafetyDoor.Outp.Q_LEDOpenClose;
 Outp.io_dout.ctrl_reset_robot_cell_doors := fbSafetyDoor.Outp.Q_DeviceReset;
@@ -192,13 +199,27 @@ physicalIdle := Inp.station_Inputs.beltsStopped[1] AND Inp.station_Inputs.beltsS
  Inp.station_Inputs.beltsStopped[3] AND Inp.drive.valid AND
  ABS(Inp.drive.actualHz) < Cfg.station_ElevatorCfg.rStopSpeedThreshold_Hz;
 plantNow.physicalIdle := physicalIdle;
+stationIdle := stationIdle AND io.Sts.valid AND
+ (fbPosM1.Sts.IsUp OR fbPosM1.Sts.IsDown) AND (fbStopM2.Sts.IsUp OR fbStopM2.Sts.IsDown) AND
+ (fbStopM3.Sts.IsUp OR fbStopM3.Sts.IsDown) AND (fbStopM4.Sts.IsUp OR fbStopM4.Sts.IsDown) AND
+ (fbPosM5.Sts.IsUp OR fbPosM5.Sts.IsDown) AND (fbPosM7.Sts.IsUp OR fbPosM7.Sts.IsDown) AND
+ (fbV201.Sts.AtExt OR fbV201.Sts.AtRet) AND (fbV202.Sts.AtExt OR fbV202.Sts.AtRet) AND
+ (fbLowerStop5.Sts.IsUp OR fbLowerStop5.Sts.IsDown) AND (fbLowerStop6.Sts.IsUp OR fbLowerStop6.Sts.IsDown) AND
+ Inp.robot_storageIn.Left.valid AND Inp.robot_storageIn.Right.valid AND
+ (Inp.robot_storageIn.Left.atHome XOR Inp.robot_storageIn.Left.atWork) AND
+ (Inp.robot_storageIn.Right.atHome XOR Inp.robot_storageIn.Right.atWork) AND NOT fbStorage.Sts.Busy;
+FOR i := 1 TO 16 DO
+ stationIdle := stationIdle AND NOT Hmi.stationManual.positive[i] AND NOT Hmi.stationManual.negative[i] AND
+  NOT Hmi.immManual.positive[i] AND NOT Hmi.immManual.negative[i];
+END_FOR;
+plantNow.stationIdleConfirmed := stationIdle;
 plantNow.stationRecoveryRequired := Context.valid AND stationRecovery.Required;
 IF material.Sts.known THEN plantNow.stationEmptyConfirmed := material.Sts.emptyConfirmed; END_IF;
 plantNow.imm.processInterlocks := plantNow.imm.processInterlocks AND xGlobalEnable;
 topTransferActive := fbTopFlow.Sts.State <> E_TopFlowState.IDLE AND fbTopFlow.Sts.State <> E_TopFlowState.INIT;
 plantNow.transferBusy := plantNow.transferBusy OR (topTransferActive AND NOT physicalIdle) OR (elevStat.xBusy AND NOT physicalIdle) OR
     (fbBottom567.Sts.Busy AND NOT physicalIdle);
-plantNow.critical := plantNow.critical OR alarms.Sts.critical OR stationCoils.Fault OR elevStat.xFault OR fbConvTop.Diag.Fault OR
+plantNow.critical := plantNow.critical OR outputPolicy.Fault OR alarms.Sts.critical OR stationCoils.Fault OR elevStat.xFault OR fbConvTop.Diag.Fault OR
     fbConvElev.Diag.Fault OR fbConvBottom.Diag.Fault OR fbTraySeq.Diag.Fault OR fbBoxSeq.Diag.Fault;
 plantNow.warning := plantNow.warning OR fbPosM1.Diag.Fault OR fbStopM2.Diag.Fault OR
     fbStopM3.Diag.Fault OR fbStopM4.Diag.Fault OR fbPosM5.Diag.Fault OR (fbV201.Diag.Fault OR fbV202.Diag.Fault) OR
@@ -213,8 +234,8 @@ plantNow.areas[2].ready := Inp.drive.valid AND Inp.drive.commHealthy AND elevSta
     ((fbTraySeq.Outp.ElevatorReady AND Context.program = 2) OR
      (fbBoxSeq.Outp.ElevatorReady AND Context.program = 1));
 plantNow.areas[3].ready := fbStorage.Sts.RobotSideOpen AND fbStorage.Sts.RobotAccessGranted AND NOT fbStorage.Sts.Empty;
-plantNow.areas[1].blocked := plantNow.areas[1].blocked OR fbStopM4.Diag.Fault OR fbPosM5.Diag.Fault;
-plantNow.areas[2].blocked := plantNow.areas[2].blocked OR (fbV201.Diag.Fault OR fbV202.Diag.Fault) OR fbPosM7.Diag.Fault;
+plantNow.areas[1].blocked := plantNow.areas[1].blocked OR fbStopM4.Diag.Fault OR fbPosM5.Diag.Fault OR stationCoils.RestartRequired[4] OR stationCoils.RestartRequired[5];
+plantNow.areas[2].blocked := plantNow.areas[2].blocked OR (fbV201.Diag.Fault OR fbV202.Diag.Fault) OR fbPosM7.Diag.Fault OR stationCoils.RestartRequired[6] OR stationCoils.RestartRequired[8] OR stationCoils.RestartRequired[7];
 plantNow.areas[3].blocked := plantNow.areas[3].blocked OR fbStorage.Diag.Fault;
 immManualIn.armed := Hmi.link.xArmed;
 immManualIn.sessionId := Hmi.link.udiSessionId; immManualIn.panel := Hmi.link.uiActivePanel;
@@ -242,6 +263,7 @@ reconciledNow := robot.Recovery.Approved OR stationRecovery.Approved;
 Outp.robot_Sts := robot.Sts;
 Outp.robot_Tx := robot.Tx;
 IF reconciledNow THEN
+    Context.station.lastMaterialEventId := Context.station.nextMaterialEventId;
     productionTopId := 0; productionDischargeId := 0; productionAdvanceId := 0; productionElevatorId := 0;
     (* Operator uzgodnil transfery w postoju; odtwarzamy model, nie ruch w polowie kroku. *)
     fbTopFlow.Sts.OccP1 := Context.occupied[1];
@@ -502,7 +524,7 @@ fbTopFlow.Inp.sPos4_raw := io.Sts.occupied[4];
 fbTopFlow.Inp.TopConveyorRunning := NOT Inp.station_Inputs.beltsStopped[1];
 fbTopFlow.Inp.LoadBarrierValid := io.Sts.barrierValid;
 fbTopFlow.Inp.LoadBarrierBlocked := io.Sts.barrierBlocked;
-fbTopFlow.Inp.DeviceWarning := fbPosM1.Diag.Fault OR fbStopM2.Diag.Fault OR fbStopM3.Diag.Fault OR fbStopM4.Diag.Fault OR fbPosM5.Diag.Fault;
+fbTopFlow.Inp.DeviceWarning := fbPosM1.Diag.Fault OR fbStopM2.Diag.Fault OR fbStopM3.Diag.Fault OR fbStopM4.Diag.Fault OR fbPosM5.Diag.Fault OR stationCoils.RestartRequired[1] OR stationCoils.RestartRequired[2] OR stationCoils.RestartRequired[3] OR stationCoils.RestartRequired[4] OR stationCoils.RestartRequired[5];
 fbTopFlow.Cfg.tSensorStable := TO_TIME(Context.stationParameters[1].sensorStableMs);
 fbTopFlow.Cfg.tMotorStopDelay := TO_TIME(Context.stationParameters[1].stopDelayMs);
 fbTopFlow.Cfg.tMoveTimeout := TO_TIME(Context.stationParameters[1].moveTimeoutMs);
@@ -548,7 +570,7 @@ fbBottom567.Inp.Stop5Holding := fbLowerStop5.Sts.IsUp;
 fbBottom567.Inp.Stop5Released := fbLowerStop5.Sts.IsDown;
 fbBottom567.Inp.Stop6Holding := fbLowerStop6.Sts.IsUp;
 fbBottom567.Inp.Stop6Released := fbLowerStop6.Sts.IsDown;
-fbBottom567.Inp.StopWarning := fbLowerStop5.Diag.Fault OR fbLowerStop6.Diag.Fault;
+fbBottom567.Inp.StopWarning := fbLowerStop5.Diag.Fault OR fbLowerStop6.Diag.Fault OR stationCoils.RestartRequired[9] OR stationCoils.RestartRequired[10];
 fbBottom567.Cfg.stopsConfigured := Inp.station_Inputs.lowerFeedbackValid AND Cfg.robot_stationCoilPolicyVerified;
 fbBottom567.Cfg.tSensorStable := TO_TIME(Context.stationParameters[3].sensorStableMs);
 fbBottom567.Cfg.tMotorStopDelay := TO_TIME(Context.stationParameters[3].stopDelayMs);
@@ -607,7 +629,7 @@ fbTraySeq.Inp.TaskPlaced := Context.tasks[2].pending;
 fbTraySeq.Inp.TaskFinished := Context.tasks[3].pending;
 fbTraySeq.Inp.TaskStack := Context.tasks[8].pending;
 fbTraySeq.Inp.SourceEmptyConfirmed := plantNow.sourceEmptyConfirmed;
-fbTraySeq.Inp.Warning := fbV201.Diag.Fault OR fbV202.Diag.Fault OR fbPosM7.Diag.Fault;
+fbTraySeq.Inp.Warning := fbV201.Diag.Fault OR fbV202.Diag.Fault OR fbPosM7.Diag.Fault OR stationCoils.RestartRequired[6] OR stationCoils.RestartRequired[8] OR stationCoils.RestartRequired[7];
 fbTraySeq(Context := Context);
 
 IF xModeTray THEN
@@ -663,7 +685,7 @@ fbBoxSeq.Inp.TaskPlaced := Context.tasks[2].pending;
 fbBoxSeq.Inp.TaskFinished := Context.tasks[3].pending;
 fbBoxSeq.Inp.TaskStack := Context.tasks[8].pending;
 fbBoxSeq.Inp.SourceEmptyConfirmed := plantNow.sourceEmptyConfirmed;
-fbBoxSeq.Inp.Warning := fbPosM7.Diag.Fault;
+fbBoxSeq.Inp.Warning := fbPosM7.Diag.Fault OR stationCoils.RestartRequired[7];
 fbBoxSeq(Context := Context);
 
 IF xModeBox THEN
@@ -1065,6 +1087,7 @@ Outp.robot_Tx.area_storage_granted := Outp.robot_Tx.area_storage_granted AND fbS
 (* Trwałe skutki transportu trafiają do jednego modelu przez monotoniczne zdarzenia. *)
 FOR i := 1 TO 8 DO materialEvents[i] := emptyMaterialEvent; END_FOR;
 eventCount := 0;
+IF NOT reconciledNow THEN
 IF io.Sts.occupied[1] AND NOT material.Sts.occupied[1] AND NOT topTransferActive AND material.Sts.known THEN
  eventCount := eventCount + 1; materialEvents[eventCount].source := 0; materialEvents[eventCount].target := 1;
 END_IF;
@@ -1097,6 +1120,8 @@ IF material.Sts.occupied[3] AND plantNow.sourceEmptyConfirmed AND NOT topTransfe
  NOT robot.Sts.areas[1].reserved AND Context.pickedCount > 0 THEN
  eventCount := eventCount + 1; materialEvents[eventCount].source := 3; materialEvents[eventCount].target := 0;
 END_IF;
+END_IF;
+placedSeen := Context.tasks[2].pending;
 FOR i := 1 TO eventCount DO
  IF Context.station.nextMaterialEventId < 16#FFFFFFFF THEN
   Context.station.nextMaterialEventId := Context.station.nextMaterialEventId + 1;
@@ -1313,10 +1338,10 @@ Outp.hmi_hmiStatus.xM5_2_Fwd := Inp.io_di.ind_M5_2_fwd;
 Outp.hmi_hmiStatus.xM5_1_Bwd := Inp.io_di.ind_M5_1_bwd;
 Outp.hmi_hmiStatus.xM5_2_Bwd := Inp.io_di.ind_M5_2_bwd;
 // M6 — pozycjoner tacek winda
-Outp.hmi_hmiStatus.xM6_1_Fwd := Inp.io_di.ind_M6_1_fwd;
-Outp.hmi_hmiStatus.xM6_2_Fwd := Inp.io_di.ind_M6_2_fwd;
-Outp.hmi_hmiStatus.xM6_1_Bwd := Inp.io_di.ind_M6_1_bwd;
-Outp.hmi_hmiStatus.xM6_2_Bwd := Inp.io_di.ind_M6_2_bwd;
+Outp.hmi_hmiStatus.xM6_1_Fwd := Inp.station_Inputs.v201.IsExt;
+Outp.hmi_hmiStatus.xM6_2_Fwd := Inp.station_Inputs.v202.IsExt;
+Outp.hmi_hmiStatus.xM6_1_Bwd := Inp.station_Inputs.v201.IsRet;
+Outp.hmi_hmiStatus.xM6_2_Bwd := Inp.station_Inputs.v202.IsRet;
 // M7 — pozycjoner kuwet winda
 Outp.hmi_hmiStatus.xM7_Fwd := Inp.io_di.ind_M7_fwd;
 Outp.hmi_hmiStatus.xM7_Bwd := Inp.io_di.ind_M7_bwd;
@@ -1343,9 +1368,9 @@ Outp.hmi_hmiStatus.xStorageRobotAccessActive    := fbStorage.Sts.RobotAccessActi
 Outp.hmi_hmiStatus.xStorageOperatorAccessActive := fbStorage.Sts.OperatorAccessActive;
 Outp.hmi_hmiStatus.xStorageOperatorRequest      := fbStorage.Sts.OperatorRequest;
 Outp.hmi_hmiStatus.xStorageRobotPermission      :=
-    Inp.io_di.ind_spacer_storage_robot_side_doors_opening_permission;
+    Inp.robot_storageIn.RobotSideOpeningPermission;
 Outp.hmi_hmiStatus.xStorageOperatorPermission   :=
-    Inp.io_di.ind_spacer_storage_operator_side_doors_opening_permission;
+    Inp.robot_storageIn.OperatorSideOpeningPermission;
 Outp.hmi_hmiStatus.xStorageLowLevel             := fbStorage.Sts.LowLevel;
 Outp.hmi_hmiStatus.xStorageEmpty                := fbStorage.Sts.Empty;
 Outp.hmi_hmiStatus.xStorageBusy                 := fbStorage.Sts.Busy;
@@ -1377,7 +1402,7 @@ Outp.hmi_hmiStatus.uiBoxesDone  := fbBoxSeq.Sts.BoxCount;
 
 (* Rozszerzenie HMI: 12..15 Apply ST1..4, 16..20 Reload ST1..5, 21..25 ResetState ST1..5. *)
 parameterIn.apply := 0; parameterIn.reload := 0;
-parameterIn.idle := stationIdle AND NOT manual.Sts.active AND NOT fbStorage.Sts.Busy AND
+parameterIn.idle := robot.Sts.allMotionIdle AND NOT manual.Sts.active AND NOT fbStorage.Sts.Busy AND
  (fbV201.Sts.AtExt OR fbV201.Sts.AtRet) AND (fbV202.Sts.AtExt OR fbV202.Sts.AtRet) AND NOT robot.Sts.order.running AND NOT Drain.runPermit;
 parameterIn.recovery := robot.Sts.recoveryRequired;
 parameterIn.expectedRevision := robot.Panel.StationRevision;
@@ -1409,36 +1434,6 @@ IF reconciledNow THEN reconcileRequired := FALSE; END_IF;
 stationCommandComplete := robot.Panel.StationKey > 0;
 stationCommandResult := stationCommandReason;
 
-(* Katalog 1..11: ostrzezenia silownikow, 12..28: klasy do uzgodnienia GAP-12. *)
-alarmIn := Inp.station_AlarmInputs;
-alarmIn.reset := xResetAll;
-alarmIn.acknowledge := robot.Panel.StationKey = 26;
-alarmIn.active[1] := fbPosM1.Diag.Fault; alarmIn.active[2] := fbStopM2.Diag.Fault;
-alarmIn.active[3] := fbStopM3.Diag.Fault; alarmIn.active[4] := fbStopM4.Diag.Fault;
-alarmIn.active[5] := fbPosM5.Diag.Fault; alarmIn.active[6] := fbV201.Diag.Fault;
-alarmIn.active[7] := fbV202.Diag.Fault; alarmIn.active[8] := fbPosM7.Diag.Fault;
-alarmIn.active[9] := fbLowerStop5.Diag.Fault; alarmIn.active[10] := fbLowerStop6.Diag.Fault;
-alarmIn.active[11] := fbStorage.Diag.Fault;
-alarmIn.active[12] := NOT xSafetyOK; alarmIn.active[13] := Inp.io_di.ind_low_pressure;
-alarmIn.active[14] := NOT Inp.robot_vfdCommHealthy; alarmIn.active[15] := elevStat.xFault;
-alarmIn.active[16] := fbConvTop.Diag.Fault; alarmIn.active[17] := fbConvElev.Diag.Fault;
-alarmIn.active[18] := fbConvBottom.Diag.Fault; alarmIn.active[19] := fbTopFlow.Diag.Fault;
-alarmIn.active[20] := fbBottom567.Diag.Fault; alarmIn.active[21] := fbTraySeq.Diag.Fault;
-alarmIn.active[22] := fbBoxSeq.Diag.Fault; alarmIn.active[23] := robot.Sts.diagnosticValid AND Inp.robot_Rx.production_fault;
-alarmIn.active[24] := robot.Sts.diag.fault; alarmIn.active[25] := NOT io.Sts.valid;
-alarmIn.active[26] := NOT material.Sts.known; alarmIn.active[27] := transport.Sts.fault;
-alarmIn.active[28] := stationCoils.Fault;
-alarmIn.active[29] := NOT Hmi.link.xArmed;
-alarmIn.active[30] := NOT Inp.robot_Plant.imm.valid;
-FOR i := 1 TO 5 DO
- alarmIn.active[i + 30] := robot.Sts.cylinders[i].reason <> 0;
- alarmIn.active[i + 35] := robot.Sts.vacuum[i].reason <> 0;
-END_FOR;
-FOR i := 1 TO 12 DO
- alarmIn.active[i + 40] := Cfg.station_IoCfg.required[i] AND NOT io.Sts.moduleValid[i];
-END_FOR;
-alarms(Cfg := Cfg.station_AlarmCfg, Inp := alarmIn);
-Outp.station_Alarms := alarms.Sts;
 fbStorage.Cmd.Enable := xGlobalEnable AND NOT alarms.Sts.critical AND
  (outputPermit OR Inp.robot_storageIn.BtnOpenClose OR fbStorage.Sts.OperatorRequest);
 fbStorage.Cmd.ResetFault := xResetAll;
@@ -1483,11 +1478,75 @@ valveCommandValid[7] := fbPosM7.Sts.Valid AND NOT fbPosM7.Diag.Fault;
 valveCommandValid[8] := fbV202.Sts.Valid AND NOT fbV202.Diag.Fault;
 valveCommandValid[9] := fbLowerStop5.Sts.Valid AND NOT fbLowerStop5.Diag.Fault;
 valveCommandValid[10] := fbLowerStop6.Sts.Valid AND NOT fbLowerStop6.Diag.Fault;
-stationCoils(NewPermit := outputPermit, UseCommandValid := TRUE, CommandValid := valveCommandValid, GateChanges := TRUE, ChangeAllowed := changeAllowed,
+
+stationCommandFault := xHmiManualMode AND NOT Cfg.station_ManualReleaseVerified;
+FOR i := 1 TO 10 DO
+ IF stationCmd[i].home AND stationCmd[i].work THEN stationCommandFault := TRUE; END_IF;
+END_FOR;
+localValveFault[1] := fbPosM1.Diag.Fault; localValveFault[2] := fbStopM2.Diag.Fault;
+localValveFault[3] := fbStopM3.Diag.Fault; localValveFault[4] := fbStopM4.Diag.Fault;
+localValveFault[5] := fbPosM5.Diag.Fault; localValveFault[6] := fbV201.Diag.Fault;
+localValveFault[7] := fbPosM7.Diag.Fault; localValveFault[8] := fbV202.Diag.Fault;
+localValveFault[9] := fbLowerStop5.Diag.Fault; localValveFault[10] := fbLowerStop6.Diag.Fault;
+
+autoGoRequest(CLK := elevCmd.xAutoGo);
+IF autoGoRequest.Q AND transport.Sts.owner <> E_StationOwner.DRAIN THEN
+ IF Context.station.nextOperationId < 16#FFFFFFFF THEN Context.station.nextOperationId := Context.station.nextOperationId + 1; productionElevatorId := Context.station.nextOperationId; ELSE reconcileRequired := TRUE; END_IF;
+END_IF;
+elevCmd.OperationId := productionElevatorId;
+IF transport.Sts.owner = E_StationOwner.DRAIN AND (transport.Sts.action = E_StationAction.ELEV_TOP OR transport.Sts.action = E_StationAction.ELEV_BOTTOM) THEN elevCmd.OperationId := transport.Sts.operationId; END_IF;
+fbElevator(
+    xEnable := xGlobalEnable AND NOT plantNow.critical AND NOT alarms.Sts.critical AND NOT stationCommandFault,
+    stCmd := elevCmd,
+    stIn := elevIn,
+    stPar := elevPar,
+    stOut => elevOut,
+    stStat => elevStat
+);
+uiElevState := TO_UINT(elevStat.eState);
+
+(* Agregacja biezacych diagnoz dopiero po wszystkich wykonawcach, bez drugiego skanu FB. *)
+plantNow.critical := plantNow.critical OR outputPolicy.Fault OR stationCommandFault OR elevStat.xFault OR
+ fbConvTop.Diag.Fault OR fbConvElev.Diag.Fault OR fbConvBottom.Diag.Fault OR fbTraySeq.Diag.Fault OR fbBoxSeq.Diag.Fault;
+(* Katalog 1..11: ostrzezenia silownikow, 12..28: klasy do uzgodnienia GAP-12. *)
+alarmIn := Inp.station_AlarmInputs;
+alarmIn.reset := xResetAll;
+alarmIn.acknowledge := robot.Panel.StationKey = 26;
+alarmIn.active[1] := fbPosM1.Diag.Fault OR stationCoils.RestartRequired[1]; alarmIn.active[2] := fbStopM2.Diag.Fault OR stationCoils.RestartRequired[2];
+alarmIn.active[3] := fbStopM3.Diag.Fault OR stationCoils.RestartRequired[3]; alarmIn.active[4] := fbStopM4.Diag.Fault OR stationCoils.RestartRequired[4];
+alarmIn.active[5] := fbPosM5.Diag.Fault OR stationCoils.RestartRequired[5]; alarmIn.active[6] := fbV201.Diag.Fault OR stationCoils.RestartRequired[6];
+alarmIn.active[7] := fbV202.Diag.Fault OR stationCoils.RestartRequired[8]; alarmIn.active[8] := fbPosM7.Diag.Fault OR stationCoils.RestartRequired[7];
+alarmIn.active[9] := fbLowerStop5.Diag.Fault OR stationCoils.RestartRequired[9]; alarmIn.active[10] := fbLowerStop6.Diag.Fault OR stationCoils.RestartRequired[10];
+alarmIn.active[11] := fbStorage.Diag.Fault;
+alarmIn.active[12] := NOT xSafetyOK; alarmIn.active[13] := Inp.io_di.ind_low_pressure;
+alarmIn.active[14] := NOT Inp.robot_vfdCommHealthy; alarmIn.active[15] := elevStat.xFault;
+alarmIn.active[16] := fbConvTop.Diag.Fault; alarmIn.active[17] := fbConvElev.Diag.Fault;
+alarmIn.active[18] := fbConvBottom.Diag.Fault; alarmIn.active[19] := fbTopFlow.Diag.Fault;
+alarmIn.active[20] := fbBottom567.Diag.Fault; alarmIn.active[21] := fbTraySeq.Diag.Fault;
+alarmIn.active[22] := fbBoxSeq.Diag.Fault; alarmIn.active[23] := robot.Sts.diagnosticValid AND Inp.robot_Rx.production_fault;
+alarmIn.active[24] := robot.Sts.diag.fault; alarmIn.active[25] := NOT io.Sts.valid;
+alarmIn.active[26] := NOT material.Sts.known; alarmIn.active[27] := transport.Sts.fault;
+alarmIn.active[28] := outputPolicy.Fault OR stationCommandFault;
+alarmIn.active[29] := NOT Hmi.link.xArmed;
+alarmIn.active[30] := NOT Inp.robot_Plant.imm.valid;
+FOR i := 1 TO 5 DO
+ alarmIn.active[i + 30] := robot.Sts.cylinders[i].fault;
+ alarmIn.active[i + 35] := robot.Sts.vacuum[i].fault;
+END_FOR;
+FOR i := 1 TO 12 DO
+ alarmIn.active[i + 40] := Cfg.station_IoCfg.required[i] AND NOT io.Sts.moduleValid[i];
+END_FOR;
+alarms(Cfg := Cfg.station_AlarmCfg, Inp := alarmIn);
+Outp.station_Alarms := alarms.Sts;
+
+currentCritical := plantNow.critical OR alarms.Sts.critical OR robot.Tx.production_criticalBlock OR
+ NOT xSafetyOK OR NOT io.Sts.valid;
+stationCoils(NewPermit := outputPermit, RestartPulse := localRestart.Q, LocalFault := localValveFault, LocalFaultPolicyVerified := Cfg.station_LocalFaultPolicyVerified,
+    LocalFaultPolicy := Cfg.station_LocalFaultPolicy, UseCommandValid := TRUE, CommandValid := valveCommandValid, GateChanges := TRUE, ChangeAllowed := changeAllowed,
     Manual := xHmiManualMode, ManualActive := manualCoilActive,
-    ReleaseVerified := Cfg.station_ManualReleaseVerified, ReleasePolicy := Cfg.station_ManualRelease, Critical := plantNow.critical OR alarms.Sts.critical OR NOT xSafetyOK OR NOT io.Sts.valid OR robot.Recovery.Required,
-    PolicyVerified := Cfg.robot_stationCoilPolicyVerified,
-    Cmd := stationCmd, LossPolicy := Cfg.robot_stationCoilLossPolicy);
+    ReleaseVerified := Cfg.station_ManualReleaseVerified, ReleasePolicy := Cfg.station_ManualRelease, Critical := currentCritical OR robot.Recovery.Required,
+    PolicyVerified := outputPolicy.StationLossReady,
+    Cmd := stationCmd, LossPolicy := outputPolicy.StationLoss);
 Outp.io_dout.ctrl_move_M1_actuator_forward := stationCoils.Applied[1].work;
 Outp.io_dout.ctrl_move_M1_actuator_backward := stationCoils.Applied[1].home;
 Outp.io_dout.ctrl_move_M2_actuator_forward := stationCoils.Applied[2].work;
@@ -1501,27 +1560,12 @@ Outp.io_dout.ctrl_move_M5_actuator_backward := stationCoils.Applied[5].home;
 Outp.io_dout.ctrl_move_M6_actuator_forward := FALSE; // Legacy M6 odlaczony: dwa nowe wyjscia ponizej.
 Outp.io_dout.ctrl_move_M6_actuator_backward := FALSE;
 Outp.station_Coils := stationCoils.Applied;
+Outp.station_LocalRestartRequired := stationCoils.RestartRequired;
 Outp.station_V201Out := stationCoils.Applied[6]; Outp.station_V202Out := stationCoils.Applied[8];
 Outp.station_LowerStopOut[1] := stationCoils.Applied[9]; Outp.station_LowerStopOut[2] := stationCoils.Applied[10];
 Outp.io_dout.ctrl_move_M7_actuator_forward := stationCoils.Applied[7].work;
 Outp.io_dout.ctrl_move_M7_actuator_backward := stationCoils.Applied[7].home;
 
-
-autoGoRequest(CLK := elevCmd.xAutoGo);
-IF autoGoRequest.Q AND transport.Sts.owner <> E_StationOwner.DRAIN THEN
- IF Context.station.nextOperationId < 16#FFFFFFFF THEN Context.station.nextOperationId := Context.station.nextOperationId + 1; productionElevatorId := Context.station.nextOperationId; ELSE reconcileRequired := TRUE; END_IF;
-END_IF;
-elevCmd.OperationId := productionElevatorId;
-IF transport.Sts.owner = E_StationOwner.DRAIN AND (transport.Sts.action = E_StationAction.ELEV_TOP OR transport.Sts.action = E_StationAction.ELEV_BOTTOM) THEN elevCmd.OperationId := transport.Sts.operationId; END_IF;
-fbElevator(
-    xEnable := xGlobalEnable AND NOT alarms.Sts.critical AND NOT stationCoils.Fault,
-    stCmd := elevCmd,
-    stIn := elevIn,
-    stPar := elevPar,
-    stOut => elevOut,
-    stStat => elevStat
-);
-uiElevState := TO_UINT(elevStat.eState);
 
 Outp.hmi_hmiAlarmCount := alarms.Sts.count;
 Outp.io_dout.ctrl_turn_on_light_red := alarms.Sts.critical OR plantNow.critical;
@@ -1567,14 +1611,14 @@ Hmi.permit.station5ResetState.xAllowed := Hmi.link.xArmed AND stationPanel.Sts.c
 Hmi.permit.station5ResetState.sReason := 'Manual i postoj; po resecie wymagane uzgodnienie ladunkow.';
 
 (* Koncowa blokada transportu przed zapisem wyjsc, z biezacej diagnozy. *)
-IF alarms.Sts.critical OR NOT xSafetyOK OR NOT io.Sts.valid THEN
+IF currentCritical THEN
  Outp.io_dout.ctrl_turn_on_top_conveyor := FALSE;
  Outp.io_dout.ctrl_turn_on_elevator_conveyor_in := FALSE; Outp.io_dout.ctrl_turn_on_elevator_conveyor_out := FALSE;
  Outp.io_dout.ctrl_turn_on_bottom_conveyor := FALSE; Outp.io_dout.ctrl_turn_on_bottom_conveyor_in := FALSE;
 END_IF;
 
 (* Końcowa finalizacja nie wykonuje ponownie timerów ani zdarzeń. *)
-IF alarms.Sts.critical OR plantNow.critical OR NOT xSafetyOK OR NOT io.Sts.valid THEN
+IF currentCritical THEN
  Outp.robot_Tx.production_newOperationPermit := FALSE; Outp.robot_Tx.production_finishPermit := FALSE;
  Outp.robot_Tx.production_criticalBlock := TRUE; Outp.robot_Tx.production_stopRequest := TRUE;
  Outp.robot_Tx.imm_newCyclePermit := FALSE;
@@ -1586,15 +1630,21 @@ IF alarms.Sts.critical OR plantNow.critical OR NOT xSafetyOK OR NOT io.Sts.valid
  Outp.robot_Tx.imm_applied_mouldClose := FALSE; Outp.robot_Tx.imm_applied_mouldFullOpen := FALSE;
  Outp.robot_Tx.imm_applied_ejectorBack := FALSE; Outp.robot_Tx.imm_applied_ejectorForward := FALSE;
  Outp.drive.forward := FALSE; Outp.drive.reverse := FALSE; Outp.drive.reference := 0;
- FOR i := 1 TO 5 DO
-  IF plantNow.cylinders[i].lossPolicyVerified THEN
-   Outp.robot_Sts.cylinders[i].home := plantNow.cylinders[i].lossHome;
-   Outp.robot_Sts.cylinders[i].work := plantNow.cylinders[i].lossWork;
-  END_IF;
-  IF plantNow.vacuum[i].lossPolicyVerified THEN
-   Outp.robot_Sts.vacuum[i].hold := plantNow.vacuum[i].holdOnLoss;
-   Outp.robot_Sts.vacuum[i].blow := FALSE;
-  END_IF;
+  Outp.robot_storageOut.Q_UnlockRobotSide := FALSE; Outp.robot_storageOut.Q_UnlockOperatorSide := FALSE;
+  Outp.robot_storageOut.Q_V401Home := outputPolicy.StorageLoss[1].home;
+  Outp.robot_storageOut.Q_V401Work := outputPolicy.StorageLoss[1].work;
+  Outp.robot_storageOut.Q_V402Home := outputPolicy.StorageLoss[2].home;
+  Outp.robot_storageOut.Q_V402Work := outputPolicy.StorageLoss[2].work;
+  Outp.io_dout.ctrl_open_spacer_storage_robot_side_lock := FALSE;
+  Outp.io_dout.ctrl_open_spacer_storage_operator_side_lock := FALSE;
+  FOR i := 1 TO 5 DO
+   Outp.robot_Sts.cylinders[i].home := outputPolicy.CylinderLoss[i].home;
+   Outp.robot_Sts.cylinders[i].work := outputPolicy.CylinderLoss[i].work;
+   Outp.robot_Sts.cylinders[i].acceptedHome := FALSE; Outp.robot_Sts.cylinders[i].acceptedWork := FALSE;
+   Outp.robot_Sts.cylinders[i].busy := FALSE;
+   (* Zachowaj faktycznie zalaczona proznie; alarm nie jest poleceniem zrzutu ani nowego ssania. *)
+   Outp.robot_Sts.vacuum[i].blow := FALSE; Outp.robot_Sts.vacuum[i].accepted := FALSE;
+   Outp.robot_Sts.vacuum[i].busy := FALSE;
  END_FOR;
 END_IF;
 Outp.robot_Tx.cyl_V501_acceptedWork := Outp.robot_Tx.cyl_V501_acceptedWork AND NOT Outp.robot_Tx.production_criticalBlock;
@@ -1612,6 +1662,43 @@ Outp.robot_Tx.cyl_V504_acceptedHome := Outp.robot_Tx.cyl_V504_acceptedHome AND N
 Outp.robot_Tx.cyl_V505_acceptedWork := Outp.robot_Tx.cyl_V505_acceptedWork AND NOT Outp.robot_Tx.production_criticalBlock;
 Outp.robot_Tx.vac_5_accepted := Outp.robot_Tx.vac_5_accepted AND NOT Outp.robot_Tx.production_criticalBlock;
 Outp.robot_Tx.cyl_V505_acceptedHome := Outp.robot_Tx.cyl_V505_acceptedHome AND NOT Outp.robot_Tx.production_criticalBlock;
+
+(* Biezace ostrzezenie odbiera zalezne granted, lecz nie rezerwacje obszaru. *)
+IF fbStopM4.Diag.Fault OR fbPosM5.Diag.Fault OR stationCoils.RestartRequired[4] OR stationCoils.RestartRequired[5] THEN
+ Outp.robot_Tx.area_source_granted := FALSE; Outp.robot_Sts.areas[1].granted := FALSE;
+END_IF;
+IF fbV201.Diag.Fault OR fbV202.Diag.Fault OR fbPosM7.Diag.Fault OR
+ stationCoils.RestartRequired[6] OR stationCoils.RestartRequired[7] OR stationCoils.RestartRequired[8] THEN
+ Outp.robot_Tx.area_elevator_granted := FALSE; Outp.robot_Sts.areas[2].granted := FALSE;
+END_IF;
+Outp.robot_Tx.area_storage_granted := Outp.robot_Tx.area_storage_granted AND fbStorage.Sts.RobotAccessGranted AND NOT fbStorage.Diag.Fault;
+Outp.robot_Sts.areas[3].granted := Outp.robot_Sts.areas[3].granted AND Outp.robot_Tx.area_storage_granted;
+(* applied oznacza koncowa komende PLC po wszystkich blokadach; nie pomiar cewki. *)
+Outp.robot_Tx.vac_1_holdApplied := Outp.robot_Sts.vacuum[1].hold;
+Outp.robot_Tx.cyl_V501_busy := Outp.robot_Sts.cylinders[1].busy;
+Outp.robot_Tx.vac_1_busy := Outp.robot_Sts.vacuum[1].busy;
+Outp.robot_Tx.vac_2_holdApplied := Outp.robot_Sts.vacuum[2].hold;
+Outp.robot_Tx.cyl_V502_busy := Outp.robot_Sts.cylinders[2].busy;
+Outp.robot_Tx.vac_2_busy := Outp.robot_Sts.vacuum[2].busy;
+Outp.robot_Tx.vac_3_holdApplied := Outp.robot_Sts.vacuum[3].hold;
+Outp.robot_Tx.cyl_V503_busy := Outp.robot_Sts.cylinders[3].busy;
+Outp.robot_Tx.vac_3_busy := Outp.robot_Sts.vacuum[3].busy;
+Outp.robot_Tx.vac_4_holdApplied := Outp.robot_Sts.vacuum[4].hold;
+Outp.robot_Tx.cyl_V504_busy := Outp.robot_Sts.cylinders[4].busy;
+Outp.robot_Tx.vac_4_busy := Outp.robot_Sts.vacuum[4].busy;
+Outp.robot_Tx.vac_5_holdApplied := Outp.robot_Sts.vacuum[5].hold;
+Outp.robot_Tx.cyl_V505_busy := Outp.robot_Sts.cylinders[5].busy;
+Outp.robot_Tx.vac_5_busy := Outp.robot_Sts.vacuum[5].busy;
+Outp.hmi_hmiStatus.xOccP4 := material.Sts.occupied[4];
+Outp.hmi_hmiStatus.uiElevState := uiElevState;
+Outp.hmi_hmiStatus.xElevBusy := elevStat.xBusy;
+Outp.hmi_hmiStatus.xElevFault := elevStat.xFault;
+Outp.hmi_hmiStatus.rElevFreq_Hz := elevStat.rVfdOutHz;
+Outp.hmi_hmiStatus.sElevDiagText := elevStat.sDiagText;
+Outp.hmi_hmiStatus.xGlobalEnable := xGlobalEnable AND NOT currentCritical;
+Outp.io_dout.ctrl_turn_on_light_red := currentCritical;
+Outp.io_dout.ctrl_turn_on_light_green := robot.Sts.order.running AND NOT currentCritical;
+Outp.io_dout.ctrl_turn_on_buzzer := currentCritical;
 
 (* Wejscia diagnostyczne z adaptera: wartosc i waznosc oddzielnie. *)
 Outp.hmi_hmiIo.value.ind_loading_elevator_1_left_in_home_position := Inp.station_DiagnosticValue.ind_loading_elevator_1_left_in_home_position;
@@ -1824,9 +1911,9 @@ Outp.hmi_hmiIo.value.ctrl_move_unloading_stopper_1_to_work_position := stationCo
 Outp.hmi_hmiIo.valid.ctrl_move_unloading_stopper_1_to_work_position := io.Sts.valid AND Cfg.robot_stationIoBound;
 Outp.hmi_hmiIo.value.ctrl_move_unloading_stopper_2_to_work_position := stationCoils.Applied[10].work;
 Outp.hmi_hmiIo.valid.ctrl_move_unloading_stopper_2_to_work_position := io.Sts.valid AND Cfg.robot_stationIoBound;
-Outp.hmi_hmiIo.value.ctrl_move_spacer_barrier_left_to_work_position := fbStorage.Outp.Q_V401Work;
+Outp.hmi_hmiIo.value.ctrl_move_spacer_barrier_left_to_work_position := Outp.robot_storageOut.Q_V401Work;
 Outp.hmi_hmiIo.valid.ctrl_move_spacer_barrier_left_to_work_position := io.Sts.valid AND Cfg.robot_stationIoBound;
-Outp.hmi_hmiIo.value.ctrl_move_spacer_barrier_right_to_work_position := fbStorage.Outp.Q_V402Work;
+Outp.hmi_hmiIo.value.ctrl_move_spacer_barrier_right_to_work_position := Outp.robot_storageOut.Q_V402Work;
 Outp.hmi_hmiIo.valid.ctrl_move_spacer_barrier_right_to_work_position := io.Sts.valid AND Cfg.robot_stationIoBound;
 Outp.hmi_hmiIo.value.ctrl_move_robot_axis_7_to_work_position := Outp.robot_Sts.cylinders[1].work;
 Outp.hmi_hmiIo.valid.ctrl_move_robot_axis_7_to_work_position := io.Sts.valid AND Cfg.robot_stationIoBound;
@@ -1936,7 +2023,11 @@ Outp.hmi_hmiIo.valid.ctrl_turn_on_buzzer := io.Sts.valid AND Cfg.robot_stationIo
 Hmi.permit.alarmAckAll.xAllowed := Hmi.link.xArmed;
 
 
+Outp.hmi_hmiStatus.xConvTopRunning := Outp.io_dout.ctrl_turn_on_top_conveyor;
+Outp.hmi_hmiStatus.xConvElevRunning := Outp.io_dout.ctrl_turn_on_elevator_conveyor_in OR Outp.io_dout.ctrl_turn_on_elevator_conveyor_out;
+Outp.hmi_hmiStatus.xConvBottomRunning := Outp.io_dout.ctrl_turn_on_bottom_conveyor OR Outp.io_dout.ctrl_turn_on_bottom_conveyor_in;
 Outp.drive := elevOut.Drive;
-IF alarms.Sts.critical OR plantNow.critical OR NOT xSafetyOK OR NOT io.Sts.valid THEN Outp.drive.forward := FALSE; Outp.drive.reverse := FALSE; Outp.drive.reference := 0; END_IF;
+IF currentCritical THEN Outp.drive.forward := FALSE; Outp.drive.reverse := FALSE; Outp.drive.reference := 0; END_IF;
+Outp.hmi_hmiIo.value.ctrl_run_elevator := Outp.drive.enable AND (Outp.drive.forward OR Outp.drive.reverse);
 Outp.drain := Drain;
 Outp.reconcileRequired := reconcileRequired;

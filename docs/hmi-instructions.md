@@ -411,3 +411,7 @@ Nazwy dostępnych ustawień i obiektów sprawdź w używanej wersji Vijeo. Opisa
 
 - [Schneider — Momentary ON dla przycisku działającego do zwolnienia](https://www.se.com/us/en/faqs/FA232961/).
 - [Schneider — kategoria łącząca grupy w Alarm Banner / Alarm Summary](https://www.se.com/uk/en/faqs/FA193128/).
+
+## Aktualizacja po review PLC — 2026-11-15
+
+W wykonanym PLC GVL_Station.LocalRestartRequired[1..10] jest statusem tylko do odczytu. Po lokalnym timeout komunikat ma wskazywać usunięcie przyczyny i Reset, następnie świeży fizyczny Start w Auto lub zwolnienie i ponowne naciśnięcie w Manual. Sam Reset nie jest wznowieniem. Konflikt osi/taśmy/pozycjonera odbiera obie autoryzacje; nowe naciśnięcie jest wymagane po usunięciu konfliktu. Zmiana ilości i Apply ST.1–ST.4 wymagają także postoju chwytaka i braku aktualnych ręcznych żądań. Pola DUT oznaczone LEGACY nie są aktywnymi nastawami. [Tabela migracji, źródła statusów i granice odbioru](plc-review-fixes.md).

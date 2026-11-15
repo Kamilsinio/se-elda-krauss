@@ -36,6 +36,8 @@ IF Required AND NOT Blocked AND PhysicalIdle AND RobotReady THEN
   Required := FALSE; Approved := TRUE; Reason := 0;
  END_IF;
  IF Approved THEN
+  (* Uzgodniony snapshot zamyka takze przydzielone, odrzucone zdarzenia. *)
+  Context.station.lastMaterialEventId := Context.station.nextMaterialEventId;
   FOR i := 1 TO 6 DO Context.station.operations[i].done := TRUE; Context.station.operations[i].accepted := FALSE; END_FOR;
  END_IF;
 END_IF;
