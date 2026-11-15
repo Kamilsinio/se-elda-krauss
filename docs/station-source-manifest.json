@@ -40,7 +40,7 @@
     },
     {
       "path": "Modules/AlarmManager/DUTs/ST_StationAlarmEntry.st",
-      "sha256": "c6ee43550c347af6042a3808ddcfe291e08b273079ed2856211de25eb84ad38b"
+      "sha256": "bceb1047b65196f3a0d6a05b3716fa27385e7a2ac6ddbf8caff3b4648dc58610"
     },
     {
       "path": "Modules/AlarmManager/DUTs/ST_StationAlarmIn.st",
@@ -52,7 +52,7 @@
     },
     {
       "path": "Modules/AlarmManager/FB_AlarmManager.st",
-      "sha256": "1e74017465ec4e925fda342a258268c477e6384af7715d984b45e52665886997"
+      "sha256": "b33dd769eea5f21e56646b110fe4f03c150c4485df8d996e839865814a266cd6"
     },
     {
       "path": "Modules/BottomAccumulator/DUTs/E_Bottom567Fault.st",

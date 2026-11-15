@@ -10,6 +10,6 @@ STRUCT
     station : UINT;
     code : UINT;
     text : STRING[120];
-    action : STRING[120];
+    actionText : STRING[120];
 END_STRUCT
 END_TYPE
