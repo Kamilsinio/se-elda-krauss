@@ -1,5 +1,7 @@
 # Human instructions — SE-ELDA-Krauss
 
+Aktualizacja 2026-11-15: bieżący stan źródeł obejmuje [nowe moduły stacji](docs/station-plc-implementation.md). Historyczna tabela kolejności poniżej nie oznacza, że OrderManager, Drain i AlarmManager nadal nie istnieją. Kolejnym odbiorem jest konfiguracja i kompilacja projektu natywnego.
+
 Stan: 2026-10-04. Instrukcja prowadzenia projektu przez człowieka. Dotyczy przygotowania i wykonania adaptacji; kod PLC/FANUC oraz projekt HMI nie zostały w tym zadaniu przebudowane.
 
 Zacznij od [założeń](docs/project-assumptions.md). Szczegółowe wymagania REQ, testy AT i braki GAP są w [planie implementacji](docs/implementation-plan.md), a reguły pracy agenta w [AGENTS.md](AGENTS.md).

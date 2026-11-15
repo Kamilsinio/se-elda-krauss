@@ -47,17 +47,16 @@ END_VAR
 permissive := Cmd.EnableAuto AND Cmd.SafetyOK AND (NOT Diag.Fault);
 
 // Przejazd P2 pamiętamy także podczas wyhamowania po pauzie.
-fPos2Fall(CLK := Inp.sPos2_raw);
+fPos2Fall(CLK := Inp.LoadBarrierBlocked);
 xP1TransferCanRelease := (Sts.State = E_TopFlowState.RUN) AND
                          (Sts.SrcPos = E_TopPos.P1) AND
-                         ((Sts.Target = E_TopTarget.TG_P3) OR
-                          (Sts.Target = E_TopTarget.TG_ELEV)) AND
+                         Inp.LoadBarrierValid AND
                          (NOT Cmd.EmptyingMode);
 IF xP1TransferCanRelease THEN
-    IF permissive AND Inp.TopConveyorRunning AND Inp.sPos2_raw THEN
+    IF permissive AND Inp.TopConveyorRunning AND Inp.LoadBarrierBlocked THEN
         xP2SeenForP1 := TRUE;
     END_IF;
-    IF xP2SeenForP1 AND fPos2Fall.Q THEN
+    IF Inp.LoadBarrierValid AND xP2SeenForP1 AND fPos2Fall.Q THEN
         xP2PassedForP1 := TRUE;
     END_IF;
 END_IF;
@@ -105,9 +104,7 @@ IF Cmd.ResetFault THEN
     tStopDelay(IN := FALSE);
     tStopperTO(IN := FALSE);
     tMoveTO(IN := FALSE);
-    IF (Sts.State = E_TopFlowState.FAULT) OR (NOT Cmd.EnableAuto) THEN
-        Sts.State := E_TopFlowState.INIT;
-    END_IF;
+
 END_IF;
 
 // --- 5) Domyślne wyjścia (nadpisywane w stanach) ---
@@ -121,6 +118,11 @@ IF Inp.StackConsumedAtP3 THEN
     xStackConsumedPending := TRUE;
 END_IF;
 
+IF Inp.DeviceWarning THEN
+    Outp.TopConveyor_Run := FALSE; Outp.ElevConv_RunFwd := FALSE;
+    tMoveTO(IN := FALSE); tStopperTO(IN := FALSE);
+    RETURN;
+END_IF;
 IF (NOT Cmd.EnableAuto) OR (NOT Cmd.SafetyOK) THEN
     Outp.TopConveyor_Run := FALSE;
     Outp.HoldPos1_Up := TRUE;
@@ -196,9 +198,9 @@ CASE Sts.State OF
         Outp.HoldPos3_Up := Sts.OccP3;
 
         planned := FALSE;
-        p1Ready := Sts.OccP1 AND (Sts.Pos1Accepted OR Cmd.EmptyingMode);
+        p1Ready := Sts.OccP1 AND (Sts.Pos1Accepted OR Cmd.EmptyingMode) AND Inp.LoadBarrierValid;
 
-        IF permissive THEN
+        IF permissive AND Cmd.AllowNewTransfers THEN
             // --- W trybie tacek (TrayMode) nie planuj TG_ELEV ---
             // Robot sam układa tacki na windię; górny transporter tylko buforuje do P3
             IF (NOT Cmd.TrayMode) OR Cmd.EmptyingMode THEN
@@ -312,28 +314,13 @@ CASE Sts.State OF
         IF allStoppersInPos THEN
             tStopperTO(IN := FALSE);
             Sts.State := E_TopFlowState.RUN;
-        ELSIF tStopperTO.Q THEN
-            Diag.Fault := TRUE;
-            Diag.FaultCode := E_TopFault.STOPPER_TIMEOUT;
-            Diag.FaultText := 'TopFlow: timeout dojazdu stoperów do pozycji.';
-            Sts.State := E_TopFlowState.FAULT;
         END_IF;
 
     E_TopFlowState.RUN:
         // Ruch taśmą do celu (P2/P3) lub transfer na windę (TG_ELEV)
         Sts.Busy := TRUE;
 
-        // Zamknij pusty załadunek po przejechaniu całego pojemnika przez P2.
-        IF xP1TransferCanRelease AND permissive AND xP2PassedForP1 AND
-           (NOT Sts.P1ReleasedForLoad) AND (NOT Inp.sPos1_raw) THEN
-            Sts.P1ReleasedForLoad := TRUE;
-            Sts.OccP1 := FALSE;
-            Sts.Pos1Accepted := FALSE;
-        END_IF;
-        IF Sts.P1ReleasedForLoad THEN
-            Outp.HoldPos1_Up := TRUE;
-        END_IF;
-
+        IF Sts.P1ReleasedForLoad THEN Outp.HoldPos1_Up := TRUE; END_IF;
         // Podtrzymaj M5 w górze (bramka) podczas jazdy do P3 w trybie tacek
         IF Cmd.TrayMode AND (Sts.Target = E_TopTarget.TG_P3) THEN
             Outp.M5_Extend := TRUE;
@@ -352,17 +339,17 @@ CASE Sts.State OF
         tMoveTO(IN := TRUE, PT := Cfg.tMoveTimeout);
 
         // warunek stopu zależnie od celu
-        IF (Sts.Target = E_TopTarget.TG_P2) AND Inp.sPos2_raw THEN
+        IF (Sts.Target = E_TopTarget.TG_P2) AND Inp.sPos2_raw AND (Sts.SrcPos <> E_TopPos.P1 OR xP2PassedForP1) THEN
             Outp.TopConveyor_Run := FALSE;
             tMoveTO(IN := FALSE);
             Sts.State := E_TopFlowState.WAIT_STOP;
 
-        ELSIF (Sts.Target = E_TopTarget.TG_P3) AND Inp.sPos3_raw THEN
+        ELSIF (Sts.Target = E_TopTarget.TG_P3) AND Inp.sPos3_raw AND (Sts.SrcPos <> E_TopPos.P1 OR xP2PassedForP1) THEN
             Outp.TopConveyor_Run := FALSE;
             tMoveTO(IN := FALSE);
             Sts.State := E_TopFlowState.WAIT_STOP;
 
-        ELSIF (Sts.Target = E_TopTarget.TG_ELEV) AND Inp.Elev_TransferDone THEN
+        ELSIF (Sts.Target = E_TopTarget.TG_ELEV) AND Inp.Elev_TransferDone AND (Sts.SrcPos <> E_TopPos.P1 OR xP2PassedForP1) THEN
             // Transfer na windę kończy dopiero przefiltrowany sygnał P4 (2 s).
             Outp.TopConveyor_Run := FALSE;
             Outp.Elev_TransferReq := FALSE;
@@ -380,6 +367,26 @@ CASE Sts.State OF
             Diag.FaultCode := E_TopFault.MOVE_TIMEOUT;
             Diag.FaultText := 'TopFlow: timeout ruchu transportera (brak osiągnięcia celu).';
             Sts.State := E_TopFlowState.FAULT;
+        END_IF;
+
+        IF xP1TransferCanRelease AND xP2PassedForP1 AND NOT Sts.P1ReleasedForLoad AND
+           NOT Inp.sPos1_raw AND Sts.State = E_TopFlowState.RUN THEN
+            Outp.TopConveyor_Run := FALSE; Outp.ElevConv_RunFwd := FALSE;
+            tMoveTO(IN := FALSE); Sts.State := E_TopFlowState.RELEASE_P1;
+        END_IF;
+
+    E_TopFlowState.RELEASE_P1:
+        Outp.TopConveyor_Run := FALSE; Outp.ElevConv_RunFwd := FALSE;
+        tStopDelay(IN := NOT Inp.TopConveyorRunning, PT := Cfg.tMotorStopDelay);
+        IF tStopDelay.Q THEN
+            tStopDelay(IN := FALSE); Outp.HoldPos1_Up := TRUE;
+            Sts.State := E_TopFlowState.WAIT_P1_LOCK;
+        END_IF;
+    E_TopFlowState.WAIT_P1_LOCK:
+        Outp.TopConveyor_Run := FALSE; Outp.ElevConv_RunFwd := FALSE; Outp.HoldPos1_Up := TRUE;
+        IF Inp.StopP1_IsUp AND NOT Inp.DeviceWarning THEN
+            Sts.P1ReleasedForLoad := TRUE; Sts.OccP1 := FALSE; Sts.Pos1Accepted := FALSE;
+            Sts.State := E_TopFlowState.RUN;
         END_IF;
 
     E_TopFlowState.WAIT_STOP:
@@ -413,11 +420,6 @@ CASE Sts.State OF
         IF Inp.M5_IsDown THEN
             tStopperTO(IN := FALSE);
             Sts.State := E_TopFlowState.LOCK_TARGET;
-        ELSIF tStopperTO.Q THEN
-            Diag.Fault := TRUE;
-            Diag.FaultCode := E_TopFault.STOPPER_TIMEOUT;
-            Diag.FaultText := 'TopFlow: timeout cofania bramki M5.';
-            Sts.State := E_TopFlowState.FAULT;
         END_IF;
 
     E_TopFlowState.LOCK_TARGET:
@@ -450,11 +452,6 @@ CASE Sts.State OF
             tStopperTO(IN := FALSE);
             Sts.State := E_TopFlowState.COMPLETE;
 
-        ELSIF tStopperTO.Q THEN
-            Diag.Fault := TRUE;
-            Diag.FaultCode := E_TopFault.STOPPER_TIMEOUT;
-            Diag.FaultText := 'TopFlow: timeout podnoszenia stopera docelowego.';
-            Sts.State := E_TopFlowState.FAULT;
         END_IF;
 
     E_TopFlowState.COMPLETE:

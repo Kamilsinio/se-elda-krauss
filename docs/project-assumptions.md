@@ -214,3 +214,7 @@ Dokumentacja nie usuwa obecnych pozostałości testowych z kodu. Ich konkretne m
 Manual podczas pracy/kończenia jest odrzucany i nie jest zapamiętywany. Po awarii możliwe jest kontrolowane uzgodnienie zachowanego kontekstu, również częściowej partii. Nie odtwarza to autoryzacji ruchu; wymagane są recovery obu stron i świeży fizyczny Start. Przerwany transfer stacji wymaga fizycznego uzgodnienia do postoju.
 
 Zrealizowane źródła i granice weryfikacji opisuje [implementacja PLC v2](plc-robot-implementation.md). Te ustalenia nie zamykają pozostałych danych GAP-10–12.
+
+## 13. Doprecyzowania modułów stacji — 2026-11-15
+
+**POTWIERDZONE w tym zadaniu:** Stop pauzuje opróżnianie po rozpoczętej operacji; wznowienie wymaga fizycznego Start. Manual jest dostępny po osiągnięciu postoju z zachowaniem zlecenia i postępu. Koniec zlecenia z postoju wymaga Start; lokalny przycisk może w Auto wydać jeden gotowy ładunek również w pauzie, bez wznowienia pozostałego opróżniania. Nastawy czasów/progów ST.1–ST.4 można zastosować w potwierdzonym postoju przy otwartym zleceniu; DEC-18 dla ilości detali pozostaje bez zmian. Dla GAP-12 wdrożono mechanizm, bez przypisania nieuzgodnionych klas. [Źródła i kontrakty stacji](station-plc-implementation.md).

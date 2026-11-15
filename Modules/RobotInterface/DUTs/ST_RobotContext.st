@@ -1,8 +1,17 @@
 (* PLC v2; brak przypisania sprzetowego. *)
 TYPE ST_RobotContext :
 STRUCT
-(* Zachowywac kontekst, nigdy pozwolenia ruchu; wersja 2. *)
+(* Zachowywac kontekst, nigdy pozwolenia ruchu; wersja 3. *)
     schema : UINT;
+    drainRequested : BOOL;
+    drainResumeRequired : BOOL;
+    stationDrainStep : E_StationDrainState;
+    stationOwner : E_StationOwner;
+    stationAction : E_StationAction;
+    pickupPending : BOOL;
+    pickupSeen : BOOL;
+    stationParameters : ARRAY[1..4] OF ST_StationParameterSet;
+    stationParamRevision : ARRAY[1..4] OF UINT;
     valid : BOOL;
     orderActive : BOOL;
     ending : BOOL;

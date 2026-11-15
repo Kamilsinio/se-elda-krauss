@@ -10,5 +10,6 @@ STRUCT
     // FALSE = produkcja kuwet: TG_ELEV dostępne (dwa transportery jednocześnie)
     TrayMode : BOOL;
     ResetFault : BOOL;
+    AllowNewTransfers : BOOL;
 END_STRUCT
 END_TYPE

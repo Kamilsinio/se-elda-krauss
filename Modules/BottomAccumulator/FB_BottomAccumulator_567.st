@@ -1,330 +1,147 @@
+(* ST.3: osobne operacje P4->P5, P5->P6 i pojedyncze wydanie do B304.
+   HoldStop5/6 oznacza blokade ladunku; polaryzacja cewek wymaga mapowania. *)
 FUNCTION_BLOCK FB_BottomAccumulator_567
 VAR_INPUT
-    Cfg : ST_Bottom567Cfg;
-    Cmd : ST_Bottom567Cmd;
-    Inp : ST_Bottom567In;
+ Cfg : ST_Bottom567Cfg;
+ Cmd : ST_Bottom567Cmd;
+ Inp : ST_Bottom567In;
 END_VAR
 VAR_OUTPUT
-    Outp : ST_Bottom567Out;
-    Sts  : ST_Bottom567Status;
-    Diag : ST_Bottom567Diag;
+ Outp : ST_Bottom567Out;
+ Sts : ST_Bottom567Status;
+ Diag : ST_Bottom567Diag;
 END_VAR
 VAR
-    autoPermissive : BOOL;
-    activeStepPermissive : BOOL;
-    emptyPermissive : BOOL;
-
-    // stabilizacja tylko gdy taśma stoi
-    t5 : TON; t6 : TON; t7 : TON;
-    s5_stable : BOOL; s6_stable : BOOL; s7_stable : BOOL;
-
-    // krok
-    pos5WasOccupied : BOOL;
-    seenPos5Off : BOOL;
-    p5StepReached : BOOL;
-    xStepMovementStarted : BOOL;
-
-    tStepTO : TON;
-    tStopDelay : TON;
-    tResyncStable : TON;
-    xResyncSampled : BOOL;
-    resyncPos5 : BOOL;
-    resyncPos6 : BOOL;
-    resyncPos7 : BOOL;
-
-    rDischarge : R_TRIG;
-    ftElevatorEmptied : F_TRIG;
-    xElevatorEmptiedSeen : BOOL;
+ requestEdge : R_TRIG;
+ unloadEdge : R_TRIG;
+ advanceEdge : R_TRIG;
+ source : UINT;
+ target : UINT;
+ unload : BOOL;
+ seenSource : BOOL;
+ sourceGone : BOOL;
+ allowed : BOOL;
+ targetSensor : BOOL;
+ sourceSensor : BOOL;
+ stopsReady : BOOL;
+ moveTimer : TON;
+ stopTimer : TON;
+ arriveTimer : TON;
+ receiptOn : TON;
+ receiptOff : TON;
 END_VAR
-
-autoPermissive := Cmd.EnableAuto AND Cmd.SafetyOK AND (NOT Diag.Fault);
-activeStepPermissive := (Cmd.EnableAuto OR Cmd.EmptyBottomHold) AND
-                        Cmd.SafetyOK AND (NOT Diag.Fault);
-emptyPermissive := Cmd.EmptyBottomHold AND Cmd.SafetyOK AND (NOT Diag.Fault);
-ftElevatorEmptied(CLK := Inp.sElevatorEmptied_raw);
-
-IF Cmd.ResetFault THEN
-    Diag.Fault := FALSE;
-    Diag.Code := E_Bottom567Fault.NONE;
-    Diag.Text := '';
-    xElevatorEmptiedSeen := FALSE;
-    seenPos5Off := FALSE;
-    p5StepReached := FALSE;
-    xStepMovementStarted := FALSE;
-    tStepTO(IN := FALSE);
-    tStopDelay(IN := FALSE);
-    tResyncStable(IN := FALSE);
-    xResyncSampled := FALSE;
-    IF Sts.State = E_Bottom567State.FAULT THEN
-        Sts.State := E_Bottom567State.INIT;
-    END_IF;
-END_IF;
-
-// default
-Outp.StepDonePulse := FALSE;
-Outp.DischargeDonePulse := FALSE;
+requestEdge(CLK := Cmd.DischargeReq);
+unloadEdge(CLK := Cmd.SingleUnloadReq);
+advanceEdge(CLK := Cmd.AdvanceReq);
+Outp.StepDonePulse := FALSE; Outp.DischargeDonePulse := FALSE;
+Outp.SingleUnloadDonePulse := FALSE; Outp.AcceptedPulse := FALSE;
+Outp.ConvRun := FALSE; Outp.ElevConv_RunBwd := FALSE;
+Outp.HoldStop5 := TRUE; Outp.HoldStop6 := TRUE;
+Sts.CanAcceptFromElev := FALSE; Sts.SingleUnloadReady := FALSE; Sts.CanAdvance := FALSE;
 Sts.EmptyBottomActive := FALSE;
-Sts.CanAcceptFromElev := FALSE;
-
-// stabilizacja przy STOP
-t5(IN := (NOT Outp.ConvRun) AND Inp.sPos5_raw, PT := Cfg.tSensorStable);
-t6(IN := (NOT Outp.ConvRun) AND Inp.sPos6_raw, PT := Cfg.tSensorStable);
-t7(IN := (NOT Outp.ConvRun) AND Inp.sPos7_raw, PT := Cfg.tSensorStable);
-
-s5_stable := t5.Q;
-s6_stable := t6.Q;
-s7_stable := t7.Q;
-
-// Po rozpoczęciu kroku obserwuj postęp także podczas zatrzymania i wybiegu.
-IF (Sts.State = E_Bottom567State.RUN_STEP) AND xStepMovementStarted THEN
-    IF ftElevatorEmptied.Q THEN
-        xElevatorEmptiedSeen := TRUE;
-    END_IF;
-
-    IF pos5WasOccupied THEN
-        IF NOT Inp.sPos5_raw THEN
-            seenPos5Off := TRUE;
-        END_IF;
-
-        IF seenPos5Off AND Inp.sPos5_raw THEN
-            p5StepReached := TRUE;
-        END_IF;
-    ELSIF Inp.sPos5_raw THEN
-        p5StepReached := TRUE;
-    END_IF;
+IF NOT Inp.Valid THEN Sts.Known := FALSE; END_IF;
+IF Inp.Reconcile AND Inp.Valid AND Inp.BeltsStopped THEN
+ Sts.Occ5 := Inp.Restored[1]; Sts.Occ6 := Inp.Restored[2]; Sts.Occ7 := Inp.Restored[3];
+ Sts.Known := TRUE; Sts.State := E_Bottom567State.IDLE; Sts.PickupSeen := FALSE; Sts.WaitingPickup := FALSE;
 END_IF;
-
-IF NOT Cmd.SafetyOK THEN
-    Outp.ConvRun := FALSE;
-    Outp.ElevConv_RunBwd := FALSE;
-    tStepTO(IN := FALSE);
-    tStopDelay(IN := FALSE);
-    tResyncStable(IN := FALSE);
-    xResyncSampled := FALSE;
-    rDischarge(CLK := FALSE);
-
-    IF Sts.State = E_Bottom567State.EMPTY_HOLD THEN
-        Sts.State := E_Bottom567State.EMPTY_RESYNC;
-    END_IF;
-
-    IF Sts.State = E_Bottom567State.EMPTY_RESYNC THEN
-        Sts.Busy := TRUE;
-    ELSE
-        Sts.Busy := FALSE;
-    END_IF;
-    RETURN;
+IF Cmd.ResetFault AND NOT Inp.StopWarning AND Inp.Valid THEN
+ Diag.Fault := FALSE; Diag.Code := E_Bottom567Fault.NONE; Diag.Text := '';
+ (* Po bledzie ruchu wymagane uzgodnienie, Reset nie zmienia kroku. *)
 END_IF;
-
-// Przy wyłączonym AUTO i podczas opróżniania chwilowego nie przechwytuj żądania rozładunku.
-IF (NOT Cmd.EnableAuto) OR
-   (Sts.State = E_Bottom567State.EMPTY_HOLD) OR
-   (Sts.State = E_Bottom567State.EMPTY_RESYNC) THEN
-    rDischarge(CLK := FALSE);
-ELSE
-    rDischarge(CLK := Cmd.DischargeReq);
+allowed := Cmd.SafetyOK AND Inp.Valid AND Sts.Known AND Cfg.stopsConfigured AND NOT Diag.Fault AND
+ (Cmd.EnableAuto OR Cmd.FinishPermit);
+Sts.Busy := Sts.State <> E_Bottom567State.IDLE AND Sts.State <> E_Bottom567State.INIT;
+IF Cmd.SafetyOK AND Inp.Valid AND Sts.Known AND Cfg.stopsConfigured AND NOT Diag.Fault AND Sts.State = E_Bottom567State.IDLE THEN
+ Sts.CanAcceptFromElev := NOT Sts.Occ5 AND NOT Sts.WaitingPickup;
+ Sts.CanAdvance := Sts.Occ5 AND NOT Sts.Occ6 AND NOT Sts.WaitingPickup;
+ Sts.SingleUnloadReady := (Sts.Occ5 OR Sts.Occ6 OR Sts.Occ7) AND NOT Sts.WaitingPickup;
 END_IF;
-
+IF NOT allowed THEN
+ moveTimer(IN := FALSE); arriveTimer(IN := FALSE); stopTimer(IN := FALSE);
+ RETURN;
+END_IF;
 CASE Sts.State OF
-
-    E_Bottom567State.INIT:
-        Outp.ConvRun := FALSE;
-        Outp.ElevConv_RunBwd := FALSE;
-        Sts.Busy := FALSE;
-        xStepMovementStarted := FALSE;
-
-        // seed zajętości z czujników (gdy stoi)
-        Sts.Occ5 := s5_stable;
-        Sts.Occ6 := s6_stable;
-        Sts.Occ7 := s7_stable;
-        Sts.State := E_Bottom567State.IDLE;
-
-    E_Bottom567State.IDLE:
-        Outp.ConvRun := FALSE;
-        Outp.ElevConv_RunBwd := FALSE;
-        Sts.Busy := FALSE;
-        xStepMovementStarted := FALSE;
-
-        // odśwież occupancy przy postoju
-        Sts.Occ5 := s5_stable;
-        Sts.Occ6 := s6_stable;
-        Sts.Occ7 := s7_stable;
-
-        Sts.CanAcceptFromElev := (NOT Sts.Occ7) AND (NOT Diag.Fault);
-
-        Outp.AlarmQueueFull := Sts.Occ7; // “pos7 zajęta” -> alarm
-
-        // Automatyczny transfer P4->P5 ma pierwszeństwo przed opróżnianiem chwilowym.
-        IF autoPermissive AND rDischarge.Q THEN
-            Sts.State := E_Bottom567State.PRECHECK;
-        ELSIF emptyPermissive THEN
-            tStopDelay(IN := FALSE);
-            tResyncStable(IN := FALSE);
-            xResyncSampled := FALSE;
-            Sts.Busy := TRUE;
-            Sts.CanAcceptFromElev := FALSE;
-            Sts.State := E_Bottom567State.EMPTY_HOLD;
-        END_IF;
-
-    E_Bottom567State.PRECHECK:
-        Outp.ConvRun := FALSE;
-        Outp.ElevConv_RunBwd := FALSE;
-        Sts.Busy := activeStepPermissive;
-
-        IF activeStepPermissive THEN
-            // pos7 zajęta -> nie możemy zrobić kroku
-            IF Sts.Occ7 THEN
-                Diag.Fault := TRUE;
-                Diag.Code := E_Bottom567Fault.FULL_QUEUE;
-                Diag.Text := 'Bottom457: pozycja 7 zajęta, brak miejsca na krok 4->5.';
-                xStepMovementStarted := FALSE;
-                Sts.State := E_Bottom567State.FAULT;
-            ELSE
-                pos5WasOccupied := Sts.Occ5;
-                seenPos5Off := FALSE;
-                p5StepReached := FALSE;
-                xElevatorEmptiedSeen := FALSE;
-                xStepMovementStarted := FALSE;
-                Sts.State := E_Bottom567State.RUN_STEP;
-            END_IF;
-        END_IF;
-
-    E_Bottom567State.RUN_STEP:
-        Outp.ConvRun := FALSE;
-        Outp.ElevConv_RunBwd := FALSE;
-        Sts.Busy := activeStepPermissive;
-
-        IF activeStepPermissive THEN
-            xStepMovementStarted := TRUE;
-            Outp.ConvRun := TRUE;
-            Outp.ElevConv_RunBwd := TRUE;
-            Outp.AlarmQueueFull := FALSE;
-
-            tStepTO(IN := TRUE, PT := Cfg.tStepTimeout);
-
-            IF p5StepReached AND xElevatorEmptiedSeen THEN
-                Outp.ConvRun := FALSE;
-                Outp.ElevConv_RunBwd := FALSE;
-                tStepTO(IN := FALSE);
-                Sts.State := E_Bottom567State.WAIT_STOP;
-            END_IF;
-
-            IF tStepTO.Q THEN
-                Outp.ConvRun := FALSE;
-                Outp.ElevConv_RunBwd := FALSE;
-                Diag.Fault := TRUE;
-                Diag.Code := E_Bottom567Fault.MOVE_TIMEOUT;
-                Diag.Text := 'Bottom457: timeout kroku transportera.';
-                xStepMovementStarted := FALSE;
-                Sts.State := E_Bottom567State.FAULT;
-            END_IF;
-        ELSE
-            tStepTO(IN := FALSE);
-        END_IF;
-
-    E_Bottom567State.WAIT_STOP:
-        Outp.ConvRun := FALSE;
-        Outp.ElevConv_RunBwd := FALSE;
-        Sts.Busy := activeStepPermissive;
-
-        IF activeStepPermissive THEN
-            // zwłoka po stopie (dobierasz na obiekcie)
-            tStopDelay(IN := TRUE, PT := Cfg.tMotorStopDelay);
-
-            IF tStopDelay.Q THEN
-                tStopDelay(IN := FALSE);
-
-                // modelowe przesunięcie occupancy o 1 krok:
-                // 6->7, 5->6, 4->5 (nowy zawsze pojawia się na 5)
-                Sts.Occ7 := Sts.Occ6;
-                Sts.Occ6 := Sts.Occ5;
-                Sts.Occ5 := TRUE;
-
-                Sts.State := E_Bottom567State.COMPLETE;
-            END_IF;
-        ELSE
-            tStopDelay(IN := FALSE);
-        END_IF;
-
-    E_Bottom567State.COMPLETE:
-        Outp.ConvRun := FALSE;
-        Outp.ElevConv_RunBwd := FALSE;
-        Sts.Busy := FALSE;
-        xStepMovementStarted := FALSE;
-        Outp.StepDonePulse := TRUE;
-        Outp.DischargeDonePulse := TRUE;
-        Sts.State := E_Bottom567State.IDLE;
-
-    E_Bottom567State.EMPTY_HOLD:
-        Outp.ConvRun := FALSE;
-        Outp.ElevConv_RunBwd := FALSE;
-        Outp.AlarmQueueFull := FALSE;
-        Sts.Busy := TRUE;
-        tStepTO(IN := FALSE);
-        tStopDelay(IN := FALSE);
-        tResyncStable(IN := FALSE);
-        xResyncSampled := FALSE;
-        xStepMovementStarted := FALSE;
-
-        IF emptyPermissive THEN
-            Outp.ConvRun := TRUE;
-            Sts.EmptyBottomActive := TRUE;
-        ELSE
-            // Najpierw zatrzymaj taśmę, potem odtwórz model zajętości.
-            Sts.State := E_Bottom567State.EMPTY_RESYNC;
-        END_IF;
-
-    E_Bottom567State.EMPTY_RESYNC:
-        Outp.ConvRun := FALSE;
-        Outp.ElevConv_RunBwd := FALSE;
-        Outp.AlarmQueueFull := FALSE;
-        Sts.Busy := TRUE;
-        tStepTO(IN := FALSE);
-        xStepMovementStarted := FALSE;
-
-        tStopDelay(IN := TRUE, PT := Cfg.tMotorStopDelay);
-
-        IF NOT tStopDelay.Q THEN
-            tResyncStable(IN := FALSE);
-            xResyncSampled := FALSE;
-        ELSIF NOT xResyncSampled THEN
-            resyncPos5 := Inp.sPos5_raw;
-            resyncPos6 := Inp.sPos6_raw;
-            resyncPos7 := Inp.sPos7_raw;
-            xResyncSampled := TRUE;
-            tResyncStable(IN := FALSE);
-        ELSIF (Inp.sPos5_raw <> resyncPos5) OR
-              (Inp.sPos6_raw <> resyncPos6) OR
-              (Inp.sPos7_raw <> resyncPos7) THEN
-            resyncPos5 := Inp.sPos5_raw;
-            resyncPos6 := Inp.sPos6_raw;
-            resyncPos7 := Inp.sPos7_raw;
-            tResyncStable(IN := FALSE);
-        ELSE
-            tResyncStable(IN := TRUE, PT := Cfg.tSensorStable);
-        END_IF;
-
-        IF tResyncStable.Q THEN
-            Sts.Occ5 := resyncPos5;
-            Sts.Occ6 := resyncPos6;
-            Sts.Occ7 := resyncPos7;
-            tStopDelay(IN := FALSE);
-            tResyncStable(IN := FALSE);
-            xResyncSampled := FALSE;
-
-            IF Diag.Fault THEN
-                Sts.State := E_Bottom567State.FAULT;
-            ELSE
-                Sts.State := E_Bottom567State.IDLE;
-            END_IF;
-        END_IF;
-
-    E_Bottom567State.FAULT:
-        Outp.ConvRun := FALSE;
-        Outp.ElevConv_RunBwd := FALSE;
-        Sts.Busy := FALSE;
-        xStepMovementStarted := FALSE;
-
-        // alarm: pos7 zajęta -> sygnalizuj operatorowi
-        Outp.AlarmQueueFull := TRUE;
-
+ E_Bottom567State.INIT:
+  (* Tylko jawny Reconcile nadaje Known. *)
+ E_Bottom567State.IDLE:
+  Sts.Busy := FALSE;
+  Sts.CanAcceptFromElev := NOT Sts.Occ5 AND NOT Sts.WaitingPickup;
+  Sts.CanAdvance := Sts.Occ5 AND NOT Sts.Occ6 AND NOT Sts.WaitingPickup;
+  Sts.SingleUnloadReady := (Sts.Occ5 OR Sts.Occ6 OR Sts.Occ7) AND NOT Sts.WaitingPickup;
+  source := 0; target := 0; unload := FALSE;
+  IF Cmd.EnableAuto AND Inp.BeltsStopped AND NOT Inp.StopWarning THEN
+   IF unloadEdge.Q AND Sts.SingleUnloadReady THEN
+    unload := TRUE; target := 7;
+    IF Sts.Occ7 THEN source := 7; ELSIF Sts.Occ6 THEN source := 6; ELSE source := 5; END_IF;
+   ELSIF requestEdge.Q AND Sts.CanAcceptFromElev THEN source := 4; target := 5;
+   ELSIF advanceEdge.Q AND Sts.CanAdvance THEN source := 5; target := 6;
+   END_IF;
+  END_IF;
+  IF source <> 0 THEN
+   Outp.AcceptedPulse := TRUE; Sts.Busy := TRUE; Sts.PickupSeen := FALSE;
+   seenSource := FALSE; sourceGone := FALSE;
+   IF source = 7 THEN Sts.WaitingPickup := TRUE; Sts.State := E_Bottom567State.WAIT_RECEIPT;
+   ELSE Sts.State := E_Bottom567State.PRECHECK; END_IF;
+  END_IF;
+ E_Bottom567State.PRECHECK:
+  IF Inp.BeltsStopped THEN
+   Outp.HoldStop5 := source <> 5; Outp.HoldStop6 := source <> 6;
+   stopsReady := ((Outp.HoldStop5 AND Inp.Stop5Holding) OR (NOT Outp.HoldStop5 AND Inp.Stop5Released)) AND
+    ((Outp.HoldStop6 AND Inp.Stop6Holding) OR (NOT Outp.HoldStop6 AND Inp.Stop6Released));
+   IF stopsReady AND NOT Inp.StopWarning THEN Sts.State := E_Bottom567State.RUN_STEP; END_IF;
+  END_IF;
+ E_Bottom567State.RUN_STEP:
+  Outp.HoldStop5 := source <> 5; Outp.HoldStop6 := source <> 6;
+  (* Stopery zachowuja cel podczas ruchu; nie zmieniamy ich na podstawie czujnikow ladunku. *)
+  IF NOT Inp.StopWarning THEN
+   Outp.ConvRun := TRUE; Outp.ElevConv_RunBwd := source = 4;
+   sourceSensor := Inp.sElevatorEmptied_raw;
+   IF source = 5 THEN sourceSensor := Inp.sPos5_raw; END_IF;
+   IF source = 6 THEN sourceSensor := Inp.sPos6_raw; END_IF;
+   IF sourceSensor THEN seenSource := TRUE; END_IF;
+   IF seenSource AND NOT sourceSensor THEN sourceGone := TRUE; END_IF;
+   targetSensor := Inp.sPos5_raw;
+   IF target = 6 THEN targetSensor := Inp.sPos6_raw; END_IF;
+   IF target = 7 THEN targetSensor := Inp.sPos7_raw; END_IF;
+   arriveTimer(IN := targetSensor AND sourceGone, PT := Cfg.tSensorStable);
+   moveTimer(IN := TRUE, PT := Cfg.tStepTimeout);
+   IF arriveTimer.Q THEN
+    Outp.ConvRun := FALSE; Outp.ElevConv_RunBwd := FALSE;
+    moveTimer(IN := FALSE); arriveTimer(IN := FALSE); Sts.State := E_Bottom567State.WAIT_STOP;
+   ELSIF moveTimer.Q THEN
+    Diag.Fault := TRUE; Diag.Code := E_Bottom567Fault.MOVE_TIMEOUT;
+    Diag.Text := 'ST.3: brak potwierdzenia przejazdu ladunku.';
+    Outp.ConvRun := FALSE; Outp.ElevConv_RunBwd := FALSE; Sts.Known := FALSE; Sts.State := E_Bottom567State.FAULT;
+   END_IF;
+  ELSE moveTimer(IN := FALSE); arriveTimer(IN := FALSE); END_IF;
+ E_Bottom567State.WAIT_STOP:
+  Outp.HoldStop5 := source <> 5; Outp.HoldStop6 := source <> 6;
+  stopTimer(IN := Inp.BeltsStopped, PT := Cfg.tMotorStopDelay);
+  IF stopTimer.Q THEN stopTimer(IN := FALSE); Sts.State := E_Bottom567State.LOCK_STOPS; END_IF;
+ E_Bottom567State.LOCK_STOPS:
+  IF Inp.BeltsStopped AND Inp.Stop5Holding AND Inp.Stop6Holding AND NOT Inp.StopWarning THEN
+   IF source = 5 THEN Sts.Occ5 := FALSE; END_IF;
+   IF source = 6 THEN Sts.Occ6 := FALSE; END_IF;
+   IF target = 5 THEN Sts.Occ5 := TRUE; END_IF;
+   IF target = 6 THEN Sts.Occ6 := TRUE; END_IF;
+   IF target = 7 THEN Sts.Occ7 := TRUE; END_IF;
+   IF unload THEN Sts.WaitingPickup := TRUE; Sts.State := E_Bottom567State.WAIT_RECEIPT;
+   ELSE Sts.State := E_Bottom567State.COMPLETE; END_IF;
+  END_IF;
+ E_Bottom567State.WAIT_RECEIPT:
+  receiptOn(IN := Inp.sPos7_raw AND Inp.BeltsStopped, PT := Cfg.tSensorStable);
+  receiptOff(IN := NOT Inp.sPos7_raw AND Sts.PickupSeen AND Inp.BeltsStopped, PT := Cfg.tSensorStable);
+  IF receiptOn.Q THEN Sts.PickupSeen := TRUE; END_IF;
+  IF receiptOff.Q THEN
+   Sts.Occ7 := FALSE; Sts.WaitingPickup := FALSE;
+   receiptOn(IN := FALSE); receiptOff(IN := FALSE); Sts.State := E_Bottom567State.COMPLETE;
+  END_IF;
+ E_Bottom567State.COMPLETE:
+  Outp.StepDonePulse := TRUE;
+  Outp.DischargeDonePulse := source = 4;
+  Outp.SingleUnloadDonePulse := unload;
+  Sts.Busy := FALSE; Sts.State := E_Bottom567State.IDLE;
+ E_Bottom567State.FAULT:
+  Sts.Known := FALSE;
 END_CASE;
+Outp.AlarmQueueFull := Sts.Occ5 AND Sts.Occ6;

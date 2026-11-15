@@ -52,7 +52,7 @@ Sts.RobotAccessActive := Cmd.RobotReserved;
 Sts.OperatorAccessActive := FALSE;
 Sts.OperatorRequest := operatorRequest;
 Sts.State := E_StorageState.DISABLED;
-IF Cmd.Enable AND valid AND NOT Diag.Fault THEN
+IF Cmd.Enable AND valid AND NOT Diag.Fault AND NOT Cmd.Manual THEN
     IF wantOpen AND Inp.RobotSideOpeningPermission AND Inp.Left.homeAllowed AND Inp.Right.homeAllowed THEN
         Outp.Q_V401Home := TRUE; Outp.Q_V401Work := FALSE;
         Outp.Q_V402Home := TRUE; Outp.Q_V402Work := FALSE;
@@ -74,7 +74,23 @@ IF Cmd.Enable AND valid AND NOT Diag.Fault THEN
         END_IF;
     END_IF;
 END_IF;
-Sts.Busy := valid AND Cmd.Enable AND ((wantOpen AND NOT Sts.RobotSideOpen) OR
+IF Cmd.Manual AND Cmd.Enable AND valid AND NOT Diag.Fault THEN
+    Outp.Q_V401Home := Inp.Left.lossHome; Outp.Q_V401Work := Inp.Left.lossWork;
+    Outp.Q_V402Home := Inp.Right.lossHome; Outp.Q_V402Work := Inp.Right.lossWork;
+    IF NOT Cmd.RobotReserved AND NOT operatorRequest THEN
+        IF Cmd.ManualHome[1] AND NOT Cmd.ManualWork[1] AND Inp.Left.homeAllowed AND Inp.RobotSideOpeningPermission THEN
+            Outp.Q_V401Home := TRUE; Outp.Q_V401Work := FALSE;
+        ELSIF Cmd.ManualWork[1] AND NOT Cmd.ManualHome[1] AND Inp.Left.workAllowed THEN
+            Outp.Q_V401Home := FALSE; Outp.Q_V401Work := TRUE;
+        END_IF;
+        IF Cmd.ManualHome[2] AND NOT Cmd.ManualWork[2] AND Inp.Right.homeAllowed AND Inp.RobotSideOpeningPermission THEN
+            Outp.Q_V402Home := TRUE; Outp.Q_V402Work := FALSE;
+        ELSIF Cmd.ManualWork[2] AND NOT Cmd.ManualHome[2] AND Inp.Right.workAllowed THEN
+            Outp.Q_V402Home := FALSE; Outp.Q_V402Work := TRUE;
+        END_IF;
+    END_IF;
+END_IF;
+Sts.Busy := valid AND Cmd.Enable AND NOT Cmd.Manual AND ((wantOpen AND NOT Sts.RobotSideOpen) OR
     (NOT Cmd.RobotReserved AND NOT wantOpen AND NOT Sts.RobotSideClosed));
 moveTimer(IN := Sts.Busy, PT := Cfg.tM8Timeout);
 IF moveTimer.Q THEN

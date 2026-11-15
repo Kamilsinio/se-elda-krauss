@@ -1,5 +1,7 @@
 # Interfejsy i mapowanie SE-ELDA-Krauss
 
+Aktualizacja stacyjna 2026-11-15: [aktualne interfejsy PLC stacji](station-plc-implementation.md) obejmują GVL_Station, wykonawca Drain, HMI v3 i kontekst schema=3. Poniższe historyczne opisy „planowane” nie są wykazem aktualnych deklaracji. Fizyczna mapa pozostaje niezatwierdzona.
+
 Status: kontrakty docelowe do implementacji; adresy sprzętowe niezatwierdzone. Data bazowa: 2026-10-04.
 
 Dokument uzupełnia [założenia](project-assumptions.md) i [plan implementacji](implementation-plan.md). Nie jest gotową konfiguracją EtherNet/IP ani zatwierdzonym wykazem zacisków. Dane wejściowe opisano w [rejestrze źródeł](sources/README.md).

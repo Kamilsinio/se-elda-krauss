@@ -26,7 +26,7 @@ END_VAR
 Approved := FALSE;
 Reason := 80;
 IF Invalidate THEN Required := TRUE; END_IF;
-validProposal := Proposal.valid AND Proposal.schema = 2 AND Proposal.occupancyKnown AND
+validProposal := Proposal.valid AND Proposal.schema = 3 AND Proposal.occupancyKnown AND
     Plant.contextRestored AND Plant.retentionVerified;
 IF Proposal.orderActive AND ((Proposal.program <> 1 AND Proposal.program <> 2) OR Proposal.batchCount = 0) THEN
     validProposal := FALSE;
@@ -45,11 +45,14 @@ IF Required AND NOT Invalidate AND AtRecovery AND Neutral AND Plant.robotContext
    Plant.transfersConfirmedIdle AND NOT Plant.transferBusy AND Plant.retentionVerified THEN
     IF Cmd.newEmptyContext AND Plant.stationEmptyConfirmed AND Rx.production_loadMask = 0 AND Plant.imm.settled THEN
         generation := Context.hmiGeneration;
-        empty.schema := 2; empty.valid := TRUE;
+        empty.schema := 3; empty.valid := TRUE;
         empty.occupancyKnown := TRUE;
         empty.batchCount := Context.batchCount;
+        empty.stationParameters := Context.stationParameters;
+        empty.stationParamRevision := Context.stationParamRevision;
         empty.hmiGeneration := generation;
         Context := empty;
+        Context.drainResumeRequired := Context.ending;
         Required := FALSE; Approved := TRUE; Reason := 0;
     ELSIF Cmd.recover AND validProposal THEN
         generation := Context.hmiGeneration;
@@ -58,6 +61,7 @@ IF Required AND NOT Invalidate AND AtRecovery AND Neutral AND Plant.robotContext
         FOR i := 1 TO 3 DO
             IF Plant.areas[i].recoveryClearConfirmed THEN Context.areaReserved[i] := FALSE; END_IF;
         END_FOR;
+        Context.drainResumeRequired := Context.ending;
         Required := FALSE; Approved := TRUE; Reason := 0;
     END_IF;
 END_IF;

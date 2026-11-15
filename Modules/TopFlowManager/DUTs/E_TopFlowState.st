@@ -19,6 +19,8 @@ TYPE E_TopFlowState :
 
     COMPLETE := 80,
 
+    RELEASE_P1 := 90,
+    WAIT_P1_LOCK := 100,
     FAULT := 900
 );
 END_TYPE

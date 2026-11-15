@@ -15,12 +15,15 @@ VAR_OUTPUT
     Cmd : ST_RobotCommands;
     Pending : BOOL;
     Key : INT;
+    StationKey : INT;
+    StationSnapshot : ST_StationParameterSet;
+    StationRevision : UINT;
 END_VAR
 VAR
     emptyCmd : ST_RobotCommands;
-    req : ARRAY[1..11] OF ST_RobotHmiRequest;
-    rsp : ARRAY[1..11] OF ST_RobotHmiResponse;
-    lastId : ARRAY[1..11] OF UDINT;
+    req : ARRAY[1..26] OF ST_RobotHmiRequest;
+    rsp : ARRAY[1..26] OF ST_RobotHmiResponse;
+    lastId : ARRAY[1..26] OF UDINT;
     active : BOOL;
     initialized : BOOL;
     lastHeartbeat : UINT;
@@ -34,7 +37,8 @@ VAR
     selected : INT;
 END_VAR
 Cmd := emptyCmd;
-Hmi.link.uiContractVersion := 2;
+StationKey := 0;
+Hmi.link.uiContractVersion := 3;
 Hmi.link.uiPlcHeartbeat := TO_UINT((TO_UDINT(Hmi.link.uiPlcHeartbeat) + 1) MOD 65536);
 req[1] := Hmi.cmd.orderOpen;
 rsp[1] := Hmi.rsp.orderOpen;
@@ -58,18 +62,51 @@ req[10] := Hmi.cmd.station5ParamApply;
 rsp[10] := Hmi.rsp.station5ParamApply;
 req[11] := Hmi.cmd.samples;
 rsp[11] := Hmi.rsp.samples;
+req[12] := Hmi.cmd.station1ParamApply;
+rsp[12] := Hmi.rsp.station1ParamApply;
+req[13] := Hmi.cmd.station2ParamApply;
+rsp[13] := Hmi.rsp.station2ParamApply;
+req[14] := Hmi.cmd.station3ParamApply;
+rsp[14] := Hmi.rsp.station3ParamApply;
+req[15] := Hmi.cmd.station4ParamApply;
+rsp[15] := Hmi.rsp.station4ParamApply;
+req[16] := Hmi.cmd.station1ParamReload;
+rsp[16] := Hmi.rsp.station1ParamReload;
+req[17] := Hmi.cmd.station2ParamReload;
+rsp[17] := Hmi.rsp.station2ParamReload;
+req[18] := Hmi.cmd.station3ParamReload;
+rsp[18] := Hmi.rsp.station3ParamReload;
+req[19] := Hmi.cmd.station4ParamReload;
+rsp[19] := Hmi.rsp.station4ParamReload;
+req[20] := Hmi.cmd.station5ParamReload;
+rsp[20] := Hmi.rsp.station5ParamReload;
+req[21] := Hmi.cmd.station1ResetState;
+rsp[21] := Hmi.rsp.station1ResetState;
+req[22] := Hmi.cmd.station2ResetState;
+rsp[22] := Hmi.rsp.station2ResetState;
+req[23] := Hmi.cmd.station3ResetState;
+rsp[23] := Hmi.rsp.station3ResetState;
+req[24] := Hmi.cmd.station4ResetState;
+rsp[24] := Hmi.rsp.station4ResetState;
+req[25] := Hmi.cmd.station5ResetState;
+rsp[25] := Hmi.rsp.station5ResetState;
+req[26] := Hmi.cmd.alarmAckAll;
+rsp[26] := Hmi.rsp.alarmAckAll;
 changed := Hmi.link.uiHmiHeartbeat <> lastHeartbeat;
 lastHeartbeat := Hmi.link.uiHmiHeartbeat;
 IF changed THEN seen := TRUE; END_IF;
 watchdog(IN := NOT changed, PT := Timeout);
 armEdge(CLK := Hmi.link.xArmReq);
 neutral := TRUE;
-FOR i := 1 TO 11 DO
+FOR i := 1 TO 26 DO
     neutral := neutral AND NOT req[i].xReq AND NOT rsp[i].xAck;
 END_FOR;
 FOR i := 1 TO 5 DO
     neutral := neutral AND NOT Hmi.manual.cylHome[i] AND NOT Hmi.manual.cylWork[i] AND
         NOT Hmi.manual.vacValid[i] AND NOT Hmi.manual.blowReq[i];
+END_FOR;
+FOR i := 1 TO 16 DO
+ neutral := neutral AND NOT Hmi.stationManual.positive[i] AND NOT Hmi.stationManual.negative[i];
 END_FOR;
 IF NOT initialized THEN
     active := FALSE; Pending := FALSE; initialized := TRUE;
@@ -82,7 +119,7 @@ IF armEdge.Q AND neutral AND seen AND DataValid AND GenerationValid AND NOT watc
         Context.hmiGeneration := Context.hmiGeneration + 1;
         Hmi.link.udiSessionId := Context.hmiGeneration;
         active := TRUE;
-        FOR i := 1 TO 11 DO lastId[i] := 0; END_FOR;
+        FOR i := 1 TO 26 DO lastId[i] := 0; END_FOR;
     ELSE active := FALSE;
     END_IF;
 END_IF;
@@ -96,14 +133,14 @@ IF Pending AND Complete THEN
     Pending := FALSE;
 END_IF;
 newCount := 0; selected := 0;
-FOR i := 1 TO 11 DO
+FOR i := 1 TO 26 DO
     IF NOT req[i].xReq THEN rsp[i].xAck := FALSE; END_IF;
     IF req[i].xReq AND NOT rsp[i].xAck AND NOT Pending THEN
         newCount := newCount + 1; selected := i;
     END_IF;
 END_FOR;
 IF newCount > 0 AND NOT Pending THEN
-    FOR i := 1 TO 11 DO
+    FOR i := 1 TO 26 DO
         IF req[i].xReq AND NOT rsp[i].xAck THEN
             rsp[i].udiSessionId := req[i].udiSessionId;
             rsp[i].udiRequestId := req[i].udiRequestId;
@@ -139,6 +176,12 @@ IF newCount > 0 AND NOT Pending THEN
             9: Cmd.newEmptyContext := TRUE;
             10: Cmd.applyQuantity := TRUE;
             11: Cmd.samples := TRUE;
+            ELSE
+                StationKey := Key;
+                IF Key >= 12 AND Key <= 15 THEN
+                    StationSnapshot := Hmi.stationEdit[Key - 11];
+                    StationRevision := Hmi.stationEditRevision[Key - 11];
+                END_IF;
         END_CASE;
     END_IF;
 END_IF;
@@ -160,3 +203,20 @@ Hmi.rsp.recoveryConfirm := rsp[8];
 Hmi.rsp.newEmptyContext := rsp[9];
 Hmi.rsp.station5ParamApply := rsp[10];
 Hmi.rsp.samples := rsp[11];
+
+Hmi.rsp.station1ParamApply := rsp[12];
+Hmi.rsp.station2ParamApply := rsp[13];
+Hmi.rsp.station3ParamApply := rsp[14];
+Hmi.rsp.station4ParamApply := rsp[15];
+Hmi.rsp.station1ParamReload := rsp[16];
+Hmi.rsp.station2ParamReload := rsp[17];
+Hmi.rsp.station3ParamReload := rsp[18];
+Hmi.rsp.station4ParamReload := rsp[19];
+Hmi.rsp.station5ParamReload := rsp[20];
+Hmi.rsp.station1ResetState := rsp[21];
+Hmi.rsp.station2ResetState := rsp[22];
+Hmi.rsp.station3ResetState := rsp[23];
+Hmi.rsp.station4ResetState := rsp[24];
+Hmi.rsp.station5ResetState := rsp[25];
+
+Hmi.rsp.alarmAckAll := rsp[26];

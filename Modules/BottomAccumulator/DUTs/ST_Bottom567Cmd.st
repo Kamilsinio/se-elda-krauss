@@ -5,5 +5,8 @@ STRUCT
     DischargeReq : BOOL; // żądanie „zrób krok bo winda chce oddać pojemnik”
     EmptyBottomHold : BOOL;
     ResetFault : BOOL;
+    AdvanceReq : BOOL;
+    SingleUnloadReq : BOOL;
+    FinishPermit : BOOL;
 END_STRUCT
 END_TYPE

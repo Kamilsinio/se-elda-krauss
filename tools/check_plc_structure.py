@@ -6,14 +6,14 @@ from plc_st_runtime import Parser
 
 def validate():
     r=runtime()
-    for path in ['Modules/StopperPair/FB_StopperPair.st','Modules/Conveyor/FB_Conveyor.st',
+    for path in ['Modules/Cyl2Pos/FB_Cyl2Pos.st','Modules/StopperPair/FB_StopperPair.st','Modules/Conveyor/FB_Conveyor.st',
                  'Modules/TopFlowManager/FB_TopFlowManager.st',
                  'Modules/BottomAccumulator/FB_BottomAccumulator_567.st',
                  'Modules/Elevator/FB_Elevator.st','Modules/SafetyDoor/FB_SafetyDoor.st',
                  'Modules/PRG_IO_Read.st','Modules/PRG_IO_Write.st','Modules/PRG_Main.st']:
         r.load(path)
     globals={}
-    for file in ['GVL_IO','GVL_HMI','GVL_Robot','GVL_RobotRetain']:
+    for file in ['GVL_IO','GVL_HMI','GVL_Robot','GVL_RobotRetain','GVL_Station']:
         text=(ROOT/'GVLs'/f'{file}.st').read_text(encoding='utf-8')
         for match in re.finditer(r'\bTYPE\s+\w+\s*:.*?\bEND_TYPE',text,re.S):r.load_type(match[0])
         fields={}

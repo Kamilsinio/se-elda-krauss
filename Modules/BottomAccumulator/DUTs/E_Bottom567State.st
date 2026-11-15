@@ -10,6 +10,8 @@ TYPE E_Bottom567State :
     COMPLETE := 50,
     EMPTY_HOLD := 60,
     EMPTY_RESYNC := 70,
+    WAIT_RECEIPT := 80,
+    LOCK_STOPS := 90,
     FAULT := 900
 );
 END_TYPE

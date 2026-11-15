@@ -164,19 +164,31 @@ class Parser:
 
 class Ref:
     def __init__(self, owner, key): self.owner=owner; self.key=key
+    def resolved_key(self):
+        if self.key in self.owner or not isinstance(self.key,str):return self.key
+        matches=[key for key in self.owner if isinstance(key,str) and key.casefold()==self.key.casefold()]
+        if len(matches)==1:return matches[0]
+        return self.key
     def get(self):
-        v=self.owner[self.key]
+        v=self.owner[self.resolved_key()]
         return v.get() if isinstance(v,Ref) else v
     def set(self,v):
-        if isinstance(self.owner.get(self.key),Ref): self.owner[self.key].set(v)
-        else: self.owner[self.key]=copy.deepcopy(v)
+        key=self.resolved_key()
+        if isinstance(self.owner.get(key),Ref): self.owner[key].set(v)
+        else: self.owner[key]=copy.deepcopy(v)
 
 class Timer:
     def __init__(self, edge=False): self.v={"IN":False,"PT":0,"Q":False,"ET":0,"CLK":False}; self.edge=edge; self.previous=False
     def call(self,args,dt):
         self.v.update(args)
-        if self.edge:
-            self.v["Q"]=bool(self.v["CLK"] and not self.previous); self.previous=bool(self.v["CLK"])
+        if self.edge == "TP":
+            rising=bool(self.v['IN'] and not self.previous);self.previous=bool(self.v['IN'])
+            if rising and not self.v['Q']:self.v['ET']=0;self.v['Q']=True
+            if self.v['Q']:
+                self.v['ET']+=dt
+                if self.v['ET']>=self.v['PT']:self.v['Q']=False
+        elif self.edge:
+            self.v["Q"]=bool((self.previous and not self.v["CLK"]) if self.edge == "F_TRIG" else (self.v["CLK"] and not self.previous)); self.previous=bool(self.v["CLK"])
         else:
             self.v["ET"]=min(self.v["ET"]+dt,self.v["PT"]) if self.v["IN"] else 0
             self.v["Q"]=bool(self.v["IN"] and self.v["ET"]>=self.v["PT"])
@@ -235,7 +247,7 @@ class Runtime:
                 if initial is not None: value[n]=self.eval(initial,value)
             return value
         if typ in self.definitions: return Instance(self,typ)
-        if typ.upper() in ("TON","R_TRIG"): return Timer(typ.upper()=="R_TRIG")
+        if typ.upper() in ("TON","R_TRIG","F_TRIG","TP"): return Timer(typ.upper() if typ.upper() != "TON" else False)
         if typ.upper()=="BOOL": return False
         if typ.upper()=="STRING": return ""
         if typ.upper() in ("UINT","INT","UDINT","DINT","TIME","BYTE","WORD","DWORD","REAL","LREAL"): return 0
@@ -273,13 +285,13 @@ class Runtime:
             if op=="+": return a+b
             if op=="-": return a-b
             if op=="*": return a*b
-            if op=="/": return a//b
+            if op=="/": return a/b if isinstance(a,float) or isinstance(b,float) else a//b
             if op=="MOD": return a%b
             raise ValueError(op)
         if k=="call":
             if e[1][0]=="name":
                 name=e[1][1].upper()
-                if name in ("TO_UINT","TO_UDINT","TO_INT","TO_BYTE","TO_TIME","SHL","SHR"):
+                if name in ("TO_UINT","TO_UDINT","TO_INT","TO_BYTE","TO_TIME","SHL","SHR","WORD_TO_UINT","UINT_TO_WORD","REAL_TO_UINT","UINT_TO_REAL","BOOL_TO_INT"):
                     args=[self.eval(x,env) for _,x in e[2]]
                     if name=="SHL": return (args[0]<<args[1]) & 0xFFFFFFFF
                     if name=="SHR": return args[0]>>args[1]
@@ -291,11 +303,16 @@ class Runtime:
             target=self.eval(e[1],env)
             if isinstance(target,Timer): target.call({n:self.eval(x,env) for n,x in e[2]},self.dt); return None
             if not isinstance(target,Instance): raise ValueError("Unsupported call")
+            output_args=[]
             for n,x in e[2]:
+                if n.endswith('=>'):
+                    output_args.append((n[:-2],self.ref(x,env)));continue
                 if n in target.inouts: target.v[n]=self.ref(x,env)
                 elif n in target.inputs: target.v[n]=copy.deepcopy(self.eval(x,env))
                 else: raise ValueError("Unknown argument "+str(n))
-            target.run(); return None
+            target.run()
+            for name,reference in output_args:reference.set(target.v[name])
+            return None
         raise ValueError(k)
     def execute(self,body,env):
         for s in body:

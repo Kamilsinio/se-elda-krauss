@@ -9,5 +9,10 @@ STRUCT
     Occ7 : BOOL;
 
     CanAcceptFromElev : BOOL; // = NOT Occ7 (i brak fault)
+    Known : BOOL;
+    SingleUnloadReady : BOOL;
+    WaitingPickup : BOOL;
+    PickupSeen : BOOL;
+    CanAdvance : BOOL;
 END_STRUCT
 END_TYPE

@@ -3,6 +3,8 @@ TYPE ST_RobotDrain :
 STRUCT
 connected : BOOL;
     request : BOOL;
+    runPermit : BOOL; // Nowy ruch tylko po Start; request pozostaje w pauzie.
+    paused : BOOL;
     accepted : BOOL;
     busy : BOOL;
     done : BOOL;

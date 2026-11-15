@@ -15,13 +15,14 @@ POUS += ['Modules/ImmInterface/FB_ImmInterface.st','Modules/OrderManager/FB_Orde
          'Modules/RobotRecovery/FB_RobotRecovery.st','Modules/TraySequencer/FB_TraySequencer.st',
          'Modules/BoxSequencer/FB_BoxSequencer.st','Modules/Storage/FB_Storage.st']
 POUS += ['Modules/StationCoils/FB_StationCoils.st']
+POUS += [f'Modules/{n}/FB_{n}.st' for n in ('StationIo','StationMaterial','StationTransport','StationDrain','AlarmManager','StationManual','StationParameters','StationHmi')]
 
 def runtime():
     r=Runtime(ROOT);r.load(*POUS);return r
 
 def context(r):
     c=r.value('ST_RobotContext')
-    c.update(schema=2,valid=True,program=2,batchCount=7,stackId=10,withRobot=True,occupancyKnown=True)
+    c.update(schema=3,valid=True,program=2,batchCount=7,stackId=10,withRobot=True,occupancyKnown=True)
     return c
 
 def plant(r):
@@ -422,7 +423,7 @@ class AdditionalChecks(unittest.TestCase):
 
     def test_station_coils_do_not_move_before_start_and_hold_at_normal_stop(self):
         f=self.r.instance('FB_StationCoils')
-        cmd={i:self.r.value('ST_StationCoil') for i in range(1,8)}
+        cmd={i:self.r.value('ST_StationCoil') for i in range(1,11)}
         loss=copy.deepcopy(cmd);cmd[1]['work']=True;loss[1]['home']=True
         a=dict(Cmd=cmd,LossPolicy=loss,PolicyVerified=True)
         f.run(**a,NewPermit=False);self.assertFalse(f.v['Applied'][1]['work'])
@@ -434,7 +435,7 @@ class AdditionalChecks(unittest.TestCase):
 
     def test_station_coils_unverified_or_conflicting_policy_cannot_start(self):
         f=self.r.instance('FB_StationCoils')
-        cmd={i:self.r.value('ST_StationCoil') for i in range(1,8)}
+        cmd={i:self.r.value('ST_StationCoil') for i in range(1,11)}
         loss=copy.deepcopy(cmd);cmd[7]['work']=True
         f.run(Cmd=cmd,LossPolicy=loss,NewPermit=True,PolicyVerified=False)
         self.assertTrue(f.v['Fault']);self.assertFalse(f.v['Applied'][7]['work'])

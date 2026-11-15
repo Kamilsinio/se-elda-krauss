@@ -1,0 +1,53 @@
+id;opis;klasa
+1;ST.1 pozycjoner V107/V108;OSTRZEZENIE
+2;ST.1 podnosnik V101/V102;OSTRZEZENIE
+3;ST.1 podnosnik V103/V104;OSTRZEZENIE
+4;ST.1 podnosnik V105/V106;OSTRZEZENIE
+5;ST.1 pozycjoner V109/V110;OSTRZEZENIE
+6;ST.2 V201;OSTRZEZENIE
+7;ST.2 V202;OSTRZEZENIE
+8;ST.2 V203;OSTRZEZENIE
+9;ST.3 stopery V301/V302;OSTRZEZENIE
+10;ST.3 stopery V303/V304;OSTRZEZENIE
+11;ST.4 oslony V401/V402;OSTRZEZENIE
+12;Brak pozwolenia ukladu bezpieczenstwa;OTWARTE GAP-12
+13;Niskie cisnienie;OTWARTE GAP-12
+14;Komunikacja ATV320;OTWARTE GAP-12
+15;Blad windy;OTWARTE GAP-12
+16;Transporter gorny;OTWARTE GAP-12
+17;Transporter windy;OTWARTE GAP-12
+18;Transporter dolny;OTWARTE GAP-12
+19;Przeplyw ST.1;OTWARTE GAP-12
+20;Przeplyw ST.3;OTWARTE GAP-12
+21;Sekwencer blistrow;OTWARTE GAP-12
+22;Sekwencer pojemnikow;OTWARTE GAP-12
+23;Blad FANUC;OTWARTE GAP-12
+24;Protokol PLC-robot;OTWARTE GAP-12
+25;Niewazny obraz stacji;OTWARTE GAP-12
+26;Nieuzgodnione ladunki;OTWARTE GAP-12
+27;Koordynator transportu;OTWARTE GAP-12
+28;Arbitraz cewek;OTWARTE GAP-12
+29;Sesja HMI;OTWARTE GAP-12
+30;Dane EUROMAP;OTWARTE GAP-12
+31;Chwytak V501;OTWARTE GAP-12
+32;Chwytak V502;OTWARTE GAP-12
+33;Chwytak V503;OTWARTE GAP-12
+34;Chwytak V504;OTWARTE GAP-12
+35;Chwytak V505;OTWARTE GAP-12
+36;Proznia obwod 1;OTWARTE GAP-12
+37;Proznia obwod 2;OTWARTE GAP-12
+38;Proznia obwod 3;OTWARTE GAP-12
+39;Proznia obwod 4;OTWARTE GAP-12
+40;Proznia obwod 5;OTWARTE GAP-12
+41;Diagnostyka modulu AP BAT100;OTWARTE GAP-12
+42;Diagnostyka modulu AP BAT101;OTWARTE GAP-12
+43;Diagnostyka modulu AP BAT200;OTWARTE GAP-12
+44;Diagnostyka modulu AP BAT201;OTWARTE GAP-12
+45;Diagnostyka modulu AP BAT202;OTWARTE GAP-12
+46;Diagnostyka modulu AP BAT203;OTWARTE GAP-12
+47;Diagnostyka modulu AP BAT204;OTWARTE GAP-12
+48;Diagnostyka modulu AP BAT205;OTWARTE GAP-12
+49;Diagnostyka modulu AP BAT300;OTWARTE GAP-12
+50;Diagnostyka modulu AP BAT301;OTWARTE GAP-12
+51;Diagnostyka modulu AP BAT400;OTWARTE GAP-12
+52;Diagnostyka modulu AP BAT401;OTWARTE GAP-12

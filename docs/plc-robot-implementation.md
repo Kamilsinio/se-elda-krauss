@@ -1,5 +1,7 @@
 # PLC–FANUC v2 — implementacja źródeł i integracja
 
+Aktualizacja stacyjna 2026-11-15: opisane niżej ograniczenie Drain do samego interfejsu dotyczy poprzedniego pakietu. Aktualny wykonawca, transport, alarmy i rozszerzenie HMI są w [implementacji modułów stacji](station-plc-implementation.md). Kontekst PLC ma schema=3, HMI wersję 3; wire FANUC nadal v2/80 B.
+
 Stan: 2026-11-15. **ŹRÓDŁA I TESTY OFFLINE. NIE SKOMPILOWANO W MACHINE EXPERT, NIE URUCHOMIONO NA URZĄDZENIACH.**
 
 Zakres: pełna integracja robota w ST, z logicznymi interfejsami Festo i Krauss. Implementuje części REQ-01–04/09–19/21/22 oraz modelowe scenariusze AT-01–03/07–15. Pełne opróżnianie, nowe ekrany Vijeo i przebudowa całego transportu pozostają poza tym pakietem. Nie zmieniono LS ani konfiguracji urządzeń.

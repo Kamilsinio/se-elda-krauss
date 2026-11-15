@@ -1,5 +1,7 @@
 # HMI — diagnostyka według IO map.xlsx
 
+Aktualizacja stacyjna 2026-11-15: wszystkie 159 nazw aliasów value/valid są zadeklarowane w PLC. [Aktualny interfejs](station-plc-implementation.md) rozróżnia powiązane wejścia, końcowe komendy i nadal nieważne pola. Obecność aliasu nie potwierdza adresu ani okablowania.
+
 Stan: 2026-10-04. Źródło: [kopia arkusza](<sources/IO map.xlsx>), SHA-256 `9e1e47058088382590e4c1f36284c01fae4e294bebdfb6eb6f3faed95cb06e64`. Kopia 50 015 B zgodna bajtowo z oryginałem.
 
 Poniższy wykaz obejmuje **166 wierszy sygnałów (159 unikalnych nazw logicznych) i 12 urządzeń Festo**. Podaje stan arkusza, nie dowodzi wykonania instalacji ani gotowego eksportu PLC. Obie zakładki oznaczone placeholder pozostają robocze także po skopiowaniu pliku.

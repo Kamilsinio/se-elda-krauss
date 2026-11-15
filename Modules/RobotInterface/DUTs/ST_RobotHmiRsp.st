@@ -12,5 +12,20 @@ orderOpen : ST_RobotHmiResponse;
     newEmptyContext : ST_RobotHmiResponse;
     station5ParamApply : ST_RobotHmiResponse;
     samples : ST_RobotHmiResponse;
+    station1ParamApply : ST_RobotHmiResponse;
+    station2ParamApply : ST_RobotHmiResponse;
+    station3ParamApply : ST_RobotHmiResponse;
+    station4ParamApply : ST_RobotHmiResponse;
+    station1ParamReload : ST_RobotHmiResponse;
+    station2ParamReload : ST_RobotHmiResponse;
+    station3ParamReload : ST_RobotHmiResponse;
+    station4ParamReload : ST_RobotHmiResponse;
+    station5ParamReload : ST_RobotHmiResponse;
+    station1ResetState : ST_RobotHmiResponse;
+    station2ResetState : ST_RobotHmiResponse;
+    station3ResetState : ST_RobotHmiResponse;
+    station4ResetState : ST_RobotHmiResponse;
+    station5ResetState : ST_RobotHmiResponse;
+    alarmAckAll : ST_RobotHmiResponse;
 END_STRUCT
 END_TYPE

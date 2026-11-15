@@ -1,5 +1,7 @@
 # SE-ELDA-Krauss
 
+Aktualizacja modułów stacji 2026-11-15: zaimplementowano osiem nowych FB, pełny wykonawca Drain, pojedyncze wydanie ST.3, rozdzielenie V201/V202, alarmy, Manual, parametry i interfejs HMI. [Zakres, kontrakty i granice odbioru](docs/station-plc-implementation.md). Źródła są testowane offline; konfiguracja urządzeń i kompilacja natywna pozostają niewykonane.
+
 Adaptacja stanowiska paletyzacji do wtryskarki Krauss, robota **FANUC M-20iD/25 z R-30iB Mate Plus** oraz rozproszonych I/O **Festo AP**.
 
 PLC Schneider Electric M241 pośredniczy między robotem a wtryskarką: robot i Festo komunikują się z PLC przez EtherNet/IP, a wtryskarka przez elektryczny interfejs EUROMAP 67. Stanowisko obejmuje załadunek, windę, rozładunek, magazyn przekładek i robota. Tryby produkcji na HMI: **Pojemniki** i **Blistry**.

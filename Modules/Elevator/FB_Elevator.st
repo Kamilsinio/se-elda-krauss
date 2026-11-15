@@ -499,7 +499,7 @@ IF xMoveUpReq OR xMoveDownReq THEN
   IF (stCmd.eMode = E_ElevatorMode.AUTO) AND
      (stStat.eTargetLatched = E_ElevatorTarget.posContainerEdge) THEN
     // Zjazd o wysokość tacki zawsze z prędkością 5 Hz.
-    rCmdHz := 5.0;
+    rCmdHz := stCmd.rSpeedSlow_Hz;
   ELSIF xCmdFast THEN
     rCmdHz := stCmd.rSpeedFast_Hz;
   ELSE

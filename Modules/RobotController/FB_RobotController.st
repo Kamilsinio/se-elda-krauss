@@ -145,15 +145,19 @@ FOR i := 1 TO 5 DO
 END_FOR;
 processOK := processOK AND Cfg.gripper.stable > T#0ms AND Cfg.gripper.motionTimeout > T#0ms AND
     Cfg.gripper.vacuumTimeout > T#0ms AND Cfg.gripper.blowTime > T#0ms AND Cfg.gripper.releaseTimeout > Cfg.gripper.blowTime;
+IF Panel.Pending AND Panel.Key > 11 THEN
+ replyComplete := Plant.stationCommandComplete;
+ replyReason := Plant.stationCommandReason;
+END_IF;
 Panel(DataValid := ScannerHealthy AND ImageFresh, GenerationValid := Plant.retentionVerified,
     Timeout := Cfg.hmiTimeout, Complete := replyComplete, CompleteReason := replyReason,
     Hmi := Hmi, Context := Context);
-replyComplete := Panel.Pending;
+replyComplete := Panel.Pending AND Panel.Key <= 11;
 replyReason := 0;
 (* Sesja jest uniewazniana w tym samym skanie co bledy wejscia. *)
 Link(Cfg := Cfg.link, ScannerHealthy := ScannerHealthy, ImageFresh := ImageFresh, Rx := Rx,
     Recover := Recovery.Approved, Neutral := neutral,
-    Invalidate := Link.Session AND (protocolFault OR criticalNow));
+    Invalidate := Link.Session AND (protocolFault OR criticalNow OR (Plant.stationRecoveryRequired AND NOT Order.Sts.manual)));
 IF wasSession AND NOT Link.Session THEN sampleReq := FALSE; sampleState := 0; END_IF;
 IF Recovery.Required AND NOT wasRecovery THEN Proposal := Context; END_IF;
 Recovery(Invalidate := (wasSession AND NOT Link.Session) OR criticalNow OR (protocolFault AND NOT Recovery.Required) OR
@@ -191,7 +195,7 @@ Order(Cmd := Panel.Cmd, PhysicalStart := Plant.physicalStart, PhysicalStop := Pl
     Session := Link.Session, ProgramOK := programOK, HomeValid := homeValid,
     ProcessOK := processOK AND NOT Rx.production_fault AND Rx.production_autoMode AND
         Rx.production_systemReady AND Rx.production_running AND NOT Rx.production_tpEnabled,
-    RecoveryRequired := Recovery.Required OR protocolFault,
+    RecoveryRequired := Recovery.Required OR protocolFault OR Plant.stationRecoveryRequired,
     Critical := criticalNow, OperationsSettled := Link.Session AND (Rx.production_operationsSettled OR reconciledIdle) AND
     Plant.imm.settled AND Plant.imm.cycleKnown AND Ledger.Unsettled = 0 AND Events.Idle AND allTasksIdle,
     TransferBusy := Plant.transferBusy, AreasClear := areasClearNow, StationIdle := NOT Plant.transferBusy,
@@ -243,7 +247,7 @@ Imm(Inp := Plant.imm, Session := Link.Session, HomeValid := homeValid,
     ReqBack := Rx.imm_req_ejectorBack, ReqForward := Rx.imm_req_ejectorForward);
 Sts.session := Link.Session AND NOT Recovery.Required AND NOT protocolFault AND NOT criticalNow;
 Sts.diagnosticValid := Link.HeaderValid;
-Sts.recoveryRequired := Recovery.Required OR protocolFault OR criticalNow;
+Sts.recoveryRequired := Recovery.Required OR protocolFault OR criticalNow OR Plant.stationRecoveryRequired;
 Sts.allChannelsIdle := Events.Idle AND Gripper.Neutral AND sampleState = 0;
 Sts.settled := Order.Sts.settled;
 Sts.order := Order.Sts;
@@ -453,7 +457,7 @@ Hmi.permit.orderOpen.xAllowed := Hmi.link.xArmed AND NOT Context.orderActive AND
 Hmi.permit.orderOpen.xAllowed := Hmi.permit.orderOpen.xAllowed AND NOT Order.Sts.manual AND
     ((Hmi.edit.uiProgram = 1) OR (Hmi.edit.uiProgram = 2));
 Hmi.permit.orderEnd.xAllowed := Hmi.link.xArmed AND Context.orderActive AND NOT Context.ending;
-Hmi.permit.modeManual.xAllowed := Hmi.link.xArmed AND NOT Order.Sts.running AND Sts.settled AND NOT Context.ending;
+Hmi.permit.modeManual.xAllowed := Hmi.link.xArmed AND NOT Order.Sts.running AND Sts.settled AND NOT Drain.runPermit;
 Hmi.permit.modeAuto.xAllowed := Hmi.link.xArmed AND NOT Order.Sts.running AND Sts.settled;
 Hmi.permit.robotEnable.xAllowed := Hmi.link.xArmed AND NOT Order.Sts.running AND Sts.settled AND homeValid;
 Hmi.permit.robotDisable.xAllowed := Hmi.permit.robotEnable.xAllowed;

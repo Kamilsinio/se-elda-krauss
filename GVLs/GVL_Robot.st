@@ -16,7 +16,7 @@ VAR_GLOBAL
     ImageFresh : BOOL;
     stationIoBound : BOOL;
     stationCoilPolicyVerified : BOOL; // GAP-08, niezalezne od samego adresowania.
-    stationCoilLossPolicy : ARRAY[1..7] OF ST_StationCoil; // M1-M7, home=bwd, work=fwd.
+    stationCoilLossPolicy : ARRAY[1..10] OF ST_StationCoil; // 1..5 M1-M5, 6 V201, 7 V203, 8 V202, 9/10 dolne stopery; mapa GAP-08.
     vfdCommHealthy : BOOL;
     elevatorFast_Hz : REAL; // Zatwierdzone nastawy; bez edycji starym hmiCmd.
     elevatorSlow_Hz : REAL;
@@ -24,6 +24,6 @@ VAR_GLOBAL
     elevatorTransferStable : TIME; // Stabilne P4 potwierdzajace przekazanie przez TopFlow.
     storageIn : ST_StorageIn;
     storageOut : ST_StorageOut;
-    singleUnloadReady : BOOL; // Potwierdzenie przyszlego wykonawcy pojedynczego wydania.
+    singleUnloadReady : BOOL; // Gotowość rzeczywistego wykonawcy ST.3.
     singleUnloadRequest : BOOL; // Jeden impuls; nigdy nie rozpoczyna Drain.
 END_VAR

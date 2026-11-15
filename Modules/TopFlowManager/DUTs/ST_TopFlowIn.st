@@ -23,5 +23,8 @@ STRUCT
 
     // sygnał z TraySeq: robot skończył pobierać ze stosu — zwolnij P3
     StackConsumedAtP3 : BOOL;
+    LoadBarrierValid : BOOL;
+    LoadBarrierBlocked : BOOL;
+    DeviceWarning : BOOL;
 END_STRUCT
 END_TYPE

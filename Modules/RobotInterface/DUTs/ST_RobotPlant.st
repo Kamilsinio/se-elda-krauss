@@ -8,6 +8,9 @@ STRUCT
     mappingVerified : BOOL;
     retentionVerified : BOOL;
     contextRestored : BOOL;
+    stationCommandComplete : BOOL;
+    stationCommandReason : UINT;
+    stationRecoveryRequired : BOOL;
     physicalStart : BOOL;
     physicalStop : BOOL;
     sampleButton : BOOL;

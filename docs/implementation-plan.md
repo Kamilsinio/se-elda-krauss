@@ -1,5 +1,7 @@
 # Plan implementacji i odbioru SE-ELDA-Krauss
 
+Aktualizacja stacyjna 2026-11-15: wykonano źródła ośmiu nowych modułów i integrację opisaną w [raporcie stacji](station-plc-implementation.md). REQ-05/06/07/08/20 otrzymały realizację źródłową, a pozostałe rozszerzenia przechodzą regresję offline. Nie oznacza to zamknięcia E1–E5 ani sprzętowych GAP i AT.
+
 Data bazowa: 2026-10-04. Dokument wykonawczy dla kolejnych etapów adaptacji.
 
 ## 1. Stan realizacji i zasady prowadzenia prac
