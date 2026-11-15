@@ -68,3 +68,9 @@ GAP-03/04/05/06/08/09/11/12 pozostają otwarte w zakresie zależnych danych i pr
 ## Pochodzenie
 
 Podstawa: DEC-01–32, archiwalne programy tacek/BOX, dokumentacja instalacji i dostarczone manuale. Archiwum ../Robot M20iD/old/ROBOT jest tylko do odczytu. [Rejestr źródeł](sources/README.md) oraz [analiza workspace](workspace-analysis.md) opisują pochodzenie; wcześniejsza weryfikacja manifestów nie jest odbiorem każdego binarnego TP.
+
+## Integracja PLC — aktualizacja 2026-11-15
+
+Dodano [implementację PLC i testy rzeczywistych źródeł ST z LIVE LS](plc-robot-implementation.md). Zachowano 65 testów FANUC i nie zmieniono LS. Wspólny model przenosi pełne ramki 80 B i wykonuje dwa cykle obu produkcji, Stop N+1, próbki/odrzuty i utratę partnera.
+
+Nie wykonano kompilacji Machine Expert, importu FANUC, konfiguracji EtherNet/IP ani prób fizycznych. Żadnego native bindingu ani dopuszczenia ruchu nie zmieniono na zatwierdzone na podstawie modelu.

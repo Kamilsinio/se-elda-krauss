@@ -105,4 +105,10 @@ startToken zmienia się modulo 65536 po przyjętym fizycznym Start. Robot pobier
 
 Clear i utrzymane accessReq nie są kasowane przez samo odebranie pozwolenia na nowe operacje. Pozostają ważne przy aktualnej sesji i rzeczywistym potwierdzeniu obszaru. Utrata sesji nadal wymaga uzgodnienia rezerwacji przez PLC.
 
-Implementacja PLC v2, import FANUC, powiązania natywne BG, nauka punktów i FAT/SAT są NIEWYKONANE. Żaden status procesu nie zastępuje safety. Archiwalne źródła migracji znajdują się w `../Robot M20iD/old/ROBOT` względem katalogu repozytorium.
+Stan na koniec wcześniejszego etapu FANUC: implementacja PLC v2, import FANUC, powiązania natywne BG, nauka punktów i FAT/SAT były niewykonane. Aktualizację źródeł PLC opisuje sekcja 8. Żaden status procesu nie zastępuje safety. Archiwalne źródła migracji znajdują się w `../Robot M20iD/old/ROBOT` względem katalogu repozytorium.
+
+## 8. Strona PLC — aktualizacja 2026-11-15
+
+Logiczna implementacja PLC v2 jest teraz przygotowana w źródłach ST. [Opis integracji](plc-robot-implementation.md) definiuje konkretne symbole, retencję, warunki recovery, import i testy ST–LS. Nie zmieniono wire v2 ani programów FANUC. Wcześniejszy zapis o niewykonanej implementacji dotyczy stanu poprzedniego etapu.
+
+Konfiguracja fizyczna i dopuszczenie produkcyjne nadal są niewykonane. Potwierdzenie recovery przy pustej, uzgodnionej stacji jest osobnym dowodem niż HOME; pozwala uzbroić pierwszy Start bez wymagania statusu operationsSettled, który robot wystawia po zakończonym Stop. Dla aktywnej produkcji nadal wymagane jest pełne rozliczenie robota, IMM i transferów.

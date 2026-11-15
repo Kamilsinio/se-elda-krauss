@@ -206,3 +206,11 @@ Natychmiastowy Stop krytyczny nie oznacza automatycznie wyłączenia wszystkich 
 Kolejność prac, zależności i dowody odbioru określa [plan implementacji](implementation-plan.md). Można wykonywać niezależne prace mimo otwartych GAP; niedopuszczalne jest zastępowanie brakującego wejścia stałą TRUE, fikcyjnym adresem albo pustym podprogramem.
 
 Dokumentacja nie usuwa obecnych pozostałości testowych z kodu. Ich konkretne miejsca oraz kryteria zastąpienia są zarejestrowane w planie.
+
+## 12. Doprecyzowania pakietu PLC — 2026-11-15
+
+**POTWIERDZONE w planowaniu implementacji:** zakres obejmuje pełną integrację robota w źródłach ST i testach offline, bez projektu natywnego i pobierania programu. Pełne opróżnianie jest osobnym wykonawcą ze zdefiniowanym interfejsem; zlecenie pozostaje otwarte do jego wiarygodnego zakończenia.
+
+Manual podczas pracy/kończenia jest odrzucany i nie jest zapamiętywany. Po awarii możliwe jest kontrolowane uzgodnienie zachowanego kontekstu, również częściowej partii. Nie odtwarza to autoryzacji ruchu; wymagane są recovery obu stron i świeży fizyczny Start. Przerwany transfer stacji wymaga fizycznego uzgodnienia do postoju.
+
+Zrealizowane źródła i granice weryfikacji opisuje [implementacja PLC v2](plc-robot-implementation.md). Te ustalenia nie zamykają pozostałych danych GAP-10–12.

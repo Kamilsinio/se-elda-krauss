@@ -164,3 +164,11 @@ Przed uruchomieniem przejść pełną ścieżkę: czujnik/zawór → moduł → 
 Kontrolować aliasy dla par równoległych, brak konfliktu adresów, pojedynczego właściciela wyjścia, zgodność nazw w PLC/LS/HMI oraz jednoznaczną obsługę potwierdzeń. Rejestr adresów z projektu powinien powstać jako jeden wykaz, a nie niezależne ręcznie utrzymywane listy.
 
 Tabela funkcji jest gotowa do dalszej pracy dokumentacyjnej. Zamknięcie właściwych GAP i testy AT są wymagane dla zatwierdzenia fizycznej mapy i pracy urządzeń.
+
+## 9. Źródła PLC v2 — 2026-11-15
+
+Zaimplementowano logiczną stronę PLC według kontraktu v2. Publiczne symbole, właściciele, indeksy urządzeń i kolejność skanu są opisane w [integracji PLC](plc-robot-implementation.md). GVL_Robot oddziela obraz 80 B, snapshot i odpowiedź od Plant/Sts. GVL_RobotRetain przechowuje kontekst wymagający uzgodnienia po restarcie.
+
+Nowe wyjścia Festo i IMM mają jawne logiczne interfejsy bez przypisanych adresów. Stary zapis M8/próżni 5 i robotowych bitów 32-bitowych jest odłączony. Fizyczny Stop pozostaje osobnym bindingiem; nie przypisano go do historycznego Continue.
+
+Podzbiór HMI używa cmd/rsp/permit oraz sesji. Koniec zlecenia publikuje Drain.request, ale nie zamyka zlecenia bez potwierdzonego wykonawcy opróżniania. Ta aktualizacja nie zatwierdza konfiguracji urządzeń ani mapy zacisków.

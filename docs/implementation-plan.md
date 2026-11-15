@@ -188,3 +188,11 @@ To częściowa realizacja źródłowa E1/E3/E4: implementacja PLC, fizyczna mapa
 Zrealizowany zakres BOX odpowiada REQ-02/03/04/11/12/13/15/17/19/22 oraz modelowym częściom AT-01/02/03/09/10/13/14/15. Obejmuje P1–P3, grupy i ilości, warstwy, przekładki, Stop N+1, ACK i recovery. Próby w środowisku robota i z rzeczywistym PLC są osobnymi kryteriami odbioru. Źródła ST i projekty natywne nie zostały zmienione.
 
 Aktualizacja DEC-31/32 (2026-11-15): cała technologia jest bezpośrednio w MAIN_TRAY i MAIN_BOX. Usunięto wykonawcze mikroprogramy i runtime mailbox. Pozostały PLC_* oraz BG_*; dodano pełne opisy operandów, słowniki CSV/JSON i cztery kontrole czytelności. Import opisów i pamięć rozwiniętych main wymagają potwierdzenia na V9.40.
+
+## 10. Implementacja PLC v2 — 2026-11-15
+
+Przygotowano źródła integracji kontraktu v2 z PLC: transport, sesję, zdarzenia, rejestr N/N+1, chwytak, obszary, IMM, zlecenie/Stop, recovery i podzbiór hmiV2. Przebudowano sekwencery i magazyn V401/V402. [Opis implementacji i importu](plc-robot-implementation.md) jest źródłem aktualnego stanu ST.
+
+Potwierdzone ustalenia pakietu: Manual jest odrzucany do zakończenia operacji i nie jest kolejkowany; recovery dopuszcza jawnie uzgodniony częściowy kontekst; pełne opróżnianie ma wyłącznie interfejs do osobnego wykonawcy. Stare Start/Continue/Abort i bezpośrednia próżnia nie obchodzą nowego nadzoru.
+
+REQ-01–04/09–19/21/22 mają częściową realizację źródłową. REQ-05/06/07 i pełne warianty opróżniania pozostają do osobnego etapu. Testy modelowe AT nie zamykają odbiorów sprzętowych. Nie wykonano kompilacji Machine Expert, konfiguracji EIP/Festo, uruchomienia HMI ani FAT/SAT. GAP-03/04/05/06/08/09/11/12 pozostają otwarte w zależnym zakresie.

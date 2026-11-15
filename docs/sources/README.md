@@ -66,3 +66,9 @@ Odwołania sprawdzono podczas planowania 2026-10-04. Dokumenty producentów nie 
 Kopie źródeł zachowywać bez edycji. Nową rewizję odnotować razem z jej pochodzeniem i sumą kontrolną, a następnie przejrzeć powiązane wymagania oraz mapę I/O. Nie zastępować niezgodnych informacji milczącym wyborem jednej wersji.
 
 Przy implementacji pierwszeństwo mają aktualne ustalenia użytkownika, a fizyczne mapowanie i zachowanie urządzeń muszą mieć dowód w potwierdzonej konfiguracji. Lista nierozstrzygniętych punktów jest w [GAP](../implementation-plan.md).
+
+## Kopia bazowego GVL do migracji PLC — 2026-11-15
+
+docs/sources/legacy-robot-gvl.st jest niezmienioną kopią GVL_Robot sprzed integracji v2. Zawiera 64 historyczne deklaracje i stare przypisania wyłącznie jako materiał odniesienia. Nie importować do projektu natywnego. Audyt migracji zachowuje oryginalny identyfikator źródła GVLs/GVL_Robot.st.
+
+SHA-256 treści UTF-8 po normalizacji CRLF/LF: 44792db442e19ab58787a41c3a0f9004d9bc8c51d4c0d06734d49f628c598567. tools/check_robot_contract.py sprawdza integralność tej kopii.

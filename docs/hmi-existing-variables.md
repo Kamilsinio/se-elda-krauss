@@ -1,5 +1,7 @@
 # Istniejące zmienne HMI — inwentaryzacja do migracji
 
+Aktualizacja 2026-11-15: poniższe 208 pól pozostaje historyczną bazą migracji. Nowy [pakiet PLC v2](plc-robot-implementation.md) dodaje hmiV2 i odłącza stare komendy Start/Continue/Manual od sterowania produkcją. Tabela dawnych powiązań nie jest opisem aktualnych odbiorców poleceń.
+
 Data: 2026-10-04. Źródło: [GVL_HMI.st](../GVLs/GVL_HMI.st); odczyty i przypisania: [PRG_Main.st](../Modules/PRG_Main.st). Wykaz opisuje odziedziczony kod, nie ukończoną adaptację Krauss.
 
 **To baza migracji. Nie potwierdza eksportu symboli, komunikacji z panelem ani gotowości komend do wdrożenia na nowej maszynie.** Brakuje natywnego projektu PLC/HMI i konfiguracji Symbol Configuration. Docelowy kontrakt i ekrany opisuje [mapa Vijeo](hmi-vijeo-map.md), a kolejność prac [human-instructions.md](../human-instructions.md).

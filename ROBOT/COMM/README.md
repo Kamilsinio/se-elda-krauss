@@ -82,3 +82,7 @@ python -B tools/check_fanuc_comm.py
 ~~~
 
 Wynik: 16 testów komunikacji offline. Kompilacja/import, EtherNet/IP z PLC, reakcje alarmowe oraz FAT/SAT są NIEWYKONANE. Szczegóły: [raport](../../docs/robot-communication-verification.md).
+
+## Strona PLC — aktualizacja 2026-11-15
+
+Przygotowano [źródła PLC v2 i wspólną symulację ST–LS](../../docs/plc-robot-implementation.md). Wcześniejsze „PLC musi wdrożyć” opisuje obowiązki kontraktu; ich logiczna realizacja jest teraz w Modules/GVLs. Mapa i LS FANUC pozostały bez zmian. Konfiguracja skanera/adaptera, Festo, import oraz odbiór sprzętowy nadal wymagają wykonania.

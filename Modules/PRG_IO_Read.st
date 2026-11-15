@@ -1,3 +1,7 @@
+PROGRAM PRG_IO_Read
+VAR
+    decoder : FB_RobotCodec;
+END_VAR
 (**************************)	
 (********* INPUTS *********)	
 (**************************)
@@ -104,36 +108,6 @@ GVL_IO.di.ATV320_stsWord := GVL_IO_RAW.di.ATV320_stsWord_ETA3201;
 GVL_IO.di.ATV320_currentFreq := GVL_IO_RAW.di.ATV320_currentFrequency_RFR3202;
 GVL_IO.di.ATV320_axisExcess := GVL_IO_RAW.di.ATV320_axisExcessError_L4D4004;
 
-(* Robot FANUC - DOUT -> PLC *)
-GVL_Robot.robotIn.sts_auto_mode := GVL_Robot.raw_do_1_auto_mode;
-GVL_Robot.robotIn.sts_t1_mode := GVL_Robot.raw_do_2_t1_mode;
-GVL_Robot.robotIn.sts_t2_mode := GVL_Robot.raw_do_3_t2_mode;
-GVL_Robot.robotIn.sts_estop := GVL_Robot.raw_do_4_estop;
-GVL_Robot.robotIn.sts_input_simulated := GVL_Robot.raw_do_5_input_simulated;
-GVL_Robot.robotIn.sts_output_simulated := GVL_Robot.raw_do_6_output_simulated;
-GVL_Robot.robotIn.sts_in_home_pos := GVL_Robot.raw_do_7_in_home_pos;
-GVL_Robot.robotIn.sts_system_ready := GVL_Robot.raw_do_8_system_ready;
-GVL_Robot.robotIn.sts_prg_running := GVL_Robot.raw_do_9_prg_running;
-GVL_Robot.robotIn.sts_fault := GVL_Robot.raw_do_10_fault;
-GVL_Robot.robotIn.sts_tp_enabled := GVL_Robot.raw_do_11_tp_enabled;
-GVL_Robot.robotIn.sts_current_prg_box := GVL_Robot.raw_do_12_current_prg_box;
-GVL_Robot.robotIn.sts_current_prg_tray := GVL_Robot.raw_do_13_current_prg_tray;
-GVL_Robot.robotIn.sts_cmd_ack := GVL_Robot.raw_do_14_cmd_ack;
-GVL_Robot.robotIn.sts_pallet_finished := GVL_Robot.raw_do_15_pallet_finished;
-GVL_Robot.robotIn.sts_samples_placed := GVL_Robot.raw_do_16_samples_placed;
-GVL_Robot.robotIn.sts_pallet_full := GVL_Robot.raw_do_17_pallet_full;
-GVL_Robot.robotIn.sts_stack_finished := GVL_Robot.raw_do_18_stack_finished;
-GVL_Robot.robotIn.perm_elevator_clear := GVL_Robot.raw_do_19_elevator_clear;
-GVL_Robot.robotIn.perm_storage_clear := GVL_Robot.raw_do_20_storage_clear;
-GVL_Robot.robotIn.ack_cmd_continue := GVL_Robot.raw_do_21_ack_continue;
-GVL_Robot.robotIn.req_storage_access := GVL_Robot.raw_do_22_req_storage_access;
-GVL_Robot.robotIn.box_progress := GVL_Robot.raw_do_23_box_progress;
-GVL_Robot.robotIn.spare_do_24 := GVL_Robot.raw_do_24_spare;
-GVL_Robot.robotIn.spare_do_25 := GVL_Robot.raw_do_25_spare;
-GVL_Robot.robotIn.spare_do_26 := GVL_Robot.raw_do_26_spare;
-GVL_Robot.robotIn.spare_do_27 := GVL_Robot.raw_do_27_spare;
-GVL_Robot.robotIn.spare_do_28 := GVL_Robot.raw_do_28_spare;
-GVL_Robot.robotIn.spare_do_29 := GVL_Robot.raw_do_29_spare;
-GVL_Robot.robotIn.spare_do_30 := GVL_Robot.raw_do_30_spare;
-GVL_Robot.robotIn.cmd_vacuum_5 := GVL_Robot.raw_do_31_vacuum_5;
-GVL_Robot.robotIn.cmd_blow_off_5 := GVL_Robot.raw_do_32_blow_off_5;
+
+decoder(RawIn := GVL_Robot.RawIn);
+GVL_Robot.Rx := decoder.Rx;

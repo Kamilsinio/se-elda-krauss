@@ -1,18 +1,4 @@
-(* ============================================================
-   FB_Storage - obsluga magazynu przekladek.
-   Steruje strona robota (rygiel + M8) i strona operatora
-   (rygiel), pilnujac wzajemnych blokad dostepu.
-   ============================================================ *)
-
-
-
-
-
-
-
-
-
-
+(* V401/V402: HOME otwarte, WORK zamkniete. Zwykly status nie zastepuje safety. *)
 FUNCTION_BLOCK FB_Storage
 VAR_INPUT
     Cfg : ST_StorageCfg;
@@ -21,250 +7,84 @@ VAR_INPUT
 END_VAR
 VAR_OUTPUT
     Outp : ST_StorageOut;
-    Sts  : ST_StorageStatus;
+    Sts : ST_StorageStatus;
     Diag : ST_StorageDiag;
 END_VAR
 VAR
-    tM8FwdStable : TON;
-    tM8BwdStable : TON;
-    tMoveTO      : TON;
-    tPermTO      : TON;
-    tBlink       : TON;
-
-    xBtnPrev          : BOOL;
-    xBtnRise          : BOOL;
-    xOperatorReq      : BOOL;
-    xWaitOperatorLock : BOOL;
-    xRobotAccessLatched : BOOL;
-    xWantRobotOpen    : BOOL;
-    xMovePending      : BOOL;
-    xPermPending      : BOOL;
-    xBlinkEnable      : BOOL;
-    xBlinkPulse       : BOOL;
-    xContradiction    : BOOL;
-    xHardFault        : BOOL;
+    leftHome : TON;
+    rightHome : TON;
+    leftWork : TON;
+    rightWork : TON;
+    moveTimer : TON;
+    button : R_TRIG;
+    operatorRequest : BOOL;
+    wantOpen : BOOL;
+    valid : BOOL;
+    contradiction : BOOL;
 END_VAR
-
-// Stabilizacja krancowek i statusy podstawowe.
-xContradiction := Inp.M8_Fwd AND Inp.M8_Bwd;
-tM8FwdStable(IN := Inp.M8_Fwd AND (NOT xContradiction), PT := Cfg.tStable);
-tM8BwdStable(IN := Inp.M8_Bwd AND (NOT xContradiction), PT := Cfg.tStable);
-
-Sts.RobotSideOpen := tM8FwdStable.Q;
-Sts.RobotSideClosed := tM8BwdStable.Q;
-Sts.LowLevel := Inp.LowLevel;
+leftHome(IN := Inp.Left.valid AND Inp.Left.atHome AND NOT Inp.Left.atWork, PT := Cfg.tStable);
+rightHome(IN := Inp.Right.valid AND Inp.Right.atHome AND NOT Inp.Right.atWork, PT := Cfg.tStable);
+leftWork(IN := Inp.Left.valid AND Inp.Left.atWork AND NOT Inp.Left.atHome, PT := Cfg.tStable);
+rightWork(IN := Inp.Right.valid AND Inp.Right.atWork AND NOT Inp.Right.atHome, PT := Cfg.tStable);
+contradiction := (Inp.Left.atHome AND Inp.Left.atWork) OR (Inp.Right.atHome AND Inp.Right.atWork);
+valid := Inp.Left.configured AND Inp.Left.valid AND Inp.Right.configured AND Inp.Right.valid AND
+    Inp.Left.lossPolicyVerified AND Inp.Right.lossPolicyVerified AND Cfg.tStable > T#0ms AND Cfg.tM8Timeout > T#0ms;
+Sts.RobotSideOpen := valid AND leftHome.Q AND rightHome.Q;
+Sts.RobotSideClosed := valid AND leftWork.Q AND rightWork.Q;
 Sts.Empty := Inp.Empty;
-
-// Zbocze przycisku operatora.
-xBtnRise := Inp.BtnOpenClose AND (NOT xBtnPrev);
-xBtnPrev := Inp.BtnOpenClose;
-
-IF Cmd.ResetFault THEN
-    Diag.Fault := FALSE;
-    Diag.Code := E_StorageFault.NONE;
-    Diag.Text := '';
+Sts.LowLevel := Inp.LowLevel;
+button(CLK := Inp.BtnOpenClose);
+IF Cmd.ResetFault AND NOT contradiction AND valid THEN
+    Diag.Fault := FALSE; Diag.Code := E_StorageFault.NONE; Diag.Text := '';
 END_IF;
-
-xHardFault := Diag.Fault AND (Diag.Code <> E_StorageFault.SPACER_EMPTY);
-
-IF NOT Cmd.Enable THEN
-    xOperatorReq := FALSE;
-    xWaitOperatorLock := FALSE;
-    xRobotAccessLatched := FALSE;
-    Outp.Q_M8Fwd := FALSE;
-    Outp.Q_M8Bwd := FALSE;
-    Outp.Q_UnlockRobotSide := FALSE;
-    Outp.Q_UnlockOperatorSide := FALSE;
-    Outp.Q_LEDOpenClose := FALSE;
-    Sts.OperatorRequest := FALSE;
-    Sts.OperatorAccessActive := FALSE;
-    Sts.RobotAccessActive := FALSE;
-    Sts.RobotAccessGranted := FALSE;
-    Sts.Busy := FALSE;
-    Sts.State := E_StorageState.DISABLED;
-    tMoveTO(IN := FALSE);
-    tPermTO(IN := FALSE);
-    tBlink(IN := FALSE);
-    RETURN;
+IF contradiction THEN
+    Diag.Fault := TRUE; Diag.Code := E_StorageFault.SENSOR_CONTRADICTION;
+    Diag.Text := 'V401/V402: sprzeczne krancowki.';
 END_IF;
-
-IF xBtnRise AND (NOT xHardFault) AND (NOT xRobotAccessLatched) THEN
-    IF xOperatorReq THEN
-        xOperatorReq := FALSE;
-        xWaitOperatorLock := TRUE;
-    ELSE
-        xOperatorReq := TRUE;
-        xWaitOperatorLock := FALSE;
-    END_IF;
+IF button.Q AND Cmd.Enable AND valid AND NOT Cmd.RobotReserved AND NOT Cmd.RobotAccessReq THEN
+    operatorRequest := NOT operatorRequest;
 END_IF;
-
-IF (NOT xOperatorReq) AND Inp.RobotSideOpeningPermission THEN
-    xWaitOperatorLock := FALSE;
-END_IF;
-
-// Po przyjeciu zadania utrzymuj dostep az robot jawnie skasuje DO22 po wyjezdzie.
-IF Cmd.RobotAccessPermit AND Cmd.RobotAccessReq AND (NOT Inp.Empty) AND
-   (NOT xOperatorReq) AND (NOT Diag.Fault) THEN
-    xRobotAccessLatched := TRUE;
-ELSIF NOT Cmd.RobotAccessReq THEN
-    xRobotAccessLatched := FALSE;
-END_IF;
-Sts.RobotAccessGranted := xRobotAccessLatched;
-
-// Domyslnie wyjscia sa zerowane, a nizej ustawiane przez wybrany tryb.
-Outp.Q_M8Fwd := FALSE;
-Outp.Q_M8Bwd := FALSE;
-Outp.Q_UnlockRobotSide := FALSE;
+wantOpen := Cmd.RobotAccessPermit AND Cmd.RobotAccessReq AND NOT operatorRequest AND NOT Inp.Empty;
 Outp.Q_UnlockOperatorSide := FALSE;
-
-IF xContradiction AND (NOT xHardFault) THEN
-    Diag.Fault := TRUE;
-    Diag.Code := E_StorageFault.SENSOR_CONTRADICTION;
-    Diag.Text := 'Storage: sprzeczne krancowki M8 FWD/BWD.';
-END_IF;
-
-IF Cmd.ManRobotOpen AND Cmd.ManRobotClose AND (NOT xHardFault) THEN
-    Diag.Fault := TRUE;
-    Diag.Code := E_StorageFault.MANUAL_CMD_CONFLICT;
-    Diag.Text := 'Storage: jednoczesna komenda manualna M8 FWD/BWD.';
-END_IF;
-
-xHardFault := Diag.Fault AND (Diag.Code <> E_StorageFault.SPACER_EMPTY);
-
-IF Cmd.RobotAccessPermit AND Cmd.RobotAccessReq AND Inp.Empty AND
-   (NOT xRobotAccessLatched) AND
-   (NOT xOperatorReq) AND (NOT Diag.Fault) THEN
-    Diag.Fault := TRUE;
-    Diag.Code := E_StorageFault.SPACER_EMPTY;
-    Diag.Text := 'Storage: magazyn przekladek pusty - dostep robota zablokowany.';
-END_IF;
-
-IF xHardFault THEN
-    Outp.Q_LEDOpenClose := TRUE;
-    Sts.OperatorRequest := xOperatorReq;
-    Sts.OperatorAccessActive := FALSE;
-    Sts.RobotAccessActive := FALSE;
-    Sts.Busy := FALSE;
-    Sts.State := E_StorageState.FAULT;
-    tMoveTO(IN := FALSE);
-    tPermTO(IN := FALSE);
-    RETURN;
-END_IF;
-
-xWantRobotOpen := (NOT xOperatorReq) AND
-                  (xRobotAccessLatched OR
-                   ((NOT Cmd.ManRobotClose) AND Cmd.ManRobotOpen));
-
-IF xOperatorReq THEN
-    // Priorytet operatora: najpierw zamknij M8, potem odrygluj strone operatora.
-    Outp.Q_M8Bwd := TRUE;
-
-    IF NOT Sts.RobotSideClosed THEN
-        Sts.State := E_StorageState.CLOSING_FOR_OPERATOR;
-    ELSIF Inp.OperatorSideOpeningPermission THEN
-        Outp.Q_UnlockOperatorSide := TRUE;
-        Sts.State := E_StorageState.OPERATOR_UNLOCKED;
-    ELSE
-        Sts.State := E_StorageState.OPERATOR_WAIT_PERMISSION;
-    END_IF;
-
-ELSIF xWaitOperatorLock THEN
-    // Po zamknieciu drzwi operatora czekamy na potwierdzenie zaryglowania tej strony.
-    Outp.Q_M8Bwd := TRUE;
-    Sts.State := E_StorageState.WAIT_OPERATOR_LOCK;
-
-ELSIF xWantRobotOpen THEN
-    IF Inp.RobotSideOpeningPermission THEN
+Outp.Q_UnlockRobotSide := FALSE;
+Sts.RobotAccessGranted := FALSE;
+Sts.RobotAccessActive := Cmd.RobotReserved;
+Sts.OperatorAccessActive := FALSE;
+Sts.OperatorRequest := operatorRequest;
+Sts.State := E_StorageState.DISABLED;
+IF Cmd.Enable AND valid AND NOT Diag.Fault THEN
+    IF wantOpen AND Inp.RobotSideOpeningPermission AND Inp.Left.homeAllowed AND Inp.Right.homeAllowed THEN
+        Outp.Q_V401Home := TRUE; Outp.Q_V401Work := FALSE;
+        Outp.Q_V402Home := TRUE; Outp.Q_V402Work := FALSE;
         Outp.Q_UnlockRobotSide := TRUE;
-        Outp.Q_M8Fwd := TRUE;
-
-        IF Sts.RobotSideOpen THEN
-            Sts.State := E_StorageState.ROBOT_OPEN;
-        ELSE
-            Sts.State := E_StorageState.ROBOT_OPENING;
-        END_IF;
-    ELSE
-        Sts.State := E_StorageState.ROBOT_WAIT_PERMISSION;
-    END_IF;
-
-ELSE
-    // Stan bezpieczny: strona robota zamknieta.
-    Outp.Q_M8Bwd := TRUE;
-
-    IF Sts.RobotSideClosed THEN
-        Sts.State := E_StorageState.IDLE;
-    ELSE
+        Sts.State := E_StorageState.ROBOT_OPENING;
+        IF Sts.RobotSideOpen THEN Sts.State := E_StorageState.ROBOT_OPEN; END_IF;
+        Sts.RobotAccessGranted := Sts.RobotSideOpen;
+    ELSIF NOT Cmd.RobotReserved AND Inp.Left.workAllowed AND Inp.Right.workAllowed THEN
+        Outp.Q_V401Home := FALSE; Outp.Q_V401Work := TRUE;
+        Outp.Q_V402Home := FALSE; Outp.Q_V402Work := TRUE;
         Sts.State := E_StorageState.ROBOT_CLOSING;
+        IF Sts.RobotSideClosed THEN
+            Sts.State := E_StorageState.IDLE;
+            IF operatorRequest AND Inp.OperatorSideOpeningPermission THEN
+                Outp.Q_UnlockOperatorSide := TRUE;
+                Sts.OperatorAccessActive := TRUE;
+                Sts.State := E_StorageState.OPERATOR_UNLOCKED;
+            END_IF;
+        END_IF;
     END_IF;
 END_IF;
-
-// Diagnostyka timeoutu ruchu M8.
-xMovePending := (Outp.Q_M8Fwd AND (NOT Sts.RobotSideOpen)) OR
-                (Outp.Q_M8Bwd AND (NOT Sts.RobotSideClosed));
-tMoveTO(IN := xMovePending, PT := Cfg.tM8Timeout);
-IF tMoveTO.Q AND (NOT xHardFault) THEN
-    Diag.Fault := TRUE;
-    Diag.Code := E_StorageFault.M8_TIMEOUT;
-    Diag.Text := 'Storage: timeout ruchu M8.';
+Sts.Busy := valid AND Cmd.Enable AND ((wantOpen AND NOT Sts.RobotSideOpen) OR
+    (NOT Cmd.RobotReserved AND NOT wantOpen AND NOT Sts.RobotSideClosed));
+moveTimer(IN := Sts.Busy, PT := Cfg.tM8Timeout);
+IF moveTimer.Q THEN
+    Diag.Fault := TRUE; Diag.Code := E_StorageFault.M8_TIMEOUT;
+    Diag.Text := 'V401/V402: timeout. Zablokowany zalezny dostep.';
 END_IF;
-
-xHardFault := Diag.Fault AND (Diag.Code <> E_StorageFault.SPACER_EMPTY);
-
-// Diagnostyka oczekiwania na potwierdzenie zaryglowania przeciwnej strony.
-xPermPending :=
-    (xOperatorReq AND Sts.RobotSideClosed AND (NOT Inp.OperatorSideOpeningPermission)) OR
-    ((xWantRobotOpen OR xWaitOperatorLock) AND (NOT Inp.RobotSideOpeningPermission));
-tPermTO(IN := xPermPending, PT := Cfg.tPermissionTimeout);
-IF tPermTO.Q AND (NOT xHardFault) THEN
-    Diag.Fault := TRUE;
-    IF xOperatorReq THEN
-        Diag.Code := E_StorageFault.OPERATOR_PERMISSION_TIMEOUT;
-        Diag.Text := 'Storage: timeout zezwolenia otwarcia strony operatora.';
-    ELSE
-        Diag.Code := E_StorageFault.ROBOT_PERMISSION_TIMEOUT;
-        Diag.Text := 'Storage: timeout zezwolenia otwarcia strony robota.';
-    END_IF;
+IF NOT Cmd.Enable OR NOT valid OR Diag.Fault THEN
+    Outp.Q_UnlockOperatorSide := FALSE; Outp.Q_UnlockRobotSide := FALSE;
+    Sts.RobotAccessGranted := FALSE;
+    IF Inp.Left.lossPolicyVerified THEN Outp.Q_V401Home := Inp.Left.lossHome; Outp.Q_V401Work := Inp.Left.lossWork; END_IF;
+    IF Inp.Right.lossPolicyVerified THEN Outp.Q_V402Home := Inp.Right.lossHome; Outp.Q_V402Work := Inp.Right.lossWork; END_IF;
 END_IF;
-
-xHardFault := Diag.Fault AND (Diag.Code <> E_StorageFault.SPACER_EMPTY);
-
-IF xHardFault THEN
-    Outp.Q_M8Fwd := FALSE;
-    Outp.Q_M8Bwd := FALSE;
-    Outp.Q_UnlockRobotSide := FALSE;
-    Outp.Q_UnlockOperatorSide := FALSE;
-    Outp.Q_LEDOpenClose := TRUE;
-    Sts.OperatorRequest := xOperatorReq;
-    Sts.OperatorAccessActive := FALSE;
-    Sts.RobotAccessActive := FALSE;
-    Sts.Busy := FALSE;
-    Sts.State := E_StorageState.FAULT;
-    tBlink(IN := FALSE);
-    RETURN;
-END_IF;
-
-Sts.OperatorRequest := xOperatorReq;
-Sts.OperatorAccessActive := xOperatorReq OR Outp.Q_UnlockOperatorSide OR xWaitOperatorLock;
-Sts.RobotAccessActive := xWantRobotOpen OR Outp.Q_UnlockRobotSide OR Outp.Q_M8Fwd;
-Sts.Busy := xMovePending OR xPermPending;
-
-// LED przycisku magazynu: swieci przy dostepie operatora, miga w trakcie ruchu/oczekiwania.
-xBlinkEnable := Sts.Busy OR xWaitOperatorLock;
-IF xBlinkEnable THEN
-    tBlink(IN := TRUE, PT := Cfg.tBlink);
-    IF tBlink.Q THEN
-        xBlinkPulse := NOT xBlinkPulse;
-        tBlink(IN := FALSE);
-    END_IF;
-ELSE
-    tBlink(IN := FALSE);
-    xBlinkPulse := FALSE;
-END_IF;
-
-IF Outp.Q_UnlockOperatorSide THEN
-    Outp.Q_LEDOpenClose := TRUE;
-ELSIF xBlinkEnable THEN
-    Outp.Q_LEDOpenClose := xBlinkPulse;
-ELSE
-    Outp.Q_LEDOpenClose := FALSE;
-END_IF;
+Outp.Q_LEDOpenClose := operatorRequest OR Sts.Busy OR Diag.Fault;

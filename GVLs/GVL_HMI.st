@@ -291,6 +291,7 @@ END_TYPE
 
 {attribute 'qualified_only'}
 VAR_GLOBAL
+    hmiV2         : ST_RobotHmiV2; // Nowy kontrakt; stare hmiCmd nie steruja robotem.
     hmiStatus     : ST_HmiStationStatus;
     hmiCmd        : ST_HmiCommands;
     hmiAlarms     : ST_HmiAlarm;

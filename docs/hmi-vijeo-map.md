@@ -1,5 +1,7 @@
 # Vijeo Designer — docelowa mapa ekranów i zmiennych
 
+Aktualizacja 2026-11-15: [pakiet PLC v2](plc-robot-implementation.md) implementuje podzbiór hmiV2 dla zlecenia, trybu, robota, ilości, recovery i ręcznego chwytaka. Pozostałe pola tej mapy nadal są planowane. Nie wykonano ekranów ani konfiguracji drivera/symboli. Nowe pole hmiV2.manual jest opisane w pakiecie PLC; nie podłączać starych hmiCmd jako obejścia nadzoru.
+
 Stan: 2026-10-04. **Specyfikacja do implementacji, nie gotowy eksport symboli ani projekt Vijeo.** Wszystkie pola `GVL_HMI.hmiV2.…` oraz `GVL_HMI.hmiIo.…` w tej dokumentacji są **NOWE / PLANOWANE**. Nie dodano ich jeszcze do ST. Pełna lista obecnych 208 pól jest w [inwentaryzacji](hmi-existing-variables.md). Kolejność pracy i konfigurację narzędzia podaje [human-instructions](../human-instructions.md).
 
 Do przygotowania wyglądu i obiektów korzystaj z [listy ekranów i elementów bez zmiennych](hmi-instructions.md). Każdy panel ma osobną tabelę typów i konfiguracji.

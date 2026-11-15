@@ -1,6 +1,7 @@
 """Read-only audit of the symbolic FANUC/PLC contract; never configures devices."""
 from __future__ import annotations
 import csv
+import hashlib
 import json
 import re
 import sys
@@ -27,7 +28,9 @@ def expected_sources(root: Path) -> dict[tuple[str, str], str]:
             expected[source, bank + number] = 'io'
         for name in set(re.findall(r'\bCALL\s+(\w+)', text)):
             expected[source, 'CALL:' + name] = 'call'
-    gvl = (root / 'GVLs/GVL_Robot.st').read_text(encoding='utf-8')
+    # Zamrozony punkt wyjscia migracji; biezacy GVL implementuje juz v2.
+    gvl = (root / 'docs/sources/legacy-robot-gvl.st').read_text(encoding='utf-8')
+    assert hashlib.sha256(gvl.encode()).hexdigest() == '44792db442e19ab58787a41c3a0f9004d9bc8c51d4c0d06734d49f628c598567', 'Historical GVL snapshot changed'
     for name, body in re.findall(r'TYPE (ST_RobotFromPLC|ST_RobotToPLC)\s*:\s*STRUCT(.*?)END_STRUCT', gvl, re.S):
         # Read declarations, not address comments; changed comments must not hide a field.
         for field in re.findall(r'^\s*(\w+)\s*:\s*BOOL\s*;', body, re.M):
