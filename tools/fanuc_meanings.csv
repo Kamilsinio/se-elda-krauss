@@ -1,0 +1,172 @@
+group|key|label|description
+field|gridX|SiatkaX|Liczba pozycji osi X; dodatnia liczba calkowita. P2/P3: obie osie 0 wylaczaja sekcje.
+field|gridY|SiatkaY|Liczba pozycji osi Y; dodatnia liczba calkowita. P2/P3: obie osie 0 wylaczaja sekcje.
+field|pitchX|SkokX_mm|Skok pozycji po X UFRAME [mm]; moze byc ujemny.
+field|pitchY|SkokY_mm|Skok rzedow po Y UFRAME [mm]; moze byc ujemny.
+field|trayHeight|SkokZ_mm|TRAY: wysokosc tacki [mm]. BOX: przyrost Z warstwy razem z przekladka [mm].
+field|traysPerStack|WarstwMax|TRAY: liczba tacek w stosie. BOX: liczba warstw pojemnika; minimum 1.
+field|searchStep|SzukKrok_mm|Dodatni krok szukania pustej tacki/przekladki po ujemnym Z UFRAME [mm].
+field|searchLimit|SzukMax_mm|Maksymalne dopuszczone zejscie podczas szukania [mm].
+field|maxAttempts|SzukProbMax|Maksymalna liczba krokow szukania; przekroczenie jest bledem.
+field|speed|Predkosc|Limit predkosci: J w procentach, L w mm/s; zakres 1..100.
+field|timeout|CzasMax_t|Limit oczekiwania chwytaka, IMM i ACK [surowe ticki zegara].
+field|tool|NrNarzedzia|Numer zatwierdzonego UTOOL; nie zawiera danych TCP.
+field|frame|NrUkladu|Numer zatwierdzonego UFRAME; nie zawiera danych geometrii ukladu.
+field|cylFold|CylPrzejazd|Cele silownikow do przejazdu i pustego nosnika. Bity 0..4 HOME V501..505, 5..9 WORK; para 00 pomija, 11 blad.
+field|cylStraight|CylIMM|Cele silownikow do pobrania IMM. Bity 0..4 HOME V501..505, 5..9 WORK; para 00 pomija, 11 blad.
+field|trayMask|MaskaPusta|Obwody pustej tacki TRAY / przekladki BOX. Bit 0..4 = proznia 1..5; maska rozlaczna z produktami.
+field|productClearance|WzlotDet_mm|Dodatnie podejscie i podniesienie nad baza grupy [mm Z UFRAME].
+field|spacerClearance|WzlotPrz_mm|Dodatnie podejscie i podniesienie nad baza przekladki [mm Z UFRAME].
+field|state|Krok|Krok technologii: 10 gotowosc; 200..299 pusty nosnik; 300..399 IMM; 400..499 produkty; 500..699 pelny ladunek/przekladki; 700 powrot HOME; 710 postoj; 900 recovery.
+field|dispatch|KrokWybrany|Zapamietany krok wybrany w tej iteracji; nie jest kodem bledu.
+field|lastState|KrokPoprz|Poprzedni krok do wykrycia zmiany i rozpoczecia pomiaru czasu.
+field|phaseSince|KrokOd_t|Czas wejscia w krok [surowe ticki zegara]; jednostke zmierzyc na V9.40.
+field|cycleId|NrCykluIMM|Identyfikator przypisanej partii z PLC, zachowany do rozliczenia.
+field|batchCount|IloscPartii|Liczba detali przypisana do calej partii IMM [szt.]; zachowana mimo edycji nastaw.
+field|remaining|Pozostalo|Pozostala do potwierdzonego rozliczenia ilosc partii [szt.]; maleje po pelnym ACK=0.
+field|group|Grupa|Kolejna grupa odkladania 1..5; 6 przechodzi do rozliczenia partii.
+field|slot|Pozycja|Indeks pozycji od 0, X najszybciej; jedna pozycja na grupe, nie na sztuke.
+field|trayIndex|Warstwa|Indeks od 0: tacki w stosie TRAY albo warstwy pojemnika BOX.
+field|stackId|NrLadunku|Identyfikator aktualnego stosu TRAY / pojemnika BOX przypisany przez PLC.
+field|lastStart|StartPoprz|Ostatnio widziany startToken PLC 0..65535; zastany token nie uruchamia.
+field|mask|MaskaOper|Maska biezacej operacji; bit 0..4 = obwod prozni 1..5.
+field|qty|IloscGrupy|Liczba detali biezacej grupy [szt.], przekazywana do zdarzenia odlozenia.
+field|searchDepth|SzukGleb_mm|Dotychczasowe zejscie od poczatku szukania pustego nosnika [mm Z].
+field|attempt|SzukProba|Liczba wykonanych krokow szukania pustej tacki/przekladki.
+field|destination|CelPartii|Przeznaczenie calej partii: 0 dobre; 1 probki; 2 odrzuty do miejsca probek.
+field|work|PomLiczba|Liczba robocza: rodzina = krok DIV 100 albo kanal ACK: 1 pobr.tacki, 2 odl.tacki, 3 pelna tacka, 4 pelny ladunek, 5 IMM, 6 dobre, 7 probki, 8 odrzuty, 9 warstwa BOX, 10 przekladka BOX.
+field|sum|SumaPom|Robocza suma ilosci lub masek w przypisaniu/recovery; nie licznik produkcji.
+field|capacity|CelCylGrupy|BOX: cele silownikow aktywnej grupy, bity HOME 0..4 i WORK 5..9. TRAY: rezerwa nieuzywana w procesie.
+field|groupCount|GrupAktyw|Liczba aktywnych grup; pojemnosc sekcji/tacki jest jej wielokrotnoscia.
+field|resumeState|KrokPrzerw|Krok przed wejsciem w recovery; diagnostyka, nie automatyczne wznowienie.
+field|sectionIndex|SekcjaBOX|Aktywna sekcja: 1=P1, 2=P2, 3=P3. Cala partia w jednej sekcji.
+field|sectionCapacity|PojSekcji|Liczba pozycji X razy Y aktywnej sekcji BOX.
+field|loadKind|RodzLadunku|Operacja BOX: 0 brak przypisanego ladunku; 1 produkty; 2 przekladka. Fizyczna pewnosc jest osobno w loadKnown/loadMask.
+flag|initApproved|ZezInit|Jawne zadanie wyzerowania prywatnej konfiguracji/kontekstu przy potwierdzonym pustym postoju.
+flag|newApproved|NowyKontekst|Jawna deklaracja nowego pustego kontekstu po oproznieniu i uzgodnieniu stacji.
+flag|recoveryApproved|ZezRecovery|Zgoda operatora na uzgodnienie recovery i kasowanie alarmu; sama nie dopuszcza ruchu.
+flag|contextChecked|StanSprawdz|Operator sprawdzil ladunek i rozliczenia PLC oraz uzgodnil kontekst.
+flag|stationIdleConfirmed|StacjaPusta|Operator potwierdzil pusty postoj dla INIT/APPLY/zmiany programu; nie automatyczny czujnik.
+flag|profileApproved|ProfilOK|Odebrano fizyczny profil chwytaka, maski i cele HOME/WORK.
+flag|motionApproved|DrogiOK|Odebrano trajektorie i geometrie tej produkcji na wlasciwym robocie.
+flag|alarmApproved|AlarmOdebr|Odebrano rzeczywiste zatrzymanie zadania ruchowego przez reakcje alarmowa.
+flag|cfgApplied|NastawyOK|Przyjeto aktywna kopie nastaw; staging nie jest uzywany do ruchu.
+flag|candidateValid|KandydatOK|Roboczy wynik walidacji staging; FALSE oznacza blednego kandydata.
+flag|selected|MainWybrany|Main pozostaje wybrany; FALSE konczy petle. Nie jest natywnym statusem pracy.
+flag|armed|Uzbrojony|Przyjeto nowy fizyczny Start; Stop rozbraja po rozliczeniu rozpoczetych operacji.
+flag|needsRecovery|UzgodnijStan|Zatrzask niespojnego/przerwanego procesu; blokuje ruch do jawnego uzgodnienia.
+flag|batchAssigned|PartiaPrzyp|Zachowano cycleId, ilosc i przeznaczenie partii; nie przypisywac ponownie.
+flag|pickupConfirmed|PartiaPobr|Potwierdzono pobranie partii i wyjazd z formy; pozostale grupy wymagaja odlozenia.
+flag|trayReady|NosnikGotow|TRAY: pusta tacka odlozona. BOX: PLC potwierdzil przygotowany pojemnik.
+flag|motionDone|RuchGotowy|Ukonczono instrukcje ruchu operacji; zerowane przed nowym ruchem.
+flag|safe|RuchDozw|Roboczy wynik blokad ruchu lub walidacji; nie funkcja bezpieczenstwa.
+flag|deviceDone|WarPom|Roboczy BOOL dokonczenia IMM lub walidacji kodu silownika; nie sygnal czujnika.
+flag|eventDone|ZdarzGotowe|Kanal zakonczyl caly REQ/ACK, ma sukces i ACK=0.
+flag|cylDone|CylGotowe|Cele silownikow wazne, zaakceptowane i osiagniete bez przeciwnej krancowki.
+flag|vacDone|ProzniaOK|Wybrane obwody maja wazne potwierdzenie przyjecia, wlaczenia i osiagniecia prozni.
+flag|releaseDone|ZwolnGotowe|Wybrane przedmuchy zakonczyly ACK z sukcesem i proznia zanikla.
+flag|sourceExited|PozaZrodlem|Program potwierdzil wyjazd poza zrodlo tacek; wymaga aktualnego AUTO/statusu.
+flag|elevatorExited|PozaWinda|Program potwierdzil wyjazd poza winde; przy bledzie uniewazniane.
+flag|storageExited|PozaMagaz|Program potwierdzil wyjazd poza magazyn przekladek; przy bledzie uniewazniane.
+flag|immExited|PozaForma|Program potwierdzil wyjazd poza IMM; potrzebne do pozwolenia zamkniecia formy.
+flag|cycleExecuting|OperacjaTrwa|Krok jest w zakresie 200..699; wskaznik trwajacej operacji dla BG.
+flag|applyDenied|OdrzucApply|Stan stacji zabronil APPLY; aktywne nastawy nie nadpisane.
+flag|guardFault|BladBG|BG wykryl krytyczne naruszenie dopuszczenia lub spojnosc procesu.
+flag|timeoutFault|RezCzasBlad|Rezerwa diagnostyki timeout; aktualnie kod/miejsce w faultCode/resumeState.
+flag|maskValid|RezMaskaOK|Rezerwa walidacji maski; aktualnie uzywany candidateValid.
+flag|samplePending|RezProbki|Rezerwa pamieci probek; aktualne zadanie i odpowiedz prowadzi PLC_SMPL.
+flag|cfgFrozen|ProfilPartii|Partia przypisana; jej profil i ilosc sa zamrozone do rozliczenia.
+flag|booted|StartObsluz|Po przyznaniu wyboru main sprawdzil wejscie i zapamietal zastany token Start.
+flag|sourceInside|WZrodle|Robot rozpoczal wejscie w zrodlo tacek i nie potwierdzil wyjazdu.
+flag|elevatorInside|WWindzie|Robot rozpoczal wejscie w winde i nie potwierdzil wyjazdu.
+flag|releasing|Zwalnianie|Celowe zwalnianie wybranej maski; inne niesione obwody nadal monitorowane.
+flag|fullStackWait|CzekaNowyID|Pelny ladunek ma pelny ACK; czeka na nowy stackId.
+flag|guardLoaded|PomLadBG|Roboczy wynik BG: badany obwod nalezy do znanego niesionego ladunku.
+flag|guardReleasing|PomZwolBG|Roboczy wynik BG: badany obwod jest celowo zwalniany.
+flag|orderWasActive|ZlecPoprz|Poprzednio bylo aktywne zlecenie; zamkniecie wymaga nowego/uzgodnionego kontekstu.
+flag|statusRouteStable|DrogaWazna|Natywny main w AUTO bez TP/PAUSE pozwala uzyc potwierdzenia wyjazdu.
+flag|spacerNeeded|PrzPotrzebna|Po warstwie BOX potrzebna przekladka przed nastepna warstwa.
+flag|spacerStarted|PrzRozpocz|Pobranie przekladki rozpoczete; Stop wymaga zakonczenia operacji.
+flag|terminalPending|KoncoweACK|Trwa/niepewne zdarzenie warstwy, przekladki lub BOX; bez automatycznego replay.
+flag|storageInside|WMagazynie|Robot rozpoczal wejscie w magazyn przekladek i nie potwierdzil wyjazdu.
+flag|applyRequest|ZadApply|Jednorazowe zadanie walidacji i skopiowania staging do aktywnych nastaw; konsumowane.
+flag|exitRequest|ZadWyjscie|Jednorazowe zadanie zwolnienia main; BG wymaga zamknietego pustego rozliczonego postoju.
+flag|sourceBound|NativeKompl|BG_BIND ma zdefiniowane wszystkie 14 natywnych zrodel; nie dowod odbioru.
+flag|bindingsVerified|NativeOdebr|Na V9.40 odebrano znaczenie i aktualnosc wszystkich zrodel native.
+flag|statusValid|NativeWazne|Komplet odebranych native i zweryfikowane zasoby; statusy moga byc publikowane.
+flag|capacityVerified|PamiecOdebr|Sprawdzono R1..400, wymagane F/PR i brak kolizji; domyslnie OFF.
+flag|initialized|ArbiterInit|Jawnie zainicjalizowano pusty postoj; nie oznacza odbioru ruchu.
+flag|emptyConfirmed|PustoPotw|Fizyczne potwierdzenie pustej stacji i chwytaka dla wspolnej inicjalizacji; konsumowane przez BG.
+flag|conflict|KonfliktMain|Zatrzask: oba main aktywne/paused albo oba zglosily wybor.
+flag|ownershipSafe|ZmianaDozw|BG potwierdzil zamkniete zlecenie, HOME i rozliczone kanaly/wtryski; roboczy warunek przekazania wyboru.
+flag|boxRequest|WyborBOX|MAIN_BOX zada lokalnego wyboru; nie wybor programu przez PLC.
+flag|trayRequest|WyborTRAY|MAIN_TRAY zada lokalnego wyboru; nie wybor programu przez PLC.
+flag|boxRelease|ZwolnijBOX|MAIN_BOX zglasza koniec wyboru; BG sprawdza pusty postoj.
+flag|trayRelease|ZwolnijTRAY|MAIN_TRAY zglasza koniec wyboru; BG sprawdza pusty postoj.
+native|autoMode|TrybAUTO|Rzeczywisty selektor kontrolera w AUTO.
+native|t1Mode|TrybT1|Rzeczywisty selektor kontrolera w T1.
+native|t2Mode|TrybT2|Rzeczywisty selektor kontrolera w T2.
+native|tpEnabled|PendantON|Rzeczywisty wlaczony pendant; blokuje produkcje AUTO.
+native|systemReady|SystemGotow|Gotowosc kontrolera, niezalezna od gotowosci procesu.
+native|estopActive|EStopAkt|Diagnostyczny E-STOP; nie zastepuje ukladu bezpieczenstwa.
+native|fault|AlarmRobota|Rzeczywisty alarm kontrolera, nie kod bledu technologii.
+native|inputSimulated|SymWejsc|Aktywna symulacja wejsc na kontrolerze; blokuje produkcje.
+native|outputSimulated|SymWyjsc|Aktywna symulacja wyjsc na kontrolerze; blokuje produkcje.
+native|home|W_HOME|Aktualna odebrana Reference Position grupy 1; nie flaga ostatniego ruchu.
+native|taskRunning|MainPracuje|Natywna praca main aktualnego wlasciciela; nie PLC_SVC.
+native|taskPaused|MainPauza|Natywne PAUSE aktualnego main; nadal zajmuje wybor.
+control|state|StanLacza|Stan: 0 rozbrojone; 10 zadanie SYNC; 20 wygaszanie ACK; 30 recovery; 40 po jawnym recovery, gotowosc sesji.
+control|serviceSeq|CyklSerwisu|Licznik cykli PLC_SCAN do wykrycia zatrzymania PLC_SVC.
+control|lastServiceSeq|CyklSVCpop|Ostatnio widziany licznik serwisu.
+control|now|CzasTeraz_t|Biezacy czas watchdogow [surowe ticki]; czestotliwosc do pomiaru.
+control|lastNow|CzasPoprz_t|Poprzedni czas do wykrycia cofniecia zegara.
+control|peerChangedAt|PLCzmiana_t|Czas ostatniej zmiany heartbeat PLC [ticki].
+control|serviceChangedAt|SVCzmiana_t|Czas ostatniej zmiany licznika serwisu [ticki].
+control|lastPeerHeartbeat|HBPLCpoprz|Ostatni heartbeat PLC 0..65535.
+control|heartbeatAt|HBczas_t|Czas ostatniego zwiekszenia heartbeat robota [ticki].
+control|heartbeat|HBRobot|Licznik heartbeat robota 0..65535 modulo; BG_PLC jest jedynym pisarzem jego GO.
+control|heartbeatPeriod|HBokres_t|Okres zwiekszania heartbeat [surowe ticki].
+control|peerTimeout|PLCczasMax_t|Limit niezmiennego heartbeat PLC [ticki].
+control|serviceTimeout|SVCczasMax_t|Limit nieaktualnego serwisu lub BG [ticki].
+control|syncTimeout|SYNCmax_t|Limit synchronizacji lacza [ticki].
+control|stateSince|SYNCod_t|Czas rozpoczecia synchronizacji [ticki].
+control|fault|BladLacza|Kod: 0 brak; 902 timeout SYNC; 905 zajety kanal; 906 bledny wynik przedmuchu.
+control|mockClock|CzasStatus_t|LIVE: czas ostatniego BG_STATUS [ticki]. TEST: syntetyczny zegar testu.
+control|sampleState|StanProbek|0 bezczynna; 10 czeka na decyzje main; 20 utrzymuje ACK do zaniku zadania PLC.
+control|sampleStatus|WynikProbek|0 brak; 10 oczekiwanie; 20 przyjeto; 30 odrzucono; 904 bledny wynik.
+control|sampleResult|DecyzjaProb|Odpowiedz probek: 1 przyjeto caly nastepny komplet; 2 odrzucono.
+control|testResult|CzasGuard_t|LIVE: czas ostatniego BG_GUARD [ticki]. TEST: 1 PASS, 900 FAIL, 0 niewykonany.
+control|run|SerwisON|Serwis ma pracowac; OFF konczy serwis i uniewaznia sesje.
+control|test|WariantTEST|ON izolowany TEST; OFF LIVE. Nie dopuszcza mock w produkcji.
+control|configured|MapaOdebr|Odebrano rzeczywista konfiguracje EIP; OFF brak dopuszczenia lacza.
+control|appArm|ProcesUzbr|Main uzbroil proces; OFF robot nie moze wydawac komend wykonawczych.
+control|recover|ZadRecLacza|Jednorazowe zadanie jawnego recovery lacza, konsumowane przez PLC_LINK.
+control|peerSeen|HBPLCswiezy|Heartbeat PLC zmienia sie w dopuszczalnym czasie.
+control|serviceSeen|SVCswiezy|PLC_SVC aktualizuje licznik w dopuszczalnym czasie.
+control|monitorOk|WatchdogOK|Wszystkie wymagane warunki watchdogow spelnione; OFF blokuje sesje.
+control|clockOk|ZegarOK|Zegar nie cofnal sie; OFF wymaga ponownego uzgodnienia.
+control|session|SesjaWazna|Obustronna synchronizacja i gotowosc sa aktualne; OFF brak waznych komend.
+control|localReady|RobotGotow|Robot zakonczyl recovery lacza i ma wazne monitory.
+control|syncReq|ZadSYNC|Robot zada synchronizacji; OFF zadanie wygaszone.
+control|syncAck|ACK_SYNC|Odpowiedz na zadanie SYNC PLC: ON potwierdza, OFF wygasza.
+control|peerSyncSeen|SYNCPLCbyl|W biezacej wymianie odebrano zadanie SYNC PLC.
+control|wasSession|SesjaByla|Od resetu istniala sesja; wykrywanie utraty gotowosci partnera.
+control|protocolFault|BladProto|Zatrzasniety blad protokolu; OFF brak takiego bledu.
+control|allowCommands|KomendyDozw|Komunikacja dopuszcza wykonanie po walidacji sesji i procesu; OFF blokada.
+control|testFail|TestBlad|Odizolowany test wykryl blad; OFF nie wykryl.
+control|heartbeatPulse|HBkrok|Roboczy warunek zwiekszenia heartbeat w tym skanie.
+control|allAckLow|ACK_wszyst0|Wszystkie kanaly zdarzen i przedmuchow maja ACK=0.
+control|productionRequired|MainWymag|Wybrany main wymaga aktualnych BG; OFF sam serwis komunikacji.
+control|productionPermit|ProcesDozw|BG potwierdza blokady procesu, native, profil i zlecenie; OFF ruch i komendy zabronione.
+control|bgHealthy|BGswieze|BG_STATUS i BG_GUARD maja aktualne znaczniki czasu.
+control|guardRequest|BlokadaBG|Zadano krytyczna blokade i recovery; OFF brak tego zadania.
+event|blisterPicked|PobrTack|pobranie pustej tacki
+event|blisterPlaced|OdlTack|odlozenie pustej tacki
+event|blisterFinished|PelTack|napelnienie pojedynczej tacki
+event|spacerPlaced|Przekl|odlozenie przekladki
+event|productsPlaced|Dobre|odlozenie dobrych detali
+event|samplesPlaced|Probki|odlozenie probek
+event|layerFinished|Warstwa|ukonczenie warstwy BOX
+event|stackFinished|PelLad|ukonczenie stosu lub pojemnika
+event|immPickupCompleted|PobrIMM|pobranie partii i wyjazd z IMM
+event|rejectsPlaced|Odrzuty|odlozenie odrzutow

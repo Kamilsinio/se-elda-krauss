@@ -1,6 +1,6 @@
 # Modernizacja programów FANUC po ustaleniu kontraktu
 
-Data: 2026-11-14. Status: **źródła programu tacek i BG przygotowane offline; Pojemniki pozostają planowane**. Kontrakt v2: [robot-plc-contract.md](robot-plc-contract.md). Użytkownik wybrał dwa programy produkcyjne i wspólne moduły; robot wydaje niezależne polecenia urządzeń, PLC wykonuje pneumatykę.
+Data: 2026-11-15. Status: **źródła MAIN_BOX/MAIN_TRAY oraz komunikacji/BG przygotowane offline; import i uruchomienie pozostają otwarte**. Kontrakt v2: [robot-plc-contract.md](robot-plc-contract.md). DEC-31/32: użytkownik wybrał całą technologię w dwóch main oraz opisy wszystkich zmiennych; robot wydaje niezależne polecenia urządzeń, PLC wykonuje pneumatykę.
 
 ## 1. Ustalenia z rzeczywistych źródeł
 
@@ -24,8 +24,8 @@ W `IOSTATE.DG` zapisano HandlingTool V7.70125. To nagłówek historycznego ekspo
 
 | Konstrukcja | Dowód w dostępnej dokumentacji | Decyzja |
 |---|---|---|
-| CALL i END | HandlingTool 8.30 §8.12.3, PDF 904–905 | podział na podprogramy; potwierdzić import na wersji docelowej |
-| IF z CALL / logika mieszana | HandlingTool 8.30 §8.12.4, PDF 905–908 | zastępować małe gałęzie warunkowym wywołaniem zamiast skoków do sekwencji |
+| CALL i END | HandlingTool 8.30 §8.12.3, PDF 904–905 | techniczne wywołania komunikacji; technologia bezpośrednio w main; import do potwierdzenia |
+| IF z CALL / logika mieszana | HandlingTool 8.30 §8.12.4, PDF 905–908 | dostępne odniesienie składni; nie wydzielać drobnych czynności technologii do plików |
 | SELECT z CALL i ELSE | HandlingTool 8.30 §8.12.4, PDF 908–909 | wybór wariantu chwytaka/palety bez łańcucha wielu JMP |
 | FOR/ENDFOR | HandlingTool 8.30 §8.15, PDF 924–926 | ograniczone powtórzenia; nie stosować do odtwarzania nieznanego miejsca po awarii |
 | Argumenty CALL / AR | HandlingTool 8.30 §8.24; §8.12.3 opisuje opcję Parameters for CALL Program | dostępność opcji OTWARTA; nie zakładać jej na podstawie daty robota |
@@ -35,28 +35,24 @@ W `IOSTATE.DG` zapisano HandlingTool V7.70125. To nagłówek historycznego ekspo
 
 Źródła PDF znajdują się poza repozytorium w `../Robot M20iD/manuals` oraz we współdzielonym katalogu projektu zamawiającego. Identyfikatory, rewizje i SHA-256: [manifest manuali](sources/robot-manuals-manifest.json). Dodatkowy MAROU91EN02171E Rev C obejmuje wersje 9.10 i nowsze, a B-84074EN/04 wprost wymienia M-20iD/25 A05B-1228-B202. B-82854EN/03 obejmuje Mate Plus i adapter EtherNet/IP; B-83525EN/09 obejmuje serwis Mate/Mate Plus. Basic Operation B-83284EN/04 i HandlingTool 8.30 dotyczą wcześniejszej rodziny; stanowią odniesienie, nie potwierdzają dostępności wszystkich instrukcji na dostarczonym urządzeniu.
 
-Brak potwierdzenia blokowego IF nie blokuje projektu komunikacji. Wariant bazowy modernizacji wykorzystuje podprogramy, SELECT/CALL i ograniczone pętle po weryfikacji na kontrolerze. Jeśli brak Parameters for CALL Program, stosować jawnie wydzielony zestaw rejestrów interfejsu procedury, z jednym właścicielem i bez równoległego RUN; nie udawać obsługi AR. Po potwierdzeniu blokowego IF można uprościć wnętrza procedur bez zmiany kontraktu PLC.
+Brak potwierdzenia blokowego IF nie blokuje implementacji. Oba main używają opisanych faz, zwykłego IF i lokalnych etykiet; nie wymagają opcji argumentów CALL/AR ani runtime mailboxu. Etykiety potrzebne do oczekiwania/recovery pozostają jawne. Kompilację/import należy potwierdzić na docelowym kontrolerze.
 
-## 3. Podział programów
+## 3. Bieżący podział programów — decyzja 2026-11-15
 
-Aktualna implementacja tacek znajduje się w [ROBOT/TRAY](../ROBOT/TRAY/README.md); używa RT_MAIN, SELECT/CALL, RT_*, RG_*, RE_*, RM_* oraz RC_MON/RB_STATUS/RB_GUARD. Poniższa tabela przedstawia podział funkcji dla docelowych dwóch produkcji; jej pierwotne nazwy nie są listą plików do wgrania. Przed utworzeniem sprawdzić kolizje nazw i rejestrów w pełnym backupie.
+| Program / pakiet | Odpowiedzialność |
+|---|---|
+| [MAIN_TRAY](../ROBOT/TRAY/MAIN_TRAY.LS) | Pełna technologia tacek: ruchy, chwytak, IMM, produkty, próbki, zdarzenia, Stop i recovery |
+| [MAIN_BOX](../ROBOT/BOX/MAIN_BOX.LS) | Pełna technologia BOX: ruchy, chwytak, IMM, P1–P3, warstwy, przekładki, zdarzenia, Stop i recovery |
+| PLC_* | Oddzielna komunikacja, REQ/ACK i walidacja logicznego interfejsu |
+| BG_PLC / BG_STATUS / BG_GUARD | Monitorowanie niezależne od oczekiwania/ruchu main; wybór jednego właściciela |
+| BG_BIND | Sprawdzenie kompletu źródeł native, bez ich fikcyjnego uzupełniania |
+| COMMON | Wyłącznie manifest i słownik opisów, bez programów LS |
 
-| Procedura | Odpowiedzialność | Wyjścia / ograniczenia |
-|---|---|---|
-| RL_MON | heartbeat, tryby, system, HOME, awaria sesji | tylko wydzielone statusy; nigdy komendy gripper/IMM lub wybór produkcji |
-| RL_INIT | synchronizacja i kontrola wersji, sprawdzenie odzyskania | bez ruchu, resetu ładunku i automatycznego startu |
-| RG_CYL | zadanie celu jednego siłownika i oczekiwanie na rzeczywiste potwierdzenie | tylko żądania PLC danego urządzenia |
-| RG_VAC | zadanie stanu jednej próżni i kontrola pomiaru | bez bezpośrednich RI/RO |
-| RG_BLOW | obsługa REQ/ACK/result jednego przedmuchu | brak PULSE wyjścia fizycznego z robota |
-| RE_EVENT | przekazanie zdarzenia z oddzielnym payload i domknięcie ACK | bez wspólnego licznika payload kilku kanałów |
-| RI_PICK | ruchy pobrania z IMM i żądania procesowych pozwoleń | kontekst cycleId partii; punkty wymagają nauczenia |
-| RT_PICK / RS_PICK | pobranie blistra / przekładki | osobne geometrie i stan zasobu; wspólne funkcje próżni |
-| RP_PLACE | odkładanie produktów | obliczanie indeksu/offsetu, warianty chwytaków i palet; kontekst wznowienia |
-| RP_SAMPL | odkładanie próbek | zdarzenie próbek, bez zwiększania dobrych detali |
-| RF_STOP | rozliczenie operacji i wejście w oczekiwanie na wznowienie | bez inicjowania nowego wtrysku i bez fałszywego stackFinished |
-| RF_FAULT | publikacja miejsca i przyczyny, przejście do recovery | reakcja fizyczna zgodna z macierzą alarmów, bez bezwarunkowego zrzutu próżni |
+Usunięto wykonywalne mikroprogramy RT/RX/RM/XM/RG/RE/RF i runtime kopiowanie RF_READ/RF_WRITE. Ich definicje w generatorze są rozwijane do dwóch main przed eksportem; nie są osobnymi plikami do załadowania. [Migracja nazw](../ROBOT/program-migration.csv) wskazuje każdy stary plik i jego docelową rolę.
 
-Dwa main pozostają czytelną kolejnością operacji technologicznych. Wspólna procedura nie może zmieniać licznika warstwy drugiego programu. Monitor i main mają rozłączne wyjścia. Jedynym autorem żądań operacyjnych robota pozostaje aktywna sekwencja; nie dodawać równoległego RUN do ukrytego sterowania pneumatyką.
+Każdy używany zasób ma etykietę i pełne objaśnienie w LS. Słownik podaje kierunek, jednostki, maski, ON/OFF i znaczenie wartości. Opisy są również eksportowane do CSV/JSON; nie zastępują komentarzy w programie. Nie należy zakładać, że import LS automatycznie ustawi wszystkie natywne tabele komentarzy — wymaga to sprawdzenia.
+
+[COMMON](../ROBOT/COMMON/README.md) opisuje komendy INIT/APPLY/NEW/RECOVERY/EXIT wykonywane wewnątrz wybranego main. R331 nadal zapisuje wyłącznie BG_STATUS. Każdy main ma własne nastawy i kontekst, bez wpływu na indeksy drugiego programu.
 
 ## 4. Dane, błędy i optymalizacja
 
@@ -64,14 +60,14 @@ Przed kodowaniem sporządzić inwentarz całego backupu R/PR/F/TIMER/P/UFRAME/UT
 
 Rozdzielić parametry technologiczne od stanu sekwencji i danych protokołu. Stan odtwarzania obejmuje program, fazę, stos, warstwę, indeks detalu, następny chwytak, cycleId partii, przypisaną jej liczbę detali i rzeczywistą maskę zajętych obwodów według narzędzia. Pięć obwodów nie oznacza pięciu sztuk. DEC-18 dopuszcza zastosowanie nowej liczby detali wyłącznie przy zamkniętym zleceniu i niepracującej stacji. Błąd walidacji przy wznowieniu nie może po cichu uruchamiać ścieżki „nowa produkcja” i zerować liczników.
 
-W programie tacek r2p.production.step jest bieżącym stanem sekwencji 10–900 opisanym w resources.json, a faultCode i resumeState są osobne. Dla dalszej modernizacji Pojemników pozostaje propozycja numeracji: baza 1000 inicjalizacja/link, 2000 chwytak, 3000 IMM, 4000 blister/przekładka, 5000 odkładanie, 6000 próbki, 7000 Stop, 9000 recovery. W ramach modułu numeracja co 10; kod błędu jest odrębny. Nie kierować wszystkich timeoutów do nierozróżnialnego UALM[1].
+W programie tacek r2p.production.step jest bieżącym stanem sekwencji 10–900 opisanym w resources.json, a faultCode i resumeState są osobne. BOX używa analogicznych rodzin 10–900: gotowość, pojemnik, IMM, odkładanie, warstwy/przekładki/koniec pojemnika, Stop i recovery. Szczegóły zawiera jego resources.json. W ramach modułu numeracja co 10; kod błędu jest odrębny. Nie kierować wszystkich timeoutów do nierozróżnialnego UALM[1].
 
-Dla Pojemników zastąpić powtarzane gałęzie wyboru palety SELECT/CALL; pozostawić oddzielne punkty podejścia, pracy i wycofania. Wspólny helper liczy offset, ale nie zmienia konfiguracji kinematycznej punktu. Zmniejszenie liczby etykiet poprawia utrzymanie; nie jest dowodem skrócenia cyklu.
+BOX ma opisane fazy oraz osobne bazy grup dla każdej sekcji. Podejście, praca i wycofanie oraz obliczenie offsetu są bezpośrednio w MAIN_BOX, bez zmiany konfiguracji kinematycznej bazy. Zmniejszenie liczby etykiet poprawia utrzymanie; nie jest dowodem skrócenia cyklu.
 
 Najpierw zachować poprawność nakładania wtrysku i odkładania, potem mierzyć postoje i opóźnienia. Nie usuwać WAIT potwierdzeń ani nie zmieniać CNT/FINE, prędkości, przyspieszeń i kolizyjnych odcinków w ramach refaktoryzacji. SKIP po próżni przez PLC wymaga zmierzenia najgorszej latencji i drogi zatrzymania. Nie kopiować starego UTOOL=3, UFRAME=0 i obciążeń jako potwierdzonych ustawień nowego robota.
 
 ## 5. Warunki utworzenia docelowych LS/ST
 
-Kolejność: kontrakt logiczny → fizyczna mapa i dowody I/O → inwentarz backupu i macierz instrukcji → warstwa komunikacji PLC/FANUC → urządzenia/IMM → wspólne procedury → dwa main → import/kompilacja → próby bez i z ruchem.
+Kolejność: kontrakt logiczny → fizyczna mapa i dowody I/O → inwentarz backupu i macierz instrukcji → warstwa komunikacji PLC/FANUC → urządzenia/IMM → definicje generatora → dwa pełne main → import/kompilacja → próby bez i z ruchem.
 
-Przykład EDS, projekty PLC, fizyczny backup i schemat pneumatyczny są już znalezione. Do mapy potrzebna jest weryfikacja identyfikacji/obrazu urządzeń i wybór docelowego projektu. Nowy program tacek nie wywołuje historycznych BB_* ani nie kopiuje dawnych współrzędnych. Do porównania technologii i dalszej modernizacji pozostają eksport TP, audyt zależności oraz potwierdzenie importu na V9.40P/80. Rozbieżne porty F-2680, niepełne pomiary podciśnienia i brak rozpoznania początku wtrysku blokują zależne ruchy i Stop N+1. Nie tworzyć pozornie działających main z nieobecnymi helperami, fikcyjnymi DI/DO ani składnią niepotwierdzoną przez kontroler. [Raport weryfikacji](robot-communication-verification.md) rozróżnia zakończony przegląd statyczny i niewykonane próby urządzeń.
+Przykład EDS, projekty PLC, fizyczny backup i schemat pneumatyczny są już znalezione. Do mapy potrzebna jest weryfikacja identyfikacji/obrazu urządzeń i wybór docelowego projektu. Nowe programy BOX/TRAY nie wywołują historycznych BB_* ani nie kopiują dawnych współrzędnych. Do porównania technologii i dalszej modernizacji pozostają eksport TP, audyt zależności oraz potwierdzenie importu na V9.40P/80. Rozbieżne porty F-2680, niepełne pomiary podciśnienia i brak rozpoznania początku wtrysku blokują zależne ruchy i Stop N+1. Nie tworzyć pozornie działających main z nieobecnymi helperami, fikcyjnymi DI/DO ani składnią niepotwierdzoną przez kontroler. [Raport weryfikacji](robot-communication-verification.md) rozróżnia zakończony przegląd statyczny i niewykonane próby urządzeń.

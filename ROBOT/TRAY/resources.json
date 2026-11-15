@@ -90,9 +90,9 @@
     "profileApproved": "F[6]",
     "motionApproved": "F[7]",
     "alarmApproved": "F[8]",
-    "bindingsVerified": "F[9]",
-    "sourceBound": "F[10]",
-    "statusValid": "F[11]",
+    "bindingsVerified": "F[402]",
+    "sourceBound": "F[401]",
+    "statusValid": "F[403]",
     "cfgApplied": "F[12]",
     "candidateValid": "F[13]",
     "selected": "F[14]",
@@ -127,21 +127,23 @@
     "guardLoaded": "F[43]",
     "guardReleasing": "F[44]",
     "orderWasActive": "F[45]",
-    "statusRouteStable": "F[46]"
+    "statusRouteStable": "F[46]",
+    "applyRequest": "F[47]",
+    "exitRequest": "F[48]"
   },
   "native": {
-    "autoMode": "F[47]",
-    "t1Mode": "F[48]",
-    "t2Mode": "F[49]",
-    "tpEnabled": "F[50]",
-    "systemReady": "F[51]",
-    "estopActive": "F[52]",
-    "fault": "F[53]",
-    "inputSimulated": "F[54]",
-    "outputSimulated": "F[55]",
-    "home": "F[56]",
-    "taskRunning": "F[57]",
-    "taskPaused": "F[58]"
+    "autoMode": "F[416]",
+    "t1Mode": "F[417]",
+    "t2Mode": "F[418]",
+    "tpEnabled": "F[419]",
+    "systemReady": "F[420]",
+    "estopActive": "F[421]",
+    "fault": "F[422]",
+    "inputSimulated": "F[423]",
+    "outputSimulated": "F[424]",
+    "home": "F[425]",
+    "taskRunning": "F[426]",
+    "taskPaused": "F[427]"
   },
   "taught": {
     "1": "F[59]",
@@ -235,862 +237,1115 @@
     {
       "name": "staging.mask1",
       "bank": "R",
-      "number": 1
+      "number": 1,
+      "label": "TSMaskG1",
+      "comment": "Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Maska grupy 1: bit 0..4 = obwod prozni 1..5."
     },
     {
       "name": "staging.mask2",
       "bank": "R",
-      "number": 2
+      "number": 2,
+      "label": "TSMaskG2",
+      "comment": "Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Maska grupy 2: bit 0..4 = obwod prozni 1..5."
     },
     {
       "name": "staging.mask3",
       "bank": "R",
-      "number": 3
+      "number": 3,
+      "label": "TSMaskG3",
+      "comment": "Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Maska grupy 3: bit 0..4 = obwod prozni 1..5."
     },
     {
       "name": "staging.mask4",
       "bank": "R",
-      "number": 4
+      "number": 4,
+      "label": "TSMaskG4",
+      "comment": "Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Maska grupy 4: bit 0..4 = obwod prozni 1..5."
     },
     {
       "name": "staging.mask5",
       "bank": "R",
-      "number": 5
+      "number": 5,
+      "label": "TSMaskG5",
+      "comment": "Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Maska grupy 5: bit 0..4 = obwod prozni 1..5."
     },
     {
       "name": "staging.qty1",
       "bank": "R",
-      "number": 6
+      "number": 6,
+      "label": "TSSztG1",
+      "comment": "Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Liczba detali grupy 1 [szt.], niezalezna od ssawek i obwodow."
     },
     {
       "name": "staging.qty2",
       "bank": "R",
-      "number": 7
+      "number": 7,
+      "label": "TSSztG2",
+      "comment": "Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Liczba detali grupy 2 [szt.], niezalezna od ssawek i obwodow."
     },
     {
       "name": "staging.qty3",
       "bank": "R",
-      "number": 8
+      "number": 8,
+      "label": "TSSztG3",
+      "comment": "Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Liczba detali grupy 3 [szt.], niezalezna od ssawek i obwodow."
     },
     {
       "name": "staging.qty4",
       "bank": "R",
-      "number": 9
+      "number": 9,
+      "label": "TSSztG4",
+      "comment": "Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Liczba detali grupy 4 [szt.], niezalezna od ssawek i obwodow."
     },
     {
       "name": "staging.qty5",
       "bank": "R",
-      "number": 10
+      "number": 10,
+      "label": "TSSztG5",
+      "comment": "Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Liczba detali grupy 5 [szt.], niezalezna od ssawek i obwodow."
     },
     {
       "name": "staging.gridX",
       "bank": "R",
-      "number": 11
+      "number": 11,
+      "label": "TSSiatkaX",
+      "comment": "Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Liczba pozycji osi X; dodatnia liczba calkowita. P2/P3: obie osie 0 wylaczaja sekcje."
     },
     {
       "name": "staging.gridY",
       "bank": "R",
-      "number": 12
+      "number": 12,
+      "label": "TSSiatkaY",
+      "comment": "Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Liczba pozycji osi Y; dodatnia liczba calkowita. P2/P3: obie osie 0 wylaczaja sekcje."
     },
     {
       "name": "staging.pitchX",
       "bank": "R",
-      "number": 13
+      "number": 13,
+      "label": "TSSkokX_mm",
+      "comment": "Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Skok pozycji po X UFRAME [mm]; moze byc ujemny."
     },
     {
       "name": "staging.pitchY",
       "bank": "R",
-      "number": 14
+      "number": 14,
+      "label": "TSSkokY_mm",
+      "comment": "Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Skok rzedow po Y UFRAME [mm]; moze byc ujemny."
     },
     {
       "name": "staging.trayHeight",
       "bank": "R",
-      "number": 15
+      "number": 15,
+      "label": "TSSkokZ_mm",
+      "comment": "Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. TRAY: wysokosc tacki [mm]. BOX: przyrost Z warstwy razem z przekladka [mm]."
     },
     {
       "name": "staging.traysPerStack",
       "bank": "R",
-      "number": 16
+      "number": 16,
+      "label": "TSWarstwMax",
+      "comment": "Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. TRAY: liczba tacek w stosie. BOX: liczba warstw pojemnika; minimum 1."
     },
     {
       "name": "staging.searchStep",
       "bank": "R",
-      "number": 17
+      "number": 17,
+      "label": "TSSzukKrok_mm",
+      "comment": "Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Dodatni krok szukania pustej tacki/przekladki po ujemnym Z UFRAME [mm]."
     },
     {
       "name": "staging.searchLimit",
       "bank": "R",
-      "number": 18
+      "number": 18,
+      "label": "TSSzukMax_mm",
+      "comment": "Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Maksymalne dopuszczone zejscie podczas szukania [mm]."
     },
     {
       "name": "staging.maxAttempts",
       "bank": "R",
-      "number": 19
+      "number": 19,
+      "label": "TSSzukProbMax",
+      "comment": "Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Maksymalna liczba krokow szukania; przekroczenie jest bledem."
     },
     {
       "name": "staging.speed",
       "bank": "R",
-      "number": 20
+      "number": 20,
+      "label": "TSPredkosc",
+      "comment": "Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Limit predkosci: J w procentach, L w mm/s; zakres 1..100."
     },
     {
       "name": "staging.timeout",
       "bank": "R",
-      "number": 21
+      "number": 21,
+      "label": "TSCzasMax_t",
+      "comment": "Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Limit oczekiwania chwytaka, IMM i ACK [surowe ticki zegara]."
     },
     {
       "name": "staging.tool",
       "bank": "R",
-      "number": 22
+      "number": 22,
+      "label": "TSNrNarzedzia",
+      "comment": "Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Numer zatwierdzonego UTOOL; nie zawiera danych TCP."
     },
     {
       "name": "staging.frame",
       "bank": "R",
-      "number": 23
+      "number": 23,
+      "label": "TSNrUkladu",
+      "comment": "Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Numer zatwierdzonego UFRAME; nie zawiera danych geometrii ukladu."
     },
     {
       "name": "staging.cylFold",
       "bank": "R",
-      "number": 24
+      "number": 24,
+      "label": "TSCylPrzejazd",
+      "comment": "Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Cele silownikow do przejazdu i pustego nosnika. Bity 0..4 HOME V501..505, 5..9 WORK; para 00 pomija, 11 blad."
     },
     {
       "name": "staging.cylStraight",
       "bank": "R",
-      "number": 25
+      "number": 25,
+      "label": "TSCylIMM",
+      "comment": "Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Cele silownikow do pobrania IMM. Bity 0..4 HOME V501..505, 5..9 WORK; para 00 pomija, 11 blad."
     },
     {
       "name": "staging.trayMask",
       "bank": "R",
-      "number": 26
+      "number": 26,
+      "label": "TSMaskaPusta",
+      "comment": "Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Obwody pustej tacki TRAY / przekladki BOX. Bit 0..4 = proznia 1..5; maska rozlaczna z produktami."
     },
     {
       "name": "active.mask1",
       "bank": "R",
-      "number": 27
+      "number": 27,
+      "label": "TAMaskG1",
+      "comment": "Aktywna kopia po APPLY; nie edytowac podczas produkcji. Maska grupy 1: bit 0..4 = obwod prozni 1..5."
     },
     {
       "name": "active.mask2",
       "bank": "R",
-      "number": 28
+      "number": 28,
+      "label": "TAMaskG2",
+      "comment": "Aktywna kopia po APPLY; nie edytowac podczas produkcji. Maska grupy 2: bit 0..4 = obwod prozni 1..5."
     },
     {
       "name": "active.mask3",
       "bank": "R",
-      "number": 29
+      "number": 29,
+      "label": "TAMaskG3",
+      "comment": "Aktywna kopia po APPLY; nie edytowac podczas produkcji. Maska grupy 3: bit 0..4 = obwod prozni 1..5."
     },
     {
       "name": "active.mask4",
       "bank": "R",
-      "number": 30
+      "number": 30,
+      "label": "TAMaskG4",
+      "comment": "Aktywna kopia po APPLY; nie edytowac podczas produkcji. Maska grupy 4: bit 0..4 = obwod prozni 1..5."
     },
     {
       "name": "active.mask5",
       "bank": "R",
-      "number": 31
+      "number": 31,
+      "label": "TAMaskG5",
+      "comment": "Aktywna kopia po APPLY; nie edytowac podczas produkcji. Maska grupy 5: bit 0..4 = obwod prozni 1..5."
     },
     {
       "name": "active.qty1",
       "bank": "R",
-      "number": 32
+      "number": 32,
+      "label": "TASztG1",
+      "comment": "Aktywna kopia po APPLY; nie edytowac podczas produkcji. Liczba detali grupy 1 [szt.], niezalezna od ssawek i obwodow."
     },
     {
       "name": "active.qty2",
       "bank": "R",
-      "number": 33
+      "number": 33,
+      "label": "TASztG2",
+      "comment": "Aktywna kopia po APPLY; nie edytowac podczas produkcji. Liczba detali grupy 2 [szt.], niezalezna od ssawek i obwodow."
     },
     {
       "name": "active.qty3",
       "bank": "R",
-      "number": 34
+      "number": 34,
+      "label": "TASztG3",
+      "comment": "Aktywna kopia po APPLY; nie edytowac podczas produkcji. Liczba detali grupy 3 [szt.], niezalezna od ssawek i obwodow."
     },
     {
       "name": "active.qty4",
       "bank": "R",
-      "number": 35
+      "number": 35,
+      "label": "TASztG4",
+      "comment": "Aktywna kopia po APPLY; nie edytowac podczas produkcji. Liczba detali grupy 4 [szt.], niezalezna od ssawek i obwodow."
     },
     {
       "name": "active.qty5",
       "bank": "R",
-      "number": 36
+      "number": 36,
+      "label": "TASztG5",
+      "comment": "Aktywna kopia po APPLY; nie edytowac podczas produkcji. Liczba detali grupy 5 [szt.], niezalezna od ssawek i obwodow."
     },
     {
       "name": "active.gridX",
       "bank": "R",
-      "number": 37
+      "number": 37,
+      "label": "TASiatkaX",
+      "comment": "Aktywna kopia po APPLY; nie edytowac podczas produkcji. Liczba pozycji osi X; dodatnia liczba calkowita. P2/P3: obie osie 0 wylaczaja sekcje."
     },
     {
       "name": "active.gridY",
       "bank": "R",
-      "number": 38
+      "number": 38,
+      "label": "TASiatkaY",
+      "comment": "Aktywna kopia po APPLY; nie edytowac podczas produkcji. Liczba pozycji osi Y; dodatnia liczba calkowita. P2/P3: obie osie 0 wylaczaja sekcje."
     },
     {
       "name": "active.pitchX",
       "bank": "R",
-      "number": 39
+      "number": 39,
+      "label": "TASkokX_mm",
+      "comment": "Aktywna kopia po APPLY; nie edytowac podczas produkcji. Skok pozycji po X UFRAME [mm]; moze byc ujemny."
     },
     {
       "name": "active.pitchY",
       "bank": "R",
-      "number": 40
+      "number": 40,
+      "label": "TASkokY_mm",
+      "comment": "Aktywna kopia po APPLY; nie edytowac podczas produkcji. Skok rzedow po Y UFRAME [mm]; moze byc ujemny."
     },
     {
       "name": "active.trayHeight",
       "bank": "R",
-      "number": 41
+      "number": 41,
+      "label": "TASkokZ_mm",
+      "comment": "Aktywna kopia po APPLY; nie edytowac podczas produkcji. TRAY: wysokosc tacki [mm]. BOX: przyrost Z warstwy razem z przekladka [mm]."
     },
     {
       "name": "active.traysPerStack",
       "bank": "R",
-      "number": 42
+      "number": 42,
+      "label": "TAWarstwMax",
+      "comment": "Aktywna kopia po APPLY; nie edytowac podczas produkcji. TRAY: liczba tacek w stosie. BOX: liczba warstw pojemnika; minimum 1."
     },
     {
       "name": "active.searchStep",
       "bank": "R",
-      "number": 43
+      "number": 43,
+      "label": "TASzukKrok_mm",
+      "comment": "Aktywna kopia po APPLY; nie edytowac podczas produkcji. Dodatni krok szukania pustej tacki/przekladki po ujemnym Z UFRAME [mm]."
     },
     {
       "name": "active.searchLimit",
       "bank": "R",
-      "number": 44
+      "number": 44,
+      "label": "TASzukMax_mm",
+      "comment": "Aktywna kopia po APPLY; nie edytowac podczas produkcji. Maksymalne dopuszczone zejscie podczas szukania [mm]."
     },
     {
       "name": "active.maxAttempts",
       "bank": "R",
-      "number": 45
+      "number": 45,
+      "label": "TASzukProbMax",
+      "comment": "Aktywna kopia po APPLY; nie edytowac podczas produkcji. Maksymalna liczba krokow szukania; przekroczenie jest bledem."
     },
     {
       "name": "active.speed",
       "bank": "R",
-      "number": 46
+      "number": 46,
+      "label": "TAPredkosc",
+      "comment": "Aktywna kopia po APPLY; nie edytowac podczas produkcji. Limit predkosci: J w procentach, L w mm/s; zakres 1..100."
     },
     {
       "name": "active.timeout",
       "bank": "R",
-      "number": 47
+      "number": 47,
+      "label": "TACzasMax_t",
+      "comment": "Aktywna kopia po APPLY; nie edytowac podczas produkcji. Limit oczekiwania chwytaka, IMM i ACK [surowe ticki zegara]."
     },
     {
       "name": "active.tool",
       "bank": "R",
-      "number": 48
+      "number": 48,
+      "label": "TANrNarzedzia",
+      "comment": "Aktywna kopia po APPLY; nie edytowac podczas produkcji. Numer zatwierdzonego UTOOL; nie zawiera danych TCP."
     },
     {
       "name": "active.frame",
       "bank": "R",
-      "number": 49
+      "number": 49,
+      "label": "TANrUkladu",
+      "comment": "Aktywna kopia po APPLY; nie edytowac podczas produkcji. Numer zatwierdzonego UFRAME; nie zawiera danych geometrii ukladu."
     },
     {
       "name": "active.cylFold",
       "bank": "R",
-      "number": 50
+      "number": 50,
+      "label": "TACylPrzejazd",
+      "comment": "Aktywna kopia po APPLY; nie edytowac podczas produkcji. Cele silownikow do przejazdu i pustego nosnika. Bity 0..4 HOME V501..505, 5..9 WORK; para 00 pomija, 11 blad."
     },
     {
       "name": "active.cylStraight",
       "bank": "R",
-      "number": 177
+      "number": 177,
+      "label": "TACylIMM",
+      "comment": "Aktywna kopia po APPLY; nie edytowac podczas produkcji. Cele silownikow do pobrania IMM. Bity 0..4 HOME V501..505, 5..9 WORK; para 00 pomija, 11 blad."
     },
     {
       "name": "active.trayMask",
       "bank": "R",
-      "number": 178
+      "number": 178,
+      "label": "TAMaskaPusta",
+      "comment": "Aktywna kopia po APPLY; nie edytowac podczas produkcji. Obwody pustej tacki TRAY / przekladki BOX. Bit 0..4 = proznia 1..5; maska rozlaczna z produktami."
     },
     {
       "name": "runtime.state",
       "bank": "R",
-      "number": 179
+      "number": 179,
+      "label": "TKrok",
+      "comment": "Kontekst TRAY. Krok technologii: 10 gotowosc; 200..299 pusty nosnik; 300..399 IMM; 400..499 produkty; 500..699 pelny ladunek/przekladki; 700 powrot HOME; 710 postoj; 900 recovery."
     },
     {
       "name": "runtime.dispatch",
       "bank": "R",
-      "number": 180
+      "number": 180,
+      "label": "TKrokWybrany",
+      "comment": "Kontekst TRAY. Zapamietany krok wybrany w tej iteracji; nie jest kodem bledu."
     },
     {
       "name": "runtime.lastState",
       "bank": "R",
-      "number": 181
+      "number": 181,
+      "label": "TKrokPoprz",
+      "comment": "Kontekst TRAY. Poprzedni krok do wykrycia zmiany i rozpoczecia pomiaru czasu."
     },
     {
       "name": "runtime.phaseSince",
       "bank": "R",
-      "number": 182
+      "number": 182,
+      "label": "TKrokOd_t",
+      "comment": "Kontekst TRAY. Czas wejscia w krok [surowe ticki zegara]; jednostke zmierzyc na V9.40."
     },
     {
       "name": "runtime.cycleId",
       "bank": "R",
-      "number": 183
+      "number": 183,
+      "label": "TNrCykluIMM",
+      "comment": "Kontekst TRAY. Identyfikator przypisanej partii z PLC, zachowany do rozliczenia."
     },
     {
       "name": "runtime.batchCount",
       "bank": "R",
-      "number": 184
+      "number": 184,
+      "label": "TIloscPartii",
+      "comment": "Kontekst TRAY. Liczba detali przypisana do calej partii IMM [szt.]; zachowana mimo edycji nastaw."
     },
     {
       "name": "runtime.remaining",
       "bank": "R",
-      "number": 185
+      "number": 185,
+      "label": "TPozostalo",
+      "comment": "Kontekst TRAY. Pozostala do potwierdzonego rozliczenia ilosc partii [szt.]; maleje po pelnym ACK=0."
     },
     {
       "name": "runtime.group",
       "bank": "R",
-      "number": 186
+      "number": 186,
+      "label": "TGrupa",
+      "comment": "Kontekst TRAY. Kolejna grupa odkladania 1..5; 6 przechodzi do rozliczenia partii."
     },
     {
       "name": "runtime.slot",
       "bank": "R",
-      "number": 187
+      "number": 187,
+      "label": "TPozycja",
+      "comment": "Kontekst TRAY. Indeks pozycji od 0, X najszybciej; jedna pozycja na grupe, nie na sztuke."
     },
     {
       "name": "runtime.trayIndex",
       "bank": "R",
-      "number": 188
+      "number": 188,
+      "label": "TWarstwa",
+      "comment": "Kontekst TRAY. Indeks od 0: tacki w stosie TRAY albo warstwy pojemnika BOX."
     },
     {
       "name": "runtime.stackId",
       "bank": "R",
-      "number": 189
+      "number": 189,
+      "label": "TNrLadunku",
+      "comment": "Kontekst TRAY. Identyfikator aktualnego stosu TRAY / pojemnika BOX przypisany przez PLC."
     },
     {
       "name": "runtime.lastStart",
       "bank": "R",
-      "number": 190
+      "number": 190,
+      "label": "TStartPoprz",
+      "comment": "Kontekst TRAY. Ostatnio widziany startToken PLC 0..65535; zastany token nie uruchamia."
     },
     {
       "name": "runtime.mask",
       "bank": "R",
-      "number": 191
+      "number": 191,
+      "label": "TMaskaOper",
+      "comment": "Kontekst TRAY. Maska biezacej operacji; bit 0..4 = obwod prozni 1..5."
     },
     {
       "name": "runtime.qty",
       "bank": "R",
-      "number": 192
+      "number": 192,
+      "label": "TIloscGrupy",
+      "comment": "Kontekst TRAY. Liczba detali biezacej grupy [szt.], przekazywana do zdarzenia odlozenia."
     },
     {
       "name": "runtime.searchDepth",
       "bank": "R",
-      "number": 193
+      "number": 193,
+      "label": "TSzukGleb_mm",
+      "comment": "Kontekst TRAY. Dotychczasowe zejscie od poczatku szukania pustego nosnika [mm Z]."
     },
     {
       "name": "runtime.attempt",
       "bank": "R",
-      "number": 194
+      "number": 194,
+      "label": "TSzukProba",
+      "comment": "Kontekst TRAY. Liczba wykonanych krokow szukania pustej tacki/przekladki."
     },
     {
       "name": "runtime.destination",
       "bank": "R",
-      "number": 195
+      "number": 195,
+      "label": "TCelPartii",
+      "comment": "Kontekst TRAY. Przeznaczenie calej partii: 0 dobre; 1 probki; 2 odrzuty do miejsca probek."
     },
     {
       "name": "runtime.work",
       "bank": "R",
-      "number": 196
+      "number": 196,
+      "label": "TPomLiczba",
+      "comment": "Kontekst TRAY. Liczba robocza: rodzina = krok DIV 100 albo kanal ACK: 1 pobr.tacki, 2 odl.tacki, 3 pelna tacka, 4 pelny ladunek, 5 IMM, 6 dobre, 7 probki, 8 odrzuty, 9 warstwa BOX, 10 przekladka BOX."
     },
     {
       "name": "runtime.sum",
       "bank": "R",
-      "number": 197
+      "number": 197,
+      "label": "TSumaPom",
+      "comment": "Kontekst TRAY. Robocza suma ilosci lub masek w przypisaniu/recovery; nie licznik produkcji."
     },
     {
       "name": "runtime.capacity",
       "bank": "R",
-      "number": 198
+      "number": 198,
+      "label": "TCelCylGrupy",
+      "comment": "Kontekst TRAY. BOX: cele silownikow aktywnej grupy, bity HOME 0..4 i WORK 5..9. TRAY: rezerwa nieuzywana w procesie."
     },
     {
       "name": "runtime.groupCount",
       "bank": "R",
-      "number": 199
+      "number": 199,
+      "label": "TGrupAktyw",
+      "comment": "Kontekst TRAY. Liczba aktywnych grup; pojemnosc sekcji/tacki jest jej wielokrotnoscia."
     },
     {
       "name": "runtime.resumeState",
       "bank": "R",
-      "number": 200
+      "number": 200,
+      "label": "TKrokPrzerw",
+      "comment": "Kontekst TRAY. Krok przed wejsciem w recovery; diagnostyka, nie automatyczne wznowienie."
     },
     {
       "name": "control.initApproved",
       "bank": "F",
-      "number": 1
+      "number": 1,
+      "label": "TZezInit",
+      "comment": "Jawne zadanie wyzerowania prywatnej konfiguracji/kontekstu przy potwierdzonym pustym postoju. ON: opisany warunek/zadanie; OFF: brak."
     },
     {
       "name": "control.newApproved",
       "bank": "F",
-      "number": 2
+      "number": 2,
+      "label": "TNowyKontekst",
+      "comment": "Jawna deklaracja nowego pustego kontekstu po oproznieniu i uzgodnieniu stacji. ON: opisany warunek/zadanie; OFF: brak."
     },
     {
       "name": "control.recoveryApproved",
       "bank": "F",
-      "number": 3
+      "number": 3,
+      "label": "TZezRecovery",
+      "comment": "Zgoda operatora na uzgodnienie recovery i kasowanie alarmu; sama nie dopuszcza ruchu. ON: opisany warunek/zadanie; OFF: brak."
     },
     {
       "name": "control.contextChecked",
       "bank": "F",
-      "number": 4
+      "number": 4,
+      "label": "TStanSprawdz",
+      "comment": "Operator sprawdzil ladunek i rozliczenia PLC oraz uzgodnil kontekst. ON: opisany warunek/zadanie; OFF: brak."
     },
     {
       "name": "control.stationIdleConfirmed",
       "bank": "F",
-      "number": 5
+      "number": 5,
+      "label": "TStacjaPusta",
+      "comment": "Operator potwierdzil pusty postoj dla INIT/APPLY/zmiany programu; nie automatyczny czujnik. ON: opisany warunek/zadanie; OFF: brak."
     },
     {
       "name": "control.profileApproved",
       "bank": "F",
-      "number": 6
+      "number": 6,
+      "label": "TProfilOK",
+      "comment": "Odebrano fizyczny profil chwytaka, maski i cele HOME/WORK. ON: opisany warunek/zadanie; OFF: brak."
     },
     {
       "name": "control.motionApproved",
       "bank": "F",
-      "number": 7
+      "number": 7,
+      "label": "TDrogiOK",
+      "comment": "Odebrano trajektorie i geometrie tej produkcji na wlasciwym robocie. ON: opisany warunek/zadanie; OFF: brak."
     },
     {
       "name": "control.alarmApproved",
       "bank": "F",
-      "number": 8
-    },
-    {
-      "name": "control.bindingsVerified",
-      "bank": "F",
-      "number": 9
-    },
-    {
-      "name": "control.sourceBound",
-      "bank": "F",
-      "number": 10
-    },
-    {
-      "name": "control.statusValid",
-      "bank": "F",
-      "number": 11
+      "number": 8,
+      "label": "TAlarmOdebr",
+      "comment": "Odebrano rzeczywiste zatrzymanie zadania ruchowego przez reakcje alarmowa. ON: opisany warunek/zadanie; OFF: brak."
     },
     {
       "name": "control.cfgApplied",
       "bank": "F",
-      "number": 12
+      "number": 12,
+      "label": "TNastawyOK",
+      "comment": "Przyjeto aktywna kopie nastaw; staging nie jest uzywany do ruchu. ON: opisany warunek/zadanie; OFF: brak."
     },
     {
       "name": "control.candidateValid",
       "bank": "F",
-      "number": 13
+      "number": 13,
+      "label": "TKandydatOK",
+      "comment": "Roboczy wynik walidacji staging; FALSE oznacza blednego kandydata. ON: opisany warunek/zadanie; OFF: brak."
     },
     {
       "name": "control.selected",
       "bank": "F",
-      "number": 14
+      "number": 14,
+      "label": "TMainWybrany",
+      "comment": "Main pozostaje wybrany; FALSE konczy petle. Nie jest natywnym statusem pracy. ON: opisany warunek/zadanie; OFF: brak."
     },
     {
       "name": "control.armed",
       "bank": "F",
-      "number": 15
+      "number": 15,
+      "label": "TUzbrojony",
+      "comment": "Przyjeto nowy fizyczny Start; Stop rozbraja po rozliczeniu rozpoczetych operacji. ON: opisany warunek/zadanie; OFF: brak."
     },
     {
       "name": "control.needsRecovery",
       "bank": "F",
-      "number": 16
+      "number": 16,
+      "label": "TUzgodnijStan",
+      "comment": "Zatrzask niespojnego/przerwanego procesu; blokuje ruch do jawnego uzgodnienia. ON: opisany warunek/zadanie; OFF: brak."
     },
     {
       "name": "control.batchAssigned",
       "bank": "F",
-      "number": 17
+      "number": 17,
+      "label": "TPartiaPrzyp",
+      "comment": "Zachowano cycleId, ilosc i przeznaczenie partii; nie przypisywac ponownie. ON: opisany warunek/zadanie; OFF: brak."
     },
     {
       "name": "control.pickupConfirmed",
       "bank": "F",
-      "number": 18
+      "number": 18,
+      "label": "TPartiaPobr",
+      "comment": "Potwierdzono pobranie partii i wyjazd z formy; pozostale grupy wymagaja odlozenia. ON: opisany warunek/zadanie; OFF: brak."
     },
     {
       "name": "control.trayReady",
       "bank": "F",
-      "number": 19
+      "number": 19,
+      "label": "TNosnikGotow",
+      "comment": "TRAY: pusta tacka odlozona. BOX: PLC potwierdzil przygotowany pojemnik. ON: opisany warunek/zadanie; OFF: brak."
     },
     {
       "name": "control.motionDone",
       "bank": "F",
-      "number": 20
+      "number": 20,
+      "label": "TRuchGotowy",
+      "comment": "Ukonczono instrukcje ruchu operacji; zerowane przed nowym ruchem. ON: opisany warunek/zadanie; OFF: brak."
     },
     {
       "name": "control.safe",
       "bank": "F",
-      "number": 21
+      "number": 21,
+      "label": "TRuchDozw",
+      "comment": "Roboczy wynik blokad ruchu lub walidacji; nie funkcja bezpieczenstwa. ON: opisany warunek/zadanie; OFF: brak."
     },
     {
       "name": "control.deviceDone",
       "bank": "F",
-      "number": 22
+      "number": 22,
+      "label": "TWarPom",
+      "comment": "Roboczy BOOL dokonczenia IMM lub walidacji kodu silownika; nie sygnal czujnika. ON: opisany warunek/zadanie; OFF: brak."
     },
     {
       "name": "control.eventDone",
       "bank": "F",
-      "number": 23
+      "number": 23,
+      "label": "TZdarzGotowe",
+      "comment": "Kanal zakonczyl caly REQ/ACK, ma sukces i ACK=0. ON: opisany warunek/zadanie; OFF: brak."
     },
     {
       "name": "control.cylDone",
       "bank": "F",
-      "number": 24
+      "number": 24,
+      "label": "TCylGotowe",
+      "comment": "Cele silownikow wazne, zaakceptowane i osiagniete bez przeciwnej krancowki. ON: opisany warunek/zadanie; OFF: brak."
     },
     {
       "name": "control.vacDone",
       "bank": "F",
-      "number": 25
+      "number": 25,
+      "label": "TProzniaOK",
+      "comment": "Wybrane obwody maja wazne potwierdzenie przyjecia, wlaczenia i osiagniecia prozni. ON: opisany warunek/zadanie; OFF: brak."
     },
     {
       "name": "control.releaseDone",
       "bank": "F",
-      "number": 26
+      "number": 26,
+      "label": "TZwolnGotowe",
+      "comment": "Wybrane przedmuchy zakonczyly ACK z sukcesem i proznia zanikla. ON: opisany warunek/zadanie; OFF: brak."
     },
     {
       "name": "control.sourceExited",
       "bank": "F",
-      "number": 27
+      "number": 27,
+      "label": "TPozaZrodlem",
+      "comment": "Program potwierdzil wyjazd poza zrodlo tacek; wymaga aktualnego AUTO/statusu. ON: opisany warunek/zadanie; OFF: brak."
     },
     {
       "name": "control.elevatorExited",
       "bank": "F",
-      "number": 28
+      "number": 28,
+      "label": "TPozaWinda",
+      "comment": "Program potwierdzil wyjazd poza winde; przy bledzie uniewazniane. ON: opisany warunek/zadanie; OFF: brak."
     },
     {
       "name": "control.storageExited",
       "bank": "F",
-      "number": 29
+      "number": 29,
+      "label": "TPozaMagaz",
+      "comment": "Program potwierdzil wyjazd poza magazyn przekladek; przy bledzie uniewazniane. ON: opisany warunek/zadanie; OFF: brak."
     },
     {
       "name": "control.immExited",
       "bank": "F",
-      "number": 30
+      "number": 30,
+      "label": "TPozaForma",
+      "comment": "Program potwierdzil wyjazd poza IMM; potrzebne do pozwolenia zamkniecia formy. ON: opisany warunek/zadanie; OFF: brak."
     },
     {
       "name": "control.cycleExecuting",
       "bank": "F",
-      "number": 31
+      "number": 31,
+      "label": "TOperacjaTrwa",
+      "comment": "Krok jest w zakresie 200..699; wskaznik trwajacej operacji dla BG. ON: opisany warunek/zadanie; OFF: brak."
     },
     {
       "name": "control.applyDenied",
       "bank": "F",
-      "number": 32
+      "number": 32,
+      "label": "TOdrzucApply",
+      "comment": "Stan stacji zabronil APPLY; aktywne nastawy nie nadpisane. ON: opisany warunek/zadanie; OFF: brak."
     },
     {
       "name": "control.guardFault",
       "bank": "F",
-      "number": 33
+      "number": 33,
+      "label": "TBladBG",
+      "comment": "BG wykryl krytyczne naruszenie dopuszczenia lub spojnosc procesu. ON: opisany warunek/zadanie; OFF: brak."
     },
     {
       "name": "control.timeoutFault",
       "bank": "F",
-      "number": 34
+      "number": 34,
+      "label": "TRezCzasBlad",
+      "comment": "Rezerwa diagnostyki timeout; aktualnie kod/miejsce w faultCode/resumeState. ON: opisany warunek/zadanie; OFF: brak."
     },
     {
       "name": "control.maskValid",
       "bank": "F",
-      "number": 35
+      "number": 35,
+      "label": "TRezMaskaOK",
+      "comment": "Rezerwa walidacji maski; aktualnie uzywany candidateValid. ON: opisany warunek/zadanie; OFF: brak."
     },
     {
       "name": "control.samplePending",
       "bank": "F",
-      "number": 36
+      "number": 36,
+      "label": "TRezProbki",
+      "comment": "Rezerwa pamieci probek; aktualne zadanie i odpowiedz prowadzi PLC_SMPL. ON: opisany warunek/zadanie; OFF: brak."
     },
     {
       "name": "control.cfgFrozen",
       "bank": "F",
-      "number": 37
+      "number": 37,
+      "label": "TProfilPartii",
+      "comment": "Partia przypisana; jej profil i ilosc sa zamrozone do rozliczenia. ON: opisany warunek/zadanie; OFF: brak."
     },
     {
       "name": "control.booted",
       "bank": "F",
-      "number": 38
+      "number": 38,
+      "label": "TStartObsluz",
+      "comment": "Po przyznaniu wyboru main sprawdzil wejscie i zapamietal zastany token Start. ON: opisany warunek/zadanie; OFF: brak."
     },
     {
       "name": "control.sourceInside",
       "bank": "F",
-      "number": 39
+      "number": 39,
+      "label": "TWZrodle",
+      "comment": "Robot rozpoczal wejscie w zrodlo tacek i nie potwierdzil wyjazdu. ON: opisany warunek/zadanie; OFF: brak."
     },
     {
       "name": "control.elevatorInside",
       "bank": "F",
-      "number": 40
+      "number": 40,
+      "label": "TWWindzie",
+      "comment": "Robot rozpoczal wejscie w winde i nie potwierdzil wyjazdu. ON: opisany warunek/zadanie; OFF: brak."
     },
     {
       "name": "control.releasing",
       "bank": "F",
-      "number": 41
+      "number": 41,
+      "label": "TZwalnianie",
+      "comment": "Celowe zwalnianie wybranej maski; inne niesione obwody nadal monitorowane. ON: opisany warunek/zadanie; OFF: brak."
     },
     {
       "name": "control.fullStackWait",
       "bank": "F",
-      "number": 42
+      "number": 42,
+      "label": "TCzekaNowyID",
+      "comment": "Pelny ladunek ma pelny ACK; czeka na nowy stackId. ON: opisany warunek/zadanie; OFF: brak."
     },
     {
       "name": "control.guardLoaded",
       "bank": "F",
-      "number": 43
+      "number": 43,
+      "label": "TPomLadBG",
+      "comment": "Roboczy wynik BG: badany obwod nalezy do znanego niesionego ladunku. ON: opisany warunek/zadanie; OFF: brak."
     },
     {
       "name": "control.guardReleasing",
       "bank": "F",
-      "number": 44
+      "number": 44,
+      "label": "TPomZwolBG",
+      "comment": "Roboczy wynik BG: badany obwod jest celowo zwalniany. ON: opisany warunek/zadanie; OFF: brak."
     },
     {
       "name": "control.orderWasActive",
       "bank": "F",
-      "number": 45
+      "number": 45,
+      "label": "TZlecPoprz",
+      "comment": "Poprzednio bylo aktywne zlecenie; zamkniecie wymaga nowego/uzgodnionego kontekstu. ON: opisany warunek/zadanie; OFF: brak."
     },
     {
       "name": "control.statusRouteStable",
       "bank": "F",
-      "number": 46
-    },
-    {
-      "name": "native.autoMode",
-      "bank": "F",
-      "number": 47
-    },
-    {
-      "name": "native.t1Mode",
-      "bank": "F",
-      "number": 48
-    },
-    {
-      "name": "native.t2Mode",
-      "bank": "F",
-      "number": 49
-    },
-    {
-      "name": "native.tpEnabled",
-      "bank": "F",
-      "number": 50
-    },
-    {
-      "name": "native.systemReady",
-      "bank": "F",
-      "number": 51
-    },
-    {
-      "name": "native.estopActive",
-      "bank": "F",
-      "number": 52
-    },
-    {
-      "name": "native.fault",
-      "bank": "F",
-      "number": 53
-    },
-    {
-      "name": "native.inputSimulated",
-      "bank": "F",
-      "number": 54
-    },
-    {
-      "name": "native.outputSimulated",
-      "bank": "F",
-      "number": 55
-    },
-    {
-      "name": "native.home",
-      "bank": "F",
-      "number": 56
-    },
-    {
-      "name": "native.taskRunning",
-      "bank": "F",
-      "number": 57
-    },
-    {
-      "name": "native.taskPaused",
-      "bank": "F",
-      "number": 58
+      "number": 46,
+      "label": "TDrogaWazna",
+      "comment": "Natywny main w AUTO bez TP/PAUSE pozwala uzyc potwierdzenia wyjazdu. ON: opisany warunek/zadanie; OFF: brak."
     },
     {
       "name": "taught.PR1",
       "bank": "F",
-      "number": 59
+      "number": 59,
+      "label": "TNauczPR1",
+      "comment": "Potwierdzono nauke/odbior PR1 dla TRAY. ON zatwierdzony; OFF ruch zablokowany."
     },
     {
       "name": "taught.PR2",
       "bank": "F",
-      "number": 60
+      "number": 60,
+      "label": "TNauczPR2",
+      "comment": "Potwierdzono nauke/odbior PR2 dla TRAY. ON zatwierdzony; OFF ruch zablokowany."
     },
     {
       "name": "taught.PR3",
       "bank": "F",
-      "number": 61
+      "number": 61,
+      "label": "TNauczPR3",
+      "comment": "Potwierdzono nauke/odbior PR3 dla TRAY. ON zatwierdzony; OFF ruch zablokowany."
     },
     {
       "name": "taught.PR4",
       "bank": "F",
-      "number": 62
+      "number": 62,
+      "label": "TNauczPR4",
+      "comment": "Potwierdzono nauke/odbior PR4 dla TRAY. ON zatwierdzony; OFF ruch zablokowany."
     },
     {
       "name": "taught.PR5",
       "bank": "F",
-      "number": 63
+      "number": 63,
+      "label": "TNauczPR5",
+      "comment": "Potwierdzono nauke/odbior PR5 dla TRAY. ON zatwierdzony; OFF ruch zablokowany."
     },
     {
       "name": "taught.PR6",
       "bank": "F",
-      "number": 64
+      "number": 64,
+      "label": "TNauczPR6",
+      "comment": "Potwierdzono nauke/odbior PR6 dla TRAY. ON zatwierdzony; OFF ruch zablokowany."
     },
     {
       "name": "taught.PR7",
       "bank": "F",
-      "number": 65
+      "number": 65,
+      "label": "TNauczPR7",
+      "comment": "Potwierdzono nauke/odbior PR7 dla TRAY. ON zatwierdzony; OFF ruch zablokowany."
     },
     {
       "name": "taught.PR8",
       "bank": "F",
-      "number": 66
+      "number": 66,
+      "label": "TNauczPR8",
+      "comment": "Potwierdzono nauke/odbior PR8 dla TRAY. ON zatwierdzony; OFF ruch zablokowany."
     },
     {
       "name": "taught.PR9",
       "bank": "F",
-      "number": 67
+      "number": 67,
+      "label": "TNauczPR9",
+      "comment": "Potwierdzono nauke/odbior PR9 dla TRAY. ON zatwierdzony; OFF ruch zablokowany."
     },
     {
       "name": "taught.PR10",
       "bank": "F",
-      "number": 68
+      "number": 68,
+      "label": "TNauczPR10",
+      "comment": "Potwierdzono nauke/odbior PR10 dla TRAY. ON zatwierdzony; OFF ruch zablokowany."
     },
     {
       "name": "taught.PR11",
       "bank": "F",
-      "number": 69
+      "number": 69,
+      "label": "TNauczPR11",
+      "comment": "Potwierdzono nauke/odbior PR11 dla TRAY. ON zatwierdzony; OFF ruch zablokowany."
     },
     {
       "name": "taught.PR12",
       "bank": "F",
-      "number": 70
+      "number": 70,
+      "label": "TNauczPR12",
+      "comment": "Potwierdzono nauke/odbior PR12 dla TRAY. ON zatwierdzony; OFF ruch zablokowany."
     },
     {
       "name": "taught.PR13",
       "bank": "F",
-      "number": 71
+      "number": 71,
+      "label": "TNauczPR13",
+      "comment": "Potwierdzono nauke/odbior PR13 dla TRAY. ON zatwierdzony; OFF ruch zablokowany."
     },
     {
       "name": "taught.PR14",
       "bank": "F",
-      "number": 72
+      "number": 72,
+      "label": "TNauczPR14",
+      "comment": "Potwierdzono nauke/odbior PR14 dla TRAY. ON zatwierdzony; OFF ruch zablokowany."
     },
     {
       "name": "taught.PR15",
       "bank": "F",
-      "number": 73
+      "number": 73,
+      "label": "TNauczPR15",
+      "comment": "Potwierdzono nauke/odbior PR15 dla TRAY. ON zatwierdzony; OFF ruch zablokowany."
     },
     {
       "name": "taught.PR16",
       "bank": "F",
-      "number": 74
+      "number": 74,
+      "label": "TNauczPR16",
+      "comment": "Potwierdzono nauke/odbior PR16 dla TRAY. ON zatwierdzony; OFF ruch zablokowany."
     },
     {
       "name": "taught.PR17",
       "bank": "F",
-      "number": 75
+      "number": 75,
+      "label": "TNauczPR17",
+      "comment": "Potwierdzono nauke/odbior PR17 dla TRAY. ON zatwierdzony; OFF ruch zablokowany."
     },
     {
       "name": "taught.PR18",
       "bank": "F",
-      "number": 76
+      "number": 76,
+      "label": "TNauczPR18",
+      "comment": "Potwierdzono nauke/odbior PR18 dla TRAY. ON zatwierdzony; OFF ruch zablokowany."
     },
     {
       "name": "taught.PR19",
       "bank": "F",
-      "number": 77
+      "number": 77,
+      "label": "TNauczPR19",
+      "comment": "Potwierdzono nauke/odbior PR19 dla TRAY. ON zatwierdzony; OFF ruch zablokowany."
     },
     {
       "name": "taught.PR20",
       "bank": "F",
-      "number": 78
+      "number": 78,
+      "label": "TNauczPR20",
+      "comment": "Potwierdzono nauke/odbior PR20 dla TRAY. ON zatwierdzony; OFF ruch zablokowany."
     },
     {
       "name": "taught.PR21",
       "bank": "F",
-      "number": 79
+      "number": 79,
+      "label": "TNauczPR21",
+      "comment": "Potwierdzono nauke/odbior PR21 dla TRAY. ON zatwierdzony; OFF ruch zablokowany."
     },
     {
       "name": "taught.PR22",
       "bank": "F",
-      "number": 80
+      "number": 80,
+      "label": "TNauczPR22",
+      "comment": "Potwierdzono nauke/odbior PR22 dla TRAY. ON zatwierdzony; OFF ruch zablokowany."
     },
     {
       "name": "taught.PR23",
       "bank": "F",
-      "number": 81
+      "number": 81,
+      "label": "TNauczPR23",
+      "comment": "Potwierdzono nauke/odbior PR23 dla TRAY. ON zatwierdzony; OFF ruch zablokowany."
     },
     {
       "name": "taught.PR24",
       "bank": "F",
-      "number": 82
+      "number": 82,
+      "label": "TNauczPR24",
+      "comment": "Potwierdzono nauke/odbior PR24 dla TRAY. ON zatwierdzony; OFF ruch zablokowany."
     },
     {
       "name": "taught.PR25",
       "bank": "F",
-      "number": 83
+      "number": 83,
+      "label": "TNauczPR25",
+      "comment": "Potwierdzono nauke/odbior PR25 dla TRAY. ON zatwierdzony; OFF ruch zablokowany."
     },
     {
       "name": "taught.PR26",
       "bank": "F",
-      "number": 84
+      "number": 84,
+      "label": "TNauczPR26",
+      "comment": "Potwierdzono nauke/odbior PR26 dla TRAY. ON zatwierdzony; OFF ruch zablokowany."
     },
     {
       "name": "taught.PR27",
       "bank": "F",
-      "number": 85
+      "number": 85,
+      "label": "TNauczPR27",
+      "comment": "Potwierdzono nauke/odbior PR27 dla TRAY. ON zatwierdzony; OFF ruch zablokowany."
     },
     {
       "name": "taught.PR28",
       "bank": "F",
-      "number": 86
+      "number": 86,
+      "label": "TNauczPR28",
+      "comment": "Potwierdzono nauke/odbior PR28 dla TRAY. ON zatwierdzony; OFF ruch zablokowany."
     },
     {
       "name": "taught.PR29",
       "bank": "F",
-      "number": 87
+      "number": 87,
+      "label": "TNauczPR29",
+      "comment": "Potwierdzono nauke/odbior PR29 dla TRAY. ON zatwierdzony; OFF ruch zablokowany."
     },
     {
       "name": "taught.PR30",
       "bank": "F",
-      "number": 88
+      "number": 88,
+      "label": "TNauczPR30",
+      "comment": "Potwierdzono nauke/odbior PR30 dla TRAY. ON zatwierdzony; OFF ruch zablokowany."
     },
     {
       "name": "taught.PR31",
       "bank": "F",
-      "number": 89
+      "number": 89,
+      "label": "TNauczPR31",
+      "comment": "Potwierdzono nauke/odbior PR31 dla TRAY. ON zatwierdzony; OFF ruch zablokowany."
     },
     {
       "name": "taught.PR32",
       "bank": "F",
-      "number": 90
+      "number": 90,
+      "label": "TNauczPR32",
+      "comment": "Potwierdzono nauke/odbior PR32 dla TRAY. ON zatwierdzony; OFF ruch zablokowany."
     },
     {
       "name": "taught.PR33",
       "bank": "F",
-      "number": 91
+      "number": 91,
+      "label": "TNauczPR33",
+      "comment": "Potwierdzono nauke/odbior PR33 dla TRAY. ON zatwierdzony; OFF ruch zablokowany."
     },
     {
       "name": "taught.PR34",
       "bank": "F",
-      "number": 92
+      "number": 92,
+      "label": "TNauczPR34",
+      "comment": "Potwierdzono nauke/odbior PR34 dla TRAY. ON zatwierdzony; OFF ruch zablokowany."
     },
     {
       "name": "taught.PR35",
       "bank": "F",
-      "number": 93
+      "number": 93,
+      "label": "TNauczPR35",
+      "comment": "Potwierdzono nauke/odbior PR35 dla TRAY. ON zatwierdzony; OFF ruch zablokowany."
     },
     {
       "name": "taught.PR36",
       "bank": "F",
-      "number": 94
+      "number": 94,
+      "label": "TNauczPR36",
+      "comment": "Potwierdzono nauke/odbior PR36 dla TRAY. ON zatwierdzony; OFF ruch zablokowany."
     },
     {
       "name": "taught.PR37",
       "bank": "F",
-      "number": 95
+      "number": 95,
+      "label": "TNauczPR37",
+      "comment": "Potwierdzono nauke/odbior PR37 dla TRAY. ON zatwierdzony; OFF ruch zablokowany."
     },
     {
       "name": "taught.PR38",
       "bank": "F",
-      "number": 96
+      "number": 96,
+      "label": "TNauczPR38",
+      "comment": "Potwierdzono nauke/odbior PR38 dla TRAY. ON zatwierdzony; OFF ruch zablokowany."
     },
     {
       "name": "taught.PR39",
       "bank": "F",
-      "number": 97
+      "number": 97,
+      "label": "TNauczPR39",
+      "comment": "Potwierdzono nauke/odbior PR39 dla TRAY. ON zatwierdzony; OFF ruch zablokowany."
     },
     {
       "name": "taught.PR40",
       "bank": "F",
-      "number": 98
+      "number": 98,
+      "label": "TNauczPR40",
+      "comment": "Potwierdzono nauke/odbior PR40 dla TRAY. ON zatwierdzony; OFF ruch zablokowany."
+    },
+    {
+      "name": "control.applyRequest",
+      "bank": "F",
+      "number": 47,
+      "label": "TZadApply",
+      "comment": "Jednorazowe zadanie walidacji i skopiowania staging do aktywnych nastaw; konsumowane. ON: opisany warunek/zadanie; OFF: brak."
+    },
+    {
+      "name": "control.exitRequest",
+      "bank": "F",
+      "number": 48,
+      "label": "TZadWyjscie",
+      "comment": "Jednorazowe zadanie zwolnienia main; BG wymaga zamknietego pustego rozliczonego postoju. ON: opisany warunek/zadanie; OFF: brak."
     }
   ],
   "register_ranges": [
@@ -1249,5 +1504,15 @@
     "900": {
       "title": "Wymagane uzgodnienie stanu"
     }
-  }
+  },
+  "entry_program": "MAIN_TRAY",
+  "operator_commands": {
+    "initApproved": "F[1]",
+    "applyRequest": "F[47]",
+    "newApproved": "F[2]",
+    "recoveryApproved": "F[3]",
+    "contextChecked": "F[4]",
+    "exitRequest": "F[48]"
+  },
+  "descriptions_file": "../COMMON/descriptions.csv"
 }

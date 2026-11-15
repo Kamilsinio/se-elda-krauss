@@ -1,52 +1,41 @@
-# Weryfikacja komunikacji v2, programu tacek i BG
+# Weryfikacja źródeł FANUC
 
-Data: 2026-11-14. Wynik dotyczy **źródeł i testów offline**. Import FANUC, konfiguracja urządzeń i odbiór stanowiska pozostają niewykonane.
+Data: 2026-11-15. Wynik dotyczy **źródeł i testów offline**. Import, konfiguracja urządzeń i odbiór stanowiska pozostają niewykonane.
 
-## Dostarczona implementacja
+## Dostarczona zmiana
 
-- Kontrakt v2: 227 pól; zachowano adresy 220 pól v1. Dodano batchCount, startToken i osobny kanał rejectsPlaced z payloadem. Rozmiar pozostaje 80 bajtów na kierunek.
-- LIVE: 17 źródeł komunikacji, 58 programu tacek/procedur i 3 w katalogu BG. Rejestrowane jako BG są RC_MON, RB_STATUS i RB_GUARD; RB_BIND jest inicjalizatorem.
-- Wariant TEST: osobny obraz mock i RC_TEST, bez możliwości zapisu niezerowych wyjść sieciowych. Nie jest ładowany razem z produkcją.
-- R1–200 są zarezerwowane łącznie przez LIVE, sekwencję i BG. Manifesty kontrolują kolizje. Wolność i pojemność zasobów na fizycznym kontrolerze wymagają potwierdzenia.
-- Chwytak ma profil grup maska/ilość, aktywną kopię parametrów i punkty do nauki. Nie skopiowano współrzędnych starego robota ani nie użyto nieodczytanych BB_* jako zależności.
-- Źródła native BG pozostają UNBOUND; wszystkie flagi dopuszczenia i punkty są niezatwierdzone. W tym stanie ruch nie jest dopuszczony.
+Cała technologia znajduje się w [MAIN_TRAY](../ROBOT/TRAY/MAIN_TRAY.LS) i [MAIN_BOX](../ROBOT/BOX/MAIN_BOX.LS). Oba zawierają ruchy, chwytak, IMM, odkładanie, próbki, zdarzenia, Stop i recovery. Nie ma osobnych wykonywalnych RT/RX/RM/XM/RF/RG/RE ani runtime mailboxu. Wspólne definicje Python rozwijane są przy generowaniu.
 
-Szczegóły i instrukcje: [tacki](../ROBOT/TRAY/README.md), [BG](../ROBOT/BG/README.md), [komunikacja](../ROBOT/COMM/README.md).
+Oddzielne pozostają komunikacja PLC_* i trzy BG: BG_PLC, BG_STATUS oraz BG_GUARD. BG_BIND jest inicjalizatorem powiązań. LIVE zawiera 22 LS: 2 main, 17 komunikacji (w tym BG_PLC) i 3 w katalogu BG. COMMON zawiera tylko manifest i opisy. [Migracja](../ROBOT/program-migration.csv) wskazuje stare programy i ich docelowe role.
 
-## Wyniki wykonanych kontroli
+Każdy LS ma indywidualny opis. Każdy używany zasób ma krótką etykietę i pełne objaśnienie przed pierwszym użyciem w danym programie. Opisy obejmują ON/OFF, kierunki, jednostki, maski i kody. Te same definicje są eksportowane do descriptions.csv/json oraz alokacji resources.json. Brak znaczenia przerywa generowanie.
+
+Dostarczony HandlingTool 8.30 Rev.C wskazuje: standardowy remark 1–32 znaki (§8.19.6, PDF 961), opis programu 1–16 (§8.2.8, PDF 729), komentarz I/O do 24 (§6.2.3, PDF 554). Generator stosuje konserwatywnie do 32 znaków łącznie z prefiksem komentarza, do 16 opisu programu i do 14 etykiety operandu. Test kontroluje limity. To odniesienie składniowe; import i wyświetlanie na fizycznym V9.40 nadal są otwarte.
+
+Kontrakt v2 nie zmienił się: 227 pól, 80 bajtów/kierunek, zachowane adresy. Numery COMM/TRAY R1–200, BOX R201–330 oraz właściciel R331 pozostają bez zmian. R332–349 i dawne flagi mailboxu są nieużywane. Lokalne APPLY/EXIT używają F47/F48 w TRAY i F151/F152 w BOX, bez nowych pól wire.
+
+Zachowano parametry, profile grup, P1–P3, warstwy, przekładki tylko między warstwami, próbki/odrzuty, Stop N+1, pełny REQ/ACK i jawne recovery. Zatrzask błędu ma pierwszeństwo przed zwykłym przejściem kroku. Nie skopiowano współrzędnych starego robota ani fikcyjnych native.
+
+## Kontrole
 
 | Kontrola | Wynik |
 |---|---|
-| Generatory w trybie --check | zgodne: 41 artefaktów komunikacji LIVE/TEST i 63 tacek/BG |
-| Audyt kontraktu i migracji | 227 pól, 268 wierszy; brak utraty rozróżnienia DO17 i granicy DO101/safety |
-| Testy komunikacji na rzeczywistych instrukcjach LS | 16/16 poprawnych |
-| Testy sekwencji i BG na rzeczywistych instrukcjach LS | 21/21 poprawnych |
-| Zasoby, referencje CALL, pisarze DO/GO i ograniczony zestaw instrukcji BG | sprawdzone statycznie |
-| Budżet wyrażeń Mixed Logic | kontrola konserwatywna do 20 elementów; nie zastępuje importu FANUC |
-| Spójność dokumentacji, lokalnych odsyłaczy i składni Python | sprawdzana przy zakończeniu zmiany |
+| Generator komunikacji --check | 45 artefaktów LIVE/TEST |
+| Generator produkcji --check | 13 artefaktów, w tym migracja i słownik |
+| Audyt kontraktu/migracji sygnałów | 227 pól i 268 wierszy |
+| Komunikacja | 16 scenariuszy |
+| MAIN_TRAY i regresja BG | 21 scenariuszy |
+| MAIN_BOX i wybór programów | 24 scenariusze |
+| Czytelność, komentarze i struktura | 4 kontrole |
+| Zasoby, CALL, lokalne etykiety, pisarze I/O, Mixed Logic | audyt statyczny w powyższych testach |
 
-Łącznie **37 testów offline**. Interpreter czyta /MN z wygenerowanych plików LS, wykonuje przypisania, IF, SELECT/CALL i skoki, a operacje PR/J/L rejestruje w kontrolowanym modelu. Natywne statusy i współrzędne są jawnymi syntetycznymi danymi testowymi. Nie emuluje firmware, servo, kinematyki ani rzeczywistego harmonogramu BG.
+Łącznie **65 testów offline**. Zachowano 61 wcześniejszych scenariuszy odbioru; testy wykonują teraz pełne main i zachowują ich PC przy WAIT, bez pomocniczych programów TICK. Test offsetów BOX obserwuje rzeczywiste odkładanie w kolejnych sekcjach i warstwach.
 
-Testy komunikacji obejmują mapę i skrajne UINT, kolejność bajtów, REQ/ACK, stałość payloadu, niezależność kanałów, błędną wersję, heartbeat i watchdog serwisu, synchronizację, jawne recovery, reakcje na błędne dane oraz izolację TEST od wyjść sieciowych.
+Cztery kontrole czytelności sprawdzają opisy wszystkich operandów przed pierwszym użyciem, zgodność i jednoznaczność etykiet, limity komentarzy, kompletność lokalnych skoków, brak technologicznych CALL/mailboxu oraz odmowę generowania po usunięciu znaczenia ze słownika.
 
-Testy produkcji obejmują:
-
-- pełny stos z częściowymi odłożeniami, ilość grupy większą niż cztery, brak podwójnego liczenia;
-- cały komplet próbek i osobne odrzuty w tym samym miejscu fizycznym;
-- Stop z rozpoczętym N+1 oraz Stop bez N+1, z zachowaniem niepełnej tacki;
-- niekolejkowany Start, zamknięcie zlecenia i wymóg nowego kontekstu;
-- aktywną kopię parametrów, błędne maski, ilości i niepodzielną pojemność tacki;
-- utratę ACK i sesji, zachowanie maski, unieważnienie pewności ładunku i brak replay;
-- ograniczone szukanie tacki, odrzucony przedmuch i brak fałszywego odłożenia;
-- oczekiwanie na obszar bez eskalowania ostrzeżenia do globalnego błędu;
-- brak bindingów, nienauczone punkty, native ABORT, ręczny jog i zatrzymany monitor;
-- recovery spójnej partii, nowy Start po uzgodnieniu, brak ponownego pobrania rozliczonego kompletu;
-- blokadę recovery pełnej tacki przed uzgodnieniem zdarzeń końcowych z PLC;
-- nieznany stan sekwencji, właścicieli wyjść i matematyczne offsety X/Y.
+Interpreter wykonuje rzeczywiste instrukcje /MN. PR/J/L rejestruje w modelu. Native, współrzędne i PLC/Festo są jawnie syntetyczne. Nie jest kompilatorem FANUC i nie odtwarza serwonapędów, kinematyki ani harmonogramu firmware/BG.
 
 ## Powtórzenie
-
-Z katalogu repozytorium, Python 3 i biblioteka standardowa:
 
 ~~~powershell
 python -B tools/build_fanuc_comm.py --check
@@ -54,28 +43,28 @@ python -B tools/build_fanuc_tray.py --check
 python -B tools/check_robot_contract.py
 python -B tools/check_fanuc_comm.py
 python -B tools/check_fanuc_tray.py
+python -B tools/check_fanuc_box.py
+python -B tools/check_fanuc_readability.py
 ~~~
 
-Lokalnie użyto interpretera runtime Codex. Opcja -B zapobiega zapisywaniu cache modułów. Narzędzia nie łączą się z urządzeniami.
+Python 3 i biblioteka standardowa. Narzędzia nie łączą się z urządzeniami. TEST ma osobny obraz mock, nazwy wspólne z LIVE oraz kolizje pamięci; nie importować razem z produkcją.
 
-## Niewykonane próby i bramki
+## Niewykonane próby
 
-| Etap | Stan / wymagany dowód |
+| Bramka | Wymagany dowód |
 |---|---|
-| Native źródła statusów i mechanika kontrolera | NIEWYKONANE: zweryfikować powiązania na fizycznym V9.40, zgodność osobowości/kinematyki, mastering, narzędzie i obciążenia |
-| Import/kompilacja LS do TP | NIEWYKONANE: docelowe V9.40P/80 i właściwe opcje/importer; ROBOGUIDE V9.10 nie jest tym dowodem |
-| BG i alarmy podczas ruchu/WAIT | NIEWYKONANE: wykazać zatrzymanie RT_MAIN przez ustaloną reakcję; sam UALM wykonany w BG nie dowodzi zatrzymania grupy ruchowej |
-| Native HOME i status właściwego zadania | NIEWYKONANE: Reference Position, tryby, symulacje, WAIT, PAUSE, ABORT; nie używać pracy RC_SVC jako pracy produkcji |
-| Ethernet/IP i PLC v2 | NIEWYKONANE: zgodność assembly/EDS, 80 bajtów na kierunek, rezerwy, RPI, KEEP_IO_ADP, watchdog i alarm adaptera |
-| PLC/Festo/EUROMAP | NIEWYKONANE: końcowe mapowanie, porty F-2680, próżnia, podtrzymanie, początek wtrysku i zależność KF203 |
-| Ruchy i geometria | NIEWYKONANE: nauka punktów, poprawne UF/UT, próby dróg, granic szukania i kolizji |
-| Recovery trwałych skutków | NIEWYKONANE na stanowisku: ręczne uzgodnienie nierozliczonych zdarzeń i danych PLC; brak deklaracji exactly-once po restarcie |
-| Pełne cykle i FAT/SAT | NIEWYKONANE |
+| Zasoby | Pojemność R400, wymagane F/PR, retencja, kolizje oraz pamięć i czas wykonywania rozwiniętych main |
+| Native / mechanika | 14 rzeczywistych źródeł, oba main w ruchu/WAIT/PAUSE/ABORT, Reference Position, osobowość/kinematyka, mastering i payload |
+| Import LS / komentarzy | V9.40P/80, właściwy importer/opcje, etykiety R/F/PR/I/O oraz faktyczne tabele komentarzy i ekran pendanta |
+| BG / alarmy | Czas skanu, obciążenie, watchdog i rzeczywiste zatrzymanie obu main podczas ruchu/WAIT; UALM sam nie stanowi takiego dowodu |
+| EtherNet/IP / PLC v2 | EDS/assembly, 80 B/kierunek, RPI, rezerwy, KEEP_IO_ADP i reakcje na utratę |
+| Pneumatyka / EUROMAP | Mapowanie, porty F-2680, profil grup, pomiary próżni, podtrzymanie ładunku, początek wtrysku i KF203 |
+| Geometria | Nauka PR, UF/UT, kierunki Z, maksymalna wysokość BOX i drogi z ładunkami |
+| Recovery | Uzgadnianie trwałych skutków i liczników z rzeczywistym PLC; bez deklaracji exactly-once po restarcie |
+| FAT/SAT | Pełne cykle ze stanowiskiem |
 
-Otwarte GAP nie są zamknięte wynikami interpretera. PLC i program Pojemników nie zostały przepisane. Domyślne UNBOUND i niezatwierdzone punkty blokują przejście do ruchu; brakujące dane nie są zastępowane fikcyjnym potwierdzeniem.
+GAP-03/04/05/06/08/09/11/12 pozostają otwarte w zakresie zależnych danych i prób. Wszystkie native bindings są UNBOUND, zatwierdzenia ruchu nieaktywne. Nie zmieniono plików ST, projektów natywnych ani fizycznego robota.
 
-## Pochodzenie i wcześniejsze kontrole
+## Pochodzenie
 
-Podstawą są decyzje DEC-01–26, dawny program A01_F2679_TACKI, dokumentacja instalacji i dostarczone manuale. Archiwalne źródła użytkownik przeniósł do ../Robot M20iD/old/ROBOT; audyt i CSV migracji odczytują tę lokalizację bez przywracania plików.
-
-Wcześniejszy etap v1 obejmował 220 pól, 268 wierszy migracji oraz negatywne próby walidatora. W analizie materiałów zweryfikowano 150 rekordów plikowych w trzech manifestach, pochodzenie manuali i schematów; nie oznaczało to audytu treści każdego binarnego TP ani odbioru urządzeń. [Analiza workspace](workspace-analysis.md) i [rejestr źródeł](sources/README.md) pozostają opisem pochodzenia materiałów.
+Podstawa: DEC-01–32, archiwalne programy tacek/BOX, dokumentacja instalacji i dostarczone manuale. Archiwum ../Robot M20iD/old/ROBOT jest tylko do odczytu. [Rejestr źródeł](sources/README.md) oraz [analiza workspace](workspace-analysis.md) opisują pochodzenie; wcześniejsza weryfikacja manifestów nie jest odbiorem każdego binarnego TP.

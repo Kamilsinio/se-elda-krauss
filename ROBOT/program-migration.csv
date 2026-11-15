@@ -1,0 +1,154 @@
+old_path,new_program,change,meaning
+ROBOT/BG/RB_BIND.LS,BG_BIND,RENAME,"Ta sama rola techniczna, nowa czytelna nazwa"
+ROBOT/BG/RB_GUARD.LS,BG_GUARD,RENAME,"Ta sama rola techniczna, nowa czytelna nazwa"
+ROBOT/BG/RB_STATUS.LS,BG_STATUS,RENAME,"Ta sama rola techniczna, nowa czytelna nazwa"
+ROBOT/BOX/RX_APPLY.LS,MAIN_BOX,INLINE,Technologia bezposrednio w main: Sprawdzenie i zastosowanie nastaw operatora
+ROBOT/BOX/RX_ASSIGN.LS,MAIN_BOX,INLINE,Technologia bezposrednio w main: Przypisanie cyklu IMM i ilosci detali
+ROBOT/BOX/RX_BADSTATE.LS,MAIN_BOX,INLINE,Technologia bezposrednio w main: Blad nieznanego kroku technologii
+ROBOT/BOX/RX_BOOT.LS,MAIN_BOX,INLINE,Technologia bezposrednio w main: Przyjecie lokalnego wyboru main i bazowego tokenu Start
+ROBOT/BOX/RX_EXIT.LS,MAIN_BOX,INLINE,Technologia bezposrednio w main: Zgloszenie zakonczenia wyboru programu
+ROBOT/BOX/RX_FULL.LS,MAIN_BOX,INLINE,Technologia bezposrednio w main: Obsluga procesu FULL
+ROBOT/BOX/RX_GROUP.LS,MAIN_BOX,INLINE,Technologia bezposrednio w main: Wybor maski i ilosci kolejnej grupy detali
+ROBOT/BOX/RX_IDLE.LS,MAIN_BOX,INLINE,Technologia bezposrednio w main: Obsluga procesu IDLE
+ROBOT/BOX/RX_IMMREQ.LS,MAIN_BOX,INLINE,Technologia bezposrednio w main: Zadania do wtryskarki przez PLC
+ROBOT/BOX/RX_INIT.LS,MAIN_BOX,INLINE,Technologia bezposrednio w main: Jawna inicjalizacja prywatnych danych przy pustym postoju
+ROBOT/BOX/RX_MAIN.LS,MAIN_BOX,INLINE,Technologia bezposrednio w main: Obsluga procesu MAIN
+ROBOT/BOX/RX_NEW.LS,MAIN_BOX,INLINE,Technologia bezposrednio w main: Jawne przygotowanie nowego pustego kontekstu
+ROBOT/BOX/RX_OFFSET.LS,MAIN_BOX,INLINE,Technologia bezposrednio w main: Obliczenie przesuniecia odkladania X Y Z
+ROBOT/BOX/RX_PICK.LS,MAIN_BOX,INLINE,Technologia bezposrednio w main: Wejscie i pobranie z formy
+ROBOT/BOX/RX_PLACE.LS,MAIN_BOX,INLINE,Technologia bezposrednio w main: Obsluga procesu PLACE
+ROBOT/BOX/RX_RECOV.LS,MAIN_BOX,INLINE,Technologia bezposrednio w main: Uzgodnienie zachowanej partii po przerwaniu
+ROBOT/BOX/RX_SAFE.LS,MAIN_BOX,INLINE,Technologia bezposrednio w main: Sprawdzenie aktualnych pozwolen przed ruchem
+ROBOT/BOX/RX_SECT.LS,MAIN_BOX,INLINE,Technologia bezposrednio w main: Obliczenie pojemnosci aktywnej sekcji pojemnika
+ROBOT/BOX/RX_STOP.LS,MAIN_BOX,INLINE,Technologia bezposrednio w main: Obsluga procesu STOP
+ROBOT/BOX/RX_TACK.LS,MAIN_BOX,INLINE,Technologia bezposrednio w main: Obsluga procesu TACK
+ROBOT/BOX/RX_TICK.LS,MAIN_BOX,INLINE,Technologia bezposrednio w main: Obsluga procesu TICK
+ROBOT/BOX/XM_HOME.LS,MAIN_BOX,INLINE,Technologia bezposrednio w main: Dojazd do potwierdzonego HOME
+ROBOT/BOX/XM_IMMIN.LS,MAIN_BOX,INLINE,Technologia bezposrednio w main: Dojazd do wtryskarki
+ROBOT/BOX/XM_IMMOUT.LS,MAIN_BOX,INLINE,Technologia bezposrednio w main: Wyjazd z formy
+ROBOT/BOX/XM_PICK.LS,MAIN_BOX,INLINE,Technologia bezposrednio w main: Wejscie i pobranie z formy
+ROBOT/BOX/XM_PLACEIN.LS,MAIN_BOX,INLINE,Technologia bezposrednio w main: Dojazd nad obszar odkladania produktow
+ROBOT/BOX/XM_PLACEOUT.LS,MAIN_BOX,INLINE,Technologia bezposrednio w main: Wyjazd znad produktow
+ROBOT/BOX/XM_PROD1.LS,MAIN_BOX,INLINE,Technologia bezposrednio w main: Podejscie i odlozenie grupy 1
+ROBOT/BOX/XM_PROD1UP.LS,MAIN_BOX,INLINE,Technologia bezposrednio w main: Podniesienie po zwolnieniu grupy 1
+ROBOT/BOX/XM_PROD2.LS,MAIN_BOX,INLINE,Technologia bezposrednio w main: Podejscie i odlozenie grupy 2
+ROBOT/BOX/XM_PROD2UP.LS,MAIN_BOX,INLINE,Technologia bezposrednio w main: Podniesienie po zwolnieniu grupy 2
+ROBOT/BOX/XM_PROD3.LS,MAIN_BOX,INLINE,Technologia bezposrednio w main: Podejscie i odlozenie grupy 3
+ROBOT/BOX/XM_PROD3UP.LS,MAIN_BOX,INLINE,Technologia bezposrednio w main: Podniesienie po zwolnieniu grupy 3
+ROBOT/BOX/XM_PROD4.LS,MAIN_BOX,INLINE,Technologia bezposrednio w main: Podejscie i odlozenie grupy 4
+ROBOT/BOX/XM_PROD4UP.LS,MAIN_BOX,INLINE,Technologia bezposrednio w main: Podniesienie po zwolnieniu grupy 4
+ROBOT/BOX/XM_PROD5.LS,MAIN_BOX,INLINE,Technologia bezposrednio w main: Podejscie i odlozenie grupy 5
+ROBOT/BOX/XM_PROD5UP.LS,MAIN_BOX,INLINE,Technologia bezposrednio w main: Podniesienie po zwolnieniu grupy 5
+ROBOT/BOX/XM_RETRACT.LS,MAIN_BOX,INLINE,Technologia bezposrednio w main: Wycofanie z detalami
+ROBOT/BOX/XM_SAMP1.LS,MAIN_BOX,INLINE,Technologia bezposrednio w main: Odlozenie do probek lub odrzutow - grupa 1
+ROBOT/BOX/XM_SAMP2.LS,MAIN_BOX,INLINE,Technologia bezposrednio w main: Odlozenie do probek lub odrzutow - grupa 2
+ROBOT/BOX/XM_SAMP3.LS,MAIN_BOX,INLINE,Technologia bezposrednio w main: Odlozenie do probek lub odrzutow - grupa 3
+ROBOT/BOX/XM_SAMP4.LS,MAIN_BOX,INLINE,Technologia bezposrednio w main: Odlozenie do probek lub odrzutow - grupa 4
+ROBOT/BOX/XM_SAMP5.LS,MAIN_BOX,INLINE,Technologia bezposrednio w main: Odlozenie do probek lub odrzutow - grupa 5
+ROBOT/BOX/XM_SAMPLEIN.LS,MAIN_BOX,INLINE,Technologia bezposrednio w main: Wjazd do miejsca probek i odrzutow
+ROBOT/BOX/XM_SAMPLEOUT.LS,MAIN_BOX,INLINE,Technologia bezposrednio w main: Wyjazd z miejsca probek i odrzutow
+ROBOT/BOX/XM_SEARCH.LS,MAIN_BOX,INLINE,Technologia bezposrednio w main: Ograniczony krok szukania po Z
+ROBOT/BOX/XM_SRCIN.LS,MAIN_BOX,INLINE,Technologia bezposrednio w main: Wejscie do zrodla pustej tacki lub przekladki
+ROBOT/BOX/XM_SRCOUT.LS,MAIN_BOX,INLINE,Technologia bezposrednio w main: Podniesienie i wyjazd ze zrodla
+ROBOT/BOX/XM_TRAYIN.LS,MAIN_BOX,INLINE,Technologia bezposrednio w main: Odlozenie pustej tacki lub przekladki
+ROBOT/BOX/XM_TRAYOUT.LS,MAIN_BOX,INLINE,Technologia bezposrednio w main: Podniesienie i wyjazd po odlozeniu
+ROBOT/COMM/RC_AREA.LS,PLC_AREA,RENAME,Komunikacja bez zmiany wire v2
+ROBOT/COMM/RC_CMD.LS,PLC_CMD,RENAME,Komunikacja bez zmiany wire v2
+ROBOT/COMM/RC_CYL.LS,PLC_CYL,RENAME,Komunikacja bez zmiany wire v2
+ROBOT/COMM/RC_DROP.LS,PLC_LOST,RENAME,Komunikacja bez zmiany wire v2
+ROBOT/COMM/RC_EVENTS.LS,PLC_EVT,RENAME,Komunikacja bez zmiany wire v2
+ROBOT/COMM/RC_IMM.LS,PLC_IMM,RENAME,Komunikacja bez zmiany wire v2
+ROBOT/COMM/RC_INIT.LS,PLC_INIT,RENAME,Komunikacja bez zmiany wire v2
+ROBOT/COMM/RC_LINK.LS,PLC_LINK,RENAME,Komunikacja bez zmiany wire v2
+ROBOT/COMM/RC_LIVE.LS,PLC_LIVE,RENAME,Komunikacja bez zmiany wire v2
+ROBOT/COMM/RC_MON.LS,BG_PLC,RENAME,Komunikacja bez zmiany wire v2
+ROBOT/COMM/RC_RECOV.LS,PLC_REC,RENAME,Komunikacja bez zmiany wire v2
+ROBOT/COMM/RC_RX.LS,PLC_RX,RENAME,Komunikacja bez zmiany wire v2
+ROBOT/COMM/RC_SMPL.LS,PLC_SMPL,RENAME,Komunikacja bez zmiany wire v2
+ROBOT/COMM/RC_SVC.LS,PLC_SVC,RENAME,Komunikacja bez zmiany wire v2
+ROBOT/COMM/RC_TICK.LS,PLC_SCAN,RENAME,Komunikacja bez zmiany wire v2
+ROBOT/COMM/RC_TX.LS,PLC_TX,RENAME,Komunikacja bez zmiany wire v2
+ROBOT/COMM/RC_VAC.LS,PLC_VAC,RENAME,Komunikacja bez zmiany wire v2
+ROBOT/COMMON/RE_BLFULL.LS,MAIN_TRAY + MAIN_BOX,INLINE,Technologia bezposrednio w main: Zgloszenie napelnienia pojedynczej tacki
+ROBOT/COMMON/RE_BLPICK.LS,MAIN_TRAY + MAIN_BOX,INLINE,Technologia bezposrednio w main: Zgloszenie pobrania pustej tacki
+ROBOT/COMMON/RE_BLPLACE.LS,MAIN_TRAY + MAIN_BOX,INLINE,Technologia bezposrednio w main: Zgloszenie odlozenia pustej tacki
+ROBOT/COMMON/RE_DONE.LS,MAIN_TRAY + MAIN_BOX,INLINE,Technologia bezposrednio w main: Sprawdzenie pelnego zakonczenia REQ ACK
+ROBOT/COMMON/RE_IMMPICK.LS,MAIN_TRAY + MAIN_BOX,INLINE,Technologia bezposrednio w main: Zgloszenie wyjazdu z pobrana partia IMM
+ROBOT/COMMON/RE_LAYER.LS,MAIN_TRAY + MAIN_BOX,INLINE,Technologia bezposrednio w main: Zgloszenie ukonczenia warstwy pojemnika
+ROBOT/COMMON/RE_PROD.LS,MAIN_TRAY + MAIN_BOX,INLINE,Technologia bezposrednio w main: Rozliczenie odlozonych dobrych detali
+ROBOT/COMMON/RE_REJECT.LS,MAIN_TRAY + MAIN_BOX,INLINE,Technologia bezposrednio w main: Rozliczenie odlozonych odrzutow
+ROBOT/COMMON/RE_SAMPLE.LS,MAIN_TRAY + MAIN_BOX,INLINE,Technologia bezposrednio w main: Rozliczenie odlozonych probek
+ROBOT/COMMON/RE_SPACER.LS,MAIN_TRAY + MAIN_BOX,INLINE,Technologia bezposrednio w main: Zgloszenie odlozenia przekladki
+ROBOT/COMMON/RE_STACK.LS,MAIN_TRAY + MAIN_BOX,INLINE,Technologia bezposrednio w main: Zgloszenie ukonczenia stosu lub pojemnika
+ROBOT/COMMON/RF_IMMREQ.LS,MAIN_TRAY + MAIN_BOX,INLINE,Technologia bezposrednio w main: Zadania do wtryskarki przez PLC
+ROBOT/COMMON/RF_READ.LS,,REMOVE_MAILBOX,Brak runtime kopiowania miedzy bankami
+ROBOT/COMMON/RF_SAFE.LS,MAIN_TRAY + MAIN_BOX,INLINE,Technologia bezposrednio w main: Sprawdzenie aktualnych pozwolen przed ruchem
+ROBOT/COMMON/RF_WRITE.LS,,REMOVE_MAILBOX,Brak runtime kopiowania miedzy bankami
+ROBOT/COMMON/RG_FOLD.LS,MAIN_TRAY + MAIN_BOX,INLINE,Technologia bezposrednio w main: Cele silownikow dla bezpiecznego przejazdu
+ROBOT/COMMON/RG_RELEASE.LS,MAIN_TRAY + MAIN_BOX,INLINE,Technologia bezposrednio w main: Jednorazowe zlecenie zwolnienia ladunku
+ROBOT/COMMON/RG_RELEASED.LS,MAIN_TRAY + MAIN_BOX,INLINE,Technologia bezposrednio w main: Potwierdzenie przedmuchu i zwolnienia ladunku
+ROBOT/COMMON/RG_STRAIGHT.LS,MAIN_TRAY + MAIN_BOX,INLINE,Technologia bezposrednio w main: Cele silownikow do pobrania z formy
+ROBOT/COMMON/RG_TARGET.LS,MAIN_TRAY + MAIN_BOX,INLINE,Technologia bezposrednio w main: Cele silownikow dla wybranej grupy
+ROBOT/COMMON/RG_VACON.LS,MAIN_TRAY + MAIN_BOX,INLINE,Technologia bezposrednio w main: Wlaczenie i potwierdzenie podcisnienia
+ROBOT/TEST/COMM/RC_AREA.LS,PLC_AREA,RENAME,Komunikacja bez zmiany wire v2
+ROBOT/TEST/COMM/RC_CMD.LS,PLC_CMD,RENAME,Komunikacja bez zmiany wire v2
+ROBOT/TEST/COMM/RC_CYL.LS,PLC_CYL,RENAME,Komunikacja bez zmiany wire v2
+ROBOT/TEST/COMM/RC_DROP.LS,PLC_LOST,RENAME,Komunikacja bez zmiany wire v2
+ROBOT/TEST/COMM/RC_EVENTS.LS,PLC_EVT,RENAME,Komunikacja bez zmiany wire v2
+ROBOT/TEST/COMM/RC_IMM.LS,PLC_IMM,RENAME,Komunikacja bez zmiany wire v2
+ROBOT/TEST/COMM/RC_INIT.LS,PLC_INIT,RENAME,Komunikacja bez zmiany wire v2
+ROBOT/TEST/COMM/RC_LINK.LS,PLC_LINK,RENAME,Komunikacja bez zmiany wire v2
+ROBOT/TEST/COMM/RC_LIVE.LS,PLC_LIVE,RENAME,Komunikacja bez zmiany wire v2
+ROBOT/TEST/COMM/RC_MON.LS,BG_PLC,RENAME,Komunikacja bez zmiany wire v2
+ROBOT/TEST/COMM/RC_RECOV.LS,PLC_REC,RENAME,Komunikacja bez zmiany wire v2
+ROBOT/TEST/COMM/RC_RX.LS,PLC_RX,RENAME,Komunikacja bez zmiany wire v2
+ROBOT/TEST/COMM/RC_SMPL.LS,PLC_SMPL,RENAME,Komunikacja bez zmiany wire v2
+ROBOT/TEST/COMM/RC_SVC.LS,PLC_SVC,RENAME,Komunikacja bez zmiany wire v2
+ROBOT/TEST/COMM/RC_TEST.LS,PLC_TEST,RENAME,Komunikacja bez zmiany wire v2
+ROBOT/TEST/COMM/RC_TICK.LS,PLC_SCAN,RENAME,Komunikacja bez zmiany wire v2
+ROBOT/TEST/COMM/RC_TX.LS,PLC_TX,RENAME,Komunikacja bez zmiany wire v2
+ROBOT/TEST/COMM/RC_VAC.LS,PLC_VAC,RENAME,Komunikacja bez zmiany wire v2
+ROBOT/TRAY/RM_HOME.LS,MAIN_TRAY,INLINE,Technologia bezposrednio w main: Dojazd do potwierdzonego HOME
+ROBOT/TRAY/RM_IMMIN.LS,MAIN_TRAY,INLINE,Technologia bezposrednio w main: Dojazd do wtryskarki
+ROBOT/TRAY/RM_IMMOUT.LS,MAIN_TRAY,INLINE,Technologia bezposrednio w main: Wyjazd z formy
+ROBOT/TRAY/RM_PICK.LS,MAIN_TRAY,INLINE,Technologia bezposrednio w main: Wejscie i pobranie z formy
+ROBOT/TRAY/RM_PLACEIN.LS,MAIN_TRAY,INLINE,Technologia bezposrednio w main: Dojazd nad obszar odkladania produktow
+ROBOT/TRAY/RM_PLACEOUT.LS,MAIN_TRAY,INLINE,Technologia bezposrednio w main: Wyjazd znad produktow
+ROBOT/TRAY/RM_PROD1.LS,MAIN_TRAY,INLINE,Technologia bezposrednio w main: Podejscie i odlozenie grupy 1
+ROBOT/TRAY/RM_PROD2.LS,MAIN_TRAY,INLINE,Technologia bezposrednio w main: Podejscie i odlozenie grupy 2
+ROBOT/TRAY/RM_PROD3.LS,MAIN_TRAY,INLINE,Technologia bezposrednio w main: Podejscie i odlozenie grupy 3
+ROBOT/TRAY/RM_PROD4.LS,MAIN_TRAY,INLINE,Technologia bezposrednio w main: Podejscie i odlozenie grupy 4
+ROBOT/TRAY/RM_PROD5.LS,MAIN_TRAY,INLINE,Technologia bezposrednio w main: Podejscie i odlozenie grupy 5
+ROBOT/TRAY/RM_RETRACT.LS,MAIN_TRAY,INLINE,Technologia bezposrednio w main: Wycofanie z detalami
+ROBOT/TRAY/RM_SAMP1.LS,MAIN_TRAY,INLINE,Technologia bezposrednio w main: Odlozenie do probek lub odrzutow - grupa 1
+ROBOT/TRAY/RM_SAMP2.LS,MAIN_TRAY,INLINE,Technologia bezposrednio w main: Odlozenie do probek lub odrzutow - grupa 2
+ROBOT/TRAY/RM_SAMP3.LS,MAIN_TRAY,INLINE,Technologia bezposrednio w main: Odlozenie do probek lub odrzutow - grupa 3
+ROBOT/TRAY/RM_SAMP4.LS,MAIN_TRAY,INLINE,Technologia bezposrednio w main: Odlozenie do probek lub odrzutow - grupa 4
+ROBOT/TRAY/RM_SAMP5.LS,MAIN_TRAY,INLINE,Technologia bezposrednio w main: Odlozenie do probek lub odrzutow - grupa 5
+ROBOT/TRAY/RM_SAMPLEIN.LS,MAIN_TRAY,INLINE,Technologia bezposrednio w main: Wjazd do miejsca probek i odrzutow
+ROBOT/TRAY/RM_SAMPLEOUT.LS,MAIN_TRAY,INLINE,Technologia bezposrednio w main: Wyjazd z miejsca probek i odrzutow
+ROBOT/TRAY/RM_SEARCH.LS,MAIN_TRAY,INLINE,Technologia bezposrednio w main: Ograniczony krok szukania po Z
+ROBOT/TRAY/RM_SRCIN.LS,MAIN_TRAY,INLINE,Technologia bezposrednio w main: Wejscie do zrodla pustej tacki lub przekladki
+ROBOT/TRAY/RM_SRCOUT.LS,MAIN_TRAY,INLINE,Technologia bezposrednio w main: Podniesienie i wyjazd ze zrodla
+ROBOT/TRAY/RM_TRAYIN.LS,MAIN_TRAY,INLINE,Technologia bezposrednio w main: Odlozenie pustej tacki lub przekladki
+ROBOT/TRAY/RM_TRAYOUT.LS,MAIN_TRAY,INLINE,Technologia bezposrednio w main: Podniesienie i wyjazd po odlozeniu
+ROBOT/TRAY/RT_APPLY.LS,MAIN_TRAY,INLINE,Technologia bezposrednio w main: Sprawdzenie i zastosowanie nastaw operatora
+ROBOT/TRAY/RT_ASSIGN.LS,MAIN_TRAY,INLINE,Technologia bezposrednio w main: Przypisanie cyklu IMM i ilosci detali
+ROBOT/TRAY/RT_BADSTATE.LS,MAIN_TRAY,INLINE,Technologia bezposrednio w main: Blad nieznanego kroku technologii
+ROBOT/TRAY/RT_BOOT.LS,MAIN_TRAY,INLINE,Technologia bezposrednio w main: Przyjecie lokalnego wyboru main i bazowego tokenu Start
+ROBOT/TRAY/RT_EXIT.LS,MAIN_TRAY,INLINE,Technologia bezposrednio w main: Zgloszenie zakonczenia wyboru programu
+ROBOT/TRAY/RT_FULL.LS,MAIN_TRAY,INLINE,Technologia bezposrednio w main: Obsluga procesu FULL
+ROBOT/TRAY/RT_GROUP.LS,MAIN_TRAY,INLINE,Technologia bezposrednio w main: Wybor maski i ilosci kolejnej grupy detali
+ROBOT/TRAY/RT_IDLE.LS,MAIN_TRAY,INLINE,Technologia bezposrednio w main: Obsluga procesu IDLE
+ROBOT/TRAY/RT_IMMREQ.LS,MAIN_TRAY,INLINE,Technologia bezposrednio w main: Zadania do wtryskarki przez PLC
+ROBOT/TRAY/RT_INIT.LS,MAIN_TRAY,INLINE,Technologia bezposrednio w main: Jawna inicjalizacja prywatnych danych przy pustym postoju
+ROBOT/TRAY/RT_MAIN.LS,MAIN_TRAY,INLINE,Technologia bezposrednio w main: Obsluga procesu MAIN
+ROBOT/TRAY/RT_NEW.LS,MAIN_TRAY,INLINE,Technologia bezposrednio w main: Jawne przygotowanie nowego pustego kontekstu
+ROBOT/TRAY/RT_OFFSET.LS,MAIN_TRAY,INLINE,Technologia bezposrednio w main: Obliczenie przesuniecia odkladania X Y Z
+ROBOT/TRAY/RT_PICK.LS,MAIN_TRAY,INLINE,Technologia bezposrednio w main: Wejscie i pobranie z formy
+ROBOT/TRAY/RT_PLACE.LS,MAIN_TRAY,INLINE,Technologia bezposrednio w main: Obsluga procesu PLACE
+ROBOT/TRAY/RT_RECOV.LS,MAIN_TRAY,INLINE,Technologia bezposrednio w main: Uzgodnienie zachowanej partii po przerwaniu
+ROBOT/TRAY/RT_SAFE.LS,MAIN_TRAY,INLINE,Technologia bezposrednio w main: Sprawdzenie aktualnych pozwolen przed ruchem
+ROBOT/TRAY/RT_STOP.LS,MAIN_TRAY,INLINE,Technologia bezposrednio w main: Obsluga procesu STOP
+ROBOT/TRAY/RT_TACK.LS,MAIN_TRAY,INLINE,Technologia bezposrednio w main: Obsluga procesu TACK
+ROBOT/TRAY/RT_TICK.LS,MAIN_TRAY,INLINE,Technologia bezposrednio w main: Obsluga procesu TICK

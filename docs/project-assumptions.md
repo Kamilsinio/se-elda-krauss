@@ -73,6 +73,12 @@ Zwykły bit HOME nie zastępuje funkcji bezpieczeństwa ani sygnału „obszar f
 | DEC-24 | Przyjęte żądanie próbek obejmuje cały następny komplet. |
 | DEC-25 | Odrzuty trafiają do miejsca próbek, z osobną identyfikacją i rozliczeniem. |
 | DEC-26 | Po przerwaniu krytycznym wymagane jest jawne uzgodnienie stanu; bez automatycznego powrotu. |
+| DEC-27 | BOX ma trzy kolejne sekcje P1–P3 z własnymi siatkami/skokami; P2/P3 można wyłączyć. Cała partia mieści się w jednej sekcji. |
+| DEC-28 | Przekładki wyłącznie pomiędzy warstwami BOX: bez dolnej i górnej. |
+| DEC-29 | Oba main współistnieją, z osobnymi nastawami i kontekstem. Zatwierdzono rezerwację do R400; pojemność fizyczna nadal wymaga sprawdzenia. |
+| DEC-30 | Robot dodaje Z kolejnych warstw; winda utrzymuje pozycję BOX podczas napełniania. |
+| DEC-31 | Cała technologia bezpośrednio w dwóch main TRAY i BOX; osobno wyłącznie komunikacja oraz BG. Bez mikroprogramów technologicznych. |
+| DEC-32 | Wszystkie LS i każda używana zmienna mają jednoznaczne komentarze widoczne w programie; opisów nie zastępuje sam JSON. |
 
 ## 4. Model zlecenia i obsługi
 

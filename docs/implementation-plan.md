@@ -181,4 +181,10 @@ Wgranie i uruchomienie na urządzeniach jest osobnym działaniem poza etapem dok
 
 ## 9. Aktualny zakres źródeł FANUC — 2026-11-14
 
-Przygotowano kontrakt v2 (227 pól, 80 bajtów/kierunek), komunikację LIVE/TEST, program tacek i trzy programy rejestrowane jako BG. [Instrukcja tacek](../ROBOT/TRAY/README.md) oraz [raport weryfikacji](robot-communication-verification.md) opisują 37 testów offline, zasoby i warunki uruchomienia. To częściowa realizacja źródłowa E1/E3: Pojemniki, implementacja PLC, fizyczna mapa/konfiguracja, import V9.40, nauka punktów i FAT/SAT pozostają niewykonane. Powiązania native BG mają status UNBOUND; flagi dopuszczenia ruchu nie są zatwierdzone. Nie zamykać GAP-03/04/05/06/08/09/11/12 samym wynikiem interpretera.
+Przygotowano kontrakt v2 (227 pól, 80 bajtów/kierunek), komunikację LIVE/TEST, dwa pełne main BOX/TRAY, słownik COMMON i trzy programy rejestrowane jako BG. [BOX](../ROBOT/BOX/README.md), [TRAY](../ROBOT/TRAY/README.md), [COMMON](../ROBOT/COMMON/README.md) i [raport](robot-communication-verification.md) opisują źródła, 65 testów offline i bramki uruchomienia.
+
+To częściowa realizacja źródłowa E1/E3/E4: implementacja PLC, fizyczna mapa/konfiguracja, dostępność R400, import V9.40, nauka punktów i FAT/SAT nadal pozostają niewykonane. Powiązania native BG mają status UNBOUND; dopuszczenia ruchu są niezatwierdzone. Nie zamykać GAP-03/04/05/06/08/09/11/12 wynikiem interpretera.
+
+Zrealizowany zakres BOX odpowiada REQ-02/03/04/11/12/13/15/17/19/22 oraz modelowym częściom AT-01/02/03/09/10/13/14/15. Obejmuje P1–P3, grupy i ilości, warstwy, przekładki, Stop N+1, ACK i recovery. Próby w środowisku robota i z rzeczywistym PLC są osobnymi kryteriami odbioru. Źródła ST i projekty natywne nie zostały zmienione.
+
+Aktualizacja DEC-31/32 (2026-11-15): cała technologia jest bezpośrednio w MAIN_TRAY i MAIN_BOX. Usunięto wykonawcze mikroprogramy i runtime mailbox. Pozostały PLC_* oraz BG_*; dodano pełne opisy operandów, słowniki CSV/JSON i cztery kontrole czytelności. Import opisów i pamięć rozwiniętych main wymagają potwierdzenia na V9.40.

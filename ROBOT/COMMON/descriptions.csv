@@ -1,0 +1,696 @@
+address,label,description
+$FAST_CLOCK,ZegarSys,Odczyt zegara systemowego FANUC [surowe ticki]; czestotliwosc i zawijanie do odbioru V9.40.
+F[101],BZezInit,Jawne zadanie wyzerowania prywatnej konfiguracji/kontekstu przy potwierdzonym pustym postoju. ON: opisany warunek/zadanie; OFF: brak.
+F[102],BNowyKontekst,Jawna deklaracja nowego pustego kontekstu po oproznieniu i uzgodnieniu stacji. ON: opisany warunek/zadanie; OFF: brak.
+F[103],BZezRecovery,Zgoda operatora na uzgodnienie recovery i kasowanie alarmu; sama nie dopuszcza ruchu. ON: opisany warunek/zadanie; OFF: brak.
+F[104],BStanSprawdz,Operator sprawdzil ladunek i rozliczenia PLC oraz uzgodnil kontekst. ON: opisany warunek/zadanie; OFF: brak.
+F[105],BStacjaPusta,Operator potwierdzil pusty postoj dla INIT/APPLY/zmiany programu; nie automatyczny czujnik. ON: opisany warunek/zadanie; OFF: brak.
+F[106],BProfilOK,"Odebrano fizyczny profil chwytaka, maski i cele HOME/WORK. ON: opisany warunek/zadanie; OFF: brak."
+F[107],BDrogiOK,Odebrano trajektorie i geometrie tej produkcji na wlasciwym robocie. ON: opisany warunek/zadanie; OFF: brak.
+F[108],BAlarmOdebr,Odebrano rzeczywiste zatrzymanie zadania ruchowego przez reakcje alarmowa. ON: opisany warunek/zadanie; OFF: brak.
+F[112],BNastawyOK,Przyjeto aktywna kopie nastaw; staging nie jest uzywany do ruchu. ON: opisany warunek/zadanie; OFF: brak.
+F[113],BKandydatOK,Roboczy wynik walidacji staging; FALSE oznacza blednego kandydata. ON: opisany warunek/zadanie; OFF: brak.
+F[114],BMainWybrany,Main pozostaje wybrany; FALSE konczy petle. Nie jest natywnym statusem pracy. ON: opisany warunek/zadanie; OFF: brak.
+F[115],BUzbrojony,Przyjeto nowy fizyczny Start; Stop rozbraja po rozliczeniu rozpoczetych operacji. ON: opisany warunek/zadanie; OFF: brak.
+F[116],BUzgodnijStan,Zatrzask niespojnego/przerwanego procesu; blokuje ruch do jawnego uzgodnienia. ON: opisany warunek/zadanie; OFF: brak.
+F[117],BPartiaPrzyp,"Zachowano cycleId, ilosc i przeznaczenie partii; nie przypisywac ponownie. ON: opisany warunek/zadanie; OFF: brak."
+F[118],BPartiaPobr,Potwierdzono pobranie partii i wyjazd z formy; pozostale grupy wymagaja odlozenia. ON: opisany warunek/zadanie; OFF: brak.
+F[119],BNosnikGotow,TRAY: pusta tacka odlozona. BOX: PLC potwierdzil przygotowany pojemnik. ON: opisany warunek/zadanie; OFF: brak.
+F[120],BRuchGotowy,Ukonczono instrukcje ruchu operacji; zerowane przed nowym ruchem. ON: opisany warunek/zadanie; OFF: brak.
+F[121],BRuchDozw,Roboczy wynik blokad ruchu lub walidacji; nie funkcja bezpieczenstwa. ON: opisany warunek/zadanie; OFF: brak.
+F[122],BWarPom,Roboczy BOOL dokonczenia IMM lub walidacji kodu silownika; nie sygnal czujnika. ON: opisany warunek/zadanie; OFF: brak.
+F[123],BZdarzGotowe,"Kanal zakonczyl caly REQ/ACK, ma sukces i ACK=0. ON: opisany warunek/zadanie; OFF: brak."
+F[124],BCylGotowe,"Cele silownikow wazne, zaakceptowane i osiagniete bez przeciwnej krancowki. ON: opisany warunek/zadanie; OFF: brak."
+F[125],BProzniaOK,"Wybrane obwody maja wazne potwierdzenie przyjecia, wlaczenia i osiagniecia prozni. ON: opisany warunek/zadanie; OFF: brak."
+F[126],BZwolnGotowe,Wybrane przedmuchy zakonczyly ACK z sukcesem i proznia zanikla. ON: opisany warunek/zadanie; OFF: brak.
+F[127],BPozaZrodlem,Program potwierdzil wyjazd poza zrodlo tacek; wymaga aktualnego AUTO/statusu. ON: opisany warunek/zadanie; OFF: brak.
+F[128],BPozaWinda,Program potwierdzil wyjazd poza winde; przy bledzie uniewazniane. ON: opisany warunek/zadanie; OFF: brak.
+F[129],BPozaMagaz,Program potwierdzil wyjazd poza magazyn przekladek; przy bledzie uniewazniane. ON: opisany warunek/zadanie; OFF: brak.
+F[12],TNastawyOK,Przyjeto aktywna kopie nastaw; staging nie jest uzywany do ruchu. ON: opisany warunek/zadanie; OFF: brak.
+F[130],BPozaForma,Program potwierdzil wyjazd poza IMM; potrzebne do pozwolenia zamkniecia formy. ON: opisany warunek/zadanie; OFF: brak.
+F[131],BOperacjaTrwa,Krok jest w zakresie 200..699; wskaznik trwajacej operacji dla BG. ON: opisany warunek/zadanie; OFF: brak.
+F[132],BOdrzucApply,Stan stacji zabronil APPLY; aktywne nastawy nie nadpisane. ON: opisany warunek/zadanie; OFF: brak.
+F[133],BBladBG,BG wykryl krytyczne naruszenie dopuszczenia lub spojnosc procesu. ON: opisany warunek/zadanie; OFF: brak.
+F[134],BRezCzasBlad,Rezerwa diagnostyki timeout; aktualnie kod/miejsce w faultCode/resumeState. ON: opisany warunek/zadanie; OFF: brak.
+F[135],BRezMaskaOK,Rezerwa walidacji maski; aktualnie uzywany candidateValid. ON: opisany warunek/zadanie; OFF: brak.
+F[136],BRezProbki,Rezerwa pamieci probek; aktualne zadanie i odpowiedz prowadzi PLC_SMPL. ON: opisany warunek/zadanie; OFF: brak.
+F[137],BProfilPartii,Partia przypisana; jej profil i ilosc sa zamrozone do rozliczenia. ON: opisany warunek/zadanie; OFF: brak.
+F[138],BStartObsluz,Po przyznaniu wyboru main sprawdzil wejscie i zapamietal zastany token Start. ON: opisany warunek/zadanie; OFF: brak.
+F[139],BWZrodle,Robot rozpoczal wejscie w zrodlo tacek i nie potwierdzil wyjazdu. ON: opisany warunek/zadanie; OFF: brak.
+F[13],TKandydatOK,Roboczy wynik walidacji staging; FALSE oznacza blednego kandydata. ON: opisany warunek/zadanie; OFF: brak.
+F[140],BWWindzie,Robot rozpoczal wejscie w winde i nie potwierdzil wyjazdu. ON: opisany warunek/zadanie; OFF: brak.
+F[141],BZwalnianie,Celowe zwalnianie wybranej maski; inne niesione obwody nadal monitorowane. ON: opisany warunek/zadanie; OFF: brak.
+F[142],BCzekaNowyID,Pelny ladunek ma pelny ACK; czeka na nowy stackId. ON: opisany warunek/zadanie; OFF: brak.
+F[143],BPomLadBG,Roboczy wynik BG: badany obwod nalezy do znanego niesionego ladunku. ON: opisany warunek/zadanie; OFF: brak.
+F[144],BPomZwolBG,Roboczy wynik BG: badany obwod jest celowo zwalniany. ON: opisany warunek/zadanie; OFF: brak.
+F[145],BZlecPoprz,Poprzednio bylo aktywne zlecenie; zamkniecie wymaga nowego/uzgodnionego kontekstu. ON: opisany warunek/zadanie; OFF: brak.
+F[146],BDrogaWazna,Natywny main w AUTO bez TP/PAUSE pozwala uzyc potwierdzenia wyjazdu. ON: opisany warunek/zadanie; OFF: brak.
+F[147],BPrzPotrzebna,Po warstwie BOX potrzebna przekladka przed nastepna warstwa. ON: opisany warunek/zadanie; OFF: brak.
+F[148],BPrzRozpocz,Pobranie przekladki rozpoczete; Stop wymaga zakonczenia operacji. ON: opisany warunek/zadanie; OFF: brak.
+F[149],BKoncoweACK,"Trwa/niepewne zdarzenie warstwy, przekladki lub BOX; bez automatycznego replay. ON: opisany warunek/zadanie; OFF: brak."
+F[14],TMainWybrany,Main pozostaje wybrany; FALSE konczy petle. Nie jest natywnym statusem pracy. ON: opisany warunek/zadanie; OFF: brak.
+F[150],BWMagazynie,Robot rozpoczal wejscie w magazyn przekladek i nie potwierdzil wyjazdu. ON: opisany warunek/zadanie; OFF: brak.
+F[151],BZadApply,Jednorazowe zadanie walidacji i skopiowania staging do aktywnych nastaw; konsumowane. ON: opisany warunek/zadanie; OFF: brak.
+F[152],BZadWyjscie,Jednorazowe zadanie zwolnienia main; BG wymaga zamknietego pustego rozliczonego postoju. ON: opisany warunek/zadanie; OFF: brak.
+F[15],TUzbrojony,Przyjeto nowy fizyczny Start; Stop rozbraja po rozliczeniu rozpoczetych operacji. ON: opisany warunek/zadanie; OFF: brak.
+F[163],BNauczPR1,Potwierdzono nauke/odbior PR1 dla BOX. ON zatwierdzony; OFF ruch zablokowany.
+F[164],BNauczPR41,Potwierdzono nauke/odbior PR41 dla BOX. ON zatwierdzony; OFF ruch zablokowany.
+F[165],BNauczPR42,Potwierdzono nauke/odbior PR42 dla BOX. ON zatwierdzony; OFF ruch zablokowany.
+F[166],BNauczPR43,Potwierdzono nauke/odbior PR43 dla BOX. ON zatwierdzony; OFF ruch zablokowany.
+F[167],BNauczPR44,Potwierdzono nauke/odbior PR44 dla BOX. ON zatwierdzony; OFF ruch zablokowany.
+F[168],BNauczPR45,Potwierdzono nauke/odbior PR45 dla BOX. ON zatwierdzony; OFF ruch zablokowany.
+F[169],BNauczPR46,Potwierdzono nauke/odbior PR46 dla BOX. ON zatwierdzony; OFF ruch zablokowany.
+F[16],TUzgodnijStan,Zatrzask niespojnego/przerwanego procesu; blokuje ruch do jawnego uzgodnienia. ON: opisany warunek/zadanie; OFF: brak.
+F[170],BNauczPR47,Potwierdzono nauke/odbior PR47 dla BOX. ON zatwierdzony; OFF ruch zablokowany.
+F[171],BNauczPR48,Potwierdzono nauke/odbior PR48 dla BOX. ON zatwierdzony; OFF ruch zablokowany.
+F[172],BNauczPR49,Potwierdzono nauke/odbior PR49 dla BOX. ON zatwierdzony; OFF ruch zablokowany.
+F[173],BNauczPR50,Potwierdzono nauke/odbior PR50 dla BOX. ON zatwierdzony; OFF ruch zablokowany.
+F[174],BNauczPR51,Potwierdzono nauke/odbior PR51 dla BOX. ON zatwierdzony; OFF ruch zablokowany.
+F[175],BNauczPR52,Potwierdzono nauke/odbior PR52 dla BOX. ON zatwierdzony; OFF ruch zablokowany.
+F[176],BNauczPR53,Potwierdzono nauke/odbior PR53 dla BOX. ON zatwierdzony; OFF ruch zablokowany.
+F[177],BNauczPR54,Potwierdzono nauke/odbior PR54 dla BOX. ON zatwierdzony; OFF ruch zablokowany.
+F[178],BNauczPR55,Potwierdzono nauke/odbior PR55 dla BOX. ON zatwierdzony; OFF ruch zablokowany.
+F[179],BNauczPR56,Potwierdzono nauke/odbior PR56 dla BOX. ON zatwierdzony; OFF ruch zablokowany.
+F[17],TPartiaPrzyp,"Zachowano cycleId, ilosc i przeznaczenie partii; nie przypisywac ponownie. ON: opisany warunek/zadanie; OFF: brak."
+F[180],BNauczPR57,Potwierdzono nauke/odbior PR57 dla BOX. ON zatwierdzony; OFF ruch zablokowany.
+F[181],BNauczPR58,Potwierdzono nauke/odbior PR58 dla BOX. ON zatwierdzony; OFF ruch zablokowany.
+F[182],BNauczPR59,Potwierdzono nauke/odbior PR59 dla BOX. ON zatwierdzony; OFF ruch zablokowany.
+F[183],BNauczPR60,Potwierdzono nauke/odbior PR60 dla BOX. ON zatwierdzony; OFF ruch zablokowany.
+F[184],BNauczPR61,Potwierdzono nauke/odbior PR61 dla BOX. ON zatwierdzony; OFF ruch zablokowany.
+F[185],BNauczPR62,Potwierdzono nauke/odbior PR62 dla BOX. ON zatwierdzony; OFF ruch zablokowany.
+F[186],BNauczPR63,Potwierdzono nauke/odbior PR63 dla BOX. ON zatwierdzony; OFF ruch zablokowany.
+F[187],BNauczPR64,Potwierdzono nauke/odbior PR64 dla BOX. ON zatwierdzony; OFF ruch zablokowany.
+F[188],BNauczPR65,Potwierdzono nauke/odbior PR65 dla BOX. ON zatwierdzony; OFF ruch zablokowany.
+F[189],BNauczPR66,Potwierdzono nauke/odbior PR66 dla BOX. ON zatwierdzony; OFF ruch zablokowany.
+F[18],TPartiaPobr,Potwierdzono pobranie partii i wyjazd z formy; pozostale grupy wymagaja odlozenia. ON: opisany warunek/zadanie; OFF: brak.
+F[190],BNauczPR67,Potwierdzono nauke/odbior PR67 dla BOX. ON zatwierdzony; OFF ruch zablokowany.
+F[191],BNauczPR68,Potwierdzono nauke/odbior PR68 dla BOX. ON zatwierdzony; OFF ruch zablokowany.
+F[192],BNauczPR69,Potwierdzono nauke/odbior PR69 dla BOX. ON zatwierdzony; OFF ruch zablokowany.
+F[193],BNauczPR70,Potwierdzono nauke/odbior PR70 dla BOX. ON zatwierdzony; OFF ruch zablokowany.
+F[194],BNauczPR71,Potwierdzono nauke/odbior PR71 dla BOX. ON zatwierdzony; OFF ruch zablokowany.
+F[195],BNauczPR72,Potwierdzono nauke/odbior PR72 dla BOX. ON zatwierdzony; OFF ruch zablokowany.
+F[196],BNauczPR73,Potwierdzono nauke/odbior PR73 dla BOX. ON zatwierdzony; OFF ruch zablokowany.
+F[197],BNauczPR74,Potwierdzono nauke/odbior PR74 dla BOX. ON zatwierdzony; OFF ruch zablokowany.
+F[198],BNauczPR75,Potwierdzono nauke/odbior PR75 dla BOX. ON zatwierdzony; OFF ruch zablokowany.
+F[199],BNauczPR76,Potwierdzono nauke/odbior PR76 dla BOX. ON zatwierdzony; OFF ruch zablokowany.
+F[19],TNosnikGotow,TRAY: pusta tacka odlozona. BOX: PLC potwierdzil przygotowany pojemnik. ON: opisany warunek/zadanie; OFF: brak.
+F[1],TZezInit,Jawne zadanie wyzerowania prywatnej konfiguracji/kontekstu przy potwierdzonym pustym postoju. ON: opisany warunek/zadanie; OFF: brak.
+F[200],BNauczPR77,Potwierdzono nauke/odbior PR77 dla BOX. ON zatwierdzony; OFF ruch zablokowany.
+F[201],BNauczPR78,Potwierdzono nauke/odbior PR78 dla BOX. ON zatwierdzony; OFF ruch zablokowany.
+F[202],BNauczPR79,Potwierdzono nauke/odbior PR79 dla BOX. ON zatwierdzony; OFF ruch zablokowany.
+F[203],BNauczPR80,Potwierdzono nauke/odbior PR80 dla BOX. ON zatwierdzony; OFF ruch zablokowany.
+F[204],BNauczPR81,Potwierdzono nauke/odbior PR81 dla BOX. ON zatwierdzony; OFF ruch zablokowany.
+F[205],BNauczPR82,Potwierdzono nauke/odbior PR82 dla BOX. ON zatwierdzony; OFF ruch zablokowany.
+F[206],BNauczPR83,Potwierdzono nauke/odbior PR83 dla BOX. ON zatwierdzony; OFF ruch zablokowany.
+F[207],BNauczPR84,Potwierdzono nauke/odbior PR84 dla BOX. ON zatwierdzony; OFF ruch zablokowany.
+F[208],BNauczPR85,Potwierdzono nauke/odbior PR85 dla BOX. ON zatwierdzony; OFF ruch zablokowany.
+F[209],BNauczPR86,Potwierdzono nauke/odbior PR86 dla BOX. ON zatwierdzony; OFF ruch zablokowany.
+F[20],TRuchGotowy,Ukonczono instrukcje ruchu operacji; zerowane przed nowym ruchem. ON: opisany warunek/zadanie; OFF: brak.
+F[210],BNauczPR87,Potwierdzono nauke/odbior PR87 dla BOX. ON zatwierdzony; OFF ruch zablokowany.
+F[211],BNauczPR88,Potwierdzono nauke/odbior PR88 dla BOX. ON zatwierdzony; OFF ruch zablokowany.
+F[212],BNauczPR89,Potwierdzono nauke/odbior PR89 dla BOX. ON zatwierdzony; OFF ruch zablokowany.
+F[21],TRuchDozw,Roboczy wynik blokad ruchu lub walidacji; nie funkcja bezpieczenstwa. ON: opisany warunek/zadanie; OFF: brak.
+F[22],TWarPom,Roboczy BOOL dokonczenia IMM lub walidacji kodu silownika; nie sygnal czujnika. ON: opisany warunek/zadanie; OFF: brak.
+F[23],TZdarzGotowe,"Kanal zakonczyl caly REQ/ACK, ma sukces i ACK=0. ON: opisany warunek/zadanie; OFF: brak."
+F[24],TCylGotowe,"Cele silownikow wazne, zaakceptowane i osiagniete bez przeciwnej krancowki. ON: opisany warunek/zadanie; OFF: brak."
+F[25],TProzniaOK,"Wybrane obwody maja wazne potwierdzenie przyjecia, wlaczenia i osiagniecia prozni. ON: opisany warunek/zadanie; OFF: brak."
+F[26],TZwolnGotowe,Wybrane przedmuchy zakonczyly ACK z sukcesem i proznia zanikla. ON: opisany warunek/zadanie; OFF: brak.
+F[27],TPozaZrodlem,Program potwierdzil wyjazd poza zrodlo tacek; wymaga aktualnego AUTO/statusu. ON: opisany warunek/zadanie; OFF: brak.
+F[28],TPozaWinda,Program potwierdzil wyjazd poza winde; przy bledzie uniewazniane. ON: opisany warunek/zadanie; OFF: brak.
+F[29],TPozaMagaz,Program potwierdzil wyjazd poza magazyn przekladek; przy bledzie uniewazniane. ON: opisany warunek/zadanie; OFF: brak.
+F[2],TNowyKontekst,Jawna deklaracja nowego pustego kontekstu po oproznieniu i uzgodnieniu stacji. ON: opisany warunek/zadanie; OFF: brak.
+F[30],TPozaForma,Program potwierdzil wyjazd poza IMM; potrzebne do pozwolenia zamkniecia formy. ON: opisany warunek/zadanie; OFF: brak.
+F[31],TOperacjaTrwa,Krok jest w zakresie 200..699; wskaznik trwajacej operacji dla BG. ON: opisany warunek/zadanie; OFF: brak.
+F[32],TOdrzucApply,Stan stacji zabronil APPLY; aktywne nastawy nie nadpisane. ON: opisany warunek/zadanie; OFF: brak.
+F[33],TBladBG,BG wykryl krytyczne naruszenie dopuszczenia lub spojnosc procesu. ON: opisany warunek/zadanie; OFF: brak.
+F[34],TRezCzasBlad,Rezerwa diagnostyki timeout; aktualnie kod/miejsce w faultCode/resumeState. ON: opisany warunek/zadanie; OFF: brak.
+F[35],TRezMaskaOK,Rezerwa walidacji maski; aktualnie uzywany candidateValid. ON: opisany warunek/zadanie; OFF: brak.
+F[36],TRezProbki,Rezerwa pamieci probek; aktualne zadanie i odpowiedz prowadzi PLC_SMPL. ON: opisany warunek/zadanie; OFF: brak.
+F[37],TProfilPartii,Partia przypisana; jej profil i ilosc sa zamrozone do rozliczenia. ON: opisany warunek/zadanie; OFF: brak.
+F[38],TStartObsluz,Po przyznaniu wyboru main sprawdzil wejscie i zapamietal zastany token Start. ON: opisany warunek/zadanie; OFF: brak.
+F[39],TWZrodle,Robot rozpoczal wejscie w zrodlo tacek i nie potwierdzil wyjazdu. ON: opisany warunek/zadanie; OFF: brak.
+F[3],TZezRecovery,Zgoda operatora na uzgodnienie recovery i kasowanie alarmu; sama nie dopuszcza ruchu. ON: opisany warunek/zadanie; OFF: brak.
+F[401],NativeKompl,BG_BIND ma zdefiniowane wszystkie 14 natywnych zrodel; nie dowod odbioru. ON tak/zadanie; OFF nie.
+F[402],NativeOdebr,Na V9.40 odebrano znaczenie i aktualnosc wszystkich zrodel native. ON tak/zadanie; OFF nie.
+F[403],NativeWazne,Komplet odebranych native i zweryfikowane zasoby; statusy moga byc publikowane. ON tak/zadanie; OFF nie.
+F[404],PamiecOdebr,"Sprawdzono R1..400, wymagane F/PR i brak kolizji; domyslnie OFF. ON tak/zadanie; OFF nie."
+F[405],ArbiterInit,Jawnie zainicjalizowano pusty postoj; nie oznacza odbioru ruchu. ON tak/zadanie; OFF nie.
+F[406],ZezInit,"Jawna zgoda na wspolna inicjalizacje wyboru przy obu zakonczonych main, HOME i pustej rozliczonej stacji. ON tak/zadanie; OFF nie."
+F[407],PustoPotw,Fizyczne potwierdzenie pustej stacji i chwytaka dla wspolnej inicjalizacji; konsumowane przez BG. ON tak/zadanie; OFF nie.
+F[408],KonfliktMain,Zatrzask: oba main aktywne/paused albo oba zglosily wybor. ON tak/zadanie; OFF nie.
+F[409],ZmianaDozw,"BG potwierdzil zamkniete zlecenie, HOME i rozliczone kanaly/wtryski; roboczy warunek przekazania wyboru. ON tak/zadanie; OFF nie."
+F[40],TWWindzie,Robot rozpoczal wejscie w winde i nie potwierdzil wyjazdu. ON: opisany warunek/zadanie; OFF: brak.
+F[412],WyborBOX,MAIN_BOX zada lokalnego wyboru; nie wybor programu przez PLC. ON tak/zadanie; OFF nie.
+F[413],WyborTRAY,MAIN_TRAY zada lokalnego wyboru; nie wybor programu przez PLC. ON tak/zadanie; OFF nie.
+F[414],ZwolnijBOX,MAIN_BOX zglasza koniec wyboru; BG sprawdza pusty postoj. ON tak/zadanie; OFF nie.
+F[415],ZwolnijTRAY,MAIN_TRAY zglasza koniec wyboru; BG sprawdza pusty postoj. ON tak/zadanie; OFF nie.
+F[416],TrybAUTO,Rzeczywisty selektor kontrolera w AUTO. ON tak; OFF nie. Wymaga odbioru V9.40.
+F[417],TrybT1,Rzeczywisty selektor kontrolera w T1. ON tak; OFF nie. Wymaga odbioru V9.40.
+F[418],TrybT2,Rzeczywisty selektor kontrolera w T2. ON tak; OFF nie. Wymaga odbioru V9.40.
+F[419],PendantON,Rzeczywisty wlaczony pendant; blokuje produkcje AUTO. ON tak; OFF nie. Wymaga odbioru V9.40.
+F[41],TZwalnianie,Celowe zwalnianie wybranej maski; inne niesione obwody nadal monitorowane. ON: opisany warunek/zadanie; OFF: brak.
+F[420],SystemGotow,"Gotowosc kontrolera, niezalezna od gotowosci procesu. ON tak; OFF nie. Wymaga odbioru V9.40."
+F[421],EStopAkt,Diagnostyczny E-STOP; nie zastepuje ukladu bezpieczenstwa. ON tak; OFF nie. Wymaga odbioru V9.40.
+F[422],AlarmRobota,"Rzeczywisty alarm kontrolera, nie kod bledu technologii. ON tak; OFF nie. Wymaga odbioru V9.40."
+F[423],SymWejsc,Aktywna symulacja wejsc na kontrolerze; blokuje produkcje. ON tak; OFF nie. Wymaga odbioru V9.40.
+F[424],SymWyjsc,Aktywna symulacja wyjsc na kontrolerze; blokuje produkcje. ON tak; OFF nie. Wymaga odbioru V9.40.
+F[425],W_HOME,Aktualna odebrana Reference Position grupy 1; nie flaga ostatniego ruchu. ON tak; OFF nie. Wymaga odbioru V9.40.
+F[426],MainPracuje,Natywna praca main aktualnego wlasciciela; nie PLC_SVC. ON tak; OFF nie. Wymaga odbioru V9.40.
+F[427],MainPauza,Natywne PAUSE aktualnego main; nadal zajmuje wybor. ON tak; OFF nie. Wymaga odbioru V9.40.
+F[428],BOXPraca,"Natywny MAIN_BOX: wykonywany. ON tak, OFF nie; nie status PLC_SVC."
+F[429],BOXPauza,"Natywny MAIN_BOX: PAUSE. ON tak, OFF nie; nie status PLC_SVC."
+F[42],TCzekaNowyID,Pelny ladunek ma pelny ACK; czeka na nowy stackId. ON: opisany warunek/zadanie; OFF: brak.
+F[430],TRAYPraca,"Natywny MAIN_TRAY: wykonywany. ON tak, OFF nie; nie status PLC_SVC."
+F[431],TRAYPauza,"Natywny MAIN_TRAY: PAUSE. ON tak, OFF nie; nie status PLC_SVC."
+F[43],TPomLadBG,Roboczy wynik BG: badany obwod nalezy do znanego niesionego ladunku. ON: opisany warunek/zadanie; OFF: brak.
+F[44],TPomZwolBG,Roboczy wynik BG: badany obwod jest celowo zwalniany. ON: opisany warunek/zadanie; OFF: brak.
+F[45],TZlecPoprz,Poprzednio bylo aktywne zlecenie; zamkniecie wymaga nowego/uzgodnionego kontekstu. ON: opisany warunek/zadanie; OFF: brak.
+F[46],TDrogaWazna,Natywny main w AUTO bez TP/PAUSE pozwala uzyc potwierdzenia wyjazdu. ON: opisany warunek/zadanie; OFF: brak.
+F[47],TZadApply,Jednorazowe zadanie walidacji i skopiowania staging do aktywnych nastaw; konsumowane. ON: opisany warunek/zadanie; OFF: brak.
+F[48],TZadWyjscie,Jednorazowe zadanie zwolnienia main; BG wymaga zamknietego pustego rozliczonego postoju. ON: opisany warunek/zadanie; OFF: brak.
+F[4],TStanSprawdz,Operator sprawdzil ladunek i rozliczenia PLC oraz uzgodnil kontekst. ON: opisany warunek/zadanie; OFF: brak.
+F[501],RxWindZez,Snapshot odebrany przez PLC_RX. 1: przyznany dostep do tego obszaru przy utrzymanym accessReq i blokadach. Kierunek: PLC do robota.
+F[502],RxWindGot,Snapshot odebrany przez PLC_RX. 1: material/urzadzenie gotowe; nie jest przyznaniem dostepu. Kierunek: PLC do robota.
+F[503],RxWindWaz,Snapshot odebrany przez PLC_RX. 1: aktualne dane zaleznych urzadzen. Kierunek: PLC do robota.
+F[504],RxZrodZez,Snapshot odebrany przez PLC_RX. 1: przyznany dostep do tego obszaru przy utrzymanym accessReq i blokadach. Kierunek: PLC do robota.
+F[506],RxZrodWaz,Snapshot odebrany przez PLC_RX. 1: aktualne dane zaleznych urzadzen. Kierunek: PLC do robota.
+F[507],RxMagZez,Snapshot odebrany przez PLC_RX. 1: przyznany dostep do tego obszaru przy utrzymanym accessReq i blokadach. Kierunek: PLC do robota.
+F[508],RxMagGot,Snapshot odebrany przez PLC_RX. 1: material/urzadzenie gotowe; nie jest przyznaniem dostepu. Kierunek: PLC do robota.
+F[509],RxMagWaz,Snapshot odebrany przez PLC_RX. 1: aktualne dane zaleznych urzadzen. Kierunek: PLC do robota.
+F[510],RxV501AkHome,Snapshot odebrany przez PLC_RX. 1: biezace zadanie HOME przyjete przez arbitraz. Kierunek: PLC do robota.
+F[511],RxV501AkWork,Snapshot odebrany przez PLC_RX. 1: biezace zadanie WORK przyjete przez arbitraz. Kierunek: PLC do robota.
+F[512],RxV501WHome,Snapshot odebrany przez PLC_RX. 1: rzeczywiste HOME po filtracji; 0: brak potwierdzenia HOME. Kierunek: PLC do robota.
+F[513],RxV501WWork,Snapshot odebrany przez PLC_RX. 1: rzeczywiste WORK po filtracji; 0: brak potwierdzenia WORK. Kierunek: PLC do robota.
+F[515],RxV501Waz,Snapshot odebrany przez PLC_RX. 1: aktualne czujniki i diagnostyka; 0: nie uzywac potwierdzen. Kierunek: PLC do robota.
+F[516],RxV502AkHome,Snapshot odebrany przez PLC_RX. 1: biezace zadanie HOME przyjete przez arbitraz. Kierunek: PLC do robota.
+F[517],RxV502AkWork,Snapshot odebrany przez PLC_RX. 1: biezace zadanie WORK przyjete przez arbitraz. Kierunek: PLC do robota.
+F[518],RxV502WHome,Snapshot odebrany przez PLC_RX. 1: rzeczywiste HOME po filtracji; 0: brak potwierdzenia HOME. Kierunek: PLC do robota.
+F[519],RxV502WWork,Snapshot odebrany przez PLC_RX. 1: rzeczywiste WORK po filtracji; 0: brak potwierdzenia WORK. Kierunek: PLC do robota.
+F[521],RxV502Waz,Snapshot odebrany przez PLC_RX. 1: aktualne czujniki i diagnostyka; 0: nie uzywac potwierdzen. Kierunek: PLC do robota.
+F[522],RxV503AkHome,Snapshot odebrany przez PLC_RX. 1: biezace zadanie HOME przyjete przez arbitraz. Kierunek: PLC do robota.
+F[523],RxV503AkWork,Snapshot odebrany przez PLC_RX. 1: biezace zadanie WORK przyjete przez arbitraz. Kierunek: PLC do robota.
+F[524],RxV503WHome,Snapshot odebrany przez PLC_RX. 1: rzeczywiste HOME po filtracji; 0: brak potwierdzenia HOME. Kierunek: PLC do robota.
+F[525],RxV503WWork,Snapshot odebrany przez PLC_RX. 1: rzeczywiste WORK po filtracji; 0: brak potwierdzenia WORK. Kierunek: PLC do robota.
+F[527],RxV503Waz,Snapshot odebrany przez PLC_RX. 1: aktualne czujniki i diagnostyka; 0: nie uzywac potwierdzen. Kierunek: PLC do robota.
+F[528],RxV504AkHome,Snapshot odebrany przez PLC_RX. 1: biezace zadanie HOME przyjete przez arbitraz. Kierunek: PLC do robota.
+F[529],RxV504AkWork,Snapshot odebrany przez PLC_RX. 1: biezace zadanie WORK przyjete przez arbitraz. Kierunek: PLC do robota.
+F[530],RxV504WHome,Snapshot odebrany przez PLC_RX. 1: rzeczywiste HOME po filtracji; 0: brak potwierdzenia HOME. Kierunek: PLC do robota.
+F[531],RxV504WWork,Snapshot odebrany przez PLC_RX. 1: rzeczywiste WORK po filtracji; 0: brak potwierdzenia WORK. Kierunek: PLC do robota.
+F[533],RxV504Waz,Snapshot odebrany przez PLC_RX. 1: aktualne czujniki i diagnostyka; 0: nie uzywac potwierdzen. Kierunek: PLC do robota.
+F[534],RxV505AkHome,Snapshot odebrany przez PLC_RX. 1: biezace zadanie HOME przyjete przez arbitraz. Kierunek: PLC do robota.
+F[535],RxV505AkWork,Snapshot odebrany przez PLC_RX. 1: biezace zadanie WORK przyjete przez arbitraz. Kierunek: PLC do robota.
+F[536],RxV505WHome,Snapshot odebrany przez PLC_RX. 1: rzeczywiste HOME po filtracji; 0: brak potwierdzenia HOME. Kierunek: PLC do robota.
+F[537],RxV505WWork,Snapshot odebrany przez PLC_RX. 1: rzeczywiste WORK po filtracji; 0: brak potwierdzenia WORK. Kierunek: PLC do robota.
+F[539],RxV505Waz,Snapshot odebrany przez PLC_RX. 1: aktualne czujniki i diagnostyka; 0: nie uzywac potwierdzen. Kierunek: PLC do robota.
+F[540],RxPelTacACK,Snapshot odebrany przez PLC_RX. 1: ukonczenie pojedynczego blistra zarejestrowane raz. Kierunek: PLC do robota.
+F[541],RxPobrTaACK,Snapshot odebrany przez PLC_RX. 1: zdarzenie blisterPicked zarejestrowane dokladnie raz w biezacej sesji; 0: kanal wolny po req=0. Kierunek: PLC do robota.
+F[542],RxOdlTacACK,Snapshot odebrany przez PLC_RX. 1: zdarzenie blisterPlaced zarejestrowane dokladnie raz w biezacej sesji; 0: kanal wolny po req=0. Kierunek: PLC do robota.
+F[543],RxPobrIMACK,Snapshot odebrany przez PLC_RX. 1: zdarzenie immPickupCompleted zarejestrowane dokladnie raz w biezacej sesji; 0: kanal wolny po req=0. Kierunek: PLC do robota.
+F[544],RxWarstwACK,Snapshot odebrany przez PLC_RX. 1: zdarzenie layerFinished zarejestrowane dokladnie raz w biezacej sesji; 0: kanal wolny po req=0. Kierunek: PLC do robota.
+F[545],RxDobreACK,Snapshot odebrany przez PLC_RX. 1: zdarzenie productsPlaced zarejestrowane dokladnie raz w biezacej sesji; 0: kanal wolny po req=0. Kierunek: PLC do robota.
+F[546],RxProbkiACK,Snapshot odebrany przez PLC_RX. 1: zdarzenie samplesPlaced zarejestrowane dokladnie raz w biezacej sesji; 0: kanal wolny po req=0. Kierunek: PLC do robota.
+F[547],RxPrzeklACK,Snapshot odebrany przez PLC_RX. 1: zdarzenie spacerPlaced zarejestrowane dokladnie raz w biezacej sesji; 0: kanal wolny po req=0. Kierunek: PLC do robota.
+F[548],RxPelLadACK,Snapshot odebrany przez PLC_RX. 1: zdarzenie stackFinished zarejestrowane dokladnie raz w biezacej sesji; 0: kanal wolny po req=0. Kierunek: PLC do robota.
+F[553],RxIMMCyklZnany,"Snapshot odebrany przez PLC_RX. 1: model rozpoczetych wtryskow uzgodniony; 0: stan nieznany, blokada nowych cykli. Kierunek: PLC do robota."
+F[554],RxIMMWyrzTyl,Snapshot odebrany przez PLC_RX. 1: wyrzutnik w pozycji tylnej. Kierunek: PLC do robota.
+F[555],RxIMMWyrzPrz,Snapshot odebrany przez PLC_RX. 1: wyrzutnik w pozycji przedniej. Kierunek: PLC do robota.
+F[556],RxIMMFormaZam,Snapshot odebrany przez PLC_RX. 1: potwierdzona forma zamknieta; nie dowodzi rozpoczecia wtrysku. Kierunek: PLC do robota.
+F[558],RxIMMFormaOtw,Snapshot odebrany przez PLC_RX. 1: potwierdzona forma otwarta. Kierunek: PLC do robota.
+F[559],RxIMMNowyCykl,Snapshot odebrany przez PLC_RX. 1: PLC pozwala na nowy wtrysk w biezacej fazie; 0: blokada nowych wtryskow. Kierunek: PLC do robota.
+F[560],RxIMMDoPobr,Snapshot odebrany przez PLC_RX. 1: cycleId przydzielono do nowego pobrania i jeszcze go nie potwierdzono przez immPickupCompleted; 0: nie rozpoczynac ponownego pobrania tego identyfikatora. Kierunek: PLC do robota.
+F[561],RxIMMOdrzut,Snapshot odebrany przez PLC_RX. 1: odrzut detali w powiazanym cyklu; 0: brak odrzutu. Kierunek: PLC do robota.
+F[562],RxIMMRozlicz,Snapshot odebrany przez PLC_RX. 1: rozliczone rozpoczete wtryski i wymagane operacje maszyny. Kierunek: PLC do robota.
+F[563],RxIMMWaz,Snapshot odebrany przez PLC_RX. 1: dane EUROMAP aktualne i znormalizowane; 0: niewazne. Kierunek: PLC do robota.
+F[564],RxIMMZRobot,Snapshot odebrany przez PLC_RX. 1: maszyna potwierdza wspolprace z robotem po normalizacji. Kierunek: PLC do robota.
+F[568],RxProdKrytBlok,Snapshot odebrany przez PLC_RX. 1: blokada krytyczna; 0: brak zgloszonej blokady. Nie jest sygnalem safety. Kierunek: PLC do robota.
+F[569],RxProdKo_cZlec,Snapshot odebrany przez PLC_RX. 1: zakonczyc operacje; PLC nastepnie oproznia stacje. Kierunek: PLC do robota.
+F[570],RxProdDo_czZez,Snapshot odebrany przez PLC_RX. 1: dozwolone dokonczenie rozliczanych operacji przy spelnionych blokadach; 0: brak pozwolenia. Kierunek: PLC do robota.
+F[571],RxProdNoweZez,Snapshot odebrany przez PLC_RX. 1: mozna rozpoczac nowa operacje produkcyjna; 0: nie rozpoczynac kolejnej. Kierunek: PLC do robota.
+F[572],RxProdZlecON,Snapshot odebrany przez PLC_RX. 1: zlecenie otwarte; 0: brak aktywnego zlecenia. Kierunek: PLC do robota.
+F[573],RxProdRecovery,Snapshot odebrany przez PLC_RX. 1: wymagane uzgodnienie stanu; 0: uzgodniony stan. Kierunek: PLC do robota.
+F[574],RxProdStop,Snapshot odebrany przez PLC_RX. 1: normalny Stop; trzymac do rozliczenia i swiadomego wznowienia. Kierunek: PLC do robota.
+F[575],RxProdZRobot,Snapshot odebrany przez PLC_RX. 1: wspolpraca wybrana; 0: samodzielny Krauss po wymaganym Stop i HOME. Kierunek: PLC do robota.
+F[577],RxVac1Akc,Snapshot odebrany przez PLC_RX. 1: biezacy cmdValid/hold zostal przyjety. Kierunek: PLC do robota.
+F[578],RxVac1DmACK,Snapshot odebrany przez PLC_RX. 1: terminalny wynik przedmuchu dostepny; trzymany do blowReq=0. Kierunek: PLC do robota.
+F[580],RxVac1TrzymAkt,Snapshot odebrany przez PLC_RX. 1: koncowa komenda prozni jest zalaczona; nie jest pomiarem podcisnienia. Kierunek: PLC do robota.
+F[581],RxVac1OK,Snapshot odebrany przez PLC_RX. 1: rzeczywiste podcisnienie OK; 0: prog nieosiagniety; wazne z valid. Kierunek: PLC do robota.
+F[582],RxVac1Waz,Snapshot odebrany przez PLC_RX. 1: aktualne wejscia i diagnostyka obwodu. Kierunek: PLC do robota.
+F[583],RxVac2Akc,Snapshot odebrany przez PLC_RX. 1: biezacy cmdValid/hold zostal przyjety. Kierunek: PLC do robota.
+F[584],RxVac2DmACK,Snapshot odebrany przez PLC_RX. 1: terminalny wynik przedmuchu dostepny; trzymany do blowReq=0. Kierunek: PLC do robota.
+F[586],RxVac2TrzymAkt,Snapshot odebrany przez PLC_RX. 1: koncowa komenda prozni jest zalaczona; nie jest pomiarem podcisnienia. Kierunek: PLC do robota.
+F[587],RxVac2OK,Snapshot odebrany przez PLC_RX. 1: rzeczywiste podcisnienie OK; 0: prog nieosiagniety; wazne z valid. Kierunek: PLC do robota.
+F[588],RxVac2Waz,Snapshot odebrany przez PLC_RX. 1: aktualne wejscia i diagnostyka obwodu. Kierunek: PLC do robota.
+F[589],RxVac3Akc,Snapshot odebrany przez PLC_RX. 1: biezacy cmdValid/hold zostal przyjety. Kierunek: PLC do robota.
+F[590],RxVac3DmACK,Snapshot odebrany przez PLC_RX. 1: terminalny wynik przedmuchu dostepny; trzymany do blowReq=0. Kierunek: PLC do robota.
+F[592],RxVac3TrzymAkt,Snapshot odebrany przez PLC_RX. 1: koncowa komenda prozni jest zalaczona; nie jest pomiarem podcisnienia. Kierunek: PLC do robota.
+F[593],RxVac3OK,Snapshot odebrany przez PLC_RX. 1: rzeczywiste podcisnienie OK; 0: prog nieosiagniety; wazne z valid. Kierunek: PLC do robota.
+F[594],RxVac3Waz,Snapshot odebrany przez PLC_RX. 1: aktualne wejscia i diagnostyka obwodu. Kierunek: PLC do robota.
+F[595],RxVac4Akc,Snapshot odebrany przez PLC_RX. 1: biezacy cmdValid/hold zostal przyjety. Kierunek: PLC do robota.
+F[596],RxVac4DmACK,Snapshot odebrany przez PLC_RX. 1: terminalny wynik przedmuchu dostepny; trzymany do blowReq=0. Kierunek: PLC do robota.
+F[598],RxVac4TrzymAkt,Snapshot odebrany przez PLC_RX. 1: koncowa komenda prozni jest zalaczona; nie jest pomiarem podcisnienia. Kierunek: PLC do robota.
+F[599],RxVac4OK,Snapshot odebrany przez PLC_RX. 1: rzeczywiste podcisnienie OK; 0: prog nieosiagniety; wazne z valid. Kierunek: PLC do robota.
+F[59],TNauczPR1,Potwierdzono nauke/odbior PR1 dla TRAY. ON zatwierdzony; OFF ruch zablokowany.
+F[5],TStacjaPusta,Operator potwierdzil pusty postoj dla INIT/APPLY/zmiany programu; nie automatyczny czujnik. ON: opisany warunek/zadanie; OFF: brak.
+F[600],RxVac4Waz,Snapshot odebrany przez PLC_RX. 1: aktualne wejscia i diagnostyka obwodu. Kierunek: PLC do robota.
+F[601],RxVac5Akc,Snapshot odebrany przez PLC_RX. 1: biezacy cmdValid/hold zostal przyjety. Kierunek: PLC do robota.
+F[602],RxVac5DmACK,Snapshot odebrany przez PLC_RX. 1: terminalny wynik przedmuchu dostepny; trzymany do blowReq=0. Kierunek: PLC do robota.
+F[604],RxVac5TrzymAkt,Snapshot odebrany przez PLC_RX. 1: koncowa komenda prozni jest zalaczona; nie jest pomiarem podcisnienia. Kierunek: PLC do robota.
+F[605],RxVac5OK,Snapshot odebrany przez PLC_RX. 1: rzeczywiste podcisnienie OK; 0: prog nieosiagniety; wazne z valid. Kierunek: PLC do robota.
+F[606],RxVac5Waz,Snapshot odebrany przez PLC_RX. 1: aktualne wejscia i diagnostyka obwodu. Kierunek: PLC do robota.
+F[607],RxOdrzutACK,Snapshot odebrany przez PLC_RX. Odrzut zarejestrowany raz dla biezacego REQ; utrzymac ACK do REQ=0. Kierunek: PLC do robota.
+F[608],CmdWindWejReq,Lokalne zadanie lub status aplikacji. 1: robot zada dostepu; 0: zwalnia zadanie po opuszczeniu obszaru. Kierunek: Robot do PLC.
+F[609],CmdWindPoza,Lokalne zadanie lub status aplikacji. 1: robot faktycznie poza obszarem i nie planuje wejscia bez nowego przyznania; 0: brak zwolnienia. Nie jest safety. Kierunek: Robot do PLC.
+F[60],TNauczPR2,Potwierdzono nauke/odbior PR2 dla TRAY. ON zatwierdzony; OFF ruch zablokowany.
+F[610],CmdZrodWejReq,Lokalne zadanie lub status aplikacji. 1: robot zada dostepu; 0: zwalnia zadanie po opuszczeniu obszaru. Kierunek: Robot do PLC.
+F[611],CmdZrodPoza,Lokalne zadanie lub status aplikacji. 1: robot faktycznie poza obszarem i nie planuje wejscia bez nowego przyznania; 0: brak zwolnienia. Nie jest safety. Kierunek: Robot do PLC.
+F[612],CmdMagWejReq,Lokalne zadanie lub status aplikacji. 1: robot zada dostepu; 0: zwalnia zadanie po opuszczeniu obszaru. Kierunek: Robot do PLC.
+F[613],CmdMagPoza,Lokalne zadanie lub status aplikacji. 1: robot faktycznie poza obszarem i nie planuje wejscia bez nowego przyznania; 0: brak zwolnienia. Nie jest safety. Kierunek: Robot do PLC.
+F[614],CmdV501Home,"Lokalne zadanie lub status aplikacji. 1: zadanie pozycji HOME; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC."
+F[615],CmdV501Work,"Lokalne zadanie lub status aplikacji. 1: zadanie pozycji WORK; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC."
+F[616],CmdV502Home,"Lokalne zadanie lub status aplikacji. 1: zadanie pozycji HOME; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC."
+F[617],CmdV502Work,"Lokalne zadanie lub status aplikacji. 1: zadanie pozycji WORK; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC."
+F[618],CmdV503Home,"Lokalne zadanie lub status aplikacji. 1: zadanie pozycji HOME; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC."
+F[619],CmdV503Work,"Lokalne zadanie lub status aplikacji. 1: zadanie pozycji WORK; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC."
+F[61],TNauczPR3,Potwierdzono nauke/odbior PR3 dla TRAY. ON zatwierdzony; OFF ruch zablokowany.
+F[620],CmdV504Home,"Lokalne zadanie lub status aplikacji. 1: zadanie pozycji HOME; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC."
+F[621],CmdV504Work,"Lokalne zadanie lub status aplikacji. 1: zadanie pozycji WORK; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC."
+F[622],CmdV505Home,"Lokalne zadanie lub status aplikacji. 1: zadanie pozycji HOME; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC."
+F[623],CmdV505Work,"Lokalne zadanie lub status aplikacji. 1: zadanie pozycji WORK; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC."
+F[624],CmdPelTacReq,Lokalne zadanie lub status aplikacji. 1: pojedynczy blister napelniony; nie oznacza ukonczenia stosu. Kierunek: Robot do PLC.
+F[625],CmdPobrTaReq,Lokalne zadanie lub status aplikacji. 1: nowe zdarzenie blisterPicked; utrzymac do ACK; nastepne po pelnym wyzerowaniu kanalu. Kierunek: Robot do PLC.
+F[626],CmdOdlTacReq,Lokalne zadanie lub status aplikacji. 1: nowe zdarzenie blisterPlaced; utrzymac do ACK; nastepne po pelnym wyzerowaniu kanalu. Kierunek: Robot do PLC.
+F[627],CmdPobrIMReq,Lokalne zadanie lub status aplikacji. 1: nowe zdarzenie immPickupCompleted; utrzymac do ACK; nastepne po pelnym wyzerowaniu kanalu. Kierunek: Robot do PLC.
+F[628],CmdWarstwReq,Lokalne zadanie lub status aplikacji. 1: nowe zdarzenie layerFinished; utrzymac do ACK; nastepne po pelnym wyzerowaniu kanalu. Kierunek: Robot do PLC.
+F[629],CmdDobreReq,Lokalne zadanie lub status aplikacji. 1: nowe zdarzenie productsPlaced; utrzymac do ACK; nastepne po pelnym wyzerowaniu kanalu. Kierunek: Robot do PLC.
+F[62],TNauczPR4,Potwierdzono nauke/odbior PR4 dla TRAY. ON zatwierdzony; OFF ruch zablokowany.
+F[630],CmdProbkiReq,Lokalne zadanie lub status aplikacji. 1: nowe zdarzenie samplesPlaced; utrzymac do ACK; nastepne po pelnym wyzerowaniu kanalu. Kierunek: Robot do PLC.
+F[631],CmdPrzeklReq,Lokalne zadanie lub status aplikacji. 1: nowe zdarzenie spacerPlaced; utrzymac do ACK; nastepne po pelnym wyzerowaniu kanalu. Kierunek: Robot do PLC.
+F[632],CmdPelLadReq,Lokalne zadanie lub status aplikacji. 1: nowe zdarzenie stackFinished; utrzymac do ACK; nastepne po pelnym wyzerowaniu kanalu. Kierunek: Robot do PLC.
+F[633],CmdIMMZWyrzTyl,Lokalne zadanie lub status aplikacji. 1: robot zada procesowego pozwolenia ejectorBack; 0: nie zada. PLC kontroluje koncowe wyjscie. Kierunek: Robot do PLC.
+F[634],CmdIMMZWyrzPrz,Lokalne zadanie lub status aplikacji. 1: robot zada procesowego pozwolenia ejectorForward; 0: nie zada. PLC kontroluje koncowe wyjscie. Kierunek: Robot do PLC.
+F[635],CmdIMMZZ_Forme,Lokalne zadanie lub status aplikacji. 1: robot zada procesowego pozwolenia mouldClose; 0: nie zada. PLC kontroluje koncowe wyjscie. Kierunek: Robot do PLC.
+F[636],CmdIMMZO_Forme,Lokalne zadanie lub status aplikacji. 1: robot zada procesowego pozwolenia mouldFullOpen; 0: nie zada. PLC kontroluje koncowe wyjscie. Kierunek: Robot do PLC.
+F[63],TNauczPR5,Potwierdzono nauke/odbior PR5 dla TRAY. ON zatwierdzony; OFF ruch zablokowany.
+F[640],CmdProdT_bAUTO,Lokalne zadanie lub status aplikacji. 1: AUTO; 0: poza AUTO. Kierunek: Robot do PLC.
+F[641],CmdProdE_opAkt,Lokalne zadanie lub status aplikacji. 1: diagnostyczny E-STOP; nie zastepuje toru bezpieczenstwa. Kierunek: Robot do PLC.
+F[642],CmdProdA_obota,Lokalne zadanie lub status aplikacji. 1: blad FANUC; 0: brak zgloszonego bledu. Kierunek: Robot do PLC.
+F[643],CmdProdHome,Lokalne zadanie lub status aplikacji. 1: potwierdzone HOME z monitorowania pozycji; nie ustawiac stale w programie. Kierunek: Robot do PLC.
+F[644],CmdProdS_Wejsc,Lokalne zadanie lub status aplikacji. 1: symulowane wejscia; blokada odbioru produkcyjnego. Kierunek: Robot do PLC.
+F[645],CmdProdL_Znany,"Lokalne zadanie lub status aplikacji. 1: maska ladunku uzgodniona z czujnikami; 0: stan nieznany, nie traktowac jako pusty. Kierunek: Robot do PLC."
+F[646],CmdProdO_rRozl,Lokalne zadanie lub status aplikacji. 1: robot rozliczyl pobranie/odlozenie wszystkich przypisanych rozpoczetych wtryskow; nie potwierdza transferow PLC. Kierunek: Robot do PLC.
+F[647],CmdProdS_Wyjsc,Lokalne zadanie lub status aplikacji. 1: symulowane wyjscia; blokada odbioru produkcyjnego. Kierunek: Robot do PLC.
+F[648],CmdProdPraca,Lokalne zadanie lub status aplikacji. 1: program produkcyjny wykonuje sie; 0: nie wykonuje sie. Kierunek: Robot do PLC.
+F[649],CmdProdZatrzym,Lokalne zadanie lub status aplikacji. 1: konczenie rozpoczetych operacji. Kierunek: Robot do PLC.
+F[64],TNauczPR6,Potwierdzono nauke/odbior PR6 dla TRAY. ON zatwierdzony; OFF ruch zablokowany.
+F[650],CmdProdS_Gotow,Lokalne zadanie lub status aplikacji. 1: gotowosc systemu; 0: brak. Kierunek: Robot do PLC.
+F[651],CmdProdTrybT1,Lokalne zadanie lub status aplikacji. 1: T1; 0: nie T1. Kierunek: Robot do PLC.
+F[652],CmdProdTrybT2,Lokalne zadanie lub status aplikacji. 1: T2; 0: nie T2. Kierunek: Robot do PLC.
+F[653],CmdProdP_antON,Lokalne zadanie lub status aplikacji. 1: pendant aktywny; 0: nieaktywny. Kierunek: Robot do PLC.
+F[654],CmdProdC_Start,Lokalne zadanie lub status aplikacji. 1: oczekiwanie na swiadome wznowienie. Kierunek: Robot do PLC.
+F[655],CmdProbkiACK,Lokalne zadanie lub status aplikacji. 1: zadanie probek przyjete; nie oznacza odlozenia; ukonczenie przez event.samplesPlaced. Kierunek: Robot do PLC.
+F[656],CmdVac1DmReq,Lokalne zadanie lub status aplikacji. 1: jednorazowy przedmuch; utrzymac do blowAck; 0: brak/zwolnienie zadania. Kierunek: Robot do PLC.
+F[657],CmdVac1WazCmd,"Lokalne zadanie lub status aplikacji. 1: jawnie zadany stan prozni; 0: brak nowego zadania, nie wylacza samoczynnie podcisnienia. Kierunek: Robot do PLC."
+F[658],CmdVac1Trzymaj,"Lokalne zadanie lub status aplikacji. 1: utrzymuj proznie; 0: zadaj wylaczenia, tylko gdy cmdValid=1. Kierunek: Robot do PLC."
+F[659],CmdVac2DmReq,Lokalne zadanie lub status aplikacji. 1: jednorazowy przedmuch; utrzymac do blowAck; 0: brak/zwolnienie zadania. Kierunek: Robot do PLC.
+F[65],TNauczPR7,Potwierdzono nauke/odbior PR7 dla TRAY. ON zatwierdzony; OFF ruch zablokowany.
+F[660],CmdVac2WazCmd,"Lokalne zadanie lub status aplikacji. 1: jawnie zadany stan prozni; 0: brak nowego zadania, nie wylacza samoczynnie podcisnienia. Kierunek: Robot do PLC."
+F[661],CmdVac2Trzymaj,"Lokalne zadanie lub status aplikacji. 1: utrzymuj proznie; 0: zadaj wylaczenia, tylko gdy cmdValid=1. Kierunek: Robot do PLC."
+F[662],CmdVac3DmReq,Lokalne zadanie lub status aplikacji. 1: jednorazowy przedmuch; utrzymac do blowAck; 0: brak/zwolnienie zadania. Kierunek: Robot do PLC.
+F[663],CmdVac3WazCmd,"Lokalne zadanie lub status aplikacji. 1: jawnie zadany stan prozni; 0: brak nowego zadania, nie wylacza samoczynnie podcisnienia. Kierunek: Robot do PLC."
+F[664],CmdVac3Trzymaj,"Lokalne zadanie lub status aplikacji. 1: utrzymuj proznie; 0: zadaj wylaczenia, tylko gdy cmdValid=1. Kierunek: Robot do PLC."
+F[665],CmdVac4DmReq,Lokalne zadanie lub status aplikacji. 1: jednorazowy przedmuch; utrzymac do blowAck; 0: brak/zwolnienie zadania. Kierunek: Robot do PLC.
+F[666],CmdVac4WazCmd,"Lokalne zadanie lub status aplikacji. 1: jawnie zadany stan prozni; 0: brak nowego zadania, nie wylacza samoczynnie podcisnienia. Kierunek: Robot do PLC."
+F[667],CmdVac4Trzymaj,"Lokalne zadanie lub status aplikacji. 1: utrzymuj proznie; 0: zadaj wylaczenia, tylko gdy cmdValid=1. Kierunek: Robot do PLC."
+F[668],CmdVac5DmReq,Lokalne zadanie lub status aplikacji. 1: jednorazowy przedmuch; utrzymac do blowAck; 0: brak/zwolnienie zadania. Kierunek: Robot do PLC.
+F[669],CmdVac5WazCmd,"Lokalne zadanie lub status aplikacji. 1: jawnie zadany stan prozni; 0: brak nowego zadania, nie wylacza samoczynnie podcisnienia. Kierunek: Robot do PLC."
+F[66],TNauczPR8,Potwierdzono nauke/odbior PR8 dla TRAY. ON zatwierdzony; OFF ruch zablokowany.
+F[670],CmdVac5Trzymaj,"Lokalne zadanie lub status aplikacji. 1: utrzymuj proznie; 0: zadaj wylaczenia, tylko gdy cmdValid=1. Kierunek: Robot do PLC."
+F[671],CmdOdrzutReq,Lokalne zadanie lub status aplikacji. Potwierdzone odlozenie odrzutu do miejsca probek. Osobny kanal i rozliczenie; nie zwieksza dobrych sztuk ani probek. Pelny REQ/ACK. Kierunek: Robot do PLC.
+F[67],TNauczPR9,Potwierdzono nauke/odbior PR9 dla TRAY. ON zatwierdzony; OFF ruch zablokowany.
+F[68],TNauczPR10,Potwierdzono nauke/odbior PR10 dla TRAY. ON zatwierdzony; OFF ruch zablokowany.
+F[69],TNauczPR11,Potwierdzono nauke/odbior PR11 dla TRAY. ON zatwierdzony; OFF ruch zablokowany.
+F[6],TProfilOK,"Odebrano fizyczny profil chwytaka, maski i cele HOME/WORK. ON: opisany warunek/zadanie; OFF: brak."
+F[70],TNauczPR12,Potwierdzono nauke/odbior PR12 dla TRAY. ON zatwierdzony; OFF ruch zablokowany.
+F[71],TNauczPR13,Potwierdzono nauke/odbior PR13 dla TRAY. ON zatwierdzony; OFF ruch zablokowany.
+F[72],TNauczPR14,Potwierdzono nauke/odbior PR14 dla TRAY. ON zatwierdzony; OFF ruch zablokowany.
+F[739],ProcesUzbr,Main uzbroil proces; OFF robot nie moze wydawac komend wykonawczych. ON opisany warunek/zadanie; OFF brak.
+F[73],TNauczPR15,Potwierdzono nauke/odbior PR15 dla TRAY. ON zatwierdzony; OFF ruch zablokowany.
+F[745],SesjaWazna,Obustronna synchronizacja i gotowosc sa aktualne; OFF brak waznych komend. ON opisany warunek/zadanie; OFF brak.
+F[74],TNauczPR16,Potwierdzono nauke/odbior PR16 dla TRAY. ON zatwierdzony; OFF ruch zablokowany.
+F[752],KomendyDozw,Komunikacja dopuszcza wykonanie po walidacji sesji i procesu; OFF blokada. ON opisany warunek/zadanie; OFF brak.
+F[756],MainWymag,Wybrany main wymaga aktualnych BG; OFF sam serwis komunikacji. ON opisany warunek/zadanie; OFF brak.
+F[757],ProcesDozw,"BG potwierdza blokady procesu, native, profil i zlecenie; OFF ruch i komendy zabronione. ON opisany warunek/zadanie; OFF brak."
+F[758],BGswieze,BG_STATUS i BG_GUARD maja aktualne znaczniki czasu. ON opisany warunek/zadanie; OFF brak.
+F[759],BlokadaBG,Zadano krytyczna blokade i recovery; OFF brak tego zadania. ON opisany warunek/zadanie; OFF brak.
+F[75],TNauczPR17,Potwierdzono nauke/odbior PR17 dla TRAY. ON zatwierdzony; OFF ruch zablokowany.
+F[76],TNauczPR18,Potwierdzono nauke/odbior PR18 dla TRAY. ON zatwierdzony; OFF ruch zablokowany.
+F[77],TNauczPR19,Potwierdzono nauke/odbior PR19 dla TRAY. ON zatwierdzony; OFF ruch zablokowany.
+F[78],TNauczPR20,Potwierdzono nauke/odbior PR20 dla TRAY. ON zatwierdzony; OFF ruch zablokowany.
+F[79],TNauczPR21,Potwierdzono nauke/odbior PR21 dla TRAY. ON zatwierdzony; OFF ruch zablokowany.
+F[7],TDrogiOK,Odebrano trajektorie i geometrie tej produkcji na wlasciwym robocie. ON: opisany warunek/zadanie; OFF: brak.
+F[80],TNauczPR22,Potwierdzono nauke/odbior PR22 dla TRAY. ON zatwierdzony; OFF ruch zablokowany.
+F[81],TNauczPR23,Potwierdzono nauke/odbior PR23 dla TRAY. ON zatwierdzony; OFF ruch zablokowany.
+F[82],TNauczPR24,Potwierdzono nauke/odbior PR24 dla TRAY. ON zatwierdzony; OFF ruch zablokowany.
+F[83],TNauczPR25,Potwierdzono nauke/odbior PR25 dla TRAY. ON zatwierdzony; OFF ruch zablokowany.
+F[84],TNauczPR26,Potwierdzono nauke/odbior PR26 dla TRAY. ON zatwierdzony; OFF ruch zablokowany.
+F[85],TNauczPR27,Potwierdzono nauke/odbior PR27 dla TRAY. ON zatwierdzony; OFF ruch zablokowany.
+F[86],TNauczPR28,Potwierdzono nauke/odbior PR28 dla TRAY. ON zatwierdzony; OFF ruch zablokowany.
+F[87],TNauczPR29,Potwierdzono nauke/odbior PR29 dla TRAY. ON zatwierdzony; OFF ruch zablokowany.
+F[88],TNauczPR30,Potwierdzono nauke/odbior PR30 dla TRAY. ON zatwierdzony; OFF ruch zablokowany.
+F[89],TNauczPR31,Potwierdzono nauke/odbior PR31 dla TRAY. ON zatwierdzony; OFF ruch zablokowany.
+F[8],TAlarmOdebr,Odebrano rzeczywiste zatrzymanie zadania ruchowego przez reakcje alarmowa. ON: opisany warunek/zadanie; OFF: brak.
+F[90],TNauczPR32,Potwierdzono nauke/odbior PR32 dla TRAY. ON zatwierdzony; OFF ruch zablokowany.
+F[91],TNauczPR33,Potwierdzono nauke/odbior PR33 dla TRAY. ON zatwierdzony; OFF ruch zablokowany.
+F[92],TNauczPR34,Potwierdzono nauke/odbior PR34 dla TRAY. ON zatwierdzony; OFF ruch zablokowany.
+F[93],TNauczPR35,Potwierdzono nauke/odbior PR35 dla TRAY. ON zatwierdzony; OFF ruch zablokowany.
+F[94],TNauczPR36,Potwierdzono nauke/odbior PR36 dla TRAY. ON zatwierdzony; OFF ruch zablokowany.
+F[95],TNauczPR37,Potwierdzono nauke/odbior PR37 dla TRAY. ON zatwierdzony; OFF ruch zablokowany.
+F[96],TNauczPR38,Potwierdzono nauke/odbior PR38 dla TRAY. ON zatwierdzony; OFF ruch zablokowany.
+F[97],TNauczPR39,Potwierdzono nauke/odbior PR39 dla TRAY. ON zatwierdzony; OFF ruch zablokowany.
+F[98],TNauczPR40,Potwierdzono nauke/odbior PR40 dla TRAY. ON zatwierdzony; OFF ruch zablokowany.
+PR[10],TP10,Odlozenie pustej tacki. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[11],TP11,Wyjazd poza winde. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[12],TP12,Wjazd w rejon wtryskarki. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[13],TP13,Oczekiwanie przed wejsciem w forme. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[14],TP14,Podejscie do pobrania detali. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[15],TP15,Pobranie partii z formy. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[16],TP16,Wycofanie z detalami poza gniazda formy. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[17],TP17,Wyjazd poza forme i przestrzen IMM. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[18],TP18,Baza grupy 1 w sekcji P1 na pierwszej warstwie. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[19],TP19,Baza grupy 2 w sekcji P1 na pierwszej warstwie. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[1],HOME,"Wspolny HOME, zgodny z odebrana Reference Position. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi."
+PR[20],TP20,Baza grupy 3 w sekcji P1 na pierwszej warstwie. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[21],TP21,Baza grupy 4 w sekcji P1 na pierwszej warstwie. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[22],TP22,Baza grupy 5 w sekcji P1 na pierwszej warstwie. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[23],TP23,Podejscie nad produkty ponad calym zatwierdzonym ladunkiem. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[24],TP24,"Baza grupy 1 dla probek i odrzutow, z osobnym rozliczeniem. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi."
+PR[25],TP25,"Baza grupy 2 dla probek i odrzutow, z osobnym rozliczeniem. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi."
+PR[26],TP26,"Baza grupy 3 dla probek i odrzutow, z osobnym rozliczeniem. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi."
+PR[27],TP27,"Baza grupy 4 dla probek i odrzutow, z osobnym rozliczeniem. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi."
+PR[28],TP28,"Baza grupy 5 dla probek i odrzutow, z osobnym rozliczeniem. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi."
+PR[29],TP29,Obliczany wektor X/Y/Z; nie punkt do nauki.
+PR[2],TP2,Bezpieczny wjazd do zrodla pustych nosnikow. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[30],TP30,Obliczana pozycja szukania; nie punkt do nauki.
+PR[32],TP32,Wjazd do probek/odrzutow. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[33],TP33,Wyjazd z probek/odrzutow. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[34],TP34,Odebrana droga dojscia do HOME. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[35],TP35,Podniesienie po odlozeniu tacki. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[3],TP3,Podejscie do stosu pustych nosnikow. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[41],BP41,Bezpieczny wjazd do zrodla pustych nosnikow. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[42],BP42,Podejscie do stosu pustych nosnikow. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[43],BP43,Poczatek szukania przekladki po Z. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[44],BP44,Dolna granica szukania przekladki. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[45],BP45,Pomocnicza baza podniesienia przekladki; aktualna droga BOX jest obliczana od bazy odlozenia. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[46],BP46,Wyjazd poza zrodlo nosnikow. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[47],BP47,Wjazd do windy ponad maksymalnym zatwierdzonym ladunkiem. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[49],BP49,Baza przekladki na gorze pierwszej warstwy BOX; kolejne dodaja Z. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[4],TP4,Poczatek szukania nosnika po Z. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[50],BP50,Wyjazd poza winde. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[51],BP51,Wjazd w rejon wtryskarki. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[52],BP52,Oczekiwanie przed wejsciem w forme. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[53],BP53,Podejscie do pobrania detali. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[54],BP54,Pobranie partii z formy. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[55],BP55,Wycofanie z detalami poza gniazda formy. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[56],BP56,Wyjazd poza forme i przestrzen IMM. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[57],BP57,Baza grupy 1 w sekcji P1 na pierwszej warstwie. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[58],BP58,Baza grupy 2 w sekcji P1 na pierwszej warstwie. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[59],BP59,Baza grupy 3 w sekcji P1 na pierwszej warstwie. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[5],TP5,Dolna granica Z szukania. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[60],BP60,Baza grupy 4 w sekcji P1 na pierwszej warstwie. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[61],BP61,Baza grupy 5 w sekcji P1 na pierwszej warstwie. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[62],BP62,Podejscie nad produkty ponad calym zatwierdzonym ladunkiem. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[63],BP63,"Baza grupy 1 dla probek i odrzutow, z osobnym rozliczeniem. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi."
+PR[64],BP64,"Baza grupy 2 dla probek i odrzutow, z osobnym rozliczeniem. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi."
+PR[65],BP65,"Baza grupy 3 dla probek i odrzutow, z osobnym rozliczeniem. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi."
+PR[66],BP66,"Baza grupy 4 dla probek i odrzutow, z osobnym rozliczeniem. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi."
+PR[67],BP67,"Baza grupy 5 dla probek i odrzutow, z osobnym rozliczeniem. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi."
+PR[68],BP68,Obliczany wektor X/Y/Z; nie punkt do nauki.
+PR[69],BP69,Obliczana pozycja szukania; nie punkt do nauki.
+PR[6],TP6,Podniesienie pobranego nosnika. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[70],BP70,Obliczana pozycja podejscia/odlozenia/podniesienia; nie punkt do nauki.
+PR[71],BP71,Wjazd do probek/odrzutow. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[72],BP72,Wyjazd z probek/odrzutow. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[73],BP73,Odebrana droga dojscia do HOME. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[7],TP7,Wyjazd poza zrodlo nosnikow. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[80],BP80,Baza grupy 1 w sekcji P2 na pierwszej warstwie. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[81],BP81,Baza grupy 2 w sekcji P2 na pierwszej warstwie. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[82],BP82,Baza grupy 3 w sekcji P2 na pierwszej warstwie. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[83],BP83,Baza grupy 4 w sekcji P2 na pierwszej warstwie. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[84],BP84,Baza grupy 5 w sekcji P2 na pierwszej warstwie. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[85],BP85,Baza grupy 1 w sekcji P3 na pierwszej warstwie. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[86],BP86,Baza grupy 2 w sekcji P3 na pierwszej warstwie. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[87],BP87,Baza grupy 3 w sekcji P3 na pierwszej warstwie. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[88],BP88,Baza grupy 4 w sekcji P3 na pierwszej warstwie. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[89],BP89,Baza grupy 5 w sekcji P3 na pierwszej warstwie. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[8],TP8,Wjazd do windy ponad maksymalnym zatwierdzonym ladunkiem. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+PR[9],TP9,Podejscie nad miejsce pustej tacki. Wspolrzedne do nauki/odbioru; zgodne UF/UT i konfiguracja osi.
+R[100],CmdProdProgram,Lokalne zadanie lub status aplikacji. 0: zaden/nieznany; 1: Pojemniki; 2: Blistry; identyfikacja programu faktycznie uruchomionego. Kierunek: Robot do PLC.
+R[101],CmdProdKrok,Lokalne zadanie lub status aplikacji. Kod miejsca w procedurze wg robot-modernization.md. Kierunek: Robot do PLC.
+R[102],CmdProdC_kaKod,Lokalne zadanie lub status aplikacji. 0 brak; 10 synchronizacja; 20 pozwolenie; 30 IMM; 40 silownik; 50 proznia; 60 obszar; 70 ACK; 80 operator. Kierunek: Robot do PLC. 0 brak; 20 partia; 30 forma; 40 chwytak; 50 proznia/przedmuch; 60 obszar/nosnik; 70 ACK; 80 operator lub Start.
+R[103],CmdProbkiWynik,Lokalne zadanie lub status aplikacji. 0 brak; 1 przyjeto; 2 odrzucono; stabilne przy samples.ack=1. Kierunek: Robot do PLC.
+R[104],CmdOdrzutSzt,Lokalne zadanie lub status aplikacji. Potwierdzona ilosc odlozonej grupy odrzutow 1..65535; nie wiecej niz pozostala ilosc partii. Stabilne od REQ=1 do ACK=0. Kierunek: Robot do PLC.
+R[105],CmdOdrzutCykl,Lokalne zadanie lub status aplikacji. Identyfikator partii odrzutow przypisany przed pobraniem. Stabilne od REQ=1 do ACK=0. Kierunek: Robot do PLC.
+R[106],CmdOdrzutLad,Lokalne zadanie lub status aplikacji. Kontekst stosu w chwili przypisania partii; odrzut nie zapelnia tacki. Stabilne od REQ=1 do ACK=0. Kierunek: Robot do PLC.
+R[10],TSSztG5,"Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Liczba detali grupy 5 [szt.], niezalezna od ssawek i obwodow."
+R[11],TSSiatkaX,Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Liczba pozycji osi X; dodatnia liczba calkowita. P2/P3: obie osie 0 wylaczaja sekcje.
+R[126],StanLacza,"Stan: 0 rozbrojone; 10 zadanie SYNC; 20 wygaszanie ACK; 30 recovery; 40 po jawnym recovery, gotowosc sesji."
+R[129],CzasTeraz_t,Biezacy czas watchdogow [surowe ticki]; czestotliwosc do pomiaru.
+R[12],TSSiatkaY,Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Liczba pozycji osi Y; dodatnia liczba calkowita. P2/P3: obie osie 0 wylaczaja sekcje.
+R[138],SVCczasMax_t,Limit nieaktualnego serwisu lub BG [ticki].
+R[13],TSSkokX_mm,Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Skok pozycji po X UFRAME [mm]; moze byc ujemny.
+R[142],CzasStatus_t,LIVE: czas ostatniego BG_STATUS [ticki]. TEST: syntetyczny zegar testu.
+R[143],StanProbek,0 bezczynna; 10 czeka na decyzje main; 20 utrzymuje ACK do zaniku zadania PLC.
+R[146],CzasGuard_t,"LIVE: czas ostatniego BG_GUARD [ticki]. TEST: 1 PASS, 900 FAIL, 0 niewykonany."
+R[147],PobrTackStan,Kanal: pobranie pustej tacki. Stan wymiany: 0 bezczynna; 10 REQ=1 czeka ACK=1; 20 REQ=0 czeka ACK=0.
+R[148],PobrTackWynik,Kanal: pobranie pustej tacki. Wynik: 0 brak; 10 trwa; 20 sukces (wymaga stanu 0); 30 odrzucono; 40 blad wykonania; 900 utrata sesji; 901 brak pozwolenia; 903 zastane ACK=1; 904 bledny payload.
+R[149],OdlTackStan,Kanal: odlozenie pustej tacki. Stan wymiany: 0 bezczynna; 10 REQ=1 czeka ACK=1; 20 REQ=0 czeka ACK=0.
+R[14],TSSkokY_mm,Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Skok rzedow po Y UFRAME [mm]; moze byc ujemny.
+R[150],OdlTackWynik,Kanal: odlozenie pustej tacki. Wynik: 0 brak; 10 trwa; 20 sukces (wymaga stanu 0); 30 odrzucono; 40 blad wykonania; 900 utrata sesji; 901 brak pozwolenia; 903 zastane ACK=1; 904 bledny payload.
+R[151],PelTackStan,Kanal: napelnienie pojedynczej tacki. Stan wymiany: 0 bezczynna; 10 REQ=1 czeka ACK=1; 20 REQ=0 czeka ACK=0.
+R[152],PelTackWynik,Kanal: napelnienie pojedynczej tacki. Wynik: 0 brak; 10 trwa; 20 sukces (wymaga stanu 0); 30 odrzucono; 40 blad wykonania; 900 utrata sesji; 901 brak pozwolenia; 903 zastane ACK=1; 904 bledny payload.
+R[153],PrzeklStan,Kanal: odlozenie przekladki. Stan wymiany: 0 bezczynna; 10 REQ=1 czeka ACK=1; 20 REQ=0 czeka ACK=0.
+R[154],PrzeklWynik,Kanal: odlozenie przekladki. Wynik: 0 brak; 10 trwa; 20 sukces (wymaga stanu 0); 30 odrzucono; 40 blad wykonania; 900 utrata sesji; 901 brak pozwolenia; 903 zastane ACK=1; 904 bledny payload.
+R[155],DobreStan,Kanal: odlozenie dobrych detali. Stan wymiany: 0 bezczynna; 10 REQ=1 czeka ACK=1; 20 REQ=0 czeka ACK=0.
+R[156],DobreWynik,Kanal: odlozenie dobrych detali. Wynik: 0 brak; 10 trwa; 20 sukces (wymaga stanu 0); 30 odrzucono; 40 blad wykonania; 900 utrata sesji; 901 brak pozwolenia; 903 zastane ACK=1; 904 bledny payload.
+R[157],ProbkiStan,Kanal: odlozenie probek. Stan wymiany: 0 bezczynna; 10 REQ=1 czeka ACK=1; 20 REQ=0 czeka ACK=0.
+R[158],ProbkiWynik,Kanal: odlozenie probek. Wynik: 0 brak; 10 trwa; 20 sukces (wymaga stanu 0); 30 odrzucono; 40 blad wykonania; 900 utrata sesji; 901 brak pozwolenia; 903 zastane ACK=1; 904 bledny payload.
+R[159],WarstwaStan,Kanal: ukonczenie warstwy BOX. Stan wymiany: 0 bezczynna; 10 REQ=1 czeka ACK=1; 20 REQ=0 czeka ACK=0.
+R[15],TSSkokZ_mm,Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. TRAY: wysokosc tacki [mm]. BOX: przyrost Z warstwy razem z przekladka [mm].
+R[160],WarstwaWynik,Kanal: ukonczenie warstwy BOX. Wynik: 0 brak; 10 trwa; 20 sukces (wymaga stanu 0); 30 odrzucono; 40 blad wykonania; 900 utrata sesji; 901 brak pozwolenia; 903 zastane ACK=1; 904 bledny payload.
+R[161],PelLadStan,Kanal: ukonczenie stosu lub pojemnika. Stan wymiany: 0 bezczynna; 10 REQ=1 czeka ACK=1; 20 REQ=0 czeka ACK=0.
+R[162],PelLadWynik,Kanal: ukonczenie stosu lub pojemnika. Wynik: 0 brak; 10 trwa; 20 sukces (wymaga stanu 0); 30 odrzucono; 40 blad wykonania; 900 utrata sesji; 901 brak pozwolenia; 903 zastane ACK=1; 904 bledny payload.
+R[163],PobrIMMStan,Kanal: pobranie partii i wyjazd z IMM. Stan wymiany: 0 bezczynna; 10 REQ=1 czeka ACK=1; 20 REQ=0 czeka ACK=0.
+R[164],PobrIMMWynik,Kanal: pobranie partii i wyjazd z IMM. Wynik: 0 brak; 10 trwa; 20 sukces (wymaga stanu 0); 30 odrzucono; 40 blad wykonania; 900 utrata sesji; 901 brak pozwolenia; 903 zastane ACK=1; 904 bledny payload.
+R[165],OdrzutyStan,Kanal: odlozenie odrzutow. Stan wymiany: 0 bezczynna; 10 REQ=1 czeka ACK=1; 20 REQ=0 czeka ACK=0.
+R[166],OdrzutyWynik,Kanal: odlozenie odrzutow. Wynik: 0 brak; 10 trwa; 20 sukces (wymaga stanu 0); 30 odrzucono; 40 blad wykonania; 900 utrata sesji; 901 brak pozwolenia; 903 zastane ACK=1; 904 bledny payload.
+R[167],Dm1Stan,Kanal: przedmuch obwodu 1. Stan wymiany: 0 bezczynna; 10 REQ=1 czeka ACK=1; 20 REQ=0 czeka ACK=0.
+R[168],Dm1Wynik,Kanal: przedmuch obwodu 1. Wynik: 0 brak; 10 trwa; 20 sukces (wymaga stanu 0); 30 odrzucono; 40 blad wykonania; 900 utrata sesji; 901 brak pozwolenia; 903 zastane ACK=1; 904 bledny payload.
+R[169],Dm2Stan,Kanal: przedmuch obwodu 2. Stan wymiany: 0 bezczynna; 10 REQ=1 czeka ACK=1; 20 REQ=0 czeka ACK=0.
+R[16],TSWarstwMax,Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. TRAY: liczba tacek w stosie. BOX: liczba warstw pojemnika; minimum 1.
+R[170],Dm2Wynik,Kanal: przedmuch obwodu 2. Wynik: 0 brak; 10 trwa; 20 sukces (wymaga stanu 0); 30 odrzucono; 40 blad wykonania; 900 utrata sesji; 901 brak pozwolenia; 903 zastane ACK=1; 904 bledny payload.
+R[171],Dm3Stan,Kanal: przedmuch obwodu 3. Stan wymiany: 0 bezczynna; 10 REQ=1 czeka ACK=1; 20 REQ=0 czeka ACK=0.
+R[172],Dm3Wynik,Kanal: przedmuch obwodu 3. Wynik: 0 brak; 10 trwa; 20 sukces (wymaga stanu 0); 30 odrzucono; 40 blad wykonania; 900 utrata sesji; 901 brak pozwolenia; 903 zastane ACK=1; 904 bledny payload.
+R[173],Dm4Stan,Kanal: przedmuch obwodu 4. Stan wymiany: 0 bezczynna; 10 REQ=1 czeka ACK=1; 20 REQ=0 czeka ACK=0.
+R[174],Dm4Wynik,Kanal: przedmuch obwodu 4. Wynik: 0 brak; 10 trwa; 20 sukces (wymaga stanu 0); 30 odrzucono; 40 blad wykonania; 900 utrata sesji; 901 brak pozwolenia; 903 zastane ACK=1; 904 bledny payload.
+R[175],Dm5Stan,Kanal: przedmuch obwodu 5. Stan wymiany: 0 bezczynna; 10 REQ=1 czeka ACK=1; 20 REQ=0 czeka ACK=0.
+R[176],Dm5Wynik,Kanal: przedmuch obwodu 5. Wynik: 0 brak; 10 trwa; 20 sukces (wymaga stanu 0); 30 odrzucono; 40 blad wykonania; 900 utrata sesji; 901 brak pozwolenia; 903 zastane ACK=1; 904 bledny payload.
+R[177],TACylIMM,"Aktywna kopia po APPLY; nie edytowac podczas produkcji. Cele silownikow do pobrania IMM. Bity 0..4 HOME V501..505, 5..9 WORK; para 00 pomija, 11 blad."
+R[178],TAMaskaPusta,Aktywna kopia po APPLY; nie edytowac podczas produkcji. Obwody pustej tacki TRAY / przekladki BOX. Bit 0..4 = proznia 1..5; maska rozlaczna z produktami.
+R[179],TKrok,Kontekst TRAY. Krok technologii: 10 gotowosc; 200..299 pusty nosnik; 300..399 IMM; 400..499 produkty; 500..699 pelny ladunek/przekladki; 700 powrot HOME; 710 postoj; 900 recovery.
+R[17],TSSzukKrok_mm,Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Dodatni krok szukania pustej tacki/przekladki po ujemnym Z UFRAME [mm].
+R[180],TKrokWybrany,Kontekst TRAY. Zapamietany krok wybrany w tej iteracji; nie jest kodem bledu.
+R[181],TKrokPoprz,Kontekst TRAY. Poprzedni krok do wykrycia zmiany i rozpoczecia pomiaru czasu.
+R[182],TKrokOd_t,Kontekst TRAY. Czas wejscia w krok [surowe ticki zegara]; jednostke zmierzyc na V9.40.
+R[183],TNrCykluIMM,"Kontekst TRAY. Identyfikator przypisanej partii z PLC, zachowany do rozliczenia."
+R[184],TIloscPartii,Kontekst TRAY. Liczba detali przypisana do calej partii IMM [szt.]; zachowana mimo edycji nastaw.
+R[185],TPozostalo,Kontekst TRAY. Pozostala do potwierdzonego rozliczenia ilosc partii [szt.]; maleje po pelnym ACK=0.
+R[186],TGrupa,Kontekst TRAY. Kolejna grupa odkladania 1..5; 6 przechodzi do rozliczenia partii.
+R[187],TPozycja,"Kontekst TRAY. Indeks pozycji od 0, X najszybciej; jedna pozycja na grupe, nie na sztuke."
+R[188],TWarstwa,Kontekst TRAY. Indeks od 0: tacki w stosie TRAY albo warstwy pojemnika BOX.
+R[189],TNrLadunku,Kontekst TRAY. Identyfikator aktualnego stosu TRAY / pojemnika BOX przypisany przez PLC.
+R[18],TSSzukMax_mm,Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Maksymalne dopuszczone zejscie podczas szukania [mm].
+R[190],TStartPoprz,Kontekst TRAY. Ostatnio widziany startToken PLC 0..65535; zastany token nie uruchamia.
+R[191],TMaskaOper,Kontekst TRAY. Maska biezacej operacji; bit 0..4 = obwod prozni 1..5.
+R[192],TIloscGrupy,"Kontekst TRAY. Liczba detali biezacej grupy [szt.], przekazywana do zdarzenia odlozenia."
+R[193],TSzukGleb_mm,Kontekst TRAY. Dotychczasowe zejscie od poczatku szukania pustego nosnika [mm Z].
+R[194],TSzukProba,Kontekst TRAY. Liczba wykonanych krokow szukania pustej tacki/przekladki.
+R[195],TCelPartii,Kontekst TRAY. Przeznaczenie calej partii: 0 dobre; 1 probki; 2 odrzuty do miejsca probek.
+R[196],TPomLiczba,"Kontekst TRAY. Liczba robocza: rodzina = krok DIV 100 albo kanal ACK: 1 pobr.tacki, 2 odl.tacki, 3 pelna tacka, 4 pelny ladunek, 5 IMM, 6 dobre, 7 probki, 8 odrzuty, 9 warstwa BOX, 10 przekladka BOX."
+R[197],TSumaPom,Kontekst TRAY. Robocza suma ilosci lub masek w przypisaniu/recovery; nie licznik produkcji.
+R[198],TCelCylGrupy,"Kontekst TRAY. BOX: cele silownikow aktywnej grupy, bity HOME 0..4 i WORK 5..9. TRAY: rezerwa nieuzywana w procesie."
+R[199],TGrupAktyw,Kontekst TRAY. Liczba aktywnych grup; pojemnosc sekcji/tacki jest jej wielokrotnoscia.
+R[19],TSSzukProbMax,Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Maksymalna liczba krokow szukania; przekroczenie jest bledem.
+R[1],TSMaskG1,Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Maska grupy 1: bit 0..4 = obwod prozni 1..5.
+R[200],TKrokPrzerw,"Kontekst TRAY. Krok przed wejsciem w recovery; diagnostyka, nie automatyczne wznowienie."
+R[201],BSMaskG1,Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Maska grupy 1: bit 0..4 = obwod prozni 1..5.
+R[202],BSMaskG2,Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Maska grupy 2: bit 0..4 = obwod prozni 1..5.
+R[203],BSMaskG3,Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Maska grupy 3: bit 0..4 = obwod prozni 1..5.
+R[204],BSMaskG4,Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Maska grupy 4: bit 0..4 = obwod prozni 1..5.
+R[205],BSMaskG5,Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Maska grupy 5: bit 0..4 = obwod prozni 1..5.
+R[206],BSSztG1,"Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Liczba detali grupy 1 [szt.], niezalezna od ssawek i obwodow."
+R[207],BSSztG2,"Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Liczba detali grupy 2 [szt.], niezalezna od ssawek i obwodow."
+R[208],BSSztG3,"Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Liczba detali grupy 3 [szt.], niezalezna od ssawek i obwodow."
+R[209],BSSztG4,"Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Liczba detali grupy 4 [szt.], niezalezna od ssawek i obwodow."
+R[20],TSPredkosc,"Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Limit predkosci: J w procentach, L w mm/s; zakres 1..100."
+R[210],BSSztG5,"Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Liczba detali grupy 5 [szt.], niezalezna od ssawek i obwodow."
+R[211],BSSiatkaX,Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Liczba pozycji osi X; dodatnia liczba calkowita. P2/P3: obie osie 0 wylaczaja sekcje.
+R[212],BSSiatkaY,Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Liczba pozycji osi Y; dodatnia liczba calkowita. P2/P3: obie osie 0 wylaczaja sekcje.
+R[213],BSSkokX_mm,Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Skok pozycji po X UFRAME [mm]; moze byc ujemny.
+R[214],BSSkokY_mm,Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Skok rzedow po Y UFRAME [mm]; moze byc ujemny.
+R[215],BSSkokZ_mm,Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. TRAY: wysokosc tacki [mm]. BOX: przyrost Z warstwy razem z przekladka [mm].
+R[216],BSWarstwMax,Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. TRAY: liczba tacek w stosie. BOX: liczba warstw pojemnika; minimum 1.
+R[217],BSSzukKrok_mm,Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Dodatni krok szukania pustej tacki/przekladki po ujemnym Z UFRAME [mm].
+R[218],BSSzukMax_mm,Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Maksymalne dopuszczone zejscie podczas szukania [mm].
+R[219],BSSzukProbMax,Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Maksymalna liczba krokow szukania; przekroczenie jest bledem.
+R[21],TSCzasMax_t,"Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Limit oczekiwania chwytaka, IMM i ACK [surowe ticki zegara]."
+R[220],BSPredkosc,"Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Limit predkosci: J w procentach, L w mm/s; zakres 1..100."
+R[221],BSCzasMax_t,"Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Limit oczekiwania chwytaka, IMM i ACK [surowe ticki zegara]."
+R[222],BSNrNarzedzia,Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Numer zatwierdzonego UTOOL; nie zawiera danych TCP.
+R[223],BSNrUkladu,Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Numer zatwierdzonego UFRAME; nie zawiera danych geometrii ukladu.
+R[224],BSCylPrzejazd,"Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Cele silownikow do przejazdu i pustego nosnika. Bity 0..4 HOME V501..505, 5..9 WORK; para 00 pomija, 11 blad."
+R[225],BSCylIMM,"Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Cele silownikow do pobrania IMM. Bity 0..4 HOME V501..505, 5..9 WORK; para 00 pomija, 11 blad."
+R[226],BSMaskaPusta,Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Obwody pustej tacki TRAY / przekladki BOX. Bit 0..4 = proznia 1..5; maska rozlaczna z produktami.
+R[227],BSP2SiatkaX,Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Sekcja P2. Liczba pozycji osi X; dodatnia liczba calkowita. P2/P3: obie osie 0 wylaczaja sekcje.
+R[228],BSP2SiatkaY,Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Sekcja P2. Liczba pozycji osi Y; dodatnia liczba calkowita. P2/P3: obie osie 0 wylaczaja sekcje.
+R[229],BSP2SkokX_mm,Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Sekcja P2. Skok pozycji po X UFRAME [mm]; moze byc ujemny.
+R[22],TSNrNarzedzia,Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Numer zatwierdzonego UTOOL; nie zawiera danych TCP.
+R[230],BSP2SkokY_mm,Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Sekcja P2. Skok rzedow po Y UFRAME [mm]; moze byc ujemny.
+R[231],BSP3SiatkaX,Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Sekcja P3. Liczba pozycji osi X; dodatnia liczba calkowita. P2/P3: obie osie 0 wylaczaja sekcje.
+R[232],BSP3SiatkaY,Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Sekcja P3. Liczba pozycji osi Y; dodatnia liczba calkowita. P2/P3: obie osie 0 wylaczaja sekcje.
+R[233],BSP3SkokX_mm,Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Sekcja P3. Skok pozycji po X UFRAME [mm]; moze byc ujemny.
+R[234],BSP3SkokY_mm,Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Sekcja P3. Skok rzedow po Y UFRAME [mm]; moze byc ujemny.
+R[235],BSCylG1,"Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Cele grupy 1: bity HOME 0..4, WORK 5..9; para 00 pomija, 11 blad."
+R[236],BSCylG2,"Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Cele grupy 2: bity HOME 0..4, WORK 5..9; para 00 pomija, 11 blad."
+R[237],BSCylG3,"Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Cele grupy 3: bity HOME 0..4, WORK 5..9; para 00 pomija, 11 blad."
+R[238],BSCylG4,"Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Cele grupy 4: bity HOME 0..4, WORK 5..9; para 00 pomija, 11 blad."
+R[239],BSCylG5,"Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Cele grupy 5: bity HOME 0..4, WORK 5..9; para 00 pomija, 11 blad."
+R[23],TSNrUkladu,Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Numer zatwierdzonego UFRAME; nie zawiera danych geometrii ukladu.
+R[240],BSWzlotDet_mm,Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Dodatnie podejscie i podniesienie nad baza grupy [mm Z UFRAME].
+R[241],BSWzlotPrz_mm,Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Dodatnie podejscie i podniesienie nad baza przekladki [mm Z UFRAME].
+R[242],BAMaskG1,Aktywna kopia po APPLY; nie edytowac podczas produkcji. Maska grupy 1: bit 0..4 = obwod prozni 1..5.
+R[243],BAMaskG2,Aktywna kopia po APPLY; nie edytowac podczas produkcji. Maska grupy 2: bit 0..4 = obwod prozni 1..5.
+R[244],BAMaskG3,Aktywna kopia po APPLY; nie edytowac podczas produkcji. Maska grupy 3: bit 0..4 = obwod prozni 1..5.
+R[245],BAMaskG4,Aktywna kopia po APPLY; nie edytowac podczas produkcji. Maska grupy 4: bit 0..4 = obwod prozni 1..5.
+R[246],BAMaskG5,Aktywna kopia po APPLY; nie edytowac podczas produkcji. Maska grupy 5: bit 0..4 = obwod prozni 1..5.
+R[247],BASztG1,"Aktywna kopia po APPLY; nie edytowac podczas produkcji. Liczba detali grupy 1 [szt.], niezalezna od ssawek i obwodow."
+R[248],BASztG2,"Aktywna kopia po APPLY; nie edytowac podczas produkcji. Liczba detali grupy 2 [szt.], niezalezna od ssawek i obwodow."
+R[249],BASztG3,"Aktywna kopia po APPLY; nie edytowac podczas produkcji. Liczba detali grupy 3 [szt.], niezalezna od ssawek i obwodow."
+R[24],TSCylPrzejazd,"Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Cele silownikow do przejazdu i pustego nosnika. Bity 0..4 HOME V501..505, 5..9 WORK; para 00 pomija, 11 blad."
+R[250],BASztG4,"Aktywna kopia po APPLY; nie edytowac podczas produkcji. Liczba detali grupy 4 [szt.], niezalezna od ssawek i obwodow."
+R[251],BASztG5,"Aktywna kopia po APPLY; nie edytowac podczas produkcji. Liczba detali grupy 5 [szt.], niezalezna od ssawek i obwodow."
+R[252],BASiatkaX,Aktywna kopia po APPLY; nie edytowac podczas produkcji. Liczba pozycji osi X; dodatnia liczba calkowita. P2/P3: obie osie 0 wylaczaja sekcje.
+R[253],BASiatkaY,Aktywna kopia po APPLY; nie edytowac podczas produkcji. Liczba pozycji osi Y; dodatnia liczba calkowita. P2/P3: obie osie 0 wylaczaja sekcje.
+R[254],BASkokX_mm,Aktywna kopia po APPLY; nie edytowac podczas produkcji. Skok pozycji po X UFRAME [mm]; moze byc ujemny.
+R[255],BASkokY_mm,Aktywna kopia po APPLY; nie edytowac podczas produkcji. Skok rzedow po Y UFRAME [mm]; moze byc ujemny.
+R[256],BASkokZ_mm,Aktywna kopia po APPLY; nie edytowac podczas produkcji. TRAY: wysokosc tacki [mm]. BOX: przyrost Z warstwy razem z przekladka [mm].
+R[257],BAWarstwMax,Aktywna kopia po APPLY; nie edytowac podczas produkcji. TRAY: liczba tacek w stosie. BOX: liczba warstw pojemnika; minimum 1.
+R[258],BASzukKrok_mm,Aktywna kopia po APPLY; nie edytowac podczas produkcji. Dodatni krok szukania pustej tacki/przekladki po ujemnym Z UFRAME [mm].
+R[259],BASzukMax_mm,Aktywna kopia po APPLY; nie edytowac podczas produkcji. Maksymalne dopuszczone zejscie podczas szukania [mm].
+R[25],TSCylIMM,"Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Cele silownikow do pobrania IMM. Bity 0..4 HOME V501..505, 5..9 WORK; para 00 pomija, 11 blad."
+R[260],BASzukProbMax,Aktywna kopia po APPLY; nie edytowac podczas produkcji. Maksymalna liczba krokow szukania; przekroczenie jest bledem.
+R[261],BAPredkosc,"Aktywna kopia po APPLY; nie edytowac podczas produkcji. Limit predkosci: J w procentach, L w mm/s; zakres 1..100."
+R[262],BACzasMax_t,"Aktywna kopia po APPLY; nie edytowac podczas produkcji. Limit oczekiwania chwytaka, IMM i ACK [surowe ticki zegara]."
+R[263],BANrNarzedzia,Aktywna kopia po APPLY; nie edytowac podczas produkcji. Numer zatwierdzonego UTOOL; nie zawiera danych TCP.
+R[264],BANrUkladu,Aktywna kopia po APPLY; nie edytowac podczas produkcji. Numer zatwierdzonego UFRAME; nie zawiera danych geometrii ukladu.
+R[265],BACylPrzejazd,"Aktywna kopia po APPLY; nie edytowac podczas produkcji. Cele silownikow do przejazdu i pustego nosnika. Bity 0..4 HOME V501..505, 5..9 WORK; para 00 pomija, 11 blad."
+R[266],BACylIMM,"Aktywna kopia po APPLY; nie edytowac podczas produkcji. Cele silownikow do pobrania IMM. Bity 0..4 HOME V501..505, 5..9 WORK; para 00 pomija, 11 blad."
+R[267],BAMaskaPusta,Aktywna kopia po APPLY; nie edytowac podczas produkcji. Obwody pustej tacki TRAY / przekladki BOX. Bit 0..4 = proznia 1..5; maska rozlaczna z produktami.
+R[268],BAP2SiatkaX,Aktywna kopia po APPLY; nie edytowac podczas produkcji. Sekcja P2. Liczba pozycji osi X; dodatnia liczba calkowita. P2/P3: obie osie 0 wylaczaja sekcje.
+R[269],BAP2SiatkaY,Aktywna kopia po APPLY; nie edytowac podczas produkcji. Sekcja P2. Liczba pozycji osi Y; dodatnia liczba calkowita. P2/P3: obie osie 0 wylaczaja sekcje.
+R[26],TSMaskaPusta,Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Obwody pustej tacki TRAY / przekladki BOX. Bit 0..4 = proznia 1..5; maska rozlaczna z produktami.
+R[270],BAP2SkokX_mm,Aktywna kopia po APPLY; nie edytowac podczas produkcji. Sekcja P2. Skok pozycji po X UFRAME [mm]; moze byc ujemny.
+R[271],BAP2SkokY_mm,Aktywna kopia po APPLY; nie edytowac podczas produkcji. Sekcja P2. Skok rzedow po Y UFRAME [mm]; moze byc ujemny.
+R[272],BAP3SiatkaX,Aktywna kopia po APPLY; nie edytowac podczas produkcji. Sekcja P3. Liczba pozycji osi X; dodatnia liczba calkowita. P2/P3: obie osie 0 wylaczaja sekcje.
+R[273],BAP3SiatkaY,Aktywna kopia po APPLY; nie edytowac podczas produkcji. Sekcja P3. Liczba pozycji osi Y; dodatnia liczba calkowita. P2/P3: obie osie 0 wylaczaja sekcje.
+R[274],BAP3SkokX_mm,Aktywna kopia po APPLY; nie edytowac podczas produkcji. Sekcja P3. Skok pozycji po X UFRAME [mm]; moze byc ujemny.
+R[275],BAP3SkokY_mm,Aktywna kopia po APPLY; nie edytowac podczas produkcji. Sekcja P3. Skok rzedow po Y UFRAME [mm]; moze byc ujemny.
+R[276],BACylG1,"Aktywna kopia po APPLY; nie edytowac podczas produkcji. Cele grupy 1: bity HOME 0..4, WORK 5..9; para 00 pomija, 11 blad."
+R[277],BACylG2,"Aktywna kopia po APPLY; nie edytowac podczas produkcji. Cele grupy 2: bity HOME 0..4, WORK 5..9; para 00 pomija, 11 blad."
+R[278],BACylG3,"Aktywna kopia po APPLY; nie edytowac podczas produkcji. Cele grupy 3: bity HOME 0..4, WORK 5..9; para 00 pomija, 11 blad."
+R[279],BACylG4,"Aktywna kopia po APPLY; nie edytowac podczas produkcji. Cele grupy 4: bity HOME 0..4, WORK 5..9; para 00 pomija, 11 blad."
+R[27],TAMaskG1,Aktywna kopia po APPLY; nie edytowac podczas produkcji. Maska grupy 1: bit 0..4 = obwod prozni 1..5.
+R[280],BACylG5,"Aktywna kopia po APPLY; nie edytowac podczas produkcji. Cele grupy 5: bity HOME 0..4, WORK 5..9; para 00 pomija, 11 blad."
+R[281],BAWzlotDet_mm,Aktywna kopia po APPLY; nie edytowac podczas produkcji. Dodatnie podejscie i podniesienie nad baza grupy [mm Z UFRAME].
+R[282],BAWzlotPrz_mm,Aktywna kopia po APPLY; nie edytowac podczas produkcji. Dodatnie podejscie i podniesienie nad baza przekladki [mm Z UFRAME].
+R[283],BKrok,Kontekst BOX. Krok technologii: 10 gotowosc; 200..299 pusty nosnik; 300..399 IMM; 400..499 produkty; 500..699 pelny ladunek/przekladki; 700 powrot HOME; 710 postoj; 900 recovery.
+R[284],BKrokWybrany,Kontekst BOX. Zapamietany krok wybrany w tej iteracji; nie jest kodem bledu.
+R[285],BKrokPoprz,Kontekst BOX. Poprzedni krok do wykrycia zmiany i rozpoczecia pomiaru czasu.
+R[286],BKrokOd_t,Kontekst BOX. Czas wejscia w krok [surowe ticki zegara]; jednostke zmierzyc na V9.40.
+R[287],BNrCykluIMM,"Kontekst BOX. Identyfikator przypisanej partii z PLC, zachowany do rozliczenia."
+R[288],BIloscPartii,Kontekst BOX. Liczba detali przypisana do calej partii IMM [szt.]; zachowana mimo edycji nastaw.
+R[289],BPozostalo,Kontekst BOX. Pozostala do potwierdzonego rozliczenia ilosc partii [szt.]; maleje po pelnym ACK=0.
+R[28],TAMaskG2,Aktywna kopia po APPLY; nie edytowac podczas produkcji. Maska grupy 2: bit 0..4 = obwod prozni 1..5.
+R[290],BGrupa,Kontekst BOX. Kolejna grupa odkladania 1..5; 6 przechodzi do rozliczenia partii.
+R[291],BPozycja,"Kontekst BOX. Indeks pozycji od 0, X najszybciej; jedna pozycja na grupe, nie na sztuke."
+R[292],BWarstwa,Kontekst BOX. Indeks od 0: tacki w stosie TRAY albo warstwy pojemnika BOX.
+R[293],BNrLadunku,Kontekst BOX. Identyfikator aktualnego stosu TRAY / pojemnika BOX przypisany przez PLC.
+R[294],BStartPoprz,Kontekst BOX. Ostatnio widziany startToken PLC 0..65535; zastany token nie uruchamia.
+R[295],BMaskaOper,Kontekst BOX. Maska biezacej operacji; bit 0..4 = obwod prozni 1..5.
+R[296],BIloscGrupy,"Kontekst BOX. Liczba detali biezacej grupy [szt.], przekazywana do zdarzenia odlozenia."
+R[297],BSzukGleb_mm,Kontekst BOX. Dotychczasowe zejscie od poczatku szukania pustego nosnika [mm Z].
+R[298],BSzukProba,Kontekst BOX. Liczba wykonanych krokow szukania pustej tacki/przekladki.
+R[299],BCelPartii,Kontekst BOX. Przeznaczenie calej partii: 0 dobre; 1 probki; 2 odrzuty do miejsca probek.
+R[29],TAMaskG3,Aktywna kopia po APPLY; nie edytowac podczas produkcji. Maska grupy 3: bit 0..4 = obwod prozni 1..5.
+R[2],TSMaskG2,Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Maska grupy 2: bit 0..4 = obwod prozni 1..5.
+R[300],BPomLiczba,"Kontekst BOX. Liczba robocza: rodzina = krok DIV 100 albo kanal ACK: 1 pobr.tacki, 2 odl.tacki, 3 pelna tacka, 4 pelny ladunek, 5 IMM, 6 dobre, 7 probki, 8 odrzuty, 9 warstwa BOX, 10 przekladka BOX."
+R[301],BSumaPom,Kontekst BOX. Robocza suma ilosci lub masek w przypisaniu/recovery; nie licznik produkcji.
+R[302],BCelCylGrupy,"Kontekst BOX. BOX: cele silownikow aktywnej grupy, bity HOME 0..4 i WORK 5..9. TRAY: rezerwa nieuzywana w procesie."
+R[303],BGrupAktyw,Kontekst BOX. Liczba aktywnych grup; pojemnosc sekcji/tacki jest jej wielokrotnoscia.
+R[304],BKrokPrzerw,"Kontekst BOX. Krok przed wejsciem w recovery; diagnostyka, nie automatyczne wznowienie."
+R[305],BSekcjaBOX,"Kontekst BOX. Aktywna sekcja: 1=P1, 2=P2, 3=P3. Cala partia w jednej sekcji."
+R[306],BPojSekcji,Kontekst BOX. Liczba pozycji X razy Y aktywnej sekcji BOX.
+R[307],BRodzLadunku,Kontekst BOX. Operacja BOX: 0 brak przypisanego ladunku; 1 produkty; 2 przekladka. Fizyczna pewnosc jest osobno w loadKnown/loadMask.
+R[30],TAMaskG4,Aktywna kopia po APPLY; nie edytowac podczas produkcji. Maska grupy 4: bit 0..4 = obwod prozni 1..5.
+R[31],TAMaskG5,Aktywna kopia po APPLY; nie edytowac podczas produkcji. Maska grupy 5: bit 0..4 = obwod prozni 1..5.
+R[32],TASztG1,"Aktywna kopia po APPLY; nie edytowac podczas produkcji. Liczba detali grupy 1 [szt.], niezalezna od ssawek i obwodow."
+R[331],WybranyMain,Jedyny pisarz BG_STATUS: 0 brak; 1 MAIN_BOX; 2 MAIN_TRAY. Nie wpisywac recznie.
+R[33],TASztG2,"Aktywna kopia po APPLY; nie edytowac podczas produkcji. Liczba detali grupy 2 [szt.], niezalezna od ssawek i obwodow."
+R[34],TASztG3,"Aktywna kopia po APPLY; nie edytowac podczas produkcji. Liczba detali grupy 3 [szt.], niezalezna od ssawek i obwodow."
+R[35],TASztG4,"Aktywna kopia po APPLY; nie edytowac podczas produkcji. Liczba detali grupy 4 [szt.], niezalezna od ssawek i obwodow."
+R[36],TASztG5,"Aktywna kopia po APPLY; nie edytowac podczas produkcji. Liczba detali grupy 5 [szt.], niezalezna od ssawek i obwodow."
+R[37],TASiatkaX,Aktywna kopia po APPLY; nie edytowac podczas produkcji. Liczba pozycji osi X; dodatnia liczba calkowita. P2/P3: obie osie 0 wylaczaja sekcje.
+R[38],TASiatkaY,Aktywna kopia po APPLY; nie edytowac podczas produkcji. Liczba pozycji osi Y; dodatnia liczba calkowita. P2/P3: obie osie 0 wylaczaja sekcje.
+R[39],TASkokX_mm,Aktywna kopia po APPLY; nie edytowac podczas produkcji. Skok pozycji po X UFRAME [mm]; moze byc ujemny.
+R[3],TSMaskG3,Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Maska grupy 3: bit 0..4 = obwod prozni 1..5.
+R[40],TASkokY_mm,Aktywna kopia po APPLY; nie edytowac podczas produkcji. Skok rzedow po Y UFRAME [mm]; moze byc ujemny.
+R[41],TASkokZ_mm,Aktywna kopia po APPLY; nie edytowac podczas produkcji. TRAY: wysokosc tacki [mm]. BOX: przyrost Z warstwy razem z przekladka [mm].
+R[42],TAWarstwMax,Aktywna kopia po APPLY; nie edytowac podczas produkcji. TRAY: liczba tacek w stosie. BOX: liczba warstw pojemnika; minimum 1.
+R[43],TASzukKrok_mm,Aktywna kopia po APPLY; nie edytowac podczas produkcji. Dodatni krok szukania pustej tacki/przekladki po ujemnym Z UFRAME [mm].
+R[44],TASzukMax_mm,Aktywna kopia po APPLY; nie edytowac podczas produkcji. Maksymalne dopuszczone zejscie podczas szukania [mm].
+R[45],TASzukProbMax,Aktywna kopia po APPLY; nie edytowac podczas produkcji. Maksymalna liczba krokow szukania; przekroczenie jest bledem.
+R[46],TAPredkosc,"Aktywna kopia po APPLY; nie edytowac podczas produkcji. Limit predkosci: J w procentach, L w mm/s; zakres 1..100."
+R[47],TACzasMax_t,"Aktywna kopia po APPLY; nie edytowac podczas produkcji. Limit oczekiwania chwytaka, IMM i ACK [surowe ticki zegara]."
+R[48],TANrNarzedzia,Aktywna kopia po APPLY; nie edytowac podczas produkcji. Numer zatwierdzonego UTOOL; nie zawiera danych TCP.
+R[49],TANrUkladu,Aktywna kopia po APPLY; nie edytowac podczas produkcji. Numer zatwierdzonego UFRAME; nie zawiera danych geometrii ukladu.
+R[4],TSMaskG4,Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Maska grupy 4: bit 0..4 = obwod prozni 1..5.
+R[50],TACylPrzejazd,"Aktywna kopia po APPLY; nie edytowac podczas produkcji. Cele silownikow do przejazdu i pustego nosnika. Bity 0..4 HOME V501..505, 5..9 WORK; para 00 pomija, 11 blad."
+R[5],TSMaskG5,Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Maska grupy 5: bit 0..4 = obwod prozni 1..5.
+R[61],RxIMMCykl,Snapshot odebrany przez PLC_RX. Identyfikator rzeczywiscie rozpoczetego cyklu przydzielonego do pobrania; utrzymac do konca handshake immPickupCompleted. Nastepne starty PLC zapisuje osobno. Modulo 65536. Kierunek: PLC do robota.
+R[63],RxIMMNie_zlicz,"Snapshot odebrany przez PLC_RX. Liczba rozpoczetych wtryskow, ktorych robot jeszcze nie rozliczyl; prowadzi PLC. Kierunek: PLC do robota."
+R[65],RxProdProgram,Snapshot odebrany przez PLC_RX. 0: brak wyboru; 1: Pojemniki; 2: Blistry. Nie wybiera programu na FANUC. Kierunek: PLC do robota.
+R[66],RxProdLad,Snapshot odebrany przez PLC_RX. Identyfikator aktualnego stosu/pojemnika nadany przez PLC; nie zmieniac przed zakonczeniem wymian tego stosu. Kierunek: PLC do robota.
+R[6],TSSztG1,"Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Liczba detali grupy 1 [szt.], niezalezna od ssawek i obwodow."
+R[77],RxIMMSztPart,Snapshot odebrany przez PLC_RX. Ilosc sztuk przypisana do przydzielonego cycleId (1..65535). Stabilna wraz z cycleId i reject do konca handshake immPickupCompleted; nie biezacy parametr HMI. Kierunek: PLC do robota.
+R[78],RxProdStart,Snapshot odebrany przez PLC_RX. Licznik modulo 65536 zwiekszany wylacznie po przyjetym fizycznym Start. Zastana wartosc po inicjalizacji/recovery nie uruchamia pracy; potrzebna kolejna zmiana. Nie jest zdalnym START UOP. Kierunek: PLC do robota.
+R[7],TSSztG2,"Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Liczba detali grupy 2 [szt.], niezalezna od ssawek i obwodow."
+R[81],CmdPelTacIdx,"Lokalne zadanie lub status aplikacji. Indeks ukonczonego blistra od 0, stabilny w calej wymianie. Kierunek: Robot do PLC."
+R[82],CmdPelTacLad,"Lokalne zadanie lub status aplikacji. Identyfikator stosu blistrow, stabilny w calej wymianie. Kierunek: Robot do PLC."
+R[83],CmdPobrTaLad,Lokalne zadanie lub status aplikacji. Identyfikator stosu/pojemnika nadany przez PLC; echo production.stackId. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC.
+R[84],CmdOdlTacLad,Lokalne zadanie lub status aplikacji. Identyfikator stosu/pojemnika nadany przez PLC; echo production.stackId. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC.
+R[85],CmdPobrIMCykl,Lokalne zadanie lub status aplikacji. Identyfikator rzeczywiscie rozpoczetego wtrysku; wiaze zdarzenie z rozliczeniem detali. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC.
+R[86],CmdPobrIMLad,Lokalne zadanie lub status aplikacji. Identyfikator stosu/pojemnika nadany przez PLC; echo production.stackId. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC.
+R[87],CmdWarstwIdx,Lokalne zadanie lub status aplikacji. Indeks ukonczonej warstwy od 0. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC.
+R[88],CmdWarstwLad,Lokalne zadanie lub status aplikacji. Identyfikator stosu/pojemnika nadany przez PLC; echo production.stackId. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC.
+R[89],CmdDobreSzt,"Lokalne zadanie lub status aplikacji. Potwierdzona liczba odlozonych detali: UINT 1..65535, nie wiecej niz nierozliczona ilosc przypisanej partii; niezalezna od obwodow prozni. Nastawe stosowac tylko przy wylaczonym zleceniu i niepracujacej stacji (DEC-18). Payload stabilny przed REQ=1 az do ACK=0. Kierunek: Robot do PLC."
+R[8],TSSztG3,"Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Liczba detali grupy 3 [szt.], niezalezna od ssawek i obwodow."
+R[90],CmdDobreCykl,Lokalne zadanie lub status aplikacji. Identyfikator rzeczywiscie rozpoczetego wtrysku; wiaze zdarzenie z rozliczeniem detali. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC.
+R[91],CmdDobreLad,Lokalne zadanie lub status aplikacji. Identyfikator stosu/pojemnika nadany przez PLC; echo production.stackId. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC.
+R[92],CmdProbkiSzt,"Lokalne zadanie lub status aplikacji. Potwierdzona liczba odlozonych detali: UINT 1..65535, nie wiecej niz nierozliczona ilosc przypisanej partii; niezalezna od obwodow prozni. Nastawe stosowac tylko przy wylaczonym zleceniu i niepracujacej stacji (DEC-18). Payload stabilny przed REQ=1 az do ACK=0. Kierunek: Robot do PLC."
+R[93],CmdProbkiCykl,Lokalne zadanie lub status aplikacji. Identyfikator rzeczywiscie rozpoczetego wtrysku; wiaze zdarzenie z rozliczeniem detali. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC.
+R[94],CmdProbkiLad,Lokalne zadanie lub status aplikacji. Identyfikator stosu/pojemnika nadany przez PLC; echo production.stackId. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC.
+R[95],CmdPrzeklLad,Lokalne zadanie lub status aplikacji. Identyfikator stosu/pojemnika nadany przez PLC; echo production.stackId. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC.
+R[96],CmdPelLadLad,Lokalne zadanie lub status aplikacji. Identyfikator stosu/pojemnika nadany przez PLC; echo production.stackId. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC.
+R[97],CmdProdK_Bledu,"Lokalne zadanie lub status aplikacji. 0 brak; kod przyczyny, odrebny od miejsca. Kierunek: Robot do PLC. Kody: 1001 nastawy; 1100 blokada; 1101/2101 punkt lub granica; 1102 nieznany krok; 1201 przedmuch; 1301..1303 przypisanie; 1401..1408 recovery; 1501 szukanie; 1502 zastana proznia; 1601 brak miejsca; 1700+krok timeout; 1800 BG; 1900 sekwencja."
+R[98],CmdProdMaskLad,Lokalne zadanie lub status aplikacji. Bity 0..4: zajecie fizycznych obwodow prozni 1..5 wedlug potwierdzonego profilu narzedzia; nie liczba detali. W F-2680 obwod 3 dotyczy blistrow. Pozostale bity 0. Wazne tylko z loadKnown=1. Kierunek: Robot do PLC.
+R[99],CmdProdFaza,Lokalne zadanie lub status aplikacji. 0 nieznana; 10 oczekiwanie; 20 pobranie IMM; 30 odkladanie; 40 blister/przekladka; 50 probki; 60 zatrzymywanie; 70 zatrzymany; 900 blad/odzyskiwanie. Kierunek: Robot do PLC. 10 gotowosc; 20 IMM; 30 odkladanie; 40 pusty nosnik/przekladki/koniec; 50 probki/odrzuty; 60 powrot HOME; 70 postoj; 900 recovery.
+R[9],TSSztG4,"Nastawa edytowana; wymaga APPLY przy zamknietym zleceniu i pustej stacji. Liczba detali grupy 4 [szt.], niezalezna od ssawek i obwodow."

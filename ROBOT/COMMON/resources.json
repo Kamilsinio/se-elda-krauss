@@ -1,0 +1,310 @@
+{
+  "status": "PREPARED_NOT_COMMISSIONED",
+  "owner": "R[331]",
+  "flags": {
+    "sourceBound": "F[401]",
+    "bindingsVerified": "F[402]",
+    "statusValid": "F[403]",
+    "capacityVerified": "F[404]",
+    "initialized": "F[405]",
+    "initApproved": "F[406]",
+    "emptyConfirmed": "F[407]",
+    "conflict": "F[408]",
+    "ownershipSafe": "F[409]",
+    "boxRequest": "F[412]",
+    "trayRequest": "F[413]",
+    "boxRelease": "F[414]",
+    "trayRelease": "F[415]"
+  },
+  "native": {
+    "autoMode": "F[416]",
+    "t1Mode": "F[417]",
+    "t2Mode": "F[418]",
+    "tpEnabled": "F[419]",
+    "systemReady": "F[420]",
+    "estopActive": "F[421]",
+    "fault": "F[422]",
+    "inputSimulated": "F[423]",
+    "outputSimulated": "F[424]",
+    "home": "F[425]",
+    "taskRunning": "F[426]",
+    "taskPaused": "F[427]"
+  },
+  "tasks": {
+    "box": {
+      "running": "F[428]",
+      "paused": "F[429]"
+    },
+    "tray": {
+      "running": "F[430]",
+      "paused": "F[431]"
+    }
+  },
+  "allocations": [
+    {
+      "name": "owner",
+      "bank": "R",
+      "number": 331,
+      "label": "WybranyMain",
+      "comment": "Jedyny pisarz BG_STATUS: 0 brak; 1 MAIN_BOX; 2 MAIN_TRAY. Nie wpisywac recznie."
+    },
+    {
+      "name": "sourceBound",
+      "bank": "F",
+      "number": 401,
+      "label": "NativeKompl",
+      "comment": "BG_BIND ma zdefiniowane wszystkie 14 natywnych zrodel; nie dowod odbioru. ON tak/zadanie; OFF nie."
+    },
+    {
+      "name": "bindingsVerified",
+      "bank": "F",
+      "number": 402,
+      "label": "NativeOdebr",
+      "comment": "Na V9.40 odebrano znaczenie i aktualnosc wszystkich zrodel native. ON tak/zadanie; OFF nie."
+    },
+    {
+      "name": "statusValid",
+      "bank": "F",
+      "number": 403,
+      "label": "NativeWazne",
+      "comment": "Komplet odebranych native i zweryfikowane zasoby; statusy moga byc publikowane. ON tak/zadanie; OFF nie."
+    },
+    {
+      "name": "capacityVerified",
+      "bank": "F",
+      "number": 404,
+      "label": "PamiecOdebr",
+      "comment": "Sprawdzono R1..400, wymagane F/PR i brak kolizji; domyslnie OFF. ON tak/zadanie; OFF nie."
+    },
+    {
+      "name": "initialized",
+      "bank": "F",
+      "number": 405,
+      "label": "ArbiterInit",
+      "comment": "Jawnie zainicjalizowano pusty postoj; nie oznacza odbioru ruchu. ON tak/zadanie; OFF nie."
+    },
+    {
+      "name": "initApproved",
+      "bank": "F",
+      "number": 406,
+      "label": "ZezInit",
+      "comment": "Jawna zgoda na wspolna inicjalizacje wyboru przy obu zakonczonych main, HOME i pustej rozliczonej stacji. ON tak/zadanie; OFF nie."
+    },
+    {
+      "name": "emptyConfirmed",
+      "bank": "F",
+      "number": 407,
+      "label": "PustoPotw",
+      "comment": "Fizyczne potwierdzenie pustej stacji i chwytaka dla wspolnej inicjalizacji; konsumowane przez BG. ON tak/zadanie; OFF nie."
+    },
+    {
+      "name": "conflict",
+      "bank": "F",
+      "number": 408,
+      "label": "KonfliktMain",
+      "comment": "Zatrzask: oba main aktywne/paused albo oba zglosily wybor. ON tak/zadanie; OFF nie."
+    },
+    {
+      "name": "ownershipSafe",
+      "bank": "F",
+      "number": 409,
+      "label": "ZmianaDozw",
+      "comment": "BG potwierdzil zamkniete zlecenie, HOME i rozliczone kanaly/wtryski; roboczy warunek przekazania wyboru. ON tak/zadanie; OFF nie."
+    },
+    {
+      "name": "boxRequest",
+      "bank": "F",
+      "number": 412,
+      "label": "WyborBOX",
+      "comment": "MAIN_BOX zada lokalnego wyboru; nie wybor programu przez PLC. ON tak/zadanie; OFF nie."
+    },
+    {
+      "name": "trayRequest",
+      "bank": "F",
+      "number": 413,
+      "label": "WyborTRAY",
+      "comment": "MAIN_TRAY zada lokalnego wyboru; nie wybor programu przez PLC. ON tak/zadanie; OFF nie."
+    },
+    {
+      "name": "boxRelease",
+      "bank": "F",
+      "number": 414,
+      "label": "ZwolnijBOX",
+      "comment": "MAIN_BOX zglasza koniec wyboru; BG sprawdza pusty postoj. ON tak/zadanie; OFF nie."
+    },
+    {
+      "name": "trayRelease",
+      "bank": "F",
+      "number": 415,
+      "label": "ZwolnijTRAY",
+      "comment": "MAIN_TRAY zglasza koniec wyboru; BG sprawdza pusty postoj. ON tak/zadanie; OFF nie."
+    },
+    {
+      "name": "native.autoMode",
+      "bank": "F",
+      "number": 416,
+      "label": "TrybAUTO",
+      "comment": "Rzeczywisty selektor kontrolera w AUTO. ON tak; OFF nie. Wymaga odbioru V9.40."
+    },
+    {
+      "name": "native.t1Mode",
+      "bank": "F",
+      "number": 417,
+      "label": "TrybT1",
+      "comment": "Rzeczywisty selektor kontrolera w T1. ON tak; OFF nie. Wymaga odbioru V9.40."
+    },
+    {
+      "name": "native.t2Mode",
+      "bank": "F",
+      "number": 418,
+      "label": "TrybT2",
+      "comment": "Rzeczywisty selektor kontrolera w T2. ON tak; OFF nie. Wymaga odbioru V9.40."
+    },
+    {
+      "name": "native.tpEnabled",
+      "bank": "F",
+      "number": 419,
+      "label": "PendantON",
+      "comment": "Rzeczywisty wlaczony pendant; blokuje produkcje AUTO. ON tak; OFF nie. Wymaga odbioru V9.40."
+    },
+    {
+      "name": "native.systemReady",
+      "bank": "F",
+      "number": 420,
+      "label": "SystemGotow",
+      "comment": "Gotowosc kontrolera, niezalezna od gotowosci procesu. ON tak; OFF nie. Wymaga odbioru V9.40."
+    },
+    {
+      "name": "native.estopActive",
+      "bank": "F",
+      "number": 421,
+      "label": "EStopAkt",
+      "comment": "Diagnostyczny E-STOP; nie zastepuje ukladu bezpieczenstwa. ON tak; OFF nie. Wymaga odbioru V9.40."
+    },
+    {
+      "name": "native.fault",
+      "bank": "F",
+      "number": 422,
+      "label": "AlarmRobota",
+      "comment": "Rzeczywisty alarm kontrolera, nie kod bledu technologii. ON tak; OFF nie. Wymaga odbioru V9.40."
+    },
+    {
+      "name": "native.inputSimulated",
+      "bank": "F",
+      "number": 423,
+      "label": "SymWejsc",
+      "comment": "Aktywna symulacja wejsc na kontrolerze; blokuje produkcje. ON tak; OFF nie. Wymaga odbioru V9.40."
+    },
+    {
+      "name": "native.outputSimulated",
+      "bank": "F",
+      "number": 424,
+      "label": "SymWyjsc",
+      "comment": "Aktywna symulacja wyjsc na kontrolerze; blokuje produkcje. ON tak; OFF nie. Wymaga odbioru V9.40."
+    },
+    {
+      "name": "native.home",
+      "bank": "F",
+      "number": 425,
+      "label": "W_HOME",
+      "comment": "Aktualna odebrana Reference Position grupy 1; nie flaga ostatniego ruchu. ON tak; OFF nie. Wymaga odbioru V9.40."
+    },
+    {
+      "name": "native.taskRunning",
+      "bank": "F",
+      "number": 426,
+      "label": "MainPracuje",
+      "comment": "Natywna praca main aktualnego wlasciciela; nie PLC_SVC. ON tak; OFF nie. Wymaga odbioru V9.40."
+    },
+    {
+      "name": "native.taskPaused",
+      "bank": "F",
+      "number": 427,
+      "label": "MainPauza",
+      "comment": "Natywne PAUSE aktualnego main; nadal zajmuje wybor. ON tak; OFF nie. Wymaga odbioru V9.40."
+    },
+    {
+      "name": "native.box.running",
+      "bank": "F",
+      "number": 428,
+      "label": "BOXPraca",
+      "comment": "Natywny MAIN_BOX: wykonywany. ON tak, OFF nie; nie status PLC_SVC."
+    },
+    {
+      "name": "native.box.paused",
+      "bank": "F",
+      "number": 429,
+      "label": "BOXPauza",
+      "comment": "Natywny MAIN_BOX: PAUSE. ON tak, OFF nie; nie status PLC_SVC."
+    },
+    {
+      "name": "native.tray.running",
+      "bank": "F",
+      "number": 430,
+      "label": "TRAYPraca",
+      "comment": "Natywny MAIN_TRAY: wykonywany. ON tak, OFF nie; nie status PLC_SVC."
+    },
+    {
+      "name": "native.tray.paused",
+      "bank": "F",
+      "number": 431,
+      "label": "TRAYPauza",
+      "comment": "Natywny MAIN_TRAY: PAUSE. ON tak, OFF nie; nie status PLC_SVC."
+    }
+  ],
+  "required_numeric_capacity": 400,
+  "owner_values": {
+    "NONE": 0,
+    "BOX": 1,
+    "TRAY": 2
+  },
+  "reserved": {
+    "BOX_R": [
+      201,
+      330
+    ],
+    "COMMON_R": [
+      331,
+      360
+    ],
+    "SPARE_R": [
+      361,
+      400
+    ],
+    "BOX_F": [
+      101,
+      300
+    ],
+    "COMMON_F": [
+      401,
+      480
+    ],
+    "BOX_PR": [
+      41,
+      95
+    ]
+  },
+  "unused_reserved": {
+    "R_ranges": [
+      [
+        332,
+        349
+      ]
+    ],
+    "F_ranges": [
+      [
+        410,
+        411
+      ],
+      [
+        432,
+        443
+      ]
+    ]
+  },
+  "program_names": {
+    "tray": "MAIN_TRAY",
+    "box": "MAIN_BOX"
+  },
+  "descriptions_file": "descriptions.csv"
+}

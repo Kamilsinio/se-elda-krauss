@@ -1,6 +1,6 @@
 {
   "status": "UNBOUND_VERIFY_ON_V9_40",
-  "description": "Brak potwierdzonych źródeł blokuje RB_BIND i ruch. taskRunning/taskPaused dotyczą RT_MAIN, nie RC_SVC. Nie wpisywać fikcyjnych sygnałów ani stałych TRUE.",
+  "description": "Brak zweryfikowanych zrodel V9.40 blokuje ruch. Oddzielne statusy MAIN_TRAY i MAIN_BOX, nigdy PLC_SVC ani expectedProgram. Bez stalych TRUE.",
   "sources": {
     "autoMode": null,
     "t1Mode": null,
@@ -11,8 +11,20 @@
     "fault": null,
     "inputSimulated": null,
     "outputSimulated": null,
-    "home": null,
-    "taskRunning": null,
-    "taskPaused": null
+    "home": null
+  },
+  "programs": {
+    "box": {
+      "running": null,
+      "paused": null
+    },
+    "tray": {
+      "running": null,
+      "paused": null
+    }
+  },
+  "program_names": {
+    "tray": "MAIN_TRAY",
+    "box": "MAIN_BOX"
   }
 }

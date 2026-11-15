@@ -225,12 +225,23 @@ def build(test=False):
     artifacts[out/'mapping.json']=json.dumps(profile,ensure_ascii=False,indent=2)+'\n'
     artifacts[out/'resources.json']=json.dumps(resources,ensure_ascii=False,indent=2)+'\n'
     stream=io.StringIO(newline='');writer=csv.DictWriter(stream,fieldnames=list(mapping[0]),lineterminator='\n');writer.writeheader();writer.writerows(mapping);artifacts[out/'mapping.csv']=stream.getvalue()
-    return artifacts
+    from fanuc_descriptions import describe_artifacts
+    from fanuc_main import NAMES
+    for item in resources['allocations']:item['owner']=NAMES.get(item['owner'],item['owner'])
+    artifacts[out/'resources.json']=json.dumps(resources,ensure_ascii=False,indent=2)+'\n'
+    return describe_artifacts(artifacts,{},resources,profile,out)
 
 
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--check',action='store_true');args=parser.parse_args()
     artifacts={**build(),**build(test=True)};different=[]
+    from fanuc_main import NAMES
+    for folder in [ROOT/'ROBOT/COMM',ROOT/'ROBOT/TEST/COMM']:
+        for old in NAMES:
+            path=folder/(old+'.LS')
+            if old.startswith('RC_') and path.exists():
+                if args.check:different.append(str(path.relative_to(ROOT)))
+                else:path.unlink()
     for path,text in artifacts.items():
         if args.check:
             if not path.exists() or path.read_text(encoding='utf-8')!=text.replace('\r\n','\n'):different.append(str(path.relative_to(ROOT)))

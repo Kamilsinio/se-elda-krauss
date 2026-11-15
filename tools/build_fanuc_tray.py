@@ -1,4 +1,4 @@
-"""Generate tray production and BG LS. No device access or taught coordinates."""
+"""Generate BOX/TRAY production, COMMON and BG LS. No device access or taught coordinates."""
 from __future__ import annotations
 import argparse
 import csv
@@ -35,19 +35,21 @@ POINTS={1:'HOME',2:'SOURCE_ENTRY',3:'SOURCE_APPROACH',4:'SOURCE_SEARCH_START',
         34:'HOME_ENTRY',35:'TRAY_LIFT',**{i:'RESERVE' for i in range(36,41)}}
 
 
-def build():
+def template(mode="TRAY"):
+    from fanuc_box import configure, extend
+    CFG, RUNTIME, FLAGS, POINTS = configure(mode)
     cr=json.loads(build_fanuc_comm.build()[ROOT/'ROBOT/COMM/resources.json'])
     c=cr['controls'];rx=cr['rx'];app=cr['application']
     channels={ch['name']:ch for ch in cr['channels']}
     binding=json.loads((ROOT/'ROBOT/BG/bindings.json').read_text(encoding='utf-8'))
-    available=list(range(1,51))+list(range(177,201));alloc=[]
+    available=(list(range(1,51))+list(range(177,201))) if mode=="TRAY" else list(range(201,331));alloc=[]
     def reg(name):
         n=available.pop(0);alloc.append(dict(name=name,bank='R',number=n));return f'R[{n}]'
     staging={n:reg('staging.'+n) for n in CFG}
     active={n:reg('active.'+n) for n in CFG}
     p={n:reg('runtime.'+n) for n in RUNTIME}
-    assert not available
-    fnum=1
+    assert mode!="TRAY" or not available
+    fnum=1 if mode=="TRAY" else 101
     def flag(name):
         nonlocal fnum
         n=fnum;fnum+=1;alloc.append(dict(name=name,bank='F',number=n));return f'F[{n}]'
@@ -95,8 +97,8 @@ def build():
     for name in CFG:
         v=staging[name]
         cond=f'({v}<0) OR ({v}>65535)'
-        if name not in ['pitchX','pitchY','trayHeight','searchStep','searchLimit','speed']:cond+=f' OR (({v} MOD 1)<>0)'
-        if name in ['pitchX','pitchY']:cond=f'({v}<-65535) OR ({v}>65535)'
+        if name not in ['pitchX','pitchY','trayHeight','searchStep','searchLimit','speed','productClearance','spacerClearance'] and not name.endswith(('pitchX','pitchY')):cond+=f' OR (({v} MOD 1)<>0)'
+        if name in ['pitchX','pitchY'] or name.endswith(('pitchX','pitchY')):cond=f'({v}<-65535) OR ({v}>65535)'
         lines.append(iff(cond,no(b['candidateValid'])))
     for name in ['gridX','gridY','traysPerStack','trayHeight','searchStep','searchLimit','maxAttempts','speed','timeout','trayMask']:
         lines.append(iff(f"{staging[name]}<1",no(b['candidateValid'])))
@@ -484,6 +486,8 @@ def build():
         no(b['armed']),no(c['appArm']),yes(b['needsRecovery']),wait(80),iff(b['newApproved'],'CALL RT_NEW'),
         iff(f"{b['recoveryApproved']} AND {b['contextChecked']}",'CALL RT_RECOV')])
 
+    if mode=='BOX':extend(locals())
+
     groups={'RT_IDLE':[10],'RT_TACK':[n for n in states if 200<=n<300],
             'RT_PICK':[n for n in states if 300<=n<400],
             'RT_PLACE':[n for n in states if 400<=n<500],
@@ -522,7 +526,7 @@ def build():
     for index,(family,name) in enumerate([(0,'RT_IDLE'),(2,'RT_TACK'),(3,'RT_PICK'),(4,'RT_PLACE'),(5,'RT_FULL'),(6,'RT_FULL'),(7,'RT_STOP'),(9,'RT_STOP')]):
         lines.append((f"SELECT {p['work']}" if index==0 else '')+f'={family},CALL {name}')
     lines.append('ELSE,CALL RT_BADSTATE')
-    for n in [210,250,280,285,300,310,340,360,380,415,420,450,460,510,610]:
+    for n in [210,250,280,285,300,310,340,360,380,415,420,450,460,510,610]+([550,586,590,482] if mode=='BOX' else []):
         cond=f"({p['dispatch']}={n}) AND ({c['now']}-{p['phaseSince']}>{active['timeout']})"
         lines += [iff(cond,yes(b['needsRecovery'])),
                   iff(cond,put(app['r2p.production.faultCode'],1700+n)),iff(cond,goto(900))]
@@ -544,18 +548,59 @@ def build():
     out=io.StringIO(newline='');w=csv.writer(out,lineterminator='\n');w.writerow(['PR','name','status'])
     for n,name in POINTS.items():w.writerow([n,name,'COMPUTED' if n in [29,30,31] else 'UNTAUGHT'])
     artifacts[ROOT/'ROBOT/TRAY/points.csv']=out.getvalue()
+    if mode=='BOX':
+        # TRAY coordinates are a template only. BOX owns a separate PR bank.
+        remap={1:1,**{i:i+39 for i in range(2,41)}}
+        def convert(value):
+            if isinstance(value,str):
+                value=re.sub(r'\bRT_', 'RX_',value)
+                value=re.sub(r'\bRM_', 'XM_',value)
+                return re.sub(r'PR\[(\d+)(?=[,\]])',lambda m:'PR['+str(remap.get(int(m[1]),int(m[1]))),value)
+            if isinstance(value,dict):return {k:convert(v) for k,v in value.items()}
+            if isinstance(value,list):return [convert(v) for v in value]
+            return value
+        converted={}
+        for path,text in artifacts.items():
+            path=Path(str(path).replace('/TRAY/','/BOX/').replace('\\TRAY\\','\\BOX\\').replace('RT_','RX_').replace('RM_','XM_'))
+            if path.suffix=='.json':
+                data=convert(json.loads(text));data['register_ranges']=[[201,330]]
+                data['parameter_meanings']={'trayHeight':'layerPitchZ','traysPerStack':'layerCount','trayMask':'spacerMask','trayIndex':'zero_based_layer_index'}
+                data['loadKind_values']={'NONE':0,'PRODUCTS':1,'SPACER':2}
+                data['taught']={str(remap.get(int(k),int(k))):v for k,v in data['taught'].items()}
+                data['points']={str(remap.get(int(k),int(k))):v for k,v in data['points'].items()}
+                text=json.dumps(data,ensure_ascii=False,indent=2)+'\n'
+            elif path.suffix=='.csv':
+                text='PR,name,status\n'+''.join(str(remap.get(int(row[0]),int(row[0])))+','+','.join(row[1:])+'\n' for row in csv.reader(io.StringIO(text)) if row and row[0]!='PR')
+            else:text=convert(text).replace('Krauss tacki','Krauss box').replace('nad tacke','nad pojemnik').replace('ACK stosu','ACK pojemnika').replace('pelnego stosu','pelnego pojemnika')
+            converted[path]=text
+        artifacts=converted
     return artifacts
+
+
+def build():
+    from fanuc_common import combine
+    from fanuc_main import consolidate
+    from fanuc_descriptions import describe_artifacts
+    artifacts=consolidate(combine(template('TRAY'),template('BOX')),ROOT)
+    manifests={d:json.loads(artifacts[ROOT/f'ROBOT/{d}/resources.json']) for d in ['TRAY','BOX','COMMON']}
+    comm=build_fanuc_comm.build()
+    return describe_artifacts(artifacts,manifests,json.loads(comm[ROOT/'ROBOT/COMM/resources.json']),json.loads(comm[ROOT/'ROBOT/COMM/mapping.json']),ROOT/'ROBOT/COMMON')
 
 
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--check',action='store_true');args=parser.parse_args()
     artifacts=build();different=[]
+    for folder in ['TRAY','BOX','COMMON','BG']:
+        for old in (ROOT/'ROBOT'/folder).glob('*.LS'):
+            if old not in artifacts and old.stem.startswith(('RT_','RX_','RM_','XM_','RG_','RE_','RF_','RB_')):
+                if args.check:different.append(str(old.relative_to(ROOT)))
+                else:old.unlink()
     for path,text in artifacts.items():
         if args.check:
             if not path.exists() or path.read_text(encoding='utf-8')!=text:different.append(str(path.relative_to(ROOT)))
         else:
             path.parent.mkdir(parents=True,exist_ok=True);path.write_text(text,encoding='utf-8',newline='\n')
     if different:raise SystemExit('Generated files differ: '+', '.join(different))
-    print(('Checked' if args.check else 'Generated'),len(artifacts),'tray/BG artifacts; no device access')
+    print(('Checked' if args.check else 'Generated'),len(artifacts),'production/BG artifacts; no device access')
 
 if __name__=='__main__':main()

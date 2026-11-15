@@ -44,6 +44,7 @@ def expression(source):
 
 def instruction(line):
     if line.startswith('!'):return ('comment',)
+    line=re.sub(r'((?:PR|R|F|DI|DO|GI|GO|UO|SI|SO)\[\d+(?:,\d+)?):[^\]]+\]',r'\1]',line)
     m=re.fullmatch(r'SELECT (R\[\d+\])=(\d+),CALL (\w+)',line)
     if m:return ('selection_start',m[1],int(m[2]),m[3])
     m=re.fullmatch(r'=(\d+),CALL (\w+)',line)
@@ -107,7 +108,7 @@ class VM:
     """Executes emitted /MN statements, with bounded CALL/JMP and virtual I/O."""
     def __init__(self,programs=None):
         self.memory={};self.writes=[];self.steps=0;self.programs=programs or PROGRAMS
-        self.motions=[];self.alarms=[];self.motion_hook=None
+        self.motions=[];self.alarms=[];self.motion_hook=None;self.tasks={}
     def read(self,ref):
         if ref=='ZERO_OFFSET':return Pose([0]*6)
         m=re.fullmatch(r'PR\[(\d+)(?:,(\d+))?\]',ref)
@@ -135,6 +136,27 @@ class VM:
             jump=self.execute(instructions[pc])
             pc=labels[jump] if jump is not None else pc+1
         self.program=previous
+    def start_task(self,name):
+        assert name in self.programs,name
+        self.tasks[name]=0
+    def resume_task(self,name):
+        """Run actual LS to the next WAIT, preserving its instruction pointer."""
+        assert name in self.tasks,name
+        pc=self.tasks[name]
+        if pc is None:return False
+        old=getattr(self,'program',None);self.program=name
+        seq=self.programs[name]
+        labels={s[1]:i for i,s in enumerate(seq) if s[0]=='label'}
+        budget=0
+        while pc<len(seq):
+            self.steps+=1;budget+=1
+            assert budget<100000,'Task did not reach WAIT'
+            item=seq[pc]
+            if item[0]=='wait':
+                self.tasks[name]=pc+1;self.program=old;return True
+            jump=self.execute(item)
+            pc=labels[jump] if jump is not None else pc+1
+        self.tasks[name]=None;self.program=old;return False
     def execute(self,s):
         op=s[0]
         if op=='if':
@@ -158,7 +180,7 @@ class VM:
 
 class Checks(unittest.TestCase):
     def setUp(self):
-        self.v=VM();self.v.run('RC_INIT');self.c=RES['controls'];self.t=0
+        self.v=VM();self.v.run('PLC_INIT');self.c=RES['controls'];self.t=0
         self.put(self.c,'configured',True);self.put(self.c,'run',True)
         self.peer('p2r.link.version',2)
     def put(self,group,key,value):self.v.memory[group[key]]=value
@@ -171,7 +193,7 @@ class Checks(unittest.TestCase):
         self.put(self.c,'mockClock',self.t)
         if heartbeat:
             self.peer('p2r.link.heartbeat',(self.get(RES['mock'],'p2r.link.heartbeat')+1)%65536)
-        self.v.run('RC_RX');self.v.run('RC_MON');self.v.run('RC_TICK')
+        self.v.run('PLC_RX');self.v.run('BG_PLC');self.v.run('PLC_SCAN')
     def ready(self):
         self.peer('p2r.link.syncRequest',True)
         self.scan();self.scan();self.assertEqual(self.get(self.c,'state'),10)
@@ -179,7 +201,7 @@ class Checks(unittest.TestCase):
         self.peer('p2r.link.syncRequest',False);self.peer('p2r.link.syncAck',False)
         self.scan();self.assertEqual(self.get(self.c,'state'),30)
         self.scan();self.assertFalse(self.get(self.c,'session'))
-        self.v.run('RC_RECOV');self.scan()
+        self.v.run('PLC_REC');self.scan()
         self.assertTrue(self.get(self.c,'localReady'))
         self.peer('p2r.link.ready',True);self.peer('p2r.production.newOperationPermit',True)
         self.scan();self.put(self.c,'appArm',True);self.scan()
@@ -247,19 +269,19 @@ class Checks(unittest.TestCase):
                 if ref.startswith(('DO[','GO[')):owners.setdefault(ref,set()).add(name)
                 else:self.assertIn((ref.split('[')[0],int(ref.split('[')[1][:-1])),keys)
             if s[0] in ('call','run'):self.assertIn(s[1],PROGRAMS)
-            if name=='RC_MON':self.assertIn(s[0],('if','set','comment'))
+            if name=='BG_PLC':self.assertIn(s[0],('if','set','comment'))
         for name,lines in PROGRAMS.items():
             for line in lines:inspect(line,name)
         hb=next(s for s in MAP['signals'] if s['id']=='r2p.link.heartbeat')
         for s in MAP['signals']:
             if s['direction']=='ROBOT_TO_PLC':
                 ref=f"{s['io']}[{s['number']}]"
-                self.assertEqual(owners[ref],{'RC_MON' if s==hb else 'RC_TX'})
-        self.assertEqual(owners['DO[184]'],{'RC_TX'})
+                self.assertEqual(owners[ref],{'BG_PLC' if s==hb else 'PLC_TX'})
+        self.assertEqual(owners['DO[184]'],{'PLC_TX'})
         self.assertEqual(len(owners),92)
 
     def test_emitted_smoke_program_and_test_output_isolation(self):
-        self.v.run('RC_TEST')
+        self.v.run('PLC_TEST')
         self.assertEqual(self.get(self.c,'testResult'),1)
         self.assertTrue(self.get(self.c,'test'))
         self.assertFalse(self.get(self.c,'configured'))
@@ -277,7 +299,7 @@ class Checks(unittest.TestCase):
         self.assertEqual(self.get(self.c,'state'),30)
         self.peer('p2r.link.ready',True);self.scan()
         self.assertFalse(self.get(self.c,'session'))
-        self.v.run('RC_RECOV');self.scan();self.assertTrue(self.get(self.c,'session'))
+        self.v.run('PLC_REC');self.scan();self.assertTrue(self.get(self.c,'session'))
         self.assertFalse(self.get(self.c,'appArm'))
 
     def test_version_watchdog_clock_and_sync_timeout(self):
@@ -313,10 +335,10 @@ class Checks(unittest.TestCase):
         self.assertEqual(self.get(self.c,'heartbeat'),0)
         for _ in range(6):
             self.t+=self.get(self.c,'heartbeatPeriod')
-            self.put(self.c,'mockClock',self.t);self.v.run('RC_MON')
+            self.put(self.c,'mockClock',self.t);self.v.run('BG_PLC')
         self.assertFalse(self.get(self.c,'monitorOk'))
         stopped=self.get(self.c,'heartbeat')
-        self.t+=100;self.put(self.c,'mockClock',self.t);self.v.run('RC_MON')
+        self.t+=100;self.put(self.c,'mockClock',self.t);self.v.run('BG_PLC')
         self.assertEqual(self.get(self.c,'heartbeat'),stopped)
 
     def test_events_freeze_payload_independent_ack_and_full_return_to_zero(self):
@@ -372,7 +394,7 @@ class Checks(unittest.TestCase):
         self.peer('p2r.link.syncAck',True);self.scan()
         self.peer('p2r.link.syncAck',False);self.peer('p2r.link.syncRequest',False);self.scan()
         self.assertEqual(self.get(self.c,'state'),30)
-        self.v.run('RC_RECOV');self.scan()
+        self.v.run('PLC_REC');self.scan()
         self.assertTrue(self.get(self.c,'session'))
         self.assertFalse(self.get(self.c,'appArm'))
         self.assertFalse(self.v.read(ch['submit']))
@@ -418,12 +440,12 @@ class Checks(unittest.TestCase):
         self.assertFalse(self.get(self.c,'session'))
         self.assertEqual(self.v.read(ch['status']),900)
         self.assertFalse(self.v.read(ch['submit']))
-        self.put(self.c,'run',False);self.v.run('RC_TICK')
+        self.put(self.c,'run',False);self.v.run('PLC_SCAN')
         self.assertEqual(self.get(self.c,'state'),0)
         self.assertFalse(self.get(self.c,'localReady'))
 
     def test_unconfigured_live_start_is_blocked(self):
-        self.v=VM(load_programs([ROOT/'ROBOT/COMM']));self.v.run('RC_INIT');self.v.run('RC_LIVE')
+        self.v=VM(load_programs([ROOT/'ROBOT/COMM']));self.v.run('PLC_INIT');self.v.run('PLC_LIVE')
         self.assertFalse(self.get(self.c,'run'))
         self.assertFalse(self.get(self.c,'test'))
 
@@ -431,21 +453,21 @@ class Checks(unittest.TestCase):
         self.ready();self.app('r2p.production.phase',1.5);self.scan()
         self.assertEqual(self.get(self.c,'fault'),908)
         self.assertFalse(self.get(self.c,'session'))
-        self.put(self.c,'test',False);self.v.run('RC_TX')
+        self.put(self.c,'test',False);self.v.run('PLC_TX')
         s=next(s for s in MAP['signals'] if s['id']=='r2p.production.phase')
         self.assertEqual(self.v.read(f"GO[{s['number']}]"),0)
 
     def test_live_io_translation_without_devices(self):
-        # In-memory digital/group banks only; RC_LIVE is deliberately never launched.
-        self.v=VM(load_programs([ROOT/'ROBOT/COMM']));self.v.run('RC_INIT')
+        # In-memory digital/group banks only; PLC_LIVE is deliberately never launched.
+        self.v=VM(load_programs([ROOT/'ROBOT/COMM']));self.v.run('PLC_INIT')
         self.put(self.c,'test',False)
         incoming={s['id']:s for s in MAP['signals'] if s['direction']=='PLC_TO_ROBOT'}
         for key,value in [('p2r.link.version',2),('p2r.link.heartbeat',65535),('p2r.cyl.V501.valid',True)]:
             s=incoming[key];self.v.memory[f"{s['io']}[{s['number']}]"]=value
-        self.v.run('RC_RX')
+        self.v.run('PLC_RX')
         self.assertEqual(self.get(RES['rx'],'p2r.link.heartbeat'),65535)
         self.assertTrue(self.get(RES['rx'],'p2r.cyl.V501.valid'))
-        self.app('r2p.production.loadMask',32768);self.v.run('RC_TX')
+        self.app('r2p.production.loadMask',32768);self.v.run('PLC_TX')
         s=next(s for s in MAP['signals'] if s['id']=='r2p.production.loadMask')
         self.assertEqual(self.v.read(f"GO[{s['number']}]"),32768)
 

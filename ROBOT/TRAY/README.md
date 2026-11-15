@@ -1,8 +1,8 @@
 # Program tacek / Blistrów — FANUC
 
-Stan: **źródła przygotowane i sprawdzone offline; brak importu V9.40 i odbioru stanowiska**. Program dotyczy M-20iD/25 z R-30iB Mate Plus. PLC i Pojemniki nie zostały przeprogramowane.
+Stan: **źródła przygotowane i sprawdzone offline; brak importu V9.40 i odbioru stanowiska**. Program dotyczy M-20iD/25 z R-30iB Mate Plus. Źródła BOX są w [osobnym pakiecie](../BOX/README.md); PLC i fizyczny robot nie zostały przeprogramowane.
 
-Punktem wejścia jest [RT_MAIN.LS](RT_MAIN.LS). Główny wybór faz używa SELECT/CALL; procedury mają krótkie warunki i jawne kroki. [resources.json](resources.json) opisuje stan, parametry, flagi i właścicieli pamięci, a [points.csv](points.csv) punkty wymagające nauczenia. Źródła generuje tools/build_fanuc_tray.py; zmieniać generator, następnie odtwarzać i sprawdzać LS.
+Punktem wejścia jest [MAIN_TRAY.LS](MAIN_TRAY.LS). Pełna technologia, ruchy, chwytak i zdarzenia są w tym pliku, w opisanych sekcjach. Kroki pozostają jawne dla diagnostyki i recovery. [resources.json](resources.json) opisuje stan, parametry, flagi i właścicieli pamięci, a [points.csv](points.csv) punkty wymagające nauczenia. Źródła generuje tools/build_fanuc_tray.py; zmieniać generator, następnie odtwarzać i sprawdzać LS.
 
 ## Zachowanie cyklu
 
@@ -16,7 +16,7 @@ Punktem wejścia jest [RT_MAIN.LS](RT_MAIN.LS). Główny wybór faz używa SELEC
 
 Zwykły Stop kończy rozpoczęte operacje, również rzeczywiście rozpoczęty N+1. Nie czeka na formę cyklu, który nie ruszył. Nie wysyła fałszywego blisterFinished dla niepełnej tacki. W stanie 710 zachowuje częściową tackę i wymaga nowego Startu do normalnego wznowienia. Późno zgłoszona rozpoczęta operacja nadal jest kończona przy finishPermit.
 
-Koniec zlecenia kończy operacje robota; opróżnianie całej stacji realizuje PLC. Zamknięcie zlecenia unieważnia możliwość ponownego użycia starego kontekstu. RT_NEW wymaga zamkniętego zlecenia i jawnego potwierdzenia pustego stanowiska. Otwartych zleceń nie zeruje się tą procedurą.
+Koniec zlecenia kończy operacje robota; opróżnianie całej stacji realizuje PLC. Zamknięcie zlecenia unieważnia możliwość ponownego użycia starego kontekstu. Sekcja NEW wymaga zamkniętego zlecenia i jawnego potwierdzenia pustego stanowiska. Otwartych zleceń nie zeruje się tą procedurą.
 
 ## Parametry operatora i profil chwytaka
 
@@ -39,7 +39,7 @@ Cele siłowników: bity 0…4 oznaczają HOME V501…V505, a 5…9 WORK V501…V
 
 Maski grup są rozłączne i nie nakładają się na trayMask. Grupa nieaktywna ma mask=0 oraz qty=0. Aktywna ma dodatnią ilość i maskę. Suma qty ma zakres 1…65535 i musi odpowiadać batchCount danego wtrysku. Pojemność X×Y jest wielokrotnością liczby aktywnych grup: nie ma wymiany tacki z pozostałymi detalami w chwytaku. Nie ma stałego limitu czterech sztuk.
 
-RT_APPLY wymaga zamkniętego zlecenia, ważnej sesji i statusów, HOME, znanego pustego chwytaka, rozliczonych wtrysków, braku przygotowanej tacki i jawnego stationIdleConfirmed. Edycja nastaw podczas pracy nie zmienia kopii aktywnej. Nie edytować aktywnych rejestrów ani kontekstu przez HMI lub pendant poza opisaną procedurą recovery.
+Sekcja APPLY wymaga zamkniętego zlecenia, ważnej sesji i statusów, HOME, znanego pustego chwytaka, rozliczonych wtrysków, braku przygotowanej tacki i jawnego stationIdleConfirmed. Edycja nastaw podczas pracy nie zmienia kopii aktywnej. Nie edytować aktywnych rejestrów ani kontekstu przez HMI lub pendant poza opisaną procedurą recovery.
 
 Wszystkie nastawy inicjalizują się zerami i blokują uruchomienie. Wartości z testów są syntetyczne. Czasów, prędkości i geometrii nie traktować jako zatwierdzonych nastaw maszyny.
 
@@ -58,23 +58,19 @@ PR1–40 są zarezerwowane. Nie zawierają współrzędnych starego robota ani s
 
 Punkty ruchowe wymagają poprawnego typu, konfiguracji robota i zgodności UF/UT. Szukanie zakłada zejście po Z zatwierdzonego UFRAME; PR5 wyznacza dolną granicę Z. Nauczyć też drogi dojścia przy niesieniu tacki i wszystkich używanych grup produktów. Native mastering, payload, TCP, kinematyka i kolizje wymagają sprawdzenia na fizycznej konfiguracji.
 
-Każdy ruch poprzedza RT_SAFE i sprawdzenie flagi taught danego punktu. motionApproved, profileApproved, alarmApproved i bindingsVerified są domyślnie OFF. Nie ustawiać ich zbiorczo do testu na rzeczywistym robocie. Nauka przez ręczne pozycjonowanie nie jest odbiorem sekwencji AUTO; wykonywanie programu produkcyjnego wymaga aktualnego AUTO, wyłączonego TP i właściwych pozwoleń.
+Każdy ruch poprzedza sekcja SAFE i sprawdzenie flagi taught danego punktu. motionApproved, profileApproved, alarmApproved i bindingsVerified są domyślnie OFF. Nie ustawiać ich zbiorczo do testu na rzeczywistym robocie. Nauka przez ręczne pozycjonowanie nie jest odbiorem sekwencji AUTO; wykonywanie programu produkcyjnego wymaga aktualnego AUTO, wyłączonego TP i właściwych pozwoleń.
 
 ## Inicjalizacja, zwykłe wznowienie i recovery
 
 Nie wykonywać żadnego INIT przy niesionym ładunku lub nierozliczonych zdarzeniach. INIT zeruje pamięć; recovery zachowuje kontekst.
 
-Przy pierwszym przygotowaniu pustego stanowiska:
+Przy pierwszym przygotowaniu pustego stanowiska obowiązuje [procedura COMMON](../COMMON/README.md): weryfikacja R1–400/F/PR i pamięci programów, 14 natywnych powiązań, trzy BG oraz jawna wspólna inicjalizacja pustej stacji przy obu zakończonych main. Potem ręcznie uruchomić MAIN_TRAY przy zamkniętym zleceniu; BG przyznaje TRAY=2. Ewentualny prywatny INIT działa już wewnątrz wybranego nieuzbrojonego main. NEW/APPLY/RECOVERY również wymagają jego właściciela. Po wejściu zakończyć świeżą obustronną synchronizację do recovery przed NEW i APPLY.
 
-1. Zachować backup oraz sprawdzić zasoby i zgodność mechaniki kontrolera. Zatrzymać main, RC_SVC i BG przed inicjalizacją/importem.
-2. Wykonać RC_INIT wariantu LIVE. Po fizycznym potwierdzeniu pustego stanowiska ustawić initApproved (F1) i wykonać RT_INIT. Nie używać pakietu TEST razem z produkcją.
-3. Uzupełnić i zweryfikować [powiązania statusów](../BG/README.md), odtworzyć źródła i wykonać RB_BIND. Uruchomić trzy wskazane BG; potwierdzić aktualność ich skanów.
-4. Skonfigurować komunikację v2. Ustawić configured dopiero po odbiorze mapy, następnie RC_LIVE. Zakończyć obustronną synchronizację.
-5. Przy zamkniętym zleceniu i rzeczywiście pustym stanowisku ustawić newApproved (F2), wykonać RT_NEW i zakończyć gotowość sesji. To jawna deklaracja nowego pustego kontekstu.
-6. Wprowadzić nastawy, potwierdzić stationIdleConfirmed (F5) i wykonać RT_APPLY. Sprawdzić cfgApplied (F12), zatwierdzić profil i nauczyć punkty. Zweryfikować wszystkie blokady oraz rzeczywistą reakcję alarmową przed alarmApproved/motionApproved.
-7. Operator uruchamia RT_MAIN na robocie. Jeżeli wejście wymaga uzgodnienia nowego kontekstu, stan 900 obsługuje newApproved lub recoveryApproved. Pierwsze wejście do RT_MAIN obsłużyć przy zamkniętym zleceniu; dopiero potem otworzyć zlecenie i przyjąć fizyczny Start. Po gotowej sesji i zleceniu potrzebny jest nowy fizyczny Start PLC. Nie konfigurować automatycznego startu main po zasileniu ani UOP START.
+Po przyznaniu wykonać jawne sekcja NEW (newApproved), zastosować nastawy przez sekcja APPLY przy stationIdleConfirmed i zatwierdzić profil, punkty oraz reakcję alarmu. Otworzyć zlecenie dopiero po gotowości sesji. Wymagany jest nowy fizyczny Start PLC. BOOT nie uzbraja i nie przyjmuje zastanego startToken. Nie konfigurować automatycznego startu main ani UOP START.
 
-Zwykły Stop pozostawia main w stanie 710. Nie wykonywać INIT ani RT_NEW; kolejny fizyczny Start wznawia zachowany kontekst.
+INIT zeruje tylko prywatny bank tacek, przy zamkniętym zleceniu i potwierdzonym pustym postoju wybranego, nieuzbrojonego main. Bindingi, natywne statusy i właściciel należą teraz do COMMON; stare F9–11/F47–58 nie są źródłami statusów; F47/F48 służą teraz do APPLY/EXIT. Zmiana wymaga spójnego importu wszystkich aktualnych pakietów.
+
+Zwykły Stop pozostawia main w stanie 710. Nie wykonywać INIT ani sekcji NEW; kolejny fizyczny Start wznawia zachowany kontekst.
 
 Po ABORT, utracie sesji, krytycznej blokadzie lub ręcznym przemieszczeniu:
 
@@ -83,12 +79,12 @@ Po ABORT, utracie sesji, krytycznej blokadzie lub ręcznym przemieszczeniu:
 - Niepewne odłożenie/ACK uzgodnić z PLC. Dopiero na tej podstawie operator koryguje kontekst i potwierdza contextChecked (F4). Nie uznawać utraty podciśnienia za dowód policzonego odłożenia.
 - Powrócić ręcznie uzgodnioną drogą do rzeczywistego HOME. Wygasić stare REQ/ACK po obu stronach i zakończyć synchronizację do RECOVERY.
 - Ustawić recoveryApproved (F3), usunąć przyczynę i skasować alarm. Ta flaga pozwala przeprowadzić uzgodnienie bez ciągłego ponawiania UALM; nadal nie daje pozwolenia ruchu.
-- RT_RECOV sprawdza HOME/AUTO, stan kanałów, pozostałą ilość i maskę. Po całkowicie rozliczonej partii usuwa jej przypisanie, aby nie pobrać jej drugi raz. Nie generuje zaległych zdarzeń. MAIN może wywołać go ze stanu 900 po obu potwierdzeniach operatora.
+- sekcja RECOVERY sprawdza HOME/AUTO, stan kanałów, pozostałą ilość i maskę. Po całkowicie rozliczonej partii usuwa jej przypisanie, aby nie pobrać jej drugi raz. Nie generuje zaległych zdarzeń. MAIN obsługuje ją w stanie 900 po obu potwierdzeniach operatora.
 - Po przyjętym recovery ruch nadal jest zablokowany do nowego fizycznego Startu. Nie wznawiać starej instrukcji ruchowej z nieuzgodnionej pozycji.
 
 Jeżeli przerwano pobieranie pustej tacki, najpierw ręcznie uzgodnić jej odłożenie i stan zdarzeń PLC; program nie podejmuje od nowa szukania z tacką w chwytaku. Przy pełnej tacce (slot równy pojemności) recovery jest blokowane kodem 1408 do ręcznego uzgodnienia końcowych zdarzeń i korekty kontekstu z PLC. Nie przesuwać indeksów na podstawie domysłu.
 
-RT_EXIT kończy wybór programu tylko ze stanu 710, bez partii i ładunku. Program Pojemników ma otrzymać własną sekwencję współpracującą z tym samym kontraktem.
+Sekcja EXIT zgłasza zwolnienie właściciela. BG przyjmuje je ze stanu 710 lub 900 przy zamkniętym zleceniu, HOME, rozliczonych wtryskach/kanałach, remaining=0, braku partii, znanym pustym chwytaku oraz stationIdleConfirmed. Main kończy się po przyjęciu zwolnienia. Przed BOX trzeba zakończyć również natywne zadanie TRAY, w tym PAUSE. Pełna procedura i konflikt obu main: [COMMON](../COMMON/README.md).
 
 ## Diagnostyka i sprawdzenia
 
@@ -112,6 +108,8 @@ python -B tools/build_fanuc_tray.py --check
 python -B tools/check_robot_contract.py
 python -B tools/check_fanuc_comm.py
 python -B tools/check_fanuc_tray.py
+python -B tools/check_fanuc_box.py
+python -B tools/check_fanuc_readability.py
 ~~~
 
-21 testów sekwencji i 16 testów komunikacji wykonuje rzeczywiste instrukcje LS z modelem wejść, PLC/Festo i ruchów. Modelowe PR oraz źródła statusów nie pochodzą z fizycznego robota. Wynik nie potwierdza poprawności kinematyki, harmonogramu BG, działania alarmu ani importu LS. Import/kompilacja V9.40, pomiary, uruchomienie PLC v2 i FAT/SAT pozostają NIEWYKONANE.
+21 testów tacek, 24 testy BOX i 16 testów komunikacji oraz 4 kontrole czytelności wykonuje rzeczywiste instrukcje LS z modelem wejść, PLC/Festo i ruchów. Modelowe PR oraz źródła statusów nie pochodzą z fizycznego robota. Wynik nie potwierdza poprawności kinematyki, harmonogramu BG, działania alarmu ani importu LS. Import/kompilacja V9.40, pomiary, uruchomienie PLC v2 i FAT/SAT pozostają NIEWYKONANE.

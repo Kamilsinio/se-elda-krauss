@@ -1,0 +1,3090 @@
+{
+  "language": "pl-ASCII-LS",
+  "resources": {
+    "DO[121]": {
+      "address": "DO[121]",
+      "label": "WindWejReq",
+      "description": "1: robot zada dostepu; 0: zwalnia zadanie po opuszczeniu obszaru. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[122]": {
+      "address": "DO[122]",
+      "label": "WindPoza",
+      "description": "1: robot faktycznie poza obszarem i nie planuje wejscia bez nowego przyznania; 0: brak zwolnienia. Nie jest safety. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[123]": {
+      "address": "DO[123]",
+      "label": "ZrodWejReq",
+      "description": "1: robot zada dostepu; 0: zwalnia zadanie po opuszczeniu obszaru. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[124]": {
+      "address": "DO[124]",
+      "label": "ZrodPoza",
+      "description": "1: robot faktycznie poza obszarem i nie planuje wejscia bez nowego przyznania; 0: brak zwolnienia. Nie jest safety. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[125]": {
+      "address": "DO[125]",
+      "label": "MagWejReq",
+      "description": "1: robot zada dostepu; 0: zwalnia zadanie po opuszczeniu obszaru. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[126]": {
+      "address": "DO[126]",
+      "label": "MagPoza",
+      "description": "1: robot faktycznie poza obszarem i nie planuje wejscia bez nowego przyznania; 0: brak zwolnienia. Nie jest safety. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[127]": {
+      "address": "DO[127]",
+      "label": "V501Home",
+      "description": "1: zadanie pozycji HOME; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[128]": {
+      "address": "DO[128]",
+      "label": "V501Work",
+      "description": "1: zadanie pozycji WORK; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[129]": {
+      "address": "DO[129]",
+      "label": "V502Home",
+      "description": "1: zadanie pozycji HOME; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[130]": {
+      "address": "DO[130]",
+      "label": "V502Work",
+      "description": "1: zadanie pozycji WORK; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[131]": {
+      "address": "DO[131]",
+      "label": "V503Home",
+      "description": "1: zadanie pozycji HOME; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[132]": {
+      "address": "DO[132]",
+      "label": "V503Work",
+      "description": "1: zadanie pozycji WORK; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[133]": {
+      "address": "DO[133]",
+      "label": "V504Home",
+      "description": "1: zadanie pozycji HOME; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[134]": {
+      "address": "DO[134]",
+      "label": "V504Work",
+      "description": "1: zadanie pozycji WORK; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[135]": {
+      "address": "DO[135]",
+      "label": "V505Home",
+      "description": "1: zadanie pozycji HOME; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[136]": {
+      "address": "DO[136]",
+      "label": "V505Work",
+      "description": "1: zadanie pozycji WORK; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[137]": {
+      "address": "DO[137]",
+      "label": "PelTacReq",
+      "description": "1: pojedynczy blister napelniony; nie oznacza ukonczenia stosu. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[138]": {
+      "address": "DO[138]",
+      "label": "PobrTaReq",
+      "description": "1: nowe zdarzenie blisterPicked; utrzymac do ACK; nastepne po pelnym wyzerowaniu kanalu. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[139]": {
+      "address": "DO[139]",
+      "label": "OdlTacReq",
+      "description": "1: nowe zdarzenie blisterPlaced; utrzymac do ACK; nastepne po pelnym wyzerowaniu kanalu. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[140]": {
+      "address": "DO[140]",
+      "label": "PobrIMReq",
+      "description": "1: nowe zdarzenie immPickupCompleted; utrzymac do ACK; nastepne po pelnym wyzerowaniu kanalu. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[141]": {
+      "address": "DO[141]",
+      "label": "WarstwReq",
+      "description": "1: nowe zdarzenie layerFinished; utrzymac do ACK; nastepne po pelnym wyzerowaniu kanalu. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[142]": {
+      "address": "DO[142]",
+      "label": "DobreReq",
+      "description": "1: nowe zdarzenie productsPlaced; utrzymac do ACK; nastepne po pelnym wyzerowaniu kanalu. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[143]": {
+      "address": "DO[143]",
+      "label": "ProbkiReq",
+      "description": "1: nowe zdarzenie samplesPlaced; utrzymac do ACK; nastepne po pelnym wyzerowaniu kanalu. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[144]": {
+      "address": "DO[144]",
+      "label": "PrzeklReq",
+      "description": "1: nowe zdarzenie spacerPlaced; utrzymac do ACK; nastepne po pelnym wyzerowaniu kanalu. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[145]": {
+      "address": "DO[145]",
+      "label": "PelLadReq",
+      "description": "1: nowe zdarzenie stackFinished; utrzymac do ACK; nastepne po pelnym wyzerowaniu kanalu. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[146]": {
+      "address": "DO[146]",
+      "label": "IMMZWyrzTyl",
+      "description": "1: robot zada procesowego pozwolenia ejectorBack; 0: nie zada. PLC kontroluje koncowe wyjscie. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[147]": {
+      "address": "DO[147]",
+      "label": "IMMZWyrzPrz",
+      "description": "1: robot zada procesowego pozwolenia ejectorForward; 0: nie zada. PLC kontroluje koncowe wyjscie. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[148]": {
+      "address": "DO[148]",
+      "label": "IMMZZamForme",
+      "description": "1: robot zada procesowego pozwolenia mouldClose; 0: nie zada. PLC kontroluje koncowe wyjscie. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[149]": {
+      "address": "DO[149]",
+      "label": "IMMZOtwForme",
+      "description": "1: robot zada procesowego pozwolenia mouldFullOpen; 0: nie zada. PLC kontroluje koncowe wyjscie. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[150]": {
+      "address": "DO[150]",
+      "label": "LaczGot",
+      "description": "1: lokalny interfejs gotowy; 0: brak gotowosci, nie jest to pozwolenie ruchu. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[151]": {
+      "address": "DO[151]",
+      "label": "LaczSyncACK",
+      "description": "1: potwierdzenie zadania synchronizacji partnera; 0: brak potwierdzenia. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[152]": {
+      "address": "DO[152]",
+      "label": "LaczSyncReq",
+      "description": "1: zadanie nowej synchronizacji; 0: brak zadania. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[153]": {
+      "address": "DO[153]",
+      "label": "ProdTrybAUTO",
+      "description": "1: AUTO; 0: poza AUTO. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[154]": {
+      "address": "DO[154]",
+      "label": "ProdEStopAkt",
+      "description": "1: diagnostyczny E-STOP; nie zastepuje toru bezpieczenstwa. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[155]": {
+      "address": "DO[155]",
+      "label": "ProdAlar_obota",
+      "description": "1: blad FANUC; 0: brak zgloszonego bledu. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[156]": {
+      "address": "DO[156]",
+      "label": "ProdHome",
+      "description": "1: potwierdzone HOME z monitorowania pozycji; nie ustawiac stale w programie. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[157]": {
+      "address": "DO[157]",
+      "label": "ProdSymWejsc",
+      "description": "1: symulowane wejscia; blokada odbioru produkcyjnego. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[158]": {
+      "address": "DO[158]",
+      "label": "ProdLadZnany",
+      "description": "1: maska ladunku uzgodniona z czujnikami; 0: stan nieznany, nie traktowac jako pusty. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[159]": {
+      "address": "DO[159]",
+      "label": "ProdOperRozl",
+      "description": "1: robot rozliczyl pobranie/odlozenie wszystkich przypisanych rozpoczetych wtryskow; nie potwierdza transferow PLC. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[160]": {
+      "address": "DO[160]",
+      "label": "ProdSymWyjsc",
+      "description": "1: symulowane wyjscia; blokada odbioru produkcyjnego. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[161]": {
+      "address": "DO[161]",
+      "label": "ProdPraca",
+      "description": "1: program produkcyjny wykonuje sie; 0: nie wykonuje sie. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[162]": {
+      "address": "DO[162]",
+      "label": "ProdZatrzym",
+      "description": "1: konczenie rozpoczetych operacji. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[163]": {
+      "address": "DO[163]",
+      "label": "ProdSyst_Gotow",
+      "description": "1: gotowosc systemu; 0: brak. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[164]": {
+      "address": "DO[164]",
+      "label": "ProdTrybT1",
+      "description": "1: T1; 0: nie T1. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[165]": {
+      "address": "DO[165]",
+      "label": "ProdTrybT2",
+      "description": "1: T2; 0: nie T2. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[166]": {
+      "address": "DO[166]",
+      "label": "ProdPendantON",
+      "description": "1: pendant aktywny; 0: nieaktywny. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[167]": {
+      "address": "DO[167]",
+      "label": "ProdCzekaStart",
+      "description": "1: oczekiwanie na swiadome wznowienie. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[168]": {
+      "address": "DO[168]",
+      "label": "ProbkiACK",
+      "description": "1: zadanie probek przyjete; nie oznacza odlozenia; ukonczenie przez event.samplesPlaced. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[169]": {
+      "address": "DO[169]",
+      "label": "Vac1DmReq",
+      "description": "1: jednorazowy przedmuch; utrzymac do blowAck; 0: brak/zwolnienie zadania. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[170]": {
+      "address": "DO[170]",
+      "label": "Vac1WazCmd",
+      "description": "1: jawnie zadany stan prozni; 0: brak nowego zadania, nie wylacza samoczynnie podcisnienia. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[171]": {
+      "address": "DO[171]",
+      "label": "Vac1Trzymaj",
+      "description": "1: utrzymuj proznie; 0: zadaj wylaczenia, tylko gdy cmdValid=1. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[172]": {
+      "address": "DO[172]",
+      "label": "Vac2DmReq",
+      "description": "1: jednorazowy przedmuch; utrzymac do blowAck; 0: brak/zwolnienie zadania. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[173]": {
+      "address": "DO[173]",
+      "label": "Vac2WazCmd",
+      "description": "1: jawnie zadany stan prozni; 0: brak nowego zadania, nie wylacza samoczynnie podcisnienia. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[174]": {
+      "address": "DO[174]",
+      "label": "Vac2Trzymaj",
+      "description": "1: utrzymuj proznie; 0: zadaj wylaczenia, tylko gdy cmdValid=1. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[175]": {
+      "address": "DO[175]",
+      "label": "Vac3DmReq",
+      "description": "1: jednorazowy przedmuch; utrzymac do blowAck; 0: brak/zwolnienie zadania. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[176]": {
+      "address": "DO[176]",
+      "label": "Vac3WazCmd",
+      "description": "1: jawnie zadany stan prozni; 0: brak nowego zadania, nie wylacza samoczynnie podcisnienia. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[177]": {
+      "address": "DO[177]",
+      "label": "Vac3Trzymaj",
+      "description": "1: utrzymuj proznie; 0: zadaj wylaczenia, tylko gdy cmdValid=1. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[178]": {
+      "address": "DO[178]",
+      "label": "Vac4DmReq",
+      "description": "1: jednorazowy przedmuch; utrzymac do blowAck; 0: brak/zwolnienie zadania. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[179]": {
+      "address": "DO[179]",
+      "label": "Vac4WazCmd",
+      "description": "1: jawnie zadany stan prozni; 0: brak nowego zadania, nie wylacza samoczynnie podcisnienia. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[180]": {
+      "address": "DO[180]",
+      "label": "Vac4Trzymaj",
+      "description": "1: utrzymuj proznie; 0: zadaj wylaczenia, tylko gdy cmdValid=1. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[181]": {
+      "address": "DO[181]",
+      "label": "Vac5DmReq",
+      "description": "1: jednorazowy przedmuch; utrzymac do blowAck; 0: brak/zwolnienie zadania. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[182]": {
+      "address": "DO[182]",
+      "label": "Vac5WazCmd",
+      "description": "1: jawnie zadany stan prozni; 0: brak nowego zadania, nie wylacza samoczynnie podcisnienia. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[183]": {
+      "address": "DO[183]",
+      "label": "Vac5Trzymaj",
+      "description": "1: utrzymuj proznie; 0: zadaj wylaczenia, tylko gdy cmdValid=1. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "DO[184]": {
+      "address": "DO[184]",
+      "label": "OdrzutReq",
+      "description": "Potwierdzone odlozenie odrzutu do miejsca probek. Osobny kanal i rozliczenie; nie zwieksza dobrych sztuk ani probek. Pelny REQ/ACK. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "F[501]": {
+      "address": "F[501]",
+      "label": "RxWindZez",
+      "description": "Snapshot odebrany przez PLC_RX. 1: przyznany dostep do tego obszaru przy utrzymanym accessReq i blokadach. Kierunek: PLC do robota."
+    },
+    "F[502]": {
+      "address": "F[502]",
+      "label": "RxWindGot",
+      "description": "Snapshot odebrany przez PLC_RX. 1: material/urzadzenie gotowe; nie jest przyznaniem dostepu. Kierunek: PLC do robota."
+    },
+    "F[503]": {
+      "address": "F[503]",
+      "label": "RxWindWaz",
+      "description": "Snapshot odebrany przez PLC_RX. 1: aktualne dane zaleznych urzadzen. Kierunek: PLC do robota."
+    },
+    "F[504]": {
+      "address": "F[504]",
+      "label": "RxZrodZez",
+      "description": "Snapshot odebrany przez PLC_RX. 1: przyznany dostep do tego obszaru przy utrzymanym accessReq i blokadach. Kierunek: PLC do robota."
+    },
+    "F[505]": {
+      "address": "F[505]",
+      "label": "RxZrodGot",
+      "description": "Snapshot odebrany przez PLC_RX. 1: material/urzadzenie gotowe; nie jest przyznaniem dostepu. Kierunek: PLC do robota."
+    },
+    "F[506]": {
+      "address": "F[506]",
+      "label": "RxZrodWaz",
+      "description": "Snapshot odebrany przez PLC_RX. 1: aktualne dane zaleznych urzadzen. Kierunek: PLC do robota."
+    },
+    "F[507]": {
+      "address": "F[507]",
+      "label": "RxMagZez",
+      "description": "Snapshot odebrany przez PLC_RX. 1: przyznany dostep do tego obszaru przy utrzymanym accessReq i blokadach. Kierunek: PLC do robota."
+    },
+    "F[508]": {
+      "address": "F[508]",
+      "label": "RxMagGot",
+      "description": "Snapshot odebrany przez PLC_RX. 1: material/urzadzenie gotowe; nie jest przyznaniem dostepu. Kierunek: PLC do robota."
+    },
+    "F[509]": {
+      "address": "F[509]",
+      "label": "RxMagWaz",
+      "description": "Snapshot odebrany przez PLC_RX. 1: aktualne dane zaleznych urzadzen. Kierunek: PLC do robota."
+    },
+    "F[510]": {
+      "address": "F[510]",
+      "label": "RxV501AkHome",
+      "description": "Snapshot odebrany przez PLC_RX. 1: biezace zadanie HOME przyjete przez arbitraz. Kierunek: PLC do robota."
+    },
+    "F[511]": {
+      "address": "F[511]",
+      "label": "RxV501AkWork",
+      "description": "Snapshot odebrany przez PLC_RX. 1: biezace zadanie WORK przyjete przez arbitraz. Kierunek: PLC do robota."
+    },
+    "F[512]": {
+      "address": "F[512]",
+      "label": "RxV501WHome",
+      "description": "Snapshot odebrany przez PLC_RX. 1: rzeczywiste HOME po filtracji; 0: brak potwierdzenia HOME. Kierunek: PLC do robota."
+    },
+    "F[513]": {
+      "address": "F[513]",
+      "label": "RxV501WWork",
+      "description": "Snapshot odebrany przez PLC_RX. 1: rzeczywiste WORK po filtracji; 0: brak potwierdzenia WORK. Kierunek: PLC do robota."
+    },
+    "F[514]": {
+      "address": "F[514]",
+      "label": "RxV501Trwa",
+      "description": "Snapshot odebrany przez PLC_RX. 1: trwa ruch do przyjetego celu. Kierunek: PLC do robota."
+    },
+    "F[515]": {
+      "address": "F[515]",
+      "label": "RxV501Waz",
+      "description": "Snapshot odebrany przez PLC_RX. 1: aktualne czujniki i diagnostyka; 0: nie uzywac potwierdzen. Kierunek: PLC do robota."
+    },
+    "F[516]": {
+      "address": "F[516]",
+      "label": "RxV502AkHome",
+      "description": "Snapshot odebrany przez PLC_RX. 1: biezace zadanie HOME przyjete przez arbitraz. Kierunek: PLC do robota."
+    },
+    "F[517]": {
+      "address": "F[517]",
+      "label": "RxV502AkWork",
+      "description": "Snapshot odebrany przez PLC_RX. 1: biezace zadanie WORK przyjete przez arbitraz. Kierunek: PLC do robota."
+    },
+    "F[518]": {
+      "address": "F[518]",
+      "label": "RxV502WHome",
+      "description": "Snapshot odebrany przez PLC_RX. 1: rzeczywiste HOME po filtracji; 0: brak potwierdzenia HOME. Kierunek: PLC do robota."
+    },
+    "F[519]": {
+      "address": "F[519]",
+      "label": "RxV502WWork",
+      "description": "Snapshot odebrany przez PLC_RX. 1: rzeczywiste WORK po filtracji; 0: brak potwierdzenia WORK. Kierunek: PLC do robota."
+    },
+    "F[520]": {
+      "address": "F[520]",
+      "label": "RxV502Trwa",
+      "description": "Snapshot odebrany przez PLC_RX. 1: trwa ruch do przyjetego celu. Kierunek: PLC do robota."
+    },
+    "F[521]": {
+      "address": "F[521]",
+      "label": "RxV502Waz",
+      "description": "Snapshot odebrany przez PLC_RX. 1: aktualne czujniki i diagnostyka; 0: nie uzywac potwierdzen. Kierunek: PLC do robota."
+    },
+    "F[522]": {
+      "address": "F[522]",
+      "label": "RxV503AkHome",
+      "description": "Snapshot odebrany przez PLC_RX. 1: biezace zadanie HOME przyjete przez arbitraz. Kierunek: PLC do robota."
+    },
+    "F[523]": {
+      "address": "F[523]",
+      "label": "RxV503AkWork",
+      "description": "Snapshot odebrany przez PLC_RX. 1: biezace zadanie WORK przyjete przez arbitraz. Kierunek: PLC do robota."
+    },
+    "F[524]": {
+      "address": "F[524]",
+      "label": "RxV503WHome",
+      "description": "Snapshot odebrany przez PLC_RX. 1: rzeczywiste HOME po filtracji; 0: brak potwierdzenia HOME. Kierunek: PLC do robota."
+    },
+    "F[525]": {
+      "address": "F[525]",
+      "label": "RxV503WWork",
+      "description": "Snapshot odebrany przez PLC_RX. 1: rzeczywiste WORK po filtracji; 0: brak potwierdzenia WORK. Kierunek: PLC do robota."
+    },
+    "F[526]": {
+      "address": "F[526]",
+      "label": "RxV503Trwa",
+      "description": "Snapshot odebrany przez PLC_RX. 1: trwa ruch do przyjetego celu. Kierunek: PLC do robota."
+    },
+    "F[527]": {
+      "address": "F[527]",
+      "label": "RxV503Waz",
+      "description": "Snapshot odebrany przez PLC_RX. 1: aktualne czujniki i diagnostyka; 0: nie uzywac potwierdzen. Kierunek: PLC do robota."
+    },
+    "F[528]": {
+      "address": "F[528]",
+      "label": "RxV504AkHome",
+      "description": "Snapshot odebrany przez PLC_RX. 1: biezace zadanie HOME przyjete przez arbitraz. Kierunek: PLC do robota."
+    },
+    "F[529]": {
+      "address": "F[529]",
+      "label": "RxV504AkWork",
+      "description": "Snapshot odebrany przez PLC_RX. 1: biezace zadanie WORK przyjete przez arbitraz. Kierunek: PLC do robota."
+    },
+    "F[530]": {
+      "address": "F[530]",
+      "label": "RxV504WHome",
+      "description": "Snapshot odebrany przez PLC_RX. 1: rzeczywiste HOME po filtracji; 0: brak potwierdzenia HOME. Kierunek: PLC do robota."
+    },
+    "F[531]": {
+      "address": "F[531]",
+      "label": "RxV504WWork",
+      "description": "Snapshot odebrany przez PLC_RX. 1: rzeczywiste WORK po filtracji; 0: brak potwierdzenia WORK. Kierunek: PLC do robota."
+    },
+    "F[532]": {
+      "address": "F[532]",
+      "label": "RxV504Trwa",
+      "description": "Snapshot odebrany przez PLC_RX. 1: trwa ruch do przyjetego celu. Kierunek: PLC do robota."
+    },
+    "F[533]": {
+      "address": "F[533]",
+      "label": "RxV504Waz",
+      "description": "Snapshot odebrany przez PLC_RX. 1: aktualne czujniki i diagnostyka; 0: nie uzywac potwierdzen. Kierunek: PLC do robota."
+    },
+    "F[534]": {
+      "address": "F[534]",
+      "label": "RxV505AkHome",
+      "description": "Snapshot odebrany przez PLC_RX. 1: biezace zadanie HOME przyjete przez arbitraz. Kierunek: PLC do robota."
+    },
+    "F[535]": {
+      "address": "F[535]",
+      "label": "RxV505AkWork",
+      "description": "Snapshot odebrany przez PLC_RX. 1: biezace zadanie WORK przyjete przez arbitraz. Kierunek: PLC do robota."
+    },
+    "F[536]": {
+      "address": "F[536]",
+      "label": "RxV505WHome",
+      "description": "Snapshot odebrany przez PLC_RX. 1: rzeczywiste HOME po filtracji; 0: brak potwierdzenia HOME. Kierunek: PLC do robota."
+    },
+    "F[537]": {
+      "address": "F[537]",
+      "label": "RxV505WWork",
+      "description": "Snapshot odebrany przez PLC_RX. 1: rzeczywiste WORK po filtracji; 0: brak potwierdzenia WORK. Kierunek: PLC do robota."
+    },
+    "F[538]": {
+      "address": "F[538]",
+      "label": "RxV505Trwa",
+      "description": "Snapshot odebrany przez PLC_RX. 1: trwa ruch do przyjetego celu. Kierunek: PLC do robota."
+    },
+    "F[539]": {
+      "address": "F[539]",
+      "label": "RxV505Waz",
+      "description": "Snapshot odebrany przez PLC_RX. 1: aktualne czujniki i diagnostyka; 0: nie uzywac potwierdzen. Kierunek: PLC do robota."
+    },
+    "F[540]": {
+      "address": "F[540]",
+      "label": "RxPelTacACK",
+      "description": "Snapshot odebrany przez PLC_RX. 1: ukonczenie pojedynczego blistra zarejestrowane raz. Kierunek: PLC do robota."
+    },
+    "F[541]": {
+      "address": "F[541]",
+      "label": "RxPobrTaACK",
+      "description": "Snapshot odebrany przez PLC_RX. 1: zdarzenie blisterPicked zarejestrowane dokladnie raz w biezacej sesji; 0: kanal wolny po req=0. Kierunek: PLC do robota."
+    },
+    "F[542]": {
+      "address": "F[542]",
+      "label": "RxOdlTacACK",
+      "description": "Snapshot odebrany przez PLC_RX. 1: zdarzenie blisterPlaced zarejestrowane dokladnie raz w biezacej sesji; 0: kanal wolny po req=0. Kierunek: PLC do robota."
+    },
+    "F[543]": {
+      "address": "F[543]",
+      "label": "RxPobrIMACK",
+      "description": "Snapshot odebrany przez PLC_RX. 1: zdarzenie immPickupCompleted zarejestrowane dokladnie raz w biezacej sesji; 0: kanal wolny po req=0. Kierunek: PLC do robota."
+    },
+    "F[544]": {
+      "address": "F[544]",
+      "label": "RxWarstwACK",
+      "description": "Snapshot odebrany przez PLC_RX. 1: zdarzenie layerFinished zarejestrowane dokladnie raz w biezacej sesji; 0: kanal wolny po req=0. Kierunek: PLC do robota."
+    },
+    "F[545]": {
+      "address": "F[545]",
+      "label": "RxDobreACK",
+      "description": "Snapshot odebrany przez PLC_RX. 1: zdarzenie productsPlaced zarejestrowane dokladnie raz w biezacej sesji; 0: kanal wolny po req=0. Kierunek: PLC do robota."
+    },
+    "F[546]": {
+      "address": "F[546]",
+      "label": "RxProbkiACK",
+      "description": "Snapshot odebrany przez PLC_RX. 1: zdarzenie samplesPlaced zarejestrowane dokladnie raz w biezacej sesji; 0: kanal wolny po req=0. Kierunek: PLC do robota."
+    },
+    "F[547]": {
+      "address": "F[547]",
+      "label": "RxPrzeklACK",
+      "description": "Snapshot odebrany przez PLC_RX. 1: zdarzenie spacerPlaced zarejestrowane dokladnie raz w biezacej sesji; 0: kanal wolny po req=0. Kierunek: PLC do robota."
+    },
+    "F[548]": {
+      "address": "F[548]",
+      "label": "RxPelLadACK",
+      "description": "Snapshot odebrany przez PLC_RX. 1: zdarzenie stackFinished zarejestrowane dokladnie raz w biezacej sesji; 0: kanal wolny po req=0. Kierunek: PLC do robota."
+    },
+    "F[549]": {
+      "address": "F[549]",
+      "label": "RxIMMPWyrzTyl",
+      "description": "Snapshot odebrany przez PLC_RX. 1: koncowy procesowy sygnal ejectorBack wystawiony po arbitrazu; 0: niewystawiony. Nie potwierdza ruchu maszyny. Kierunek: PLC do robota."
+    },
+    "F[550]": {
+      "address": "F[550]",
+      "label": "RxIMMPWyrzPrz",
+      "description": "Snapshot odebrany przez PLC_RX. 1: koncowy procesowy sygnal ejectorForward wystawiony po arbitrazu; 0: niewystawiony. Nie potwierdza ruchu maszyny. Kierunek: PLC do robota."
+    },
+    "F[551]": {
+      "address": "F[551]",
+      "label": "RxIMMPZamForme",
+      "description": "Snapshot odebrany przez PLC_RX. 1: koncowy procesowy sygnal mouldClose wystawiony po arbitrazu; 0: niewystawiony. Nie potwierdza ruchu maszyny. Kierunek: PLC do robota."
+    },
+    "F[552]": {
+      "address": "F[552]",
+      "label": "RxIMMPOtwForme",
+      "description": "Snapshot odebrany przez PLC_RX. 1: koncowy procesowy sygnal mouldFullOpen wystawiony po arbitrazu; 0: niewystawiony. Nie potwierdza ruchu maszyny. Kierunek: PLC do robota."
+    },
+    "F[553]": {
+      "address": "F[553]",
+      "label": "RxIMMCyklZnany",
+      "description": "Snapshot odebrany przez PLC_RX. 1: model rozpoczetych wtryskow uzgodniony; 0: stan nieznany, blokada nowych cykli. Kierunek: PLC do robota."
+    },
+    "F[554]": {
+      "address": "F[554]",
+      "label": "RxIMMWyrzTyl",
+      "description": "Snapshot odebrany przez PLC_RX. 1: wyrzutnik w pozycji tylnej. Kierunek: PLC do robota."
+    },
+    "F[555]": {
+      "address": "F[555]",
+      "label": "RxIMMWyrzPrz",
+      "description": "Snapshot odebrany przez PLC_RX. 1: wyrzutnik w pozycji przedniej. Kierunek: PLC do robota."
+    },
+    "F[556]": {
+      "address": "F[556]",
+      "label": "RxIMMFormaZam",
+      "description": "Snapshot odebrany przez PLC_RX. 1: potwierdzona forma zamknieta; nie dowodzi rozpoczecia wtrysku. Kierunek: PLC do robota."
+    },
+    "F[557]": {
+      "address": "F[557]",
+      "label": "RxIMMFor_PozSr",
+      "description": "Snapshot odebrany przez PLC_RX. 1: potwierdzona pozycja posrednia; dostepnosc wg GAP-05. Kierunek: PLC do robota."
+    },
+    "F[558]": {
+      "address": "F[558]",
+      "label": "RxIMMFormaOtw",
+      "description": "Snapshot odebrany przez PLC_RX. 1: potwierdzona forma otwarta. Kierunek: PLC do robota."
+    },
+    "F[559]": {
+      "address": "F[559]",
+      "label": "RxIMMNowyCykl",
+      "description": "Snapshot odebrany przez PLC_RX. 1: PLC pozwala na nowy wtrysk w biezacej fazie; 0: blokada nowych wtryskow. Kierunek: PLC do robota."
+    },
+    "F[560]": {
+      "address": "F[560]",
+      "label": "RxIMMDoPobr",
+      "description": "Snapshot odebrany przez PLC_RX. 1: cycleId przydzielono do nowego pobrania i jeszcze go nie potwierdzono przez immPickupCompleted; 0: nie rozpoczynac ponownego pobrania tego identyfikatora. Kierunek: PLC do robota."
+    },
+    "F[561]": {
+      "address": "F[561]",
+      "label": "RxIMMOdrzut",
+      "description": "Snapshot odebrany przez PLC_RX. 1: odrzut detali w powiazanym cyklu; 0: brak odrzutu. Kierunek: PLC do robota."
+    },
+    "F[562]": {
+      "address": "F[562]",
+      "label": "RxIMMRozlicz",
+      "description": "Snapshot odebrany przez PLC_RX. 1: rozliczone rozpoczete wtryski i wymagane operacje maszyny. Kierunek: PLC do robota."
+    },
+    "F[563]": {
+      "address": "F[563]",
+      "label": "RxIMMWaz",
+      "description": "Snapshot odebrany przez PLC_RX. 1: dane EUROMAP aktualne i znormalizowane; 0: niewazne. Kierunek: PLC do robota."
+    },
+    "F[564]": {
+      "address": "F[564]",
+      "label": "RxIMMZRobot",
+      "description": "Snapshot odebrany przez PLC_RX. 1: maszyna potwierdza wspolprace z robotem po normalizacji. Kierunek: PLC do robota."
+    },
+    "F[565]": {
+      "address": "F[565]",
+      "label": "RxLaczGot",
+      "description": "Snapshot odebrany przez PLC_RX. 1: lokalny interfejs gotowy; 0: brak gotowosci, nie jest to pozwolenie ruchu. Kierunek: PLC do robota."
+    },
+    "F[566]": {
+      "address": "F[566]",
+      "label": "RxLaczSyncACK",
+      "description": "Snapshot odebrany przez PLC_RX. 1: potwierdzenie zadania synchronizacji partnera; 0: brak potwierdzenia. Kierunek: PLC do robota."
+    },
+    "F[567]": {
+      "address": "F[567]",
+      "label": "RxLaczSyncReq",
+      "description": "Snapshot odebrany przez PLC_RX. 1: zadanie nowej synchronizacji; 0: brak zadania. Kierunek: PLC do robota."
+    },
+    "F[568]": {
+      "address": "F[568]",
+      "label": "RxProdKrytBlok",
+      "description": "Snapshot odebrany przez PLC_RX. 1: blokada krytyczna; 0: brak zgloszonej blokady. Nie jest sygnalem safety. Kierunek: PLC do robota."
+    },
+    "F[569]": {
+      "address": "F[569]",
+      "label": "RxProdKo_cZlec",
+      "description": "Snapshot odebrany przez PLC_RX. 1: zakonczyc operacje; PLC nastepnie oproznia stacje. Kierunek: PLC do robota."
+    },
+    "F[570]": {
+      "address": "F[570]",
+      "label": "RxProdDo_czZez",
+      "description": "Snapshot odebrany przez PLC_RX. 1: dozwolone dokonczenie rozliczanych operacji przy spelnionych blokadach; 0: brak pozwolenia. Kierunek: PLC do robota."
+    },
+    "F[571]": {
+      "address": "F[571]",
+      "label": "RxProdNoweZez",
+      "description": "Snapshot odebrany przez PLC_RX. 1: mozna rozpoczac nowa operacje produkcyjna; 0: nie rozpoczynac kolejnej. Kierunek: PLC do robota."
+    },
+    "F[572]": {
+      "address": "F[572]",
+      "label": "RxProdZlecON",
+      "description": "Snapshot odebrany przez PLC_RX. 1: zlecenie otwarte; 0: brak aktywnego zlecenia. Kierunek: PLC do robota."
+    },
+    "F[573]": {
+      "address": "F[573]",
+      "label": "RxProdRecovery",
+      "description": "Snapshot odebrany przez PLC_RX. 1: wymagane uzgodnienie stanu; 0: uzgodniony stan. Kierunek: PLC do robota."
+    },
+    "F[574]": {
+      "address": "F[574]",
+      "label": "RxProdStop",
+      "description": "Snapshot odebrany przez PLC_RX. 1: normalny Stop; trzymac do rozliczenia i swiadomego wznowienia. Kierunek: PLC do robota."
+    },
+    "F[575]": {
+      "address": "F[575]",
+      "label": "RxProdZRobot",
+      "description": "Snapshot odebrany przez PLC_RX. 1: wspolpraca wybrana; 0: samodzielny Krauss po wymaganym Stop i HOME. Kierunek: PLC do robota."
+    },
+    "F[576]": {
+      "address": "F[576]",
+      "label": "RxProbkiReq",
+      "description": "Snapshot odebrany przez PLC_RX. 1: jednorazowe zadanie odlozenia probek; 0: zwolnienie kanalu po ACK. Kierunek: PLC do robota."
+    },
+    "F[577]": {
+      "address": "F[577]",
+      "label": "RxVac1Akc",
+      "description": "Snapshot odebrany przez PLC_RX. 1: biezacy cmdValid/hold zostal przyjety. Kierunek: PLC do robota."
+    },
+    "F[578]": {
+      "address": "F[578]",
+      "label": "RxVac1DmACK",
+      "description": "Snapshot odebrany przez PLC_RX. 1: terminalny wynik przedmuchu dostepny; trzymany do blowReq=0. Kierunek: PLC do robota."
+    },
+    "F[579]": {
+      "address": "F[579]",
+      "label": "RxVac1Trwa",
+      "description": "Snapshot odebrany przez PLC_RX. 1: wykonywanie przedmuchu lub oczekiwanie na prog po przyjetym zadaniu. Kierunek: PLC do robota."
+    },
+    "F[580]": {
+      "address": "F[580]",
+      "label": "RxVac1TrzymAkt",
+      "description": "Snapshot odebrany przez PLC_RX. 1: koncowa komenda prozni jest zalaczona; nie jest pomiarem podcisnienia. Kierunek: PLC do robota."
+    },
+    "F[581]": {
+      "address": "F[581]",
+      "label": "RxVac1OK",
+      "description": "Snapshot odebrany przez PLC_RX. 1: rzeczywiste podcisnienie OK; 0: prog nieosiagniety; wazne z valid. Kierunek: PLC do robota."
+    },
+    "F[582]": {
+      "address": "F[582]",
+      "label": "RxVac1Waz",
+      "description": "Snapshot odebrany przez PLC_RX. 1: aktualne wejscia i diagnostyka obwodu. Kierunek: PLC do robota."
+    },
+    "F[583]": {
+      "address": "F[583]",
+      "label": "RxVac2Akc",
+      "description": "Snapshot odebrany przez PLC_RX. 1: biezacy cmdValid/hold zostal przyjety. Kierunek: PLC do robota."
+    },
+    "F[584]": {
+      "address": "F[584]",
+      "label": "RxVac2DmACK",
+      "description": "Snapshot odebrany przez PLC_RX. 1: terminalny wynik przedmuchu dostepny; trzymany do blowReq=0. Kierunek: PLC do robota."
+    },
+    "F[585]": {
+      "address": "F[585]",
+      "label": "RxVac2Trwa",
+      "description": "Snapshot odebrany przez PLC_RX. 1: wykonywanie przedmuchu lub oczekiwanie na prog po przyjetym zadaniu. Kierunek: PLC do robota."
+    },
+    "F[586]": {
+      "address": "F[586]",
+      "label": "RxVac2TrzymAkt",
+      "description": "Snapshot odebrany przez PLC_RX. 1: koncowa komenda prozni jest zalaczona; nie jest pomiarem podcisnienia. Kierunek: PLC do robota."
+    },
+    "F[587]": {
+      "address": "F[587]",
+      "label": "RxVac2OK",
+      "description": "Snapshot odebrany przez PLC_RX. 1: rzeczywiste podcisnienie OK; 0: prog nieosiagniety; wazne z valid. Kierunek: PLC do robota."
+    },
+    "F[588]": {
+      "address": "F[588]",
+      "label": "RxVac2Waz",
+      "description": "Snapshot odebrany przez PLC_RX. 1: aktualne wejscia i diagnostyka obwodu. Kierunek: PLC do robota."
+    },
+    "F[589]": {
+      "address": "F[589]",
+      "label": "RxVac3Akc",
+      "description": "Snapshot odebrany przez PLC_RX. 1: biezacy cmdValid/hold zostal przyjety. Kierunek: PLC do robota."
+    },
+    "F[590]": {
+      "address": "F[590]",
+      "label": "RxVac3DmACK",
+      "description": "Snapshot odebrany przez PLC_RX. 1: terminalny wynik przedmuchu dostepny; trzymany do blowReq=0. Kierunek: PLC do robota."
+    },
+    "F[591]": {
+      "address": "F[591]",
+      "label": "RxVac3Trwa",
+      "description": "Snapshot odebrany przez PLC_RX. 1: wykonywanie przedmuchu lub oczekiwanie na prog po przyjetym zadaniu. Kierunek: PLC do robota."
+    },
+    "F[592]": {
+      "address": "F[592]",
+      "label": "RxVac3TrzymAkt",
+      "description": "Snapshot odebrany przez PLC_RX. 1: koncowa komenda prozni jest zalaczona; nie jest pomiarem podcisnienia. Kierunek: PLC do robota."
+    },
+    "F[593]": {
+      "address": "F[593]",
+      "label": "RxVac3OK",
+      "description": "Snapshot odebrany przez PLC_RX. 1: rzeczywiste podcisnienie OK; 0: prog nieosiagniety; wazne z valid. Kierunek: PLC do robota."
+    },
+    "F[594]": {
+      "address": "F[594]",
+      "label": "RxVac3Waz",
+      "description": "Snapshot odebrany przez PLC_RX. 1: aktualne wejscia i diagnostyka obwodu. Kierunek: PLC do robota."
+    },
+    "F[595]": {
+      "address": "F[595]",
+      "label": "RxVac4Akc",
+      "description": "Snapshot odebrany przez PLC_RX. 1: biezacy cmdValid/hold zostal przyjety. Kierunek: PLC do robota."
+    },
+    "F[596]": {
+      "address": "F[596]",
+      "label": "RxVac4DmACK",
+      "description": "Snapshot odebrany przez PLC_RX. 1: terminalny wynik przedmuchu dostepny; trzymany do blowReq=0. Kierunek: PLC do robota."
+    },
+    "F[597]": {
+      "address": "F[597]",
+      "label": "RxVac4Trwa",
+      "description": "Snapshot odebrany przez PLC_RX. 1: wykonywanie przedmuchu lub oczekiwanie na prog po przyjetym zadaniu. Kierunek: PLC do robota."
+    },
+    "F[598]": {
+      "address": "F[598]",
+      "label": "RxVac4TrzymAkt",
+      "description": "Snapshot odebrany przez PLC_RX. 1: koncowa komenda prozni jest zalaczona; nie jest pomiarem podcisnienia. Kierunek: PLC do robota."
+    },
+    "F[599]": {
+      "address": "F[599]",
+      "label": "RxVac4OK",
+      "description": "Snapshot odebrany przez PLC_RX. 1: rzeczywiste podcisnienie OK; 0: prog nieosiagniety; wazne z valid. Kierunek: PLC do robota."
+    },
+    "F[600]": {
+      "address": "F[600]",
+      "label": "RxVac4Waz",
+      "description": "Snapshot odebrany przez PLC_RX. 1: aktualne wejscia i diagnostyka obwodu. Kierunek: PLC do robota."
+    },
+    "F[601]": {
+      "address": "F[601]",
+      "label": "RxVac5Akc",
+      "description": "Snapshot odebrany przez PLC_RX. 1: biezacy cmdValid/hold zostal przyjety. Kierunek: PLC do robota."
+    },
+    "F[602]": {
+      "address": "F[602]",
+      "label": "RxVac5DmACK",
+      "description": "Snapshot odebrany przez PLC_RX. 1: terminalny wynik przedmuchu dostepny; trzymany do blowReq=0. Kierunek: PLC do robota."
+    },
+    "F[603]": {
+      "address": "F[603]",
+      "label": "RxVac5Trwa",
+      "description": "Snapshot odebrany przez PLC_RX. 1: wykonywanie przedmuchu lub oczekiwanie na prog po przyjetym zadaniu. Kierunek: PLC do robota."
+    },
+    "F[604]": {
+      "address": "F[604]",
+      "label": "RxVac5TrzymAkt",
+      "description": "Snapshot odebrany przez PLC_RX. 1: koncowa komenda prozni jest zalaczona; nie jest pomiarem podcisnienia. Kierunek: PLC do robota."
+    },
+    "F[605]": {
+      "address": "F[605]",
+      "label": "RxVac5OK",
+      "description": "Snapshot odebrany przez PLC_RX. 1: rzeczywiste podcisnienie OK; 0: prog nieosiagniety; wazne z valid. Kierunek: PLC do robota."
+    },
+    "F[606]": {
+      "address": "F[606]",
+      "label": "RxVac5Waz",
+      "description": "Snapshot odebrany przez PLC_RX. 1: aktualne wejscia i diagnostyka obwodu. Kierunek: PLC do robota."
+    },
+    "F[607]": {
+      "address": "F[607]",
+      "label": "RxOdrzutACK",
+      "description": "Snapshot odebrany przez PLC_RX. Odrzut zarejestrowany raz dla biezacego REQ; utrzymac ACK do REQ=0. Kierunek: PLC do robota."
+    },
+    "F[608]": {
+      "address": "F[608]",
+      "label": "CmdWindWejReq",
+      "description": "Lokalne zadanie lub status aplikacji. 1: robot zada dostepu; 0: zwalnia zadanie po opuszczeniu obszaru. Kierunek: Robot do PLC."
+    },
+    "F[609]": {
+      "address": "F[609]",
+      "label": "CmdWindPoza",
+      "description": "Lokalne zadanie lub status aplikacji. 1: robot faktycznie poza obszarem i nie planuje wejscia bez nowego przyznania; 0: brak zwolnienia. Nie jest safety. Kierunek: Robot do PLC."
+    },
+    "F[610]": {
+      "address": "F[610]",
+      "label": "CmdZrodWejReq",
+      "description": "Lokalne zadanie lub status aplikacji. 1: robot zada dostepu; 0: zwalnia zadanie po opuszczeniu obszaru. Kierunek: Robot do PLC."
+    },
+    "F[611]": {
+      "address": "F[611]",
+      "label": "CmdZrodPoza",
+      "description": "Lokalne zadanie lub status aplikacji. 1: robot faktycznie poza obszarem i nie planuje wejscia bez nowego przyznania; 0: brak zwolnienia. Nie jest safety. Kierunek: Robot do PLC."
+    },
+    "F[612]": {
+      "address": "F[612]",
+      "label": "CmdMagWejReq",
+      "description": "Lokalne zadanie lub status aplikacji. 1: robot zada dostepu; 0: zwalnia zadanie po opuszczeniu obszaru. Kierunek: Robot do PLC."
+    },
+    "F[613]": {
+      "address": "F[613]",
+      "label": "CmdMagPoza",
+      "description": "Lokalne zadanie lub status aplikacji. 1: robot faktycznie poza obszarem i nie planuje wejscia bez nowego przyznania; 0: brak zwolnienia. Nie jest safety. Kierunek: Robot do PLC."
+    },
+    "F[614]": {
+      "address": "F[614]",
+      "label": "CmdV501Home",
+      "description": "Lokalne zadanie lub status aplikacji. 1: zadanie pozycji HOME; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC."
+    },
+    "F[615]": {
+      "address": "F[615]",
+      "label": "CmdV501Work",
+      "description": "Lokalne zadanie lub status aplikacji. 1: zadanie pozycji WORK; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC."
+    },
+    "F[616]": {
+      "address": "F[616]",
+      "label": "CmdV502Home",
+      "description": "Lokalne zadanie lub status aplikacji. 1: zadanie pozycji HOME; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC."
+    },
+    "F[617]": {
+      "address": "F[617]",
+      "label": "CmdV502Work",
+      "description": "Lokalne zadanie lub status aplikacji. 1: zadanie pozycji WORK; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC."
+    },
+    "F[618]": {
+      "address": "F[618]",
+      "label": "CmdV503Home",
+      "description": "Lokalne zadanie lub status aplikacji. 1: zadanie pozycji HOME; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC."
+    },
+    "F[619]": {
+      "address": "F[619]",
+      "label": "CmdV503Work",
+      "description": "Lokalne zadanie lub status aplikacji. 1: zadanie pozycji WORK; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC."
+    },
+    "F[620]": {
+      "address": "F[620]",
+      "label": "CmdV504Home",
+      "description": "Lokalne zadanie lub status aplikacji. 1: zadanie pozycji HOME; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC."
+    },
+    "F[621]": {
+      "address": "F[621]",
+      "label": "CmdV504Work",
+      "description": "Lokalne zadanie lub status aplikacji. 1: zadanie pozycji WORK; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC."
+    },
+    "F[622]": {
+      "address": "F[622]",
+      "label": "CmdV505Home",
+      "description": "Lokalne zadanie lub status aplikacji. 1: zadanie pozycji HOME; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC."
+    },
+    "F[623]": {
+      "address": "F[623]",
+      "label": "CmdV505Work",
+      "description": "Lokalne zadanie lub status aplikacji. 1: zadanie pozycji WORK; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC."
+    },
+    "F[624]": {
+      "address": "F[624]",
+      "label": "CmdPelTacReq",
+      "description": "Lokalne zadanie lub status aplikacji. 1: pojedynczy blister napelniony; nie oznacza ukonczenia stosu. Kierunek: Robot do PLC."
+    },
+    "F[625]": {
+      "address": "F[625]",
+      "label": "CmdPobrTaReq",
+      "description": "Lokalne zadanie lub status aplikacji. 1: nowe zdarzenie blisterPicked; utrzymac do ACK; nastepne po pelnym wyzerowaniu kanalu. Kierunek: Robot do PLC."
+    },
+    "F[626]": {
+      "address": "F[626]",
+      "label": "CmdOdlTacReq",
+      "description": "Lokalne zadanie lub status aplikacji. 1: nowe zdarzenie blisterPlaced; utrzymac do ACK; nastepne po pelnym wyzerowaniu kanalu. Kierunek: Robot do PLC."
+    },
+    "F[627]": {
+      "address": "F[627]",
+      "label": "CmdPobrIMReq",
+      "description": "Lokalne zadanie lub status aplikacji. 1: nowe zdarzenie immPickupCompleted; utrzymac do ACK; nastepne po pelnym wyzerowaniu kanalu. Kierunek: Robot do PLC."
+    },
+    "F[628]": {
+      "address": "F[628]",
+      "label": "CmdWarstwReq",
+      "description": "Lokalne zadanie lub status aplikacji. 1: nowe zdarzenie layerFinished; utrzymac do ACK; nastepne po pelnym wyzerowaniu kanalu. Kierunek: Robot do PLC."
+    },
+    "F[629]": {
+      "address": "F[629]",
+      "label": "CmdDobreReq",
+      "description": "Lokalne zadanie lub status aplikacji. 1: nowe zdarzenie productsPlaced; utrzymac do ACK; nastepne po pelnym wyzerowaniu kanalu. Kierunek: Robot do PLC."
+    },
+    "F[630]": {
+      "address": "F[630]",
+      "label": "CmdProbkiReq",
+      "description": "Lokalne zadanie lub status aplikacji. 1: nowe zdarzenie samplesPlaced; utrzymac do ACK; nastepne po pelnym wyzerowaniu kanalu. Kierunek: Robot do PLC."
+    },
+    "F[631]": {
+      "address": "F[631]",
+      "label": "CmdPrzeklReq",
+      "description": "Lokalne zadanie lub status aplikacji. 1: nowe zdarzenie spacerPlaced; utrzymac do ACK; nastepne po pelnym wyzerowaniu kanalu. Kierunek: Robot do PLC."
+    },
+    "F[632]": {
+      "address": "F[632]",
+      "label": "CmdPelLadReq",
+      "description": "Lokalne zadanie lub status aplikacji. 1: nowe zdarzenie stackFinished; utrzymac do ACK; nastepne po pelnym wyzerowaniu kanalu. Kierunek: Robot do PLC."
+    },
+    "F[633]": {
+      "address": "F[633]",
+      "label": "CmdIMMZWyrzTyl",
+      "description": "Lokalne zadanie lub status aplikacji. 1: robot zada procesowego pozwolenia ejectorBack; 0: nie zada. PLC kontroluje koncowe wyjscie. Kierunek: Robot do PLC."
+    },
+    "F[634]": {
+      "address": "F[634]",
+      "label": "CmdIMMZWyrzPrz",
+      "description": "Lokalne zadanie lub status aplikacji. 1: robot zada procesowego pozwolenia ejectorForward; 0: nie zada. PLC kontroluje koncowe wyjscie. Kierunek: Robot do PLC."
+    },
+    "F[635]": {
+      "address": "F[635]",
+      "label": "CmdIMMZZ_Forme",
+      "description": "Lokalne zadanie lub status aplikacji. 1: robot zada procesowego pozwolenia mouldClose; 0: nie zada. PLC kontroluje koncowe wyjscie. Kierunek: Robot do PLC."
+    },
+    "F[636]": {
+      "address": "F[636]",
+      "label": "CmdIMMZO_Forme",
+      "description": "Lokalne zadanie lub status aplikacji. 1: robot zada procesowego pozwolenia mouldFullOpen; 0: nie zada. PLC kontroluje koncowe wyjscie. Kierunek: Robot do PLC."
+    },
+    "F[637]": {
+      "address": "F[637]",
+      "label": "CmdLaczGot",
+      "description": "Lokalne zadanie lub status aplikacji. 1: lokalny interfejs gotowy; 0: brak gotowosci, nie jest to pozwolenie ruchu. Kierunek: Robot do PLC."
+    },
+    "F[638]": {
+      "address": "F[638]",
+      "label": "CmdLaczSyncACK",
+      "description": "Lokalne zadanie lub status aplikacji. 1: potwierdzenie zadania synchronizacji partnera; 0: brak potwierdzenia. Kierunek: Robot do PLC."
+    },
+    "F[639]": {
+      "address": "F[639]",
+      "label": "CmdLaczSyncReq",
+      "description": "Lokalne zadanie lub status aplikacji. 1: zadanie nowej synchronizacji; 0: brak zadania. Kierunek: Robot do PLC."
+    },
+    "F[640]": {
+      "address": "F[640]",
+      "label": "CmdProdT_bAUTO",
+      "description": "Lokalne zadanie lub status aplikacji. 1: AUTO; 0: poza AUTO. Kierunek: Robot do PLC."
+    },
+    "F[641]": {
+      "address": "F[641]",
+      "label": "CmdProdE_opAkt",
+      "description": "Lokalne zadanie lub status aplikacji. 1: diagnostyczny E-STOP; nie zastepuje toru bezpieczenstwa. Kierunek: Robot do PLC."
+    },
+    "F[642]": {
+      "address": "F[642]",
+      "label": "CmdProdA_obota",
+      "description": "Lokalne zadanie lub status aplikacji. 1: blad FANUC; 0: brak zgloszonego bledu. Kierunek: Robot do PLC."
+    },
+    "F[643]": {
+      "address": "F[643]",
+      "label": "CmdProdHome",
+      "description": "Lokalne zadanie lub status aplikacji. 1: potwierdzone HOME z monitorowania pozycji; nie ustawiac stale w programie. Kierunek: Robot do PLC."
+    },
+    "F[644]": {
+      "address": "F[644]",
+      "label": "CmdProdS_Wejsc",
+      "description": "Lokalne zadanie lub status aplikacji. 1: symulowane wejscia; blokada odbioru produkcyjnego. Kierunek: Robot do PLC."
+    },
+    "F[645]": {
+      "address": "F[645]",
+      "label": "CmdProdL_Znany",
+      "description": "Lokalne zadanie lub status aplikacji. 1: maska ladunku uzgodniona z czujnikami; 0: stan nieznany, nie traktowac jako pusty. Kierunek: Robot do PLC."
+    },
+    "F[646]": {
+      "address": "F[646]",
+      "label": "CmdProdO_rRozl",
+      "description": "Lokalne zadanie lub status aplikacji. 1: robot rozliczyl pobranie/odlozenie wszystkich przypisanych rozpoczetych wtryskow; nie potwierdza transferow PLC. Kierunek: Robot do PLC."
+    },
+    "F[647]": {
+      "address": "F[647]",
+      "label": "CmdProdS_Wyjsc",
+      "description": "Lokalne zadanie lub status aplikacji. 1: symulowane wyjscia; blokada odbioru produkcyjnego. Kierunek: Robot do PLC."
+    },
+    "F[648]": {
+      "address": "F[648]",
+      "label": "CmdProdPraca",
+      "description": "Lokalne zadanie lub status aplikacji. 1: program produkcyjny wykonuje sie; 0: nie wykonuje sie. Kierunek: Robot do PLC."
+    },
+    "F[649]": {
+      "address": "F[649]",
+      "label": "CmdProdZatrzym",
+      "description": "Lokalne zadanie lub status aplikacji. 1: konczenie rozpoczetych operacji. Kierunek: Robot do PLC."
+    },
+    "F[650]": {
+      "address": "F[650]",
+      "label": "CmdProdS_Gotow",
+      "description": "Lokalne zadanie lub status aplikacji. 1: gotowosc systemu; 0: brak. Kierunek: Robot do PLC."
+    },
+    "F[651]": {
+      "address": "F[651]",
+      "label": "CmdProdTrybT1",
+      "description": "Lokalne zadanie lub status aplikacji. 1: T1; 0: nie T1. Kierunek: Robot do PLC."
+    },
+    "F[652]": {
+      "address": "F[652]",
+      "label": "CmdProdTrybT2",
+      "description": "Lokalne zadanie lub status aplikacji. 1: T2; 0: nie T2. Kierunek: Robot do PLC."
+    },
+    "F[653]": {
+      "address": "F[653]",
+      "label": "CmdProdP_antON",
+      "description": "Lokalne zadanie lub status aplikacji. 1: pendant aktywny; 0: nieaktywny. Kierunek: Robot do PLC."
+    },
+    "F[654]": {
+      "address": "F[654]",
+      "label": "CmdProdC_Start",
+      "description": "Lokalne zadanie lub status aplikacji. 1: oczekiwanie na swiadome wznowienie. Kierunek: Robot do PLC."
+    },
+    "F[655]": {
+      "address": "F[655]",
+      "label": "CmdProbkiACK",
+      "description": "Lokalne zadanie lub status aplikacji. 1: zadanie probek przyjete; nie oznacza odlozenia; ukonczenie przez event.samplesPlaced. Kierunek: Robot do PLC."
+    },
+    "F[656]": {
+      "address": "F[656]",
+      "label": "CmdVac1DmReq",
+      "description": "Lokalne zadanie lub status aplikacji. 1: jednorazowy przedmuch; utrzymac do blowAck; 0: brak/zwolnienie zadania. Kierunek: Robot do PLC."
+    },
+    "F[657]": {
+      "address": "F[657]",
+      "label": "CmdVac1WazCmd",
+      "description": "Lokalne zadanie lub status aplikacji. 1: jawnie zadany stan prozni; 0: brak nowego zadania, nie wylacza samoczynnie podcisnienia. Kierunek: Robot do PLC."
+    },
+    "F[658]": {
+      "address": "F[658]",
+      "label": "CmdVac1Trzymaj",
+      "description": "Lokalne zadanie lub status aplikacji. 1: utrzymuj proznie; 0: zadaj wylaczenia, tylko gdy cmdValid=1. Kierunek: Robot do PLC."
+    },
+    "F[659]": {
+      "address": "F[659]",
+      "label": "CmdVac2DmReq",
+      "description": "Lokalne zadanie lub status aplikacji. 1: jednorazowy przedmuch; utrzymac do blowAck; 0: brak/zwolnienie zadania. Kierunek: Robot do PLC."
+    },
+    "F[660]": {
+      "address": "F[660]",
+      "label": "CmdVac2WazCmd",
+      "description": "Lokalne zadanie lub status aplikacji. 1: jawnie zadany stan prozni; 0: brak nowego zadania, nie wylacza samoczynnie podcisnienia. Kierunek: Robot do PLC."
+    },
+    "F[661]": {
+      "address": "F[661]",
+      "label": "CmdVac2Trzymaj",
+      "description": "Lokalne zadanie lub status aplikacji. 1: utrzymuj proznie; 0: zadaj wylaczenia, tylko gdy cmdValid=1. Kierunek: Robot do PLC."
+    },
+    "F[662]": {
+      "address": "F[662]",
+      "label": "CmdVac3DmReq",
+      "description": "Lokalne zadanie lub status aplikacji. 1: jednorazowy przedmuch; utrzymac do blowAck; 0: brak/zwolnienie zadania. Kierunek: Robot do PLC."
+    },
+    "F[663]": {
+      "address": "F[663]",
+      "label": "CmdVac3WazCmd",
+      "description": "Lokalne zadanie lub status aplikacji. 1: jawnie zadany stan prozni; 0: brak nowego zadania, nie wylacza samoczynnie podcisnienia. Kierunek: Robot do PLC."
+    },
+    "F[664]": {
+      "address": "F[664]",
+      "label": "CmdVac3Trzymaj",
+      "description": "Lokalne zadanie lub status aplikacji. 1: utrzymuj proznie; 0: zadaj wylaczenia, tylko gdy cmdValid=1. Kierunek: Robot do PLC."
+    },
+    "F[665]": {
+      "address": "F[665]",
+      "label": "CmdVac4DmReq",
+      "description": "Lokalne zadanie lub status aplikacji. 1: jednorazowy przedmuch; utrzymac do blowAck; 0: brak/zwolnienie zadania. Kierunek: Robot do PLC."
+    },
+    "F[666]": {
+      "address": "F[666]",
+      "label": "CmdVac4WazCmd",
+      "description": "Lokalne zadanie lub status aplikacji. 1: jawnie zadany stan prozni; 0: brak nowego zadania, nie wylacza samoczynnie podcisnienia. Kierunek: Robot do PLC."
+    },
+    "F[667]": {
+      "address": "F[667]",
+      "label": "CmdVac4Trzymaj",
+      "description": "Lokalne zadanie lub status aplikacji. 1: utrzymuj proznie; 0: zadaj wylaczenia, tylko gdy cmdValid=1. Kierunek: Robot do PLC."
+    },
+    "F[668]": {
+      "address": "F[668]",
+      "label": "CmdVac5DmReq",
+      "description": "Lokalne zadanie lub status aplikacji. 1: jednorazowy przedmuch; utrzymac do blowAck; 0: brak/zwolnienie zadania. Kierunek: Robot do PLC."
+    },
+    "F[669]": {
+      "address": "F[669]",
+      "label": "CmdVac5WazCmd",
+      "description": "Lokalne zadanie lub status aplikacji. 1: jawnie zadany stan prozni; 0: brak nowego zadania, nie wylacza samoczynnie podcisnienia. Kierunek: Robot do PLC."
+    },
+    "F[670]": {
+      "address": "F[670]",
+      "label": "CmdVac5Trzymaj",
+      "description": "Lokalne zadanie lub status aplikacji. 1: utrzymuj proznie; 0: zadaj wylaczenia, tylko gdy cmdValid=1. Kierunek: Robot do PLC."
+    },
+    "F[671]": {
+      "address": "F[671]",
+      "label": "CmdOdrzutReq",
+      "description": "Lokalne zadanie lub status aplikacji. Potwierdzone odlozenie odrzutu do miejsca probek. Osobny kanal i rozliczenie; nie zwieksza dobrych sztuk ani probek. Pelny REQ/ACK. Kierunek: Robot do PLC."
+    },
+    "F[672]": {
+      "address": "F[672]",
+      "label": "TxWindWejReq",
+      "description": "Bufor wyjscia po walidacji. 1: robot zada dostepu; 0: zwalnia zadanie po opuszczeniu obszaru. Kierunek: Robot do PLC."
+    },
+    "F[673]": {
+      "address": "F[673]",
+      "label": "TxWindPoza",
+      "description": "Bufor wyjscia po walidacji. 1: robot faktycznie poza obszarem i nie planuje wejscia bez nowego przyznania; 0: brak zwolnienia. Nie jest safety. Kierunek: Robot do PLC."
+    },
+    "F[674]": {
+      "address": "F[674]",
+      "label": "TxZrodWejReq",
+      "description": "Bufor wyjscia po walidacji. 1: robot zada dostepu; 0: zwalnia zadanie po opuszczeniu obszaru. Kierunek: Robot do PLC."
+    },
+    "F[675]": {
+      "address": "F[675]",
+      "label": "TxZrodPoza",
+      "description": "Bufor wyjscia po walidacji. 1: robot faktycznie poza obszarem i nie planuje wejscia bez nowego przyznania; 0: brak zwolnienia. Nie jest safety. Kierunek: Robot do PLC."
+    },
+    "F[676]": {
+      "address": "F[676]",
+      "label": "TxMagWejReq",
+      "description": "Bufor wyjscia po walidacji. 1: robot zada dostepu; 0: zwalnia zadanie po opuszczeniu obszaru. Kierunek: Robot do PLC."
+    },
+    "F[677]": {
+      "address": "F[677]",
+      "label": "TxMagPoza",
+      "description": "Bufor wyjscia po walidacji. 1: robot faktycznie poza obszarem i nie planuje wejscia bez nowego przyznania; 0: brak zwolnienia. Nie jest safety. Kierunek: Robot do PLC."
+    },
+    "F[678]": {
+      "address": "F[678]",
+      "label": "TxV501Home",
+      "description": "Bufor wyjscia po walidacji. 1: zadanie pozycji HOME; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC."
+    },
+    "F[679]": {
+      "address": "F[679]",
+      "label": "TxV501Work",
+      "description": "Bufor wyjscia po walidacji. 1: zadanie pozycji WORK; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC."
+    },
+    "F[680]": {
+      "address": "F[680]",
+      "label": "TxV502Home",
+      "description": "Bufor wyjscia po walidacji. 1: zadanie pozycji HOME; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC."
+    },
+    "F[681]": {
+      "address": "F[681]",
+      "label": "TxV502Work",
+      "description": "Bufor wyjscia po walidacji. 1: zadanie pozycji WORK; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC."
+    },
+    "F[682]": {
+      "address": "F[682]",
+      "label": "TxV503Home",
+      "description": "Bufor wyjscia po walidacji. 1: zadanie pozycji HOME; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC."
+    },
+    "F[683]": {
+      "address": "F[683]",
+      "label": "TxV503Work",
+      "description": "Bufor wyjscia po walidacji. 1: zadanie pozycji WORK; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC."
+    },
+    "F[684]": {
+      "address": "F[684]",
+      "label": "TxV504Home",
+      "description": "Bufor wyjscia po walidacji. 1: zadanie pozycji HOME; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC."
+    },
+    "F[685]": {
+      "address": "F[685]",
+      "label": "TxV504Work",
+      "description": "Bufor wyjscia po walidacji. 1: zadanie pozycji WORK; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC."
+    },
+    "F[686]": {
+      "address": "F[686]",
+      "label": "TxV505Home",
+      "description": "Bufor wyjscia po walidacji. 1: zadanie pozycji HOME; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC."
+    },
+    "F[687]": {
+      "address": "F[687]",
+      "label": "TxV505Work",
+      "description": "Bufor wyjscia po walidacji. 1: zadanie pozycji WORK; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC."
+    },
+    "F[688]": {
+      "address": "F[688]",
+      "label": "TxPelTacReq",
+      "description": "Bufor wyjscia po walidacji. 1: pojedynczy blister napelniony; nie oznacza ukonczenia stosu. Kierunek: Robot do PLC."
+    },
+    "F[689]": {
+      "address": "F[689]",
+      "label": "TxPobrTaReq",
+      "description": "Bufor wyjscia po walidacji. 1: nowe zdarzenie blisterPicked; utrzymac do ACK; nastepne po pelnym wyzerowaniu kanalu. Kierunek: Robot do PLC."
+    },
+    "F[690]": {
+      "address": "F[690]",
+      "label": "TxOdlTacReq",
+      "description": "Bufor wyjscia po walidacji. 1: nowe zdarzenie blisterPlaced; utrzymac do ACK; nastepne po pelnym wyzerowaniu kanalu. Kierunek: Robot do PLC."
+    },
+    "F[691]": {
+      "address": "F[691]",
+      "label": "TxPobrIMReq",
+      "description": "Bufor wyjscia po walidacji. 1: nowe zdarzenie immPickupCompleted; utrzymac do ACK; nastepne po pelnym wyzerowaniu kanalu. Kierunek: Robot do PLC."
+    },
+    "F[692]": {
+      "address": "F[692]",
+      "label": "TxWarstwReq",
+      "description": "Bufor wyjscia po walidacji. 1: nowe zdarzenie layerFinished; utrzymac do ACK; nastepne po pelnym wyzerowaniu kanalu. Kierunek: Robot do PLC."
+    },
+    "F[693]": {
+      "address": "F[693]",
+      "label": "TxDobreReq",
+      "description": "Bufor wyjscia po walidacji. 1: nowe zdarzenie productsPlaced; utrzymac do ACK; nastepne po pelnym wyzerowaniu kanalu. Kierunek: Robot do PLC."
+    },
+    "F[694]": {
+      "address": "F[694]",
+      "label": "TxProbkiReq",
+      "description": "Bufor wyjscia po walidacji. 1: nowe zdarzenie samplesPlaced; utrzymac do ACK; nastepne po pelnym wyzerowaniu kanalu. Kierunek: Robot do PLC."
+    },
+    "F[695]": {
+      "address": "F[695]",
+      "label": "TxPrzeklReq",
+      "description": "Bufor wyjscia po walidacji. 1: nowe zdarzenie spacerPlaced; utrzymac do ACK; nastepne po pelnym wyzerowaniu kanalu. Kierunek: Robot do PLC."
+    },
+    "F[696]": {
+      "address": "F[696]",
+      "label": "TxPelLadReq",
+      "description": "Bufor wyjscia po walidacji. 1: nowe zdarzenie stackFinished; utrzymac do ACK; nastepne po pelnym wyzerowaniu kanalu. Kierunek: Robot do PLC."
+    },
+    "F[697]": {
+      "address": "F[697]",
+      "label": "TxIMMZWyrzTyl",
+      "description": "Bufor wyjscia po walidacji. 1: robot zada procesowego pozwolenia ejectorBack; 0: nie zada. PLC kontroluje koncowe wyjscie. Kierunek: Robot do PLC."
+    },
+    "F[698]": {
+      "address": "F[698]",
+      "label": "TxIMMZWyrzPrz",
+      "description": "Bufor wyjscia po walidacji. 1: robot zada procesowego pozwolenia ejectorForward; 0: nie zada. PLC kontroluje koncowe wyjscie. Kierunek: Robot do PLC."
+    },
+    "F[699]": {
+      "address": "F[699]",
+      "label": "TxIMMZZamForme",
+      "description": "Bufor wyjscia po walidacji. 1: robot zada procesowego pozwolenia mouldClose; 0: nie zada. PLC kontroluje koncowe wyjscie. Kierunek: Robot do PLC."
+    },
+    "F[700]": {
+      "address": "F[700]",
+      "label": "TxIMMZOtwForme",
+      "description": "Bufor wyjscia po walidacji. 1: robot zada procesowego pozwolenia mouldFullOpen; 0: nie zada. PLC kontroluje koncowe wyjscie. Kierunek: Robot do PLC."
+    },
+    "F[701]": {
+      "address": "F[701]",
+      "label": "TxLaczGot",
+      "description": "Bufor wyjscia po walidacji. 1: lokalny interfejs gotowy; 0: brak gotowosci, nie jest to pozwolenie ruchu. Kierunek: Robot do PLC."
+    },
+    "F[702]": {
+      "address": "F[702]",
+      "label": "TxLaczSyncACK",
+      "description": "Bufor wyjscia po walidacji. 1: potwierdzenie zadania synchronizacji partnera; 0: brak potwierdzenia. Kierunek: Robot do PLC."
+    },
+    "F[703]": {
+      "address": "F[703]",
+      "label": "TxLaczSyncReq",
+      "description": "Bufor wyjscia po walidacji. 1: zadanie nowej synchronizacji; 0: brak zadania. Kierunek: Robot do PLC."
+    },
+    "F[704]": {
+      "address": "F[704]",
+      "label": "TxProdTrybAUTO",
+      "description": "Bufor wyjscia po walidacji. 1: AUTO; 0: poza AUTO. Kierunek: Robot do PLC."
+    },
+    "F[705]": {
+      "address": "F[705]",
+      "label": "TxProdEStopAkt",
+      "description": "Bufor wyjscia po walidacji. 1: diagnostyczny E-STOP; nie zastepuje toru bezpieczenstwa. Kierunek: Robot do PLC."
+    },
+    "F[706]": {
+      "address": "F[706]",
+      "label": "TxProdAl_obota",
+      "description": "Bufor wyjscia po walidacji. 1: blad FANUC; 0: brak zgloszonego bledu. Kierunek: Robot do PLC."
+    },
+    "F[707]": {
+      "address": "F[707]",
+      "label": "TxProdHome",
+      "description": "Bufor wyjscia po walidacji. 1: potwierdzone HOME z monitorowania pozycji; nie ustawiac stale w programie. Kierunek: Robot do PLC."
+    },
+    "F[708]": {
+      "address": "F[708]",
+      "label": "TxProdSymWejsc",
+      "description": "Bufor wyjscia po walidacji. 1: symulowane wejscia; blokada odbioru produkcyjnego. Kierunek: Robot do PLC."
+    },
+    "F[709]": {
+      "address": "F[709]",
+      "label": "TxProdLadZnany",
+      "description": "Bufor wyjscia po walidacji. 1: maska ladunku uzgodniona z czujnikami; 0: stan nieznany, nie traktowac jako pusty. Kierunek: Robot do PLC."
+    },
+    "F[710]": {
+      "address": "F[710]",
+      "label": "TxProdOperRozl",
+      "description": "Bufor wyjscia po walidacji. 1: robot rozliczyl pobranie/odlozenie wszystkich przypisanych rozpoczetych wtryskow; nie potwierdza transferow PLC. Kierunek: Robot do PLC."
+    },
+    "F[711]": {
+      "address": "F[711]",
+      "label": "TxProdSymWyjsc",
+      "description": "Bufor wyjscia po walidacji. 1: symulowane wyjscia; blokada odbioru produkcyjnego. Kierunek: Robot do PLC."
+    },
+    "F[712]": {
+      "address": "F[712]",
+      "label": "TxProdPraca",
+      "description": "Bufor wyjscia po walidacji. 1: program produkcyjny wykonuje sie; 0: nie wykonuje sie. Kierunek: Robot do PLC."
+    },
+    "F[713]": {
+      "address": "F[713]",
+      "label": "TxProdZatrzym",
+      "description": "Bufor wyjscia po walidacji. 1: konczenie rozpoczetych operacji. Kierunek: Robot do PLC."
+    },
+    "F[714]": {
+      "address": "F[714]",
+      "label": "TxProdSy_Gotow",
+      "description": "Bufor wyjscia po walidacji. 1: gotowosc systemu; 0: brak. Kierunek: Robot do PLC."
+    },
+    "F[715]": {
+      "address": "F[715]",
+      "label": "TxProdTrybT1",
+      "description": "Bufor wyjscia po walidacji. 1: T1; 0: nie T1. Kierunek: Robot do PLC."
+    },
+    "F[716]": {
+      "address": "F[716]",
+      "label": "TxProdTrybT2",
+      "description": "Bufor wyjscia po walidacji. 1: T2; 0: nie T2. Kierunek: Robot do PLC."
+    },
+    "F[717]": {
+      "address": "F[717]",
+      "label": "TxProdPe_antON",
+      "description": "Bufor wyjscia po walidacji. 1: pendant aktywny; 0: nieaktywny. Kierunek: Robot do PLC."
+    },
+    "F[718]": {
+      "address": "F[718]",
+      "label": "TxProdCz_Start",
+      "description": "Bufor wyjscia po walidacji. 1: oczekiwanie na swiadome wznowienie. Kierunek: Robot do PLC."
+    },
+    "F[719]": {
+      "address": "F[719]",
+      "label": "TxProbkiACK",
+      "description": "Bufor wyjscia po walidacji. 1: zadanie probek przyjete; nie oznacza odlozenia; ukonczenie przez event.samplesPlaced. Kierunek: Robot do PLC."
+    },
+    "F[720]": {
+      "address": "F[720]",
+      "label": "TxVac1DmReq",
+      "description": "Bufor wyjscia po walidacji. 1: jednorazowy przedmuch; utrzymac do blowAck; 0: brak/zwolnienie zadania. Kierunek: Robot do PLC."
+    },
+    "F[721]": {
+      "address": "F[721]",
+      "label": "TxVac1WazCmd",
+      "description": "Bufor wyjscia po walidacji. 1: jawnie zadany stan prozni; 0: brak nowego zadania, nie wylacza samoczynnie podcisnienia. Kierunek: Robot do PLC."
+    },
+    "F[722]": {
+      "address": "F[722]",
+      "label": "TxVac1Trzymaj",
+      "description": "Bufor wyjscia po walidacji. 1: utrzymuj proznie; 0: zadaj wylaczenia, tylko gdy cmdValid=1. Kierunek: Robot do PLC."
+    },
+    "F[723]": {
+      "address": "F[723]",
+      "label": "TxVac2DmReq",
+      "description": "Bufor wyjscia po walidacji. 1: jednorazowy przedmuch; utrzymac do blowAck; 0: brak/zwolnienie zadania. Kierunek: Robot do PLC."
+    },
+    "F[724]": {
+      "address": "F[724]",
+      "label": "TxVac2WazCmd",
+      "description": "Bufor wyjscia po walidacji. 1: jawnie zadany stan prozni; 0: brak nowego zadania, nie wylacza samoczynnie podcisnienia. Kierunek: Robot do PLC."
+    },
+    "F[725]": {
+      "address": "F[725]",
+      "label": "TxVac2Trzymaj",
+      "description": "Bufor wyjscia po walidacji. 1: utrzymuj proznie; 0: zadaj wylaczenia, tylko gdy cmdValid=1. Kierunek: Robot do PLC."
+    },
+    "F[726]": {
+      "address": "F[726]",
+      "label": "TxVac3DmReq",
+      "description": "Bufor wyjscia po walidacji. 1: jednorazowy przedmuch; utrzymac do blowAck; 0: brak/zwolnienie zadania. Kierunek: Robot do PLC."
+    },
+    "F[727]": {
+      "address": "F[727]",
+      "label": "TxVac3WazCmd",
+      "description": "Bufor wyjscia po walidacji. 1: jawnie zadany stan prozni; 0: brak nowego zadania, nie wylacza samoczynnie podcisnienia. Kierunek: Robot do PLC."
+    },
+    "F[728]": {
+      "address": "F[728]",
+      "label": "TxVac3Trzymaj",
+      "description": "Bufor wyjscia po walidacji. 1: utrzymuj proznie; 0: zadaj wylaczenia, tylko gdy cmdValid=1. Kierunek: Robot do PLC."
+    },
+    "F[729]": {
+      "address": "F[729]",
+      "label": "TxVac4DmReq",
+      "description": "Bufor wyjscia po walidacji. 1: jednorazowy przedmuch; utrzymac do blowAck; 0: brak/zwolnienie zadania. Kierunek: Robot do PLC."
+    },
+    "F[730]": {
+      "address": "F[730]",
+      "label": "TxVac4WazCmd",
+      "description": "Bufor wyjscia po walidacji. 1: jawnie zadany stan prozni; 0: brak nowego zadania, nie wylacza samoczynnie podcisnienia. Kierunek: Robot do PLC."
+    },
+    "F[731]": {
+      "address": "F[731]",
+      "label": "TxVac4Trzymaj",
+      "description": "Bufor wyjscia po walidacji. 1: utrzymuj proznie; 0: zadaj wylaczenia, tylko gdy cmdValid=1. Kierunek: Robot do PLC."
+    },
+    "F[732]": {
+      "address": "F[732]",
+      "label": "TxVac5DmReq",
+      "description": "Bufor wyjscia po walidacji. 1: jednorazowy przedmuch; utrzymac do blowAck; 0: brak/zwolnienie zadania. Kierunek: Robot do PLC."
+    },
+    "F[733]": {
+      "address": "F[733]",
+      "label": "TxVac5WazCmd",
+      "description": "Bufor wyjscia po walidacji. 1: jawnie zadany stan prozni; 0: brak nowego zadania, nie wylacza samoczynnie podcisnienia. Kierunek: Robot do PLC."
+    },
+    "F[734]": {
+      "address": "F[734]",
+      "label": "TxVac5Trzymaj",
+      "description": "Bufor wyjscia po walidacji. 1: utrzymuj proznie; 0: zadaj wylaczenia, tylko gdy cmdValid=1. Kierunek: Robot do PLC."
+    },
+    "F[735]": {
+      "address": "F[735]",
+      "label": "TxOdrzutReq",
+      "description": "Bufor wyjscia po walidacji. Potwierdzone odlozenie odrzutu do miejsca probek. Osobny kanal i rozliczenie; nie zwieksza dobrych sztuk ani probek. Pelny REQ/ACK. Kierunek: Robot do PLC."
+    },
+    "F[736]": {
+      "address": "F[736]",
+      "label": "SerwisON",
+      "description": "Serwis ma pracowac; OFF konczy serwis i uniewaznia sesje. ON opisany warunek/zadanie; OFF brak."
+    },
+    "F[737]": {
+      "address": "F[737]",
+      "label": "WariantTEST",
+      "description": "ON izolowany TEST; OFF LIVE. Nie dopuszcza mock w produkcji. ON opisany warunek/zadanie; OFF brak."
+    },
+    "F[738]": {
+      "address": "F[738]",
+      "label": "MapaOdebr",
+      "description": "Odebrano rzeczywista konfiguracje EIP; OFF brak dopuszczenia lacza. ON opisany warunek/zadanie; OFF brak."
+    },
+    "F[739]": {
+      "address": "F[739]",
+      "label": "ProcesUzbr",
+      "description": "Main uzbroil proces; OFF robot nie moze wydawac komend wykonawczych. ON opisany warunek/zadanie; OFF brak."
+    },
+    "F[740]": {
+      "address": "F[740]",
+      "label": "ZadRecLacza",
+      "description": "Jednorazowe zadanie jawnego recovery lacza, konsumowane przez PLC_LINK. ON opisany warunek/zadanie; OFF brak."
+    },
+    "F[741]": {
+      "address": "F[741]",
+      "label": "HBPLCswiezy",
+      "description": "Heartbeat PLC zmienia sie w dopuszczalnym czasie. ON opisany warunek/zadanie; OFF brak."
+    },
+    "F[742]": {
+      "address": "F[742]",
+      "label": "SVCswiezy",
+      "description": "PLC_SVC aktualizuje licznik w dopuszczalnym czasie. ON opisany warunek/zadanie; OFF brak."
+    },
+    "F[743]": {
+      "address": "F[743]",
+      "label": "WatchdogOK",
+      "description": "Wszystkie wymagane warunki watchdogow spelnione; OFF blokuje sesje. ON opisany warunek/zadanie; OFF brak."
+    },
+    "F[744]": {
+      "address": "F[744]",
+      "label": "ZegarOK",
+      "description": "Zegar nie cofnal sie; OFF wymaga ponownego uzgodnienia. ON opisany warunek/zadanie; OFF brak."
+    },
+    "F[745]": {
+      "address": "F[745]",
+      "label": "SesjaWazna",
+      "description": "Obustronna synchronizacja i gotowosc sa aktualne; OFF brak waznych komend. ON opisany warunek/zadanie; OFF brak."
+    },
+    "F[746]": {
+      "address": "F[746]",
+      "label": "RobotGotow",
+      "description": "Robot zakonczyl recovery lacza i ma wazne monitory. ON opisany warunek/zadanie; OFF brak."
+    },
+    "F[747]": {
+      "address": "F[747]",
+      "label": "ZadSYNC",
+      "description": "Robot zada synchronizacji; OFF zadanie wygaszone. ON opisany warunek/zadanie; OFF brak."
+    },
+    "F[748]": {
+      "address": "F[748]",
+      "label": "ACK_SYNC",
+      "description": "Odpowiedz na zadanie SYNC PLC: ON potwierdza, OFF wygasza. ON opisany warunek/zadanie; OFF brak."
+    },
+    "F[749]": {
+      "address": "F[749]",
+      "label": "SYNCPLCbyl",
+      "description": "W biezacej wymianie odebrano zadanie SYNC PLC. ON opisany warunek/zadanie; OFF brak."
+    },
+    "F[750]": {
+      "address": "F[750]",
+      "label": "SesjaByla",
+      "description": "Od resetu istniala sesja; wykrywanie utraty gotowosci partnera. ON opisany warunek/zadanie; OFF brak."
+    },
+    "F[751]": {
+      "address": "F[751]",
+      "label": "BladProto",
+      "description": "Zatrzasniety blad protokolu; OFF brak takiego bledu. ON opisany warunek/zadanie; OFF brak."
+    },
+    "F[752]": {
+      "address": "F[752]",
+      "label": "KomendyDozw",
+      "description": "Komunikacja dopuszcza wykonanie po walidacji sesji i procesu; OFF blokada. ON opisany warunek/zadanie; OFF brak."
+    },
+    "F[753]": {
+      "address": "F[753]",
+      "label": "TestBlad",
+      "description": "Odizolowany test wykryl blad; OFF nie wykryl. ON opisany warunek/zadanie; OFF brak."
+    },
+    "F[754]": {
+      "address": "F[754]",
+      "label": "HBkrok",
+      "description": "Roboczy warunek zwiekszenia heartbeat w tym skanie. ON opisany warunek/zadanie; OFF brak."
+    },
+    "F[755]": {
+      "address": "F[755]",
+      "label": "ACK_wszyst0",
+      "description": "Wszystkie kanaly zdarzen i przedmuchow maja ACK=0. ON opisany warunek/zadanie; OFF brak."
+    },
+    "F[756]": {
+      "address": "F[756]",
+      "label": "MainWymag",
+      "description": "Wybrany main wymaga aktualnych BG; OFF sam serwis komunikacji. ON opisany warunek/zadanie; OFF brak."
+    },
+    "F[757]": {
+      "address": "F[757]",
+      "label": "ProcesDozw",
+      "description": "BG potwierdza blokady procesu, native, profil i zlecenie; OFF ruch i komendy zabronione. ON opisany warunek/zadanie; OFF brak."
+    },
+    "F[758]": {
+      "address": "F[758]",
+      "label": "BGswieze",
+      "description": "BG_STATUS i BG_GUARD maja aktualne znaczniki czasu. ON opisany warunek/zadanie; OFF brak."
+    },
+    "F[759]": {
+      "address": "F[759]",
+      "label": "BlokadaBG",
+      "description": "Zadano krytyczna blokade i recovery; OFF brak tego zadania. ON opisany warunek/zadanie; OFF brak."
+    },
+    "F[760]": {
+      "address": "F[760]",
+      "label": "MWindZez",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: przyznany dostep do tego obszaru przy utrzymanym accessReq i blokadach. Kierunek: PLC do robota."
+    },
+    "F[761]": {
+      "address": "F[761]",
+      "label": "MWindGot",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: material/urzadzenie gotowe; nie jest przyznaniem dostepu. Kierunek: PLC do robota."
+    },
+    "F[762]": {
+      "address": "F[762]",
+      "label": "MWindWaz",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: aktualne dane zaleznych urzadzen. Kierunek: PLC do robota."
+    },
+    "F[763]": {
+      "address": "F[763]",
+      "label": "MZrodZez",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: przyznany dostep do tego obszaru przy utrzymanym accessReq i blokadach. Kierunek: PLC do robota."
+    },
+    "F[764]": {
+      "address": "F[764]",
+      "label": "MZrodGot",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: material/urzadzenie gotowe; nie jest przyznaniem dostepu. Kierunek: PLC do robota."
+    },
+    "F[765]": {
+      "address": "F[765]",
+      "label": "MZrodWaz",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: aktualne dane zaleznych urzadzen. Kierunek: PLC do robota."
+    },
+    "F[766]": {
+      "address": "F[766]",
+      "label": "MMagZez",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: przyznany dostep do tego obszaru przy utrzymanym accessReq i blokadach. Kierunek: PLC do robota."
+    },
+    "F[767]": {
+      "address": "F[767]",
+      "label": "MMagGot",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: material/urzadzenie gotowe; nie jest przyznaniem dostepu. Kierunek: PLC do robota."
+    },
+    "F[768]": {
+      "address": "F[768]",
+      "label": "MMagWaz",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: aktualne dane zaleznych urzadzen. Kierunek: PLC do robota."
+    },
+    "F[769]": {
+      "address": "F[769]",
+      "label": "MV501AkHome",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: biezace zadanie HOME przyjete przez arbitraz. Kierunek: PLC do robota."
+    },
+    "F[770]": {
+      "address": "F[770]",
+      "label": "MV501AkWork",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: biezace zadanie WORK przyjete przez arbitraz. Kierunek: PLC do robota."
+    },
+    "F[771]": {
+      "address": "F[771]",
+      "label": "MV501WHome",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: rzeczywiste HOME po filtracji; 0: brak potwierdzenia HOME. Kierunek: PLC do robota."
+    },
+    "F[772]": {
+      "address": "F[772]",
+      "label": "MV501WWork",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: rzeczywiste WORK po filtracji; 0: brak potwierdzenia WORK. Kierunek: PLC do robota."
+    },
+    "F[773]": {
+      "address": "F[773]",
+      "label": "MV501Trwa",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: trwa ruch do przyjetego celu. Kierunek: PLC do robota."
+    },
+    "F[774]": {
+      "address": "F[774]",
+      "label": "MV501Waz",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: aktualne czujniki i diagnostyka; 0: nie uzywac potwierdzen. Kierunek: PLC do robota."
+    },
+    "F[775]": {
+      "address": "F[775]",
+      "label": "MV502AkHome",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: biezace zadanie HOME przyjete przez arbitraz. Kierunek: PLC do robota."
+    },
+    "F[776]": {
+      "address": "F[776]",
+      "label": "MV502AkWork",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: biezace zadanie WORK przyjete przez arbitraz. Kierunek: PLC do robota."
+    },
+    "F[777]": {
+      "address": "F[777]",
+      "label": "MV502WHome",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: rzeczywiste HOME po filtracji; 0: brak potwierdzenia HOME. Kierunek: PLC do robota."
+    },
+    "F[778]": {
+      "address": "F[778]",
+      "label": "MV502WWork",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: rzeczywiste WORK po filtracji; 0: brak potwierdzenia WORK. Kierunek: PLC do robota."
+    },
+    "F[779]": {
+      "address": "F[779]",
+      "label": "MV502Trwa",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: trwa ruch do przyjetego celu. Kierunek: PLC do robota."
+    },
+    "F[780]": {
+      "address": "F[780]",
+      "label": "MV502Waz",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: aktualne czujniki i diagnostyka; 0: nie uzywac potwierdzen. Kierunek: PLC do robota."
+    },
+    "F[781]": {
+      "address": "F[781]",
+      "label": "MV503AkHome",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: biezace zadanie HOME przyjete przez arbitraz. Kierunek: PLC do robota."
+    },
+    "F[782]": {
+      "address": "F[782]",
+      "label": "MV503AkWork",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: biezace zadanie WORK przyjete przez arbitraz. Kierunek: PLC do robota."
+    },
+    "F[783]": {
+      "address": "F[783]",
+      "label": "MV503WHome",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: rzeczywiste HOME po filtracji; 0: brak potwierdzenia HOME. Kierunek: PLC do robota."
+    },
+    "F[784]": {
+      "address": "F[784]",
+      "label": "MV503WWork",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: rzeczywiste WORK po filtracji; 0: brak potwierdzenia WORK. Kierunek: PLC do robota."
+    },
+    "F[785]": {
+      "address": "F[785]",
+      "label": "MV503Trwa",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: trwa ruch do przyjetego celu. Kierunek: PLC do robota."
+    },
+    "F[786]": {
+      "address": "F[786]",
+      "label": "MV503Waz",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: aktualne czujniki i diagnostyka; 0: nie uzywac potwierdzen. Kierunek: PLC do robota."
+    },
+    "F[787]": {
+      "address": "F[787]",
+      "label": "MV504AkHome",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: biezace zadanie HOME przyjete przez arbitraz. Kierunek: PLC do robota."
+    },
+    "F[788]": {
+      "address": "F[788]",
+      "label": "MV504AkWork",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: biezace zadanie WORK przyjete przez arbitraz. Kierunek: PLC do robota."
+    },
+    "F[789]": {
+      "address": "F[789]",
+      "label": "MV504WHome",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: rzeczywiste HOME po filtracji; 0: brak potwierdzenia HOME. Kierunek: PLC do robota."
+    },
+    "F[790]": {
+      "address": "F[790]",
+      "label": "MV504WWork",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: rzeczywiste WORK po filtracji; 0: brak potwierdzenia WORK. Kierunek: PLC do robota."
+    },
+    "F[791]": {
+      "address": "F[791]",
+      "label": "MV504Trwa",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: trwa ruch do przyjetego celu. Kierunek: PLC do robota."
+    },
+    "F[792]": {
+      "address": "F[792]",
+      "label": "MV504Waz",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: aktualne czujniki i diagnostyka; 0: nie uzywac potwierdzen. Kierunek: PLC do robota."
+    },
+    "F[793]": {
+      "address": "F[793]",
+      "label": "MV505AkHome",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: biezace zadanie HOME przyjete przez arbitraz. Kierunek: PLC do robota."
+    },
+    "F[794]": {
+      "address": "F[794]",
+      "label": "MV505AkWork",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: biezace zadanie WORK przyjete przez arbitraz. Kierunek: PLC do robota."
+    },
+    "F[795]": {
+      "address": "F[795]",
+      "label": "MV505WHome",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: rzeczywiste HOME po filtracji; 0: brak potwierdzenia HOME. Kierunek: PLC do robota."
+    },
+    "F[796]": {
+      "address": "F[796]",
+      "label": "MV505WWork",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: rzeczywiste WORK po filtracji; 0: brak potwierdzenia WORK. Kierunek: PLC do robota."
+    },
+    "F[797]": {
+      "address": "F[797]",
+      "label": "MV505Trwa",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: trwa ruch do przyjetego celu. Kierunek: PLC do robota."
+    },
+    "F[798]": {
+      "address": "F[798]",
+      "label": "MV505Waz",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: aktualne czujniki i diagnostyka; 0: nie uzywac potwierdzen. Kierunek: PLC do robota."
+    },
+    "F[799]": {
+      "address": "F[799]",
+      "label": "MPelTacACK",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: ukonczenie pojedynczego blistra zarejestrowane raz. Kierunek: PLC do robota."
+    },
+    "F[800]": {
+      "address": "F[800]",
+      "label": "MPobrTaACK",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: zdarzenie blisterPicked zarejestrowane dokladnie raz w biezacej sesji; 0: kanal wolny po req=0. Kierunek: PLC do robota."
+    },
+    "F[801]": {
+      "address": "F[801]",
+      "label": "MOdlTacACK",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: zdarzenie blisterPlaced zarejestrowane dokladnie raz w biezacej sesji; 0: kanal wolny po req=0. Kierunek: PLC do robota."
+    },
+    "F[802]": {
+      "address": "F[802]",
+      "label": "MPobrIMACK",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: zdarzenie immPickupCompleted zarejestrowane dokladnie raz w biezacej sesji; 0: kanal wolny po req=0. Kierunek: PLC do robota."
+    },
+    "F[803]": {
+      "address": "F[803]",
+      "label": "MWarstwACK",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: zdarzenie layerFinished zarejestrowane dokladnie raz w biezacej sesji; 0: kanal wolny po req=0. Kierunek: PLC do robota."
+    },
+    "F[804]": {
+      "address": "F[804]",
+      "label": "MDobreACK",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: zdarzenie productsPlaced zarejestrowane dokladnie raz w biezacej sesji; 0: kanal wolny po req=0. Kierunek: PLC do robota."
+    },
+    "F[805]": {
+      "address": "F[805]",
+      "label": "MProbkiACK",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: zdarzenie samplesPlaced zarejestrowane dokladnie raz w biezacej sesji; 0: kanal wolny po req=0. Kierunek: PLC do robota."
+    },
+    "F[806]": {
+      "address": "F[806]",
+      "label": "MPrzeklACK",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: zdarzenie spacerPlaced zarejestrowane dokladnie raz w biezacej sesji; 0: kanal wolny po req=0. Kierunek: PLC do robota."
+    },
+    "F[807]": {
+      "address": "F[807]",
+      "label": "MPelLadACK",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: zdarzenie stackFinished zarejestrowane dokladnie raz w biezacej sesji; 0: kanal wolny po req=0. Kierunek: PLC do robota."
+    },
+    "F[808]": {
+      "address": "F[808]",
+      "label": "MIMMPWyrzTyl",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: koncowy procesowy sygnal ejectorBack wystawiony po arbitrazu; 0: niewystawiony. Nie potwierdza ruchu maszyny. Kierunek: PLC do robota."
+    },
+    "F[809]": {
+      "address": "F[809]",
+      "label": "MIMMPWyrzPrz",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: koncowy procesowy sygnal ejectorForward wystawiony po arbitrazu; 0: niewystawiony. Nie potwierdza ruchu maszyny. Kierunek: PLC do robota."
+    },
+    "F[810]": {
+      "address": "F[810]",
+      "label": "MIMMPZamForme",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: koncowy procesowy sygnal mouldClose wystawiony po arbitrazu; 0: niewystawiony. Nie potwierdza ruchu maszyny. Kierunek: PLC do robota."
+    },
+    "F[811]": {
+      "address": "F[811]",
+      "label": "MIMMPOtwForme",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: koncowy procesowy sygnal mouldFullOpen wystawiony po arbitrazu; 0: niewystawiony. Nie potwierdza ruchu maszyny. Kierunek: PLC do robota."
+    },
+    "F[812]": {
+      "address": "F[812]",
+      "label": "MIMMCyklZnany",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: model rozpoczetych wtryskow uzgodniony; 0: stan nieznany, blokada nowych cykli. Kierunek: PLC do robota."
+    },
+    "F[813]": {
+      "address": "F[813]",
+      "label": "MIMMWyrzTyl",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: wyrzutnik w pozycji tylnej. Kierunek: PLC do robota."
+    },
+    "F[814]": {
+      "address": "F[814]",
+      "label": "MIMMWyrzPrz",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: wyrzutnik w pozycji przedniej. Kierunek: PLC do robota."
+    },
+    "F[815]": {
+      "address": "F[815]",
+      "label": "MIMMFormaZam",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: potwierdzona forma zamknieta; nie dowodzi rozpoczecia wtrysku. Kierunek: PLC do robota."
+    },
+    "F[816]": {
+      "address": "F[816]",
+      "label": "MIMMFormaPozSr",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: potwierdzona pozycja posrednia; dostepnosc wg GAP-05. Kierunek: PLC do robota."
+    },
+    "F[817]": {
+      "address": "F[817]",
+      "label": "MIMMFormaOtw",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: potwierdzona forma otwarta. Kierunek: PLC do robota."
+    },
+    "F[818]": {
+      "address": "F[818]",
+      "label": "MIMMNowyCykl",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: PLC pozwala na nowy wtrysk w biezacej fazie; 0: blokada nowych wtryskow. Kierunek: PLC do robota."
+    },
+    "F[819]": {
+      "address": "F[819]",
+      "label": "MIMMDoPobr",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: cycleId przydzielono do nowego pobrania i jeszcze go nie potwierdzono przez immPickupCompleted; 0: nie rozpoczynac ponownego pobrania tego identyfikatora. Kierunek: PLC do robota."
+    },
+    "F[820]": {
+      "address": "F[820]",
+      "label": "MIMMOdrzut",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: odrzut detali w powiazanym cyklu; 0: brak odrzutu. Kierunek: PLC do robota."
+    },
+    "F[821]": {
+      "address": "F[821]",
+      "label": "MIMMRozlicz",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: rozliczone rozpoczete wtryski i wymagane operacje maszyny. Kierunek: PLC do robota."
+    },
+    "F[822]": {
+      "address": "F[822]",
+      "label": "MIMMWaz",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: dane EUROMAP aktualne i znormalizowane; 0: niewazne. Kierunek: PLC do robota."
+    },
+    "F[823]": {
+      "address": "F[823]",
+      "label": "MIMMZRobot",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: maszyna potwierdza wspolprace z robotem po normalizacji. Kierunek: PLC do robota."
+    },
+    "F[824]": {
+      "address": "F[824]",
+      "label": "MLaczGot",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: lokalny interfejs gotowy; 0: brak gotowosci, nie jest to pozwolenie ruchu. Kierunek: PLC do robota."
+    },
+    "F[825]": {
+      "address": "F[825]",
+      "label": "MLaczSyncACK",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: potwierdzenie zadania synchronizacji partnera; 0: brak potwierdzenia. Kierunek: PLC do robota."
+    },
+    "F[826]": {
+      "address": "F[826]",
+      "label": "MLaczSyncReq",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: zadanie nowej synchronizacji; 0: brak zadania. Kierunek: PLC do robota."
+    },
+    "F[827]": {
+      "address": "F[827]",
+      "label": "MProdKrytBlok",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: blokada krytyczna; 0: brak zgloszonej blokady. Nie jest sygnalem safety. Kierunek: PLC do robota."
+    },
+    "F[828]": {
+      "address": "F[828]",
+      "label": "MProdKon_cZlec",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: zakonczyc operacje; PLC nastepnie oproznia stacje. Kierunek: PLC do robota."
+    },
+    "F[829]": {
+      "address": "F[829]",
+      "label": "MProdDok_czZez",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: dozwolone dokonczenie rozliczanych operacji przy spelnionych blokadach; 0: brak pozwolenia. Kierunek: PLC do robota."
+    },
+    "F[830]": {
+      "address": "F[830]",
+      "label": "MProdNoweZez",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: mozna rozpoczac nowa operacje produkcyjna; 0: nie rozpoczynac kolejnej. Kierunek: PLC do robota."
+    },
+    "F[831]": {
+      "address": "F[831]",
+      "label": "MProdZlecON",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: zlecenie otwarte; 0: brak aktywnego zlecenia. Kierunek: PLC do robota."
+    },
+    "F[832]": {
+      "address": "F[832]",
+      "label": "MProdRecovery",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: wymagane uzgodnienie stanu; 0: uzgodniony stan. Kierunek: PLC do robota."
+    },
+    "F[833]": {
+      "address": "F[833]",
+      "label": "MProdStop",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: normalny Stop; trzymac do rozliczenia i swiadomego wznowienia. Kierunek: PLC do robota."
+    },
+    "F[834]": {
+      "address": "F[834]",
+      "label": "MProdZRobot",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: wspolpraca wybrana; 0: samodzielny Krauss po wymaganym Stop i HOME. Kierunek: PLC do robota."
+    },
+    "F[835]": {
+      "address": "F[835]",
+      "label": "MProbkiReq",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: jednorazowe zadanie odlozenia probek; 0: zwolnienie kanalu po ACK. Kierunek: PLC do robota."
+    },
+    "F[836]": {
+      "address": "F[836]",
+      "label": "MVac1Akc",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: biezacy cmdValid/hold zostal przyjety. Kierunek: PLC do robota."
+    },
+    "F[837]": {
+      "address": "F[837]",
+      "label": "MVac1DmACK",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: terminalny wynik przedmuchu dostepny; trzymany do blowReq=0. Kierunek: PLC do robota."
+    },
+    "F[838]": {
+      "address": "F[838]",
+      "label": "MVac1Trwa",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: wykonywanie przedmuchu lub oczekiwanie na prog po przyjetym zadaniu. Kierunek: PLC do robota."
+    },
+    "F[839]": {
+      "address": "F[839]",
+      "label": "MVac1TrzymAkt",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: koncowa komenda prozni jest zalaczona; nie jest pomiarem podcisnienia. Kierunek: PLC do robota."
+    },
+    "F[840]": {
+      "address": "F[840]",
+      "label": "MVac1OK",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: rzeczywiste podcisnienie OK; 0: prog nieosiagniety; wazne z valid. Kierunek: PLC do robota."
+    },
+    "F[841]": {
+      "address": "F[841]",
+      "label": "MVac1Waz",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: aktualne wejscia i diagnostyka obwodu. Kierunek: PLC do robota."
+    },
+    "F[842]": {
+      "address": "F[842]",
+      "label": "MVac2Akc",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: biezacy cmdValid/hold zostal przyjety. Kierunek: PLC do robota."
+    },
+    "F[843]": {
+      "address": "F[843]",
+      "label": "MVac2DmACK",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: terminalny wynik przedmuchu dostepny; trzymany do blowReq=0. Kierunek: PLC do robota."
+    },
+    "F[844]": {
+      "address": "F[844]",
+      "label": "MVac2Trwa",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: wykonywanie przedmuchu lub oczekiwanie na prog po przyjetym zadaniu. Kierunek: PLC do robota."
+    },
+    "F[845]": {
+      "address": "F[845]",
+      "label": "MVac2TrzymAkt",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: koncowa komenda prozni jest zalaczona; nie jest pomiarem podcisnienia. Kierunek: PLC do robota."
+    },
+    "F[846]": {
+      "address": "F[846]",
+      "label": "MVac2OK",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: rzeczywiste podcisnienie OK; 0: prog nieosiagniety; wazne z valid. Kierunek: PLC do robota."
+    },
+    "F[847]": {
+      "address": "F[847]",
+      "label": "MVac2Waz",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: aktualne wejscia i diagnostyka obwodu. Kierunek: PLC do robota."
+    },
+    "F[848]": {
+      "address": "F[848]",
+      "label": "MVac3Akc",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: biezacy cmdValid/hold zostal przyjety. Kierunek: PLC do robota."
+    },
+    "F[849]": {
+      "address": "F[849]",
+      "label": "MVac3DmACK",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: terminalny wynik przedmuchu dostepny; trzymany do blowReq=0. Kierunek: PLC do robota."
+    },
+    "F[850]": {
+      "address": "F[850]",
+      "label": "MVac3Trwa",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: wykonywanie przedmuchu lub oczekiwanie na prog po przyjetym zadaniu. Kierunek: PLC do robota."
+    },
+    "F[851]": {
+      "address": "F[851]",
+      "label": "MVac3TrzymAkt",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: koncowa komenda prozni jest zalaczona; nie jest pomiarem podcisnienia. Kierunek: PLC do robota."
+    },
+    "F[852]": {
+      "address": "F[852]",
+      "label": "MVac3OK",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: rzeczywiste podcisnienie OK; 0: prog nieosiagniety; wazne z valid. Kierunek: PLC do robota."
+    },
+    "F[853]": {
+      "address": "F[853]",
+      "label": "MVac3Waz",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: aktualne wejscia i diagnostyka obwodu. Kierunek: PLC do robota."
+    },
+    "F[854]": {
+      "address": "F[854]",
+      "label": "MVac4Akc",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: biezacy cmdValid/hold zostal przyjety. Kierunek: PLC do robota."
+    },
+    "F[855]": {
+      "address": "F[855]",
+      "label": "MVac4DmACK",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: terminalny wynik przedmuchu dostepny; trzymany do blowReq=0. Kierunek: PLC do robota."
+    },
+    "F[856]": {
+      "address": "F[856]",
+      "label": "MVac4Trwa",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: wykonywanie przedmuchu lub oczekiwanie na prog po przyjetym zadaniu. Kierunek: PLC do robota."
+    },
+    "F[857]": {
+      "address": "F[857]",
+      "label": "MVac4TrzymAkt",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: koncowa komenda prozni jest zalaczona; nie jest pomiarem podcisnienia. Kierunek: PLC do robota."
+    },
+    "F[858]": {
+      "address": "F[858]",
+      "label": "MVac4OK",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: rzeczywiste podcisnienie OK; 0: prog nieosiagniety; wazne z valid. Kierunek: PLC do robota."
+    },
+    "F[859]": {
+      "address": "F[859]",
+      "label": "MVac4Waz",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: aktualne wejscia i diagnostyka obwodu. Kierunek: PLC do robota."
+    },
+    "F[860]": {
+      "address": "F[860]",
+      "label": "MVac5Akc",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: biezacy cmdValid/hold zostal przyjety. Kierunek: PLC do robota."
+    },
+    "F[861]": {
+      "address": "F[861]",
+      "label": "MVac5DmACK",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: terminalny wynik przedmuchu dostepny; trzymany do blowReq=0. Kierunek: PLC do robota."
+    },
+    "F[862]": {
+      "address": "F[862]",
+      "label": "MVac5Trwa",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: wykonywanie przedmuchu lub oczekiwanie na prog po przyjetym zadaniu. Kierunek: PLC do robota."
+    },
+    "F[863]": {
+      "address": "F[863]",
+      "label": "MVac5TrzymAkt",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: koncowa komenda prozni jest zalaczona; nie jest pomiarem podcisnienia. Kierunek: PLC do robota."
+    },
+    "F[864]": {
+      "address": "F[864]",
+      "label": "MVac5OK",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: rzeczywiste podcisnienie OK; 0: prog nieosiagniety; wazne z valid. Kierunek: PLC do robota."
+    },
+    "F[865]": {
+      "address": "F[865]",
+      "label": "MVac5Waz",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 1: aktualne wejscia i diagnostyka obwodu. Kierunek: PLC do robota."
+    },
+    "F[866]": {
+      "address": "F[866]",
+      "label": "MOdrzutACK",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. Odrzut zarejestrowany raz dla biezacego REQ; utrzymac ACK do REQ=0. Kierunek: PLC do robota."
+    },
+    "GO[10]": {
+      "address": "GO[10]",
+      "label": "WarstwLad",
+      "description": "Identyfikator stosu/pojemnika nadany przez PLC; echo production.stackId. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "GO[11]": {
+      "address": "GO[11]",
+      "label": "DobreSzt",
+      "description": "Potwierdzona liczba odlozonych detali: UINT 1..65535, nie wiecej niz nierozliczona ilosc przypisanej partii; niezalezna od obwodow prozni. Nastawe stosowac tylko przy wylaczonym zleceniu i niepracujacej stacji (DEC-18). Payload stabilny przed REQ=1 az do ACK=0. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "GO[12]": {
+      "address": "GO[12]",
+      "label": "DobreCykl",
+      "description": "Identyfikator rzeczywiscie rozpoczetego wtrysku; wiaze zdarzenie z rozliczeniem detali. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "GO[13]": {
+      "address": "GO[13]",
+      "label": "DobreLad",
+      "description": "Identyfikator stosu/pojemnika nadany przez PLC; echo production.stackId. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "GO[14]": {
+      "address": "GO[14]",
+      "label": "ProbkiSzt",
+      "description": "Potwierdzona liczba odlozonych detali: UINT 1..65535, nie wiecej niz nierozliczona ilosc przypisanej partii; niezalezna od obwodow prozni. Nastawe stosowac tylko przy wylaczonym zleceniu i niepracujacej stacji (DEC-18). Payload stabilny przed REQ=1 az do ACK=0. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "GO[15]": {
+      "address": "GO[15]",
+      "label": "ProbkiCykl",
+      "description": "Identyfikator rzeczywiscie rozpoczetego wtrysku; wiaze zdarzenie z rozliczeniem detali. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "GO[16]": {
+      "address": "GO[16]",
+      "label": "ProbkiLad",
+      "description": "Identyfikator stosu/pojemnika nadany przez PLC; echo production.stackId. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "GO[17]": {
+      "address": "GO[17]",
+      "label": "PrzeklLad",
+      "description": "Identyfikator stosu/pojemnika nadany przez PLC; echo production.stackId. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "GO[18]": {
+      "address": "GO[18]",
+      "label": "PelLadLad",
+      "description": "Identyfikator stosu/pojemnika nadany przez PLC; echo production.stackId. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "GO[19]": {
+      "address": "GO[19]",
+      "label": "ProdKodBledu",
+      "description": "0 brak; kod przyczyny, odrebny od miejsca. Kierunek: Robot do PLC. Kody: 1001 nastawy; 1100 blokada; 1101/2101 punkt lub granica; 1102 nieznany krok; 1201 przedmuch; 1301..1303 przypisanie; 1401..1408 recovery; 1501 szukanie; 1502 zastana proznia; 1601 brak miejsca; 1700+krok timeout; 1800 BG; 1900 sekwencja. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "GO[1]": {
+      "address": "GO[1]",
+      "label": "LaczWers",
+      "description": "Wersja kontraktu: 2; inna wartosc blokuje uzbrojenie. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "GO[20]": {
+      "address": "GO[20]",
+      "label": "ProdMaskLad",
+      "description": "Bity 0..4: zajecie fizycznych obwodow prozni 1..5 wedlug potwierdzonego profilu narzedzia; nie liczba detali. W F-2680 obwod 3 dotyczy blistrow. Pozostale bity 0. Wazne tylko z loadKnown=1. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "GO[21]": {
+      "address": "GO[21]",
+      "label": "ProdFaza",
+      "description": "0 nieznana; 10 oczekiwanie; 20 pobranie IMM; 30 odkladanie; 40 blister/przekladka; 50 probki; 60 zatrzymywanie; 70 zatrzymany; 900 blad/odzyskiwanie. Kierunek: Robot do PLC. 10 gotowosc; 20 IMM; 30 odkladanie; 40 pusty nosnik/przekladki/koniec; 50 probki/odrzuty; 60 powrot HOME; 70 postoj; 900 recovery. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "GO[22]": {
+      "address": "GO[22]",
+      "label": "ProdProgram",
+      "description": "0: zaden/nieznany; 1: Pojemniki; 2: Blistry; identyfikacja programu faktycznie uruchomionego. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "GO[23]": {
+      "address": "GO[23]",
+      "label": "ProdKrok",
+      "description": "Kod miejsca w procedurze wg robot-modernization.md. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "GO[24]": {
+      "address": "GO[24]",
+      "label": "ProdCzekaKod",
+      "description": "0 brak; 10 synchronizacja; 20 pozwolenie; 30 IMM; 40 silownik; 50 proznia; 60 obszar; 70 ACK; 80 operator. Kierunek: Robot do PLC. 0 brak; 20 partia; 30 forma; 40 chwytak; 50 proznia/przedmuch; 60 obszar/nosnik; 70 ACK; 80 operator lub Start. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "GO[25]": {
+      "address": "GO[25]",
+      "label": "ProbkiWynik",
+      "description": "0 brak; 1 przyjeto; 2 odrzucono; stabilne przy samples.ack=1. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "GO[26]": {
+      "address": "GO[26]",
+      "label": "OdrzutSzt",
+      "description": "Potwierdzona ilosc odlozonej grupy odrzutow 1..65535; nie wiecej niz pozostala ilosc partii. Stabilne od REQ=1 do ACK=0. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "GO[27]": {
+      "address": "GO[27]",
+      "label": "OdrzutCykl",
+      "description": "Identyfikator partii odrzutow przypisany przed pobraniem. Stabilne od REQ=1 do ACK=0. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "GO[28]": {
+      "address": "GO[28]",
+      "label": "OdrzutLad",
+      "description": "Kontekst stosu w chwili przypisania partii; odrzut nie zapelnia tacki. Stabilne od REQ=1 do ACK=0. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "GO[2]": {
+      "address": "GO[2]",
+      "label": "LaczHB",
+      "description": "Licznik 0..65535 modulo 65536; cykliczny niezaleznie od WAIT programu. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "GO[3]": {
+      "address": "GO[3]",
+      "label": "PelTacIdx",
+      "description": "Indeks ukonczonego blistra od 0, stabilny w calej wymianie. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "GO[4]": {
+      "address": "GO[4]",
+      "label": "PelTacLad",
+      "description": "Identyfikator stosu blistrow, stabilny w calej wymianie. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "GO[5]": {
+      "address": "GO[5]",
+      "label": "PobrTaLad",
+      "description": "Identyfikator stosu/pojemnika nadany przez PLC; echo production.stackId. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "GO[6]": {
+      "address": "GO[6]",
+      "label": "OdlTacLad",
+      "description": "Identyfikator stosu/pojemnika nadany przez PLC; echo production.stackId. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "GO[7]": {
+      "address": "GO[7]",
+      "label": "PobrIMCykl",
+      "description": "Identyfikator rzeczywiscie rozpoczetego wtrysku; wiaze zdarzenie z rozliczeniem detali. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "GO[8]": {
+      "address": "GO[8]",
+      "label": "PobrIMLad",
+      "description": "Identyfikator stosu/pojemnika nadany przez PLC; echo production.stackId. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "GO[9]": {
+      "address": "GO[9]",
+      "label": "WarstwIdx",
+      "description": "Indeks ukonczonej warstwy od 0. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC. Transport EIP; fizyczne przypisanie do odbioru."
+    },
+    "R[100]": {
+      "address": "R[100]",
+      "label": "CmdProdProgram",
+      "description": "Lokalne zadanie lub status aplikacji. 0: zaden/nieznany; 1: Pojemniki; 2: Blistry; identyfikacja programu faktycznie uruchomionego. Kierunek: Robot do PLC."
+    },
+    "R[101]": {
+      "address": "R[101]",
+      "label": "CmdProdKrok",
+      "description": "Lokalne zadanie lub status aplikacji. Kod miejsca w procedurze wg robot-modernization.md. Kierunek: Robot do PLC."
+    },
+    "R[102]": {
+      "address": "R[102]",
+      "label": "CmdProdC_kaKod",
+      "description": "Lokalne zadanie lub status aplikacji. 0 brak; 10 synchronizacja; 20 pozwolenie; 30 IMM; 40 silownik; 50 proznia; 60 obszar; 70 ACK; 80 operator. Kierunek: Robot do PLC. 0 brak; 20 partia; 30 forma; 40 chwytak; 50 proznia/przedmuch; 60 obszar/nosnik; 70 ACK; 80 operator lub Start."
+    },
+    "R[103]": {
+      "address": "R[103]",
+      "label": "CmdProbkiWynik",
+      "description": "Lokalne zadanie lub status aplikacji. 0 brak; 1 przyjeto; 2 odrzucono; stabilne przy samples.ack=1. Kierunek: Robot do PLC."
+    },
+    "R[104]": {
+      "address": "R[104]",
+      "label": "CmdOdrzutSzt",
+      "description": "Lokalne zadanie lub status aplikacji. Potwierdzona ilosc odlozonej grupy odrzutow 1..65535; nie wiecej niz pozostala ilosc partii. Stabilne od REQ=1 do ACK=0. Kierunek: Robot do PLC."
+    },
+    "R[105]": {
+      "address": "R[105]",
+      "label": "CmdOdrzutCykl",
+      "description": "Lokalne zadanie lub status aplikacji. Identyfikator partii odrzutow przypisany przed pobraniem. Stabilne od REQ=1 do ACK=0. Kierunek: Robot do PLC."
+    },
+    "R[106]": {
+      "address": "R[106]",
+      "label": "CmdOdrzutLad",
+      "description": "Lokalne zadanie lub status aplikacji. Kontekst stosu w chwili przypisania partii; odrzut nie zapelnia tacki. Stabilne od REQ=1 do ACK=0. Kierunek: Robot do PLC."
+    },
+    "R[107]": {
+      "address": "R[107]",
+      "label": "ACKPelTacIdx",
+      "description": "Payload zamrozony od REQ do ACK=0. Indeks ukonczonego blistra od 0, stabilny w calej wymianie. Kierunek: Robot do PLC."
+    },
+    "R[108]": {
+      "address": "R[108]",
+      "label": "ACKPelTacLad",
+      "description": "Payload zamrozony od REQ do ACK=0. Identyfikator stosu blistrow, stabilny w calej wymianie. Kierunek: Robot do PLC."
+    },
+    "R[109]": {
+      "address": "R[109]",
+      "label": "ACKPobrTaLad",
+      "description": "Payload zamrozony od REQ do ACK=0. Identyfikator stosu/pojemnika nadany przez PLC; echo production.stackId. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC."
+    },
+    "R[10]": {
+      "address": "R[10]",
+      "label": "MV505Przyczyna",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 0 brak; 10 brak sesji; 20 tryb; 30 blokada; 40 konflikt; 50 nieaktualne wejscia; 60 timeout; 70 sprzeczne czujniki; 80 odzyskiwanie. Kierunek: PLC do robota."
+    },
+    "R[110]": {
+      "address": "R[110]",
+      "label": "ACKOdlTacLad",
+      "description": "Payload zamrozony od REQ do ACK=0. Identyfikator stosu/pojemnika nadany przez PLC; echo production.stackId. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC."
+    },
+    "R[111]": {
+      "address": "R[111]",
+      "label": "ACKPobrIMCykl",
+      "description": "Payload zamrozony od REQ do ACK=0. Identyfikator rzeczywiscie rozpoczetego wtrysku; wiaze zdarzenie z rozliczeniem detali. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC."
+    },
+    "R[112]": {
+      "address": "R[112]",
+      "label": "ACKPobrIMLad",
+      "description": "Payload zamrozony od REQ do ACK=0. Identyfikator stosu/pojemnika nadany przez PLC; echo production.stackId. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC."
+    },
+    "R[113]": {
+      "address": "R[113]",
+      "label": "ACKWarstwIdx",
+      "description": "Payload zamrozony od REQ do ACK=0. Indeks ukonczonej warstwy od 0. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC."
+    },
+    "R[114]": {
+      "address": "R[114]",
+      "label": "ACKWarstwLad",
+      "description": "Payload zamrozony od REQ do ACK=0. Identyfikator stosu/pojemnika nadany przez PLC; echo production.stackId. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC."
+    },
+    "R[115]": {
+      "address": "R[115]",
+      "label": "ACKDobreSzt",
+      "description": "Payload zamrozony od REQ do ACK=0. Potwierdzona liczba odlozonych detali: UINT 1..65535, nie wiecej niz nierozliczona ilosc przypisanej partii; niezalezna od obwodow prozni. Nastawe stosowac tylko przy wylaczonym zleceniu i niepracujacej stacji (DEC-18). Payload stabilny przed REQ=1 az do ACK=0. Kierunek: Robot do PLC."
+    },
+    "R[116]": {
+      "address": "R[116]",
+      "label": "ACKDobreCykl",
+      "description": "Payload zamrozony od REQ do ACK=0. Identyfikator rzeczywiscie rozpoczetego wtrysku; wiaze zdarzenie z rozliczeniem detali. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC."
+    },
+    "R[117]": {
+      "address": "R[117]",
+      "label": "ACKDobreLad",
+      "description": "Payload zamrozony od REQ do ACK=0. Identyfikator stosu/pojemnika nadany przez PLC; echo production.stackId. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC."
+    },
+    "R[118]": {
+      "address": "R[118]",
+      "label": "ACKProbkiSzt",
+      "description": "Payload zamrozony od REQ do ACK=0. Potwierdzona liczba odlozonych detali: UINT 1..65535, nie wiecej niz nierozliczona ilosc przypisanej partii; niezalezna od obwodow prozni. Nastawe stosowac tylko przy wylaczonym zleceniu i niepracujacej stacji (DEC-18). Payload stabilny przed REQ=1 az do ACK=0. Kierunek: Robot do PLC."
+    },
+    "R[119]": {
+      "address": "R[119]",
+      "label": "ACKProbkiCykl",
+      "description": "Payload zamrozony od REQ do ACK=0. Identyfikator rzeczywiscie rozpoczetego wtrysku; wiaze zdarzenie z rozliczeniem detali. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC."
+    },
+    "R[11]": {
+      "address": "R[11]",
+      "label": "MIMMCykl",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. Identyfikator rzeczywiscie rozpoczetego cyklu przydzielonego do pobrania; utrzymac do konca handshake immPickupCompleted. Nastepne starty PLC zapisuje osobno. Modulo 65536. Kierunek: PLC do robota."
+    },
+    "R[120]": {
+      "address": "R[120]",
+      "label": "ACKProbkiLad",
+      "description": "Payload zamrozony od REQ do ACK=0. Identyfikator stosu/pojemnika nadany przez PLC; echo production.stackId. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC."
+    },
+    "R[121]": {
+      "address": "R[121]",
+      "label": "ACKPrzeklLad",
+      "description": "Payload zamrozony od REQ do ACK=0. Identyfikator stosu/pojemnika nadany przez PLC; echo production.stackId. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC."
+    },
+    "R[122]": {
+      "address": "R[122]",
+      "label": "ACKPelLadLad",
+      "description": "Payload zamrozony od REQ do ACK=0. Identyfikator stosu/pojemnika nadany przez PLC; echo production.stackId. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC."
+    },
+    "R[123]": {
+      "address": "R[123]",
+      "label": "ACKOdrzutSzt",
+      "description": "Payload zamrozony od REQ do ACK=0. Potwierdzona ilosc odlozonej grupy odrzutow 1..65535; nie wiecej niz pozostala ilosc partii. Stabilne od REQ=1 do ACK=0. Kierunek: Robot do PLC."
+    },
+    "R[124]": {
+      "address": "R[124]",
+      "label": "ACKOdrzutCykl",
+      "description": "Payload zamrozony od REQ do ACK=0. Identyfikator partii odrzutow przypisany przed pobraniem. Stabilne od REQ=1 do ACK=0. Kierunek: Robot do PLC."
+    },
+    "R[125]": {
+      "address": "R[125]",
+      "label": "ACKOdrzutLad",
+      "description": "Payload zamrozony od REQ do ACK=0. Kontekst stosu w chwili przypisania partii; odrzut nie zapelnia tacki. Stabilne od REQ=1 do ACK=0. Kierunek: Robot do PLC."
+    },
+    "R[126]": {
+      "address": "R[126]",
+      "label": "StanLacza",
+      "description": "Stan: 0 rozbrojone; 10 zadanie SYNC; 20 wygaszanie ACK; 30 recovery; 40 po jawnym recovery, gotowosc sesji."
+    },
+    "R[127]": {
+      "address": "R[127]",
+      "label": "CyklSerwisu",
+      "description": "Licznik cykli PLC_SCAN do wykrycia zatrzymania PLC_SVC."
+    },
+    "R[128]": {
+      "address": "R[128]",
+      "label": "CyklSVCpop",
+      "description": "Ostatnio widziany licznik serwisu."
+    },
+    "R[129]": {
+      "address": "R[129]",
+      "label": "CzasTeraz_t",
+      "description": "Biezacy czas watchdogow [surowe ticki]; czestotliwosc do pomiaru."
+    },
+    "R[12]": {
+      "address": "R[12]",
+      "label": "MIMMPrzyczyna",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. Kod blokady w ImmInterface; jak dla urzadzen. Kierunek: PLC do robota."
+    },
+    "R[130]": {
+      "address": "R[130]",
+      "label": "CzasPoprz_t",
+      "description": "Poprzedni czas do wykrycia cofniecia zegara."
+    },
+    "R[131]": {
+      "address": "R[131]",
+      "label": "PLCzmiana_t",
+      "description": "Czas ostatniej zmiany heartbeat PLC [ticki]."
+    },
+    "R[132]": {
+      "address": "R[132]",
+      "label": "SVCzmiana_t",
+      "description": "Czas ostatniej zmiany licznika serwisu [ticki]."
+    },
+    "R[133]": {
+      "address": "R[133]",
+      "label": "HBPLCpoprz",
+      "description": "Ostatni heartbeat PLC 0..65535."
+    },
+    "R[134]": {
+      "address": "R[134]",
+      "label": "HBczas_t",
+      "description": "Czas ostatniego zwiekszenia heartbeat robota [ticki]."
+    },
+    "R[135]": {
+      "address": "R[135]",
+      "label": "HBRobot",
+      "description": "Licznik heartbeat robota 0..65535 modulo; BG_PLC jest jedynym pisarzem jego GO."
+    },
+    "R[136]": {
+      "address": "R[136]",
+      "label": "HBokres_t",
+      "description": "Okres zwiekszania heartbeat [surowe ticki]."
+    },
+    "R[137]": {
+      "address": "R[137]",
+      "label": "PLCczasMax_t",
+      "description": "Limit niezmiennego heartbeat PLC [ticki]."
+    },
+    "R[138]": {
+      "address": "R[138]",
+      "label": "SVCczasMax_t",
+      "description": "Limit nieaktualnego serwisu lub BG [ticki]."
+    },
+    "R[139]": {
+      "address": "R[139]",
+      "label": "SYNCmax_t",
+      "description": "Limit synchronizacji lacza [ticki]."
+    },
+    "R[13]": {
+      "address": "R[13]",
+      "label": "MIMMNieRozlicz",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. Liczba rozpoczetych wtryskow, ktorych robot jeszcze nie rozliczyl; prowadzi PLC. Kierunek: PLC do robota."
+    },
+    "R[140]": {
+      "address": "R[140]",
+      "label": "SYNCod_t",
+      "description": "Czas rozpoczecia synchronizacji [ticki]."
+    },
+    "R[141]": {
+      "address": "R[141]",
+      "label": "BladLacza",
+      "description": "Kod: 0 brak; 902 timeout SYNC; 905 zajety kanal; 906 bledny wynik przedmuchu."
+    },
+    "R[142]": {
+      "address": "R[142]",
+      "label": "CzasStatus_t",
+      "description": "LIVE: czas ostatniego BG_STATUS [ticki]. TEST: syntetyczny zegar testu."
+    },
+    "R[143]": {
+      "address": "R[143]",
+      "label": "StanProbek",
+      "description": "0 bezczynna; 10 czeka na decyzje main; 20 utrzymuje ACK do zaniku zadania PLC."
+    },
+    "R[144]": {
+      "address": "R[144]",
+      "label": "WynikProbek",
+      "description": "0 brak; 10 oczekiwanie; 20 przyjeto; 30 odrzucono; 904 bledny wynik."
+    },
+    "R[145]": {
+      "address": "R[145]",
+      "label": "DecyzjaProb",
+      "description": "Odpowiedz probek: 1 przyjeto caly nastepny komplet; 2 odrzucono."
+    },
+    "R[146]": {
+      "address": "R[146]",
+      "label": "CzasGuard_t",
+      "description": "LIVE: czas ostatniego BG_GUARD [ticki]. TEST: 1 PASS, 900 FAIL, 0 niewykonany."
+    },
+    "R[147]": {
+      "address": "R[147]",
+      "label": "PobrTackStan",
+      "description": "Kanal: pobranie pustej tacki. Stan wymiany: 0 bezczynna; 10 REQ=1 czeka ACK=1; 20 REQ=0 czeka ACK=0."
+    },
+    "R[148]": {
+      "address": "R[148]",
+      "label": "PobrTackWynik",
+      "description": "Kanal: pobranie pustej tacki. Wynik: 0 brak; 10 trwa; 20 sukces (wymaga stanu 0); 30 odrzucono; 40 blad wykonania; 900 utrata sesji; 901 brak pozwolenia; 903 zastane ACK=1; 904 bledny payload."
+    },
+    "R[149]": {
+      "address": "R[149]",
+      "label": "OdlTackStan",
+      "description": "Kanal: odlozenie pustej tacki. Stan wymiany: 0 bezczynna; 10 REQ=1 czeka ACK=1; 20 REQ=0 czeka ACK=0."
+    },
+    "R[14]": {
+      "address": "R[14]",
+      "label": "MProdKodBlok",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 0: brak; kody diagnostyczne wedlug kontraktu. Kierunek: PLC do robota."
+    },
+    "R[150]": {
+      "address": "R[150]",
+      "label": "OdlTackWynik",
+      "description": "Kanal: odlozenie pustej tacki. Wynik: 0 brak; 10 trwa; 20 sukces (wymaga stanu 0); 30 odrzucono; 40 blad wykonania; 900 utrata sesji; 901 brak pozwolenia; 903 zastane ACK=1; 904 bledny payload."
+    },
+    "R[151]": {
+      "address": "R[151]",
+      "label": "PelTackStan",
+      "description": "Kanal: napelnienie pojedynczej tacki. Stan wymiany: 0 bezczynna; 10 REQ=1 czeka ACK=1; 20 REQ=0 czeka ACK=0."
+    },
+    "R[152]": {
+      "address": "R[152]",
+      "label": "PelTackWynik",
+      "description": "Kanal: napelnienie pojedynczej tacki. Wynik: 0 brak; 10 trwa; 20 sukces (wymaga stanu 0); 30 odrzucono; 40 blad wykonania; 900 utrata sesji; 901 brak pozwolenia; 903 zastane ACK=1; 904 bledny payload."
+    },
+    "R[153]": {
+      "address": "R[153]",
+      "label": "PrzeklStan",
+      "description": "Kanal: odlozenie przekladki. Stan wymiany: 0 bezczynna; 10 REQ=1 czeka ACK=1; 20 REQ=0 czeka ACK=0."
+    },
+    "R[154]": {
+      "address": "R[154]",
+      "label": "PrzeklWynik",
+      "description": "Kanal: odlozenie przekladki. Wynik: 0 brak; 10 trwa; 20 sukces (wymaga stanu 0); 30 odrzucono; 40 blad wykonania; 900 utrata sesji; 901 brak pozwolenia; 903 zastane ACK=1; 904 bledny payload."
+    },
+    "R[155]": {
+      "address": "R[155]",
+      "label": "DobreStan",
+      "description": "Kanal: odlozenie dobrych detali. Stan wymiany: 0 bezczynna; 10 REQ=1 czeka ACK=1; 20 REQ=0 czeka ACK=0."
+    },
+    "R[156]": {
+      "address": "R[156]",
+      "label": "DobreWynik",
+      "description": "Kanal: odlozenie dobrych detali. Wynik: 0 brak; 10 trwa; 20 sukces (wymaga stanu 0); 30 odrzucono; 40 blad wykonania; 900 utrata sesji; 901 brak pozwolenia; 903 zastane ACK=1; 904 bledny payload."
+    },
+    "R[157]": {
+      "address": "R[157]",
+      "label": "ProbkiStan",
+      "description": "Kanal: odlozenie probek. Stan wymiany: 0 bezczynna; 10 REQ=1 czeka ACK=1; 20 REQ=0 czeka ACK=0."
+    },
+    "R[158]": {
+      "address": "R[158]",
+      "label": "ProbkiWynik",
+      "description": "Kanal: odlozenie probek. Wynik: 0 brak; 10 trwa; 20 sukces (wymaga stanu 0); 30 odrzucono; 40 blad wykonania; 900 utrata sesji; 901 brak pozwolenia; 903 zastane ACK=1; 904 bledny payload."
+    },
+    "R[159]": {
+      "address": "R[159]",
+      "label": "WarstwaStan",
+      "description": "Kanal: ukonczenie warstwy BOX. Stan wymiany: 0 bezczynna; 10 REQ=1 czeka ACK=1; 20 REQ=0 czeka ACK=0."
+    },
+    "R[15]": {
+      "address": "R[15]",
+      "label": "MProdProgram",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 0: brak wyboru; 1: Pojemniki; 2: Blistry. Nie wybiera programu na FANUC. Kierunek: PLC do robota."
+    },
+    "R[160]": {
+      "address": "R[160]",
+      "label": "WarstwaWynik",
+      "description": "Kanal: ukonczenie warstwy BOX. Wynik: 0 brak; 10 trwa; 20 sukces (wymaga stanu 0); 30 odrzucono; 40 blad wykonania; 900 utrata sesji; 901 brak pozwolenia; 903 zastane ACK=1; 904 bledny payload."
+    },
+    "R[161]": {
+      "address": "R[161]",
+      "label": "PelLadStan",
+      "description": "Kanal: ukonczenie stosu lub pojemnika. Stan wymiany: 0 bezczynna; 10 REQ=1 czeka ACK=1; 20 REQ=0 czeka ACK=0."
+    },
+    "R[162]": {
+      "address": "R[162]",
+      "label": "PelLadWynik",
+      "description": "Kanal: ukonczenie stosu lub pojemnika. Wynik: 0 brak; 10 trwa; 20 sukces (wymaga stanu 0); 30 odrzucono; 40 blad wykonania; 900 utrata sesji; 901 brak pozwolenia; 903 zastane ACK=1; 904 bledny payload."
+    },
+    "R[163]": {
+      "address": "R[163]",
+      "label": "PobrIMMStan",
+      "description": "Kanal: pobranie partii i wyjazd z IMM. Stan wymiany: 0 bezczynna; 10 REQ=1 czeka ACK=1; 20 REQ=0 czeka ACK=0."
+    },
+    "R[164]": {
+      "address": "R[164]",
+      "label": "PobrIMMWynik",
+      "description": "Kanal: pobranie partii i wyjazd z IMM. Wynik: 0 brak; 10 trwa; 20 sukces (wymaga stanu 0); 30 odrzucono; 40 blad wykonania; 900 utrata sesji; 901 brak pozwolenia; 903 zastane ACK=1; 904 bledny payload."
+    },
+    "R[165]": {
+      "address": "R[165]",
+      "label": "OdrzutyStan",
+      "description": "Kanal: odlozenie odrzutow. Stan wymiany: 0 bezczynna; 10 REQ=1 czeka ACK=1; 20 REQ=0 czeka ACK=0."
+    },
+    "R[166]": {
+      "address": "R[166]",
+      "label": "OdrzutyWynik",
+      "description": "Kanal: odlozenie odrzutow. Wynik: 0 brak; 10 trwa; 20 sukces (wymaga stanu 0); 30 odrzucono; 40 blad wykonania; 900 utrata sesji; 901 brak pozwolenia; 903 zastane ACK=1; 904 bledny payload."
+    },
+    "R[167]": {
+      "address": "R[167]",
+      "label": "Dm1Stan",
+      "description": "Kanal: przedmuch obwodu 1. Stan wymiany: 0 bezczynna; 10 REQ=1 czeka ACK=1; 20 REQ=0 czeka ACK=0."
+    },
+    "R[168]": {
+      "address": "R[168]",
+      "label": "Dm1Wynik",
+      "description": "Kanal: przedmuch obwodu 1. Wynik: 0 brak; 10 trwa; 20 sukces (wymaga stanu 0); 30 odrzucono; 40 blad wykonania; 900 utrata sesji; 901 brak pozwolenia; 903 zastane ACK=1; 904 bledny payload."
+    },
+    "R[169]": {
+      "address": "R[169]",
+      "label": "Dm2Stan",
+      "description": "Kanal: przedmuch obwodu 2. Stan wymiany: 0 bezczynna; 10 REQ=1 czeka ACK=1; 20 REQ=0 czeka ACK=0."
+    },
+    "R[16]": {
+      "address": "R[16]",
+      "label": "MProdLad",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. Identyfikator aktualnego stosu/pojemnika nadany przez PLC; nie zmieniac przed zakonczeniem wymian tego stosu. Kierunek: PLC do robota."
+    },
+    "R[170]": {
+      "address": "R[170]",
+      "label": "Dm2Wynik",
+      "description": "Kanal: przedmuch obwodu 2. Wynik: 0 brak; 10 trwa; 20 sukces (wymaga stanu 0); 30 odrzucono; 40 blad wykonania; 900 utrata sesji; 901 brak pozwolenia; 903 zastane ACK=1; 904 bledny payload."
+    },
+    "R[171]": {
+      "address": "R[171]",
+      "label": "Dm3Stan",
+      "description": "Kanal: przedmuch obwodu 3. Stan wymiany: 0 bezczynna; 10 REQ=1 czeka ACK=1; 20 REQ=0 czeka ACK=0."
+    },
+    "R[172]": {
+      "address": "R[172]",
+      "label": "Dm3Wynik",
+      "description": "Kanal: przedmuch obwodu 3. Wynik: 0 brak; 10 trwa; 20 sukces (wymaga stanu 0); 30 odrzucono; 40 blad wykonania; 900 utrata sesji; 901 brak pozwolenia; 903 zastane ACK=1; 904 bledny payload."
+    },
+    "R[173]": {
+      "address": "R[173]",
+      "label": "Dm4Stan",
+      "description": "Kanal: przedmuch obwodu 4. Stan wymiany: 0 bezczynna; 10 REQ=1 czeka ACK=1; 20 REQ=0 czeka ACK=0."
+    },
+    "R[174]": {
+      "address": "R[174]",
+      "label": "Dm4Wynik",
+      "description": "Kanal: przedmuch obwodu 4. Wynik: 0 brak; 10 trwa; 20 sukces (wymaga stanu 0); 30 odrzucono; 40 blad wykonania; 900 utrata sesji; 901 brak pozwolenia; 903 zastane ACK=1; 904 bledny payload."
+    },
+    "R[175]": {
+      "address": "R[175]",
+      "label": "Dm5Stan",
+      "description": "Kanal: przedmuch obwodu 5. Stan wymiany: 0 bezczynna; 10 REQ=1 czeka ACK=1; 20 REQ=0 czeka ACK=0."
+    },
+    "R[176]": {
+      "address": "R[176]",
+      "label": "Dm5Wynik",
+      "description": "Kanal: przedmuch obwodu 5. Wynik: 0 brak; 10 trwa; 20 sukces (wymaga stanu 0); 30 odrzucono; 40 blad wykonania; 900 utrata sesji; 901 brak pozwolenia; 903 zastane ACK=1; 904 bledny payload."
+    },
+    "R[17]": {
+      "address": "R[17]",
+      "label": "MVac1DmWyn",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 0 brak; 1 impuls zakonczony i potwierdzenie zwolnienia aktualne; 2 odrzucono; 3 usterka/timeout. Stabilne przy blowAck=1. Kierunek: PLC do robota."
+    },
+    "R[18]": {
+      "address": "R[18]",
+      "label": "MVac1Przyczyna",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. Kody przyczyn jak dla silownikow; 90 utrata prozni; 100 brak potwierdzonej konfiguracji przedmuchu. Kierunek: PLC do robota."
+    },
+    "R[19]": {
+      "address": "R[19]",
+      "label": "MVac2DmWyn",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 0 brak; 1 impuls zakonczony i potwierdzenie zwolnienia aktualne; 2 odrzucono; 3 usterka/timeout. Stabilne przy blowAck=1. Kierunek: PLC do robota."
+    },
+    "R[1]": {
+      "address": "R[1]",
+      "label": "MLaczWers",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. Wersja kontraktu: 2; inna wartosc blokuje uzbrojenie. Kierunek: PLC do robota."
+    },
+    "R[20]": {
+      "address": "R[20]",
+      "label": "MVac2Przyczyna",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. Kody przyczyn jak dla silownikow; 90 utrata prozni; 100 brak potwierdzonej konfiguracji przedmuchu. Kierunek: PLC do robota."
+    },
+    "R[21]": {
+      "address": "R[21]",
+      "label": "MVac3DmWyn",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 0 brak; 1 impuls zakonczony i potwierdzenie zwolnienia aktualne; 2 odrzucono; 3 usterka/timeout. Stabilne przy blowAck=1. Kierunek: PLC do robota."
+    },
+    "R[22]": {
+      "address": "R[22]",
+      "label": "MVac3Przyczyna",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. Kody przyczyn jak dla silownikow; 90 utrata prozni; 100 brak potwierdzonej konfiguracji przedmuchu. Kierunek: PLC do robota."
+    },
+    "R[23]": {
+      "address": "R[23]",
+      "label": "MVac4DmWyn",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 0 brak; 1 impuls zakonczony i potwierdzenie zwolnienia aktualne; 2 odrzucono; 3 usterka/timeout. Stabilne przy blowAck=1. Kierunek: PLC do robota."
+    },
+    "R[24]": {
+      "address": "R[24]",
+      "label": "MVac4Przyczyna",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. Kody przyczyn jak dla silownikow; 90 utrata prozni; 100 brak potwierdzonej konfiguracji przedmuchu. Kierunek: PLC do robota."
+    },
+    "R[25]": {
+      "address": "R[25]",
+      "label": "MVac5DmWyn",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 0 brak; 1 impuls zakonczony i potwierdzenie zwolnienia aktualne; 2 odrzucono; 3 usterka/timeout. Stabilne przy blowAck=1. Kierunek: PLC do robota."
+    },
+    "R[26]": {
+      "address": "R[26]",
+      "label": "MVac5Przyczyna",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. Kody przyczyn jak dla silownikow; 90 utrata prozni; 100 brak potwierdzonej konfiguracji przedmuchu. Kierunek: PLC do robota."
+    },
+    "R[27]": {
+      "address": "R[27]",
+      "label": "MIMMSztPart",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. Ilosc sztuk przypisana do przydzielonego cycleId (1..65535). Stabilna wraz z cycleId i reject do konca handshake immPickupCompleted; nie biezacy parametr HMI. Kierunek: PLC do robota."
+    },
+    "R[28]": {
+      "address": "R[28]",
+      "label": "MProdStart",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. Licznik modulo 65536 zwiekszany wylacznie po przyjetym fizycznym Start. Zastana wartosc po inicjalizacji/recovery nie uruchamia pracy; potrzebna kolejna zmiana. Nie jest zdalnym START UOP. Kierunek: PLC do robota."
+    },
+    "R[2]": {
+      "address": "R[2]",
+      "label": "MLaczHB",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. Licznik 0..65535 modulo 65536; cykliczny niezaleznie od WAIT programu. Kierunek: PLC do robota."
+    },
+    "R[3]": {
+      "address": "R[3]",
+      "label": "MWindPrzyczyna",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. Kod blokady/oczekiwania; jak dla urzadzen. Kierunek: PLC do robota."
+    },
+    "R[4]": {
+      "address": "R[4]",
+      "label": "MZrodPrzyczyna",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. Kod blokady/oczekiwania; jak dla urzadzen. Kierunek: PLC do robota."
+    },
+    "R[51]": {
+      "address": "R[51]",
+      "label": "RxLaczWers",
+      "description": "Snapshot odebrany przez PLC_RX. Wersja kontraktu: 2; inna wartosc blokuje uzbrojenie. Kierunek: PLC do robota."
+    },
+    "R[52]": {
+      "address": "R[52]",
+      "label": "RxLaczHB",
+      "description": "Snapshot odebrany przez PLC_RX. Licznik 0..65535 modulo 65536; cykliczny niezaleznie od WAIT programu. Kierunek: PLC do robota."
+    },
+    "R[53]": {
+      "address": "R[53]",
+      "label": "RxWindPr_czyna",
+      "description": "Snapshot odebrany przez PLC_RX. Kod blokady/oczekiwania; jak dla urzadzen. Kierunek: PLC do robota."
+    },
+    "R[54]": {
+      "address": "R[54]",
+      "label": "RxZrodPr_czyna",
+      "description": "Snapshot odebrany przez PLC_RX. Kod blokady/oczekiwania; jak dla urzadzen. Kierunek: PLC do robota."
+    },
+    "R[55]": {
+      "address": "R[55]",
+      "label": "RxMagPrzyczyna",
+      "description": "Snapshot odebrany przez PLC_RX. Kod blokady/oczekiwania; jak dla urzadzen. Kierunek: PLC do robota."
+    },
+    "R[56]": {
+      "address": "R[56]",
+      "label": "RxV501Pr_czyna",
+      "description": "Snapshot odebrany przez PLC_RX. 0 brak; 10 brak sesji; 20 tryb; 30 blokada; 40 konflikt; 50 nieaktualne wejscia; 60 timeout; 70 sprzeczne czujniki; 80 odzyskiwanie. Kierunek: PLC do robota."
+    },
+    "R[57]": {
+      "address": "R[57]",
+      "label": "RxV502Pr_czyna",
+      "description": "Snapshot odebrany przez PLC_RX. 0 brak; 10 brak sesji; 20 tryb; 30 blokada; 40 konflikt; 50 nieaktualne wejscia; 60 timeout; 70 sprzeczne czujniki; 80 odzyskiwanie. Kierunek: PLC do robota."
+    },
+    "R[58]": {
+      "address": "R[58]",
+      "label": "RxV503Pr_czyna",
+      "description": "Snapshot odebrany przez PLC_RX. 0 brak; 10 brak sesji; 20 tryb; 30 blokada; 40 konflikt; 50 nieaktualne wejscia; 60 timeout; 70 sprzeczne czujniki; 80 odzyskiwanie. Kierunek: PLC do robota."
+    },
+    "R[59]": {
+      "address": "R[59]",
+      "label": "RxV504Pr_czyna",
+      "description": "Snapshot odebrany przez PLC_RX. 0 brak; 10 brak sesji; 20 tryb; 30 blokada; 40 konflikt; 50 nieaktualne wejscia; 60 timeout; 70 sprzeczne czujniki; 80 odzyskiwanie. Kierunek: PLC do robota."
+    },
+    "R[5]": {
+      "address": "R[5]",
+      "label": "MMagPrzyczyna",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. Kod blokady/oczekiwania; jak dla urzadzen. Kierunek: PLC do robota."
+    },
+    "R[60]": {
+      "address": "R[60]",
+      "label": "RxV505Pr_czyna",
+      "description": "Snapshot odebrany przez PLC_RX. 0 brak; 10 brak sesji; 20 tryb; 30 blokada; 40 konflikt; 50 nieaktualne wejscia; 60 timeout; 70 sprzeczne czujniki; 80 odzyskiwanie. Kierunek: PLC do robota."
+    },
+    "R[61]": {
+      "address": "R[61]",
+      "label": "RxIMMCykl",
+      "description": "Snapshot odebrany przez PLC_RX. Identyfikator rzeczywiscie rozpoczetego cyklu przydzielonego do pobrania; utrzymac do konca handshake immPickupCompleted. Nastepne starty PLC zapisuje osobno. Modulo 65536. Kierunek: PLC do robota."
+    },
+    "R[62]": {
+      "address": "R[62]",
+      "label": "RxIMMPrzyczyna",
+      "description": "Snapshot odebrany przez PLC_RX. Kod blokady w ImmInterface; jak dla urzadzen. Kierunek: PLC do robota."
+    },
+    "R[63]": {
+      "address": "R[63]",
+      "label": "RxIMMNie_zlicz",
+      "description": "Snapshot odebrany przez PLC_RX. Liczba rozpoczetych wtryskow, ktorych robot jeszcze nie rozliczyl; prowadzi PLC. Kierunek: PLC do robota."
+    },
+    "R[64]": {
+      "address": "R[64]",
+      "label": "RxProdKodBlok",
+      "description": "Snapshot odebrany przez PLC_RX. 0: brak; kody diagnostyczne wedlug kontraktu. Kierunek: PLC do robota."
+    },
+    "R[65]": {
+      "address": "R[65]",
+      "label": "RxProdProgram",
+      "description": "Snapshot odebrany przez PLC_RX. 0: brak wyboru; 1: Pojemniki; 2: Blistry. Nie wybiera programu na FANUC. Kierunek: PLC do robota."
+    },
+    "R[66]": {
+      "address": "R[66]",
+      "label": "RxProdLad",
+      "description": "Snapshot odebrany przez PLC_RX. Identyfikator aktualnego stosu/pojemnika nadany przez PLC; nie zmieniac przed zakonczeniem wymian tego stosu. Kierunek: PLC do robota."
+    },
+    "R[67]": {
+      "address": "R[67]",
+      "label": "RxVac1DmWyn",
+      "description": "Snapshot odebrany przez PLC_RX. 0 brak; 1 impuls zakonczony i potwierdzenie zwolnienia aktualne; 2 odrzucono; 3 usterka/timeout. Stabilne przy blowAck=1. Kierunek: PLC do robota."
+    },
+    "R[68]": {
+      "address": "R[68]",
+      "label": "RxVac1Pr_czyna",
+      "description": "Snapshot odebrany przez PLC_RX. Kody przyczyn jak dla silownikow; 90 utrata prozni; 100 brak potwierdzonej konfiguracji przedmuchu. Kierunek: PLC do robota."
+    },
+    "R[69]": {
+      "address": "R[69]",
+      "label": "RxVac2DmWyn",
+      "description": "Snapshot odebrany przez PLC_RX. 0 brak; 1 impuls zakonczony i potwierdzenie zwolnienia aktualne; 2 odrzucono; 3 usterka/timeout. Stabilne przy blowAck=1. Kierunek: PLC do robota."
+    },
+    "R[6]": {
+      "address": "R[6]",
+      "label": "MV501Przyczyna",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 0 brak; 10 brak sesji; 20 tryb; 30 blokada; 40 konflikt; 50 nieaktualne wejscia; 60 timeout; 70 sprzeczne czujniki; 80 odzyskiwanie. Kierunek: PLC do robota."
+    },
+    "R[70]": {
+      "address": "R[70]",
+      "label": "RxVac2Pr_czyna",
+      "description": "Snapshot odebrany przez PLC_RX. Kody przyczyn jak dla silownikow; 90 utrata prozni; 100 brak potwierdzonej konfiguracji przedmuchu. Kierunek: PLC do robota."
+    },
+    "R[71]": {
+      "address": "R[71]",
+      "label": "RxVac3DmWyn",
+      "description": "Snapshot odebrany przez PLC_RX. 0 brak; 1 impuls zakonczony i potwierdzenie zwolnienia aktualne; 2 odrzucono; 3 usterka/timeout. Stabilne przy blowAck=1. Kierunek: PLC do robota."
+    },
+    "R[72]": {
+      "address": "R[72]",
+      "label": "RxVac3Pr_czyna",
+      "description": "Snapshot odebrany przez PLC_RX. Kody przyczyn jak dla silownikow; 90 utrata prozni; 100 brak potwierdzonej konfiguracji przedmuchu. Kierunek: PLC do robota."
+    },
+    "R[73]": {
+      "address": "R[73]",
+      "label": "RxVac4DmWyn",
+      "description": "Snapshot odebrany przez PLC_RX. 0 brak; 1 impuls zakonczony i potwierdzenie zwolnienia aktualne; 2 odrzucono; 3 usterka/timeout. Stabilne przy blowAck=1. Kierunek: PLC do robota."
+    },
+    "R[74]": {
+      "address": "R[74]",
+      "label": "RxVac4Pr_czyna",
+      "description": "Snapshot odebrany przez PLC_RX. Kody przyczyn jak dla silownikow; 90 utrata prozni; 100 brak potwierdzonej konfiguracji przedmuchu. Kierunek: PLC do robota."
+    },
+    "R[75]": {
+      "address": "R[75]",
+      "label": "RxVac5DmWyn",
+      "description": "Snapshot odebrany przez PLC_RX. 0 brak; 1 impuls zakonczony i potwierdzenie zwolnienia aktualne; 2 odrzucono; 3 usterka/timeout. Stabilne przy blowAck=1. Kierunek: PLC do robota."
+    },
+    "R[76]": {
+      "address": "R[76]",
+      "label": "RxVac5Pr_czyna",
+      "description": "Snapshot odebrany przez PLC_RX. Kody przyczyn jak dla silownikow; 90 utrata prozni; 100 brak potwierdzonej konfiguracji przedmuchu. Kierunek: PLC do robota."
+    },
+    "R[77]": {
+      "address": "R[77]",
+      "label": "RxIMMSztPart",
+      "description": "Snapshot odebrany przez PLC_RX. Ilosc sztuk przypisana do przydzielonego cycleId (1..65535). Stabilna wraz z cycleId i reject do konca handshake immPickupCompleted; nie biezacy parametr HMI. Kierunek: PLC do robota."
+    },
+    "R[78]": {
+      "address": "R[78]",
+      "label": "RxProdStart",
+      "description": "Snapshot odebrany przez PLC_RX. Licznik modulo 65536 zwiekszany wylacznie po przyjetym fizycznym Start. Zastana wartosc po inicjalizacji/recovery nie uruchamia pracy; potrzebna kolejna zmiana. Nie jest zdalnym START UOP. Kierunek: PLC do robota."
+    },
+    "R[79]": {
+      "address": "R[79]",
+      "label": "CmdLaczWers",
+      "description": "Lokalne zadanie lub status aplikacji. Wersja kontraktu: 2; inna wartosc blokuje uzbrojenie. Kierunek: Robot do PLC."
+    },
+    "R[7]": {
+      "address": "R[7]",
+      "label": "MV502Przyczyna",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 0 brak; 10 brak sesji; 20 tryb; 30 blokada; 40 konflikt; 50 nieaktualne wejscia; 60 timeout; 70 sprzeczne czujniki; 80 odzyskiwanie. Kierunek: PLC do robota."
+    },
+    "R[80]": {
+      "address": "R[80]",
+      "label": "CmdLaczHB",
+      "description": "Lokalne zadanie lub status aplikacji. Licznik 0..65535 modulo 65536; cykliczny niezaleznie od WAIT programu. Kierunek: Robot do PLC."
+    },
+    "R[81]": {
+      "address": "R[81]",
+      "label": "CmdPelTacIdx",
+      "description": "Lokalne zadanie lub status aplikacji. Indeks ukonczonego blistra od 0, stabilny w calej wymianie. Kierunek: Robot do PLC."
+    },
+    "R[82]": {
+      "address": "R[82]",
+      "label": "CmdPelTacLad",
+      "description": "Lokalne zadanie lub status aplikacji. Identyfikator stosu blistrow, stabilny w calej wymianie. Kierunek: Robot do PLC."
+    },
+    "R[83]": {
+      "address": "R[83]",
+      "label": "CmdPobrTaLad",
+      "description": "Lokalne zadanie lub status aplikacji. Identyfikator stosu/pojemnika nadany przez PLC; echo production.stackId. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC."
+    },
+    "R[84]": {
+      "address": "R[84]",
+      "label": "CmdOdlTacLad",
+      "description": "Lokalne zadanie lub status aplikacji. Identyfikator stosu/pojemnika nadany przez PLC; echo production.stackId. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC."
+    },
+    "R[85]": {
+      "address": "R[85]",
+      "label": "CmdPobrIMCykl",
+      "description": "Lokalne zadanie lub status aplikacji. Identyfikator rzeczywiscie rozpoczetego wtrysku; wiaze zdarzenie z rozliczeniem detali. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC."
+    },
+    "R[86]": {
+      "address": "R[86]",
+      "label": "CmdPobrIMLad",
+      "description": "Lokalne zadanie lub status aplikacji. Identyfikator stosu/pojemnika nadany przez PLC; echo production.stackId. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC."
+    },
+    "R[87]": {
+      "address": "R[87]",
+      "label": "CmdWarstwIdx",
+      "description": "Lokalne zadanie lub status aplikacji. Indeks ukonczonej warstwy od 0. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC."
+    },
+    "R[88]": {
+      "address": "R[88]",
+      "label": "CmdWarstwLad",
+      "description": "Lokalne zadanie lub status aplikacji. Identyfikator stosu/pojemnika nadany przez PLC; echo production.stackId. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC."
+    },
+    "R[89]": {
+      "address": "R[89]",
+      "label": "CmdDobreSzt",
+      "description": "Lokalne zadanie lub status aplikacji. Potwierdzona liczba odlozonych detali: UINT 1..65535, nie wiecej niz nierozliczona ilosc przypisanej partii; niezalezna od obwodow prozni. Nastawe stosowac tylko przy wylaczonym zleceniu i niepracujacej stacji (DEC-18). Payload stabilny przed REQ=1 az do ACK=0. Kierunek: Robot do PLC."
+    },
+    "R[8]": {
+      "address": "R[8]",
+      "label": "MV503Przyczyna",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 0 brak; 10 brak sesji; 20 tryb; 30 blokada; 40 konflikt; 50 nieaktualne wejscia; 60 timeout; 70 sprzeczne czujniki; 80 odzyskiwanie. Kierunek: PLC do robota."
+    },
+    "R[90]": {
+      "address": "R[90]",
+      "label": "CmdDobreCykl",
+      "description": "Lokalne zadanie lub status aplikacji. Identyfikator rzeczywiscie rozpoczetego wtrysku; wiaze zdarzenie z rozliczeniem detali. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC."
+    },
+    "R[91]": {
+      "address": "R[91]",
+      "label": "CmdDobreLad",
+      "description": "Lokalne zadanie lub status aplikacji. Identyfikator stosu/pojemnika nadany przez PLC; echo production.stackId. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC."
+    },
+    "R[92]": {
+      "address": "R[92]",
+      "label": "CmdProbkiSzt",
+      "description": "Lokalne zadanie lub status aplikacji. Potwierdzona liczba odlozonych detali: UINT 1..65535, nie wiecej niz nierozliczona ilosc przypisanej partii; niezalezna od obwodow prozni. Nastawe stosowac tylko przy wylaczonym zleceniu i niepracujacej stacji (DEC-18). Payload stabilny przed REQ=1 az do ACK=0. Kierunek: Robot do PLC."
+    },
+    "R[93]": {
+      "address": "R[93]",
+      "label": "CmdProbkiCykl",
+      "description": "Lokalne zadanie lub status aplikacji. Identyfikator rzeczywiscie rozpoczetego wtrysku; wiaze zdarzenie z rozliczeniem detali. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC."
+    },
+    "R[94]": {
+      "address": "R[94]",
+      "label": "CmdProbkiLad",
+      "description": "Lokalne zadanie lub status aplikacji. Identyfikator stosu/pojemnika nadany przez PLC; echo production.stackId. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC."
+    },
+    "R[95]": {
+      "address": "R[95]",
+      "label": "CmdPrzeklLad",
+      "description": "Lokalne zadanie lub status aplikacji. Identyfikator stosu/pojemnika nadany przez PLC; echo production.stackId. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC."
+    },
+    "R[96]": {
+      "address": "R[96]",
+      "label": "CmdPelLadLad",
+      "description": "Lokalne zadanie lub status aplikacji. Identyfikator stosu/pojemnika nadany przez PLC; echo production.stackId. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC."
+    },
+    "R[97]": {
+      "address": "R[97]",
+      "label": "CmdProdK_Bledu",
+      "description": "Lokalne zadanie lub status aplikacji. 0 brak; kod przyczyny, odrebny od miejsca. Kierunek: Robot do PLC. Kody: 1001 nastawy; 1100 blokada; 1101/2101 punkt lub granica; 1102 nieznany krok; 1201 przedmuch; 1301..1303 przypisanie; 1401..1408 recovery; 1501 szukanie; 1502 zastana proznia; 1601 brak miejsca; 1700+krok timeout; 1800 BG; 1900 sekwencja."
+    },
+    "R[98]": {
+      "address": "R[98]",
+      "label": "CmdProdMaskLad",
+      "description": "Lokalne zadanie lub status aplikacji. Bity 0..4: zajecie fizycznych obwodow prozni 1..5 wedlug potwierdzonego profilu narzedzia; nie liczba detali. W F-2680 obwod 3 dotyczy blistrow. Pozostale bity 0. Wazne tylko z loadKnown=1. Kierunek: Robot do PLC."
+    },
+    "R[99]": {
+      "address": "R[99]",
+      "label": "CmdProdFaza",
+      "description": "Lokalne zadanie lub status aplikacji. 0 nieznana; 10 oczekiwanie; 20 pobranie IMM; 30 odkladanie; 40 blister/przekladka; 50 probki; 60 zatrzymywanie; 70 zatrzymany; 900 blad/odzyskiwanie. Kierunek: Robot do PLC. 10 gotowosc; 20 IMM; 30 odkladanie; 40 pusty nosnik/przekladki/koniec; 50 probki/odrzuty; 60 powrot HOME; 70 postoj; 900 recovery."
+    },
+    "R[9]": {
+      "address": "R[9]",
+      "label": "MV504Przyczyna",
+      "description": "Syntetyczne wejscie tylko izolowanego TEST. 0 brak; 10 brak sesji; 20 tryb; 30 blokada; 40 konflikt; 50 nieaktualne wejscia; 60 timeout; 70 sprzeczne czujniki; 80 odzyskiwanie. Kierunek: PLC do robota."
+    }
+  },
+  "programs": {
+    "MAIN_TRAY": "Produkcja tacek i stosow",
+    "MAIN_BOX": "Produkcja kuwet i pojemnikow",
+    "PLC_INIT": "Init pamieci lacza EIP",
+    "PLC_RX": "Odbior snapshotu PLC",
+    "PLC_TX": "Zapis wyjsc do PLC",
+    "PLC_SCAN": "Jeden cykl komunikacji",
+    "PLC_SVC": "Petla serwisu lacza",
+    "PLC_LINK": "Synchronizacja i sesja",
+    "PLC_LOST": "Uniewaznienie sesji",
+    "PLC_REC": "Jawne recovery lacza",
+    "PLC_LIVE": "Lokalny start serwisu",
+    "PLC_EVT": "Kanaly zdarzen i ACK",
+    "PLC_CMD": "Walidacja komend PLC",
+    "PLC_CYL": "Zadania silownikow",
+    "PLC_VAC": "Zadania podcisnienia",
+    "PLC_IMM": "Zadania EUROMAP do PLC",
+    "PLC_AREA": "Rezerwacje obszarow",
+    "PLC_SMPL": "Zadanie i ACK probek",
+    "PLC_TEST": "Izolowany test lacza",
+    "BG_PLC": "Watchdog i heartbeat PLC",
+    "BG_STATUS": "Native i wybor main",
+    "BG_GUARD": "Blokady i alarm procesu",
+    "BG_BIND": "Komplet zrodel native"
+  }
+}

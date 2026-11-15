@@ -15,59 +15,84 @@ ROOT=Path(__file__).resolve().parents[1]
 RES=json.loads((ROOT/'ROBOT/TRAY/resources.json').read_text(encoding='utf-8'))
 COM=json.loads((ROOT/'ROBOT/COMM/resources.json').read_text(encoding='utf-8'))
 MAP=json.loads((ROOT/'ROBOT/COMM/mapping.json').read_text(encoding='utf-8'))
-PROGRAMS=core.load_programs([ROOT/'ROBOT/COMM',ROOT/'ROBOT/TRAY',ROOT/'ROBOT/BG'])
+PROGRAMS=core.load_programs([ROOT/'ROBOT/COMM',ROOT/'ROBOT/TRAY',ROOT/'ROBOT/BG',ROOT/'ROBOT/COMMON',ROOT/'ROBOT/BOX'])
+BOX=json.loads((ROOT/'ROBOT/BOX/resources.json').read_text(encoding='utf-8'))
+COMMON=json.loads((ROOT/'ROBOT/COMMON/resources.json').read_text(encoding='utf-8'))
 WIRE={s['id']:f"{s['io']}[{s['number']}]" for s in MAP['signals']}
 
 
 class Cell:
-    def __init__(self):
+    def __init__(self,mode=2,settings=None):
+        self.mode=mode;self.main='MAIN_TRAY' if mode==2 else 'MAIN_BOX'
+        self.res=RES if mode==2 else json.loads((ROOT/"ROBOT/BOX/resources.json").read_text(encoding="utf-8"))
         self.v=core.VM(PROGRAMS);self.t=0;self.inputs={};self.events=[];self.blow_counts=Counter()
         self.jobs=[];self.acked=set();self.active_events={};self.blow_active=set()
         self.area_block=set();self.vac_fail=set();self.suppress_events=set();self.pause_heartbeat=False
         self.fail_blow={};self.stack=10
-        self.p=RES['runtime'];self.b=RES['flags'];self.a=RES['active'];self.s=RES['staging']
-        self.c=COM['controls'];self.app=COM['application'];self.native=RES['native']
-        self.v.run('RC_INIT')
-        self.set(self.b,'initApproved',True);self.v.run('RT_INIT')
+        self.p=self.res['runtime'];self.b=self.res['flags'];self.a=self.res['active'];self.s=self.res['staging']
+        self.c=COM['controls'];self.app=COM['application'];self.native=self.res['native'];self.global_flags=COMMON['flags'];self.task=COMMON['tasks']['tray' if mode==2 else 'box']
+        self.v.run('PLC_INIT')
         # Wyłącznie model dostarcza tutaj syntetyczne, zweryfikowane źródła statusów.
         for name in ['sourceBound','bindingsVerified','profileApproved','motionApproved','alarmApproved']:
             self.set(self.b,name,True)
-        for name in ['autoMode','systemReady','home','taskRunning']:self.set(self.native,name,True)
-        for n in range(1,41):
+        for name in ['autoMode','systemReady','home']:self.set(self.native,name,True)
+        for n in map(int,self.res['taught']):
             self.v.memory[f'PR[{n}]']=core.Pose([100+n,200+n,1000,0,0,0])
-            self.set(RES['taught'],str(n),True)
-        self.v.memory['PR[5]']=core.Pose([104,204,500,0,0,0])
+            self.set(self.res['taught'],str(n),True)
+        self.v.memory['PR[5]' if mode==2 else 'PR[44]']=core.Pose([104,204,500,0,0,0])
         self.v.motion_hook=lambda ref,pose:self.set(self.native,'home',ref=='PR[1]')
         defaults={f'mask{i}':0 for i in range(1,6)}
         defaults.update({f'qty{i}':0 for i in range(1,6)})
         defaults.update(mask1=1,mask2=2,qty1=5,qty2=2,gridX=2,gridY=2,pitchX=100,pitchY=80,
                         trayHeight=40,traysPerStack=2,searchStep=1,searchLimit=20,maxAttempts=3,
                         speed=10,timeout=50,tool=1,frame=1,cylFold=96,cylStraight=3,trayMask=16)
+        if mode==1:
+            defaults.update({f'p{j}{key}':value for j in (2,3) for key,value in [('X',2),('Y',1),('pitchX',100),('pitchY',80)]})
+            defaults.update({f'cylGroup{i}':96 for i in range(1,6)})
+            defaults.update(productClearance=50,spacerClearance=50,gridX=2,gridY=1)
+        defaults.update(settings or {})
         for name,value in defaults.items():self.set(self.s,name,value)
         self.set(self.c,'configured',True);self.set(self.c,'run',True)
         self.inputs.update({'p2r.link.version':2,'p2r.link.ready':True,'p2r.link.heartbeat':0,
-             'p2r.production.expectedProgram':2,'p2r.production.withRobot':True,
+             'p2r.production.expectedProgram':mode,'p2r.production.withRobot':True,
              'p2r.production.newOperationPermit':True,'p2r.production.finishPermit':True,
              'p2r.production.stackId':self.stack,'p2r.production.startToken':0,
              'p2r.imm.valid':True,'p2r.imm.withRobot':True,'p2r.imm.cycleKnown':True,'p2r.imm.newCyclePermit':True,
              'p2r.imm.settled':True,'p2r.imm.mouldClosed':True,
              'p2r.imm.ejectorBack':True,'p2r.imm.ejectorForward':False})
+        self.set(self.global_flags,'capacityVerified',True)
+        self.set(self.global_flags,'initApproved',True);self.set(self.global_flags,'emptyConfirmed',True)
         self.devices()
         self.inputs['p2r.link.syncRequest']=True
         self.scan(False);self.scan(False)
         self.inputs['p2r.link.syncAck']=True;self.scan(False)
         self.inputs['p2r.link.syncRequest']=False;self.inputs['p2r.link.syncAck']=False;self.scan(False)
         assert self.get(self.c,'state')==30
-        self.v.run('RC_RECOV');self.scan(False)
+        self.v.run('PLC_REC');self.scan(False)
         assert self.get(self.c,'session')
-        self.set(self.b,'newApproved',True);self.v.run('RT_NEW')
-        self.set(self.b,'stationIdleConfirmed',True);self.v.run('RT_APPLY')
+        # Start the actual annotated MAIN. Only native status is a synthetic fixture.
+        self.set(self.task,'running',True)
+        self.v.start_task(self.main);self.v.resume_task(self.main)
+        self.set(self.global_flags,'sourceBound',True)
+        self.scan(False)
+        assert self.v.read(COMMON['owner'])==mode
+        self.scan()
+        # BOOT deliberately requires a fresh bilateral synchronization/recovery.
+        self.inputs['p2r.link.syncRequest']=True;self.scan()
+        self.inputs['p2r.link.syncAck']=True;self.scan()
+        self.inputs['p2r.link.syncRequest']=False;self.inputs['p2r.link.syncAck']=False;self.scan()
+        self.set(self.b,'newApproved',True);self.scan()
+        self.scan()
+        self.set(self.b,'stationIdleConfirmed',True);self.control('APPLY')
         assert self.get(self.b,'cfgApplied')
         self.set(self.b,'selected',True);self.set(self.c,'productionRequired',True)
         self.inputs['p2r.production.orderActive']=True
         self.scan(False)
 
-    def set(self,group,key,value):self.v.memory[group[key]]=value
+    def set(self,group,key,value):
+        self.v.memory[group[key]]=value
+        if group is getattr(self,'native',None) and key in ('taskRunning','taskPaused'):
+            self.v.memory[self.task['running' if key=='taskRunning' else 'paused']]=value
     def get(self,group,key):return self.v.read(group[key])
     def output(self,key):return self.v.read(WIRE[key])
     def snapshot(self):
@@ -141,12 +166,22 @@ class Cell:
     def scan(self,production=True,advance=1,monitors=True,service=True):
         self.t+=advance;self.v.memory['$FAST_CLOCK']=self.t
         if not self.pause_heartbeat:self.inputs['p2r.link.heartbeat']=(self.inputs['p2r.link.heartbeat']+1)%65536
-        self.snapshot();self.v.run('RC_RX')
-        if monitors:self.v.run('RB_STATUS');self.v.run('RB_GUARD')
-        self.v.run('RC_MON')
-        if service:self.v.run('RC_TICK')
-        if production:self.v.run('RT_TICK')
+        self.snapshot();self.v.run('PLC_RX')
+        if monitors:self.v.run('BG_STATUS');self.v.run('BG_GUARD')
+        self.v.run('BG_PLC')
+        if service:self.v.run('PLC_SCAN')
+        if production:self.v.resume_task(self.main)
         self.devices();self.plc_events()
+    def control(self,action):
+        key={'INIT':'initApproved','APPLY':'applyRequest','NEW':'newApproved',
+             'RECOV':'recoveryApproved','EXIT':'exitRequest'}[action]
+        self.set(self.b,key,True);self.scan()
+    def start_other(self,mode):
+        name='MAIN_TRAY' if mode==2 else 'MAIN_BOX'
+        self.set(COMMON['tasks']['tray' if mode==2 else 'box'],'running',True)
+        self.v.start_task(name);self.v.resume_task(name)
+        # The source values here are test-only synthetic native inputs.
+        self.set(self.global_flags,'sourceBound',True)
     def start(self):
         self.inputs['p2r.production.startToken']=(self.inputs['p2r.production.startToken']+1)%65536
         self.scan()
@@ -207,7 +242,7 @@ class TrayChecks(unittest.TestCase):
         self.assertEqual(cell.total('productsPlaced'),7)
         self.assertEqual(cell.event_count('blisterFinished'),0)
         self.assertEqual(cell.get(cell.p,'slot'),2)
-        cell.set(cell.b,'newApproved',True);cell.v.run('RT_NEW')
+        cell.set(cell.b,'newApproved',True);cell.control('NEW')
         self.assertEqual(cell.get(cell.p,'slot'),2)
         cell.set(cell.b,'newApproved',False)
         before=len(cell.v.motions)
@@ -220,7 +255,7 @@ class TrayChecks(unittest.TestCase):
     def test_config_apply_and_active_snapshot(self):
         cell=Cell();cell.start();cell.begin(1)
         cell.until(lambda:cell.get(cell.b,'pickupConfirmed'))
-        cell.set(cell.s,'qty1',99);cell.set(cell.b,'stationIdleConfirmed',True);cell.v.run('RT_APPLY')
+        cell.set(cell.s,'qty1',99);cell.set(cell.b,'stationIdleConfirmed',True);cell.control('APPLY')
         self.assertTrue(cell.get(cell.b,'applyDenied'))
         self.assertEqual(cell.get(cell.a,'qty1'),5)
         cell.until(lambda:cell.jobs[0]['placed']==7)
@@ -231,7 +266,7 @@ class TrayChecks(unittest.TestCase):
             cell=Cell();cell.inputs['p2r.production.orderActive']=False
             cell.set(cell.b,'stationIdleConfirmed',True)
             for k,v in changes.items():cell.set(cell.s,k,v)
-            cell.snapshot();cell.v.run('RC_RX');cell.v.run('RT_APPLY')
+            cell.snapshot();cell.v.run('PLC_RX');cell.control('APPLY')
             self.assertFalse(cell.get(cell.b,'cfgApplied'),changes)
         cell=Cell();cell.start();cell.begin(8,count=8)
         for _ in range(100):
@@ -277,7 +312,7 @@ class TrayChecks(unittest.TestCase):
         cell.area_block.clear();cell.until(lambda:cell.get(cell.b,'trayReady'))
 
     def test_unbound_untaught_and_native_abort_block_motion(self):
-        cell=Cell();cell.v.run('RB_BIND');cell.scan()
+        cell=Cell();cell.v.run('BG_BIND');cell.scan()
         cell.start();self.assertFalse(cell.v.motions)
         self.assertFalse(cell.get(cell.b,'sourceBound'))
         cell=Cell();cell.set(RES['taught'],'2',False);cell.start()
@@ -290,9 +325,9 @@ class TrayChecks(unittest.TestCase):
         self.assertEqual(cell.get(cell.app,'r2p.production.program'),0)
 
     def test_status_not_service_running_and_monitor_failure(self):
-        cell=Cell();cell.set(cell.native,'taskRunning',False);cell.v.run('RB_STATUS')
+        cell=Cell();cell.set(cell.native,'taskRunning',False);cell.v.run('BG_STATUS')
         self.assertFalse(cell.get(cell.app,'r2p.production.running'))
-        cell.set(cell.native,'taskRunning',True);cell.v.run('RB_STATUS')
+        cell.set(cell.native,'taskRunning',True);cell.v.run('BG_STATUS')
         self.assertTrue(cell.get(cell.app,'r2p.production.running'))
         cell.start();cell.scan(advance=cell.get(cell.c,'serviceTimeout')+1,monitors=False)
         self.assertFalse(cell.get(cell.c,'session'))
@@ -311,13 +346,13 @@ class TrayChecks(unittest.TestCase):
         cell.set(cell.b,'needsRecovery',True);cell.scan()
         self.assertEqual(cell.get(cell.p,'state'),900)
         cell.set(cell.b,'recoveryApproved',True);cell.set(cell.b,'contextChecked',True)
-        cell.v.run('RT_RECOV');self.assertEqual(cell.get(cell.p,'state'),900)
+        cell.control('RECOV');self.assertEqual(cell.get(cell.p,'state'),900)
         cell.set(cell.native,'home',True)
         cell.inputs['p2r.link.syncRequest']=True;cell.scan()
         cell.inputs['p2r.link.syncAck']=True;cell.scan()
         cell.inputs['p2r.link.syncRequest']=False;cell.inputs['p2r.link.syncAck']=False;cell.scan()
         cell.set(cell.app,'r2p.production.loadKnown',True)
-        cell.v.run('RT_RECOV')
+        cell.control('RECOV')
         self.assertFalse(cell.get(cell.b,'armed'))
         self.assertNotEqual(cell.get(cell.p,'state'),900)
         self.assertEqual(cell.get(cell.p,'remaining'),7)
@@ -385,7 +420,7 @@ class TrayChecks(unittest.TestCase):
         cell.inputs['p2r.link.syncRequest']=False;cell.inputs['p2r.link.syncAck']=False;cell.scan()
         cell.set(cell.native,'home',True);cell.set(cell.app,'r2p.production.loadKnown',True)
         cell.set(cell.b,'recoveryApproved',True);cell.set(cell.b,'contextChecked',True)
-        cell.v.run('RT_RECOV')
+        cell.control('RECOV')
         self.assertEqual(cell.get(cell.p,'state'),10)
         self.assertFalse(cell.get(cell.b,'batchAssigned'))
         self.assertFalse(cell.get(cell.b,'pickupConfirmed'))
@@ -405,18 +440,19 @@ class TrayChecks(unittest.TestCase):
         cell.inputs['p2r.link.syncRequest']=False;cell.inputs['p2r.link.syncAck']=False;cell.scan()
         cell.set(cell.native,'home',True);cell.set(cell.app,'r2p.production.loadKnown',True)
         cell.set(cell.b,'recoveryApproved',True);cell.set(cell.b,'contextChecked',True)
-        cell.v.run('RT_RECOV')
+        cell.control('RECOV')
         self.assertEqual(cell.get(cell.p,'state'),900)
         self.assertEqual(cell.get(cell.app,'r2p.production.faultCode'),1408)
         self.assertEqual(cell.event_count('blisterFinished'),0)
 
     def test_static_resources_calls_and_real_motion_guard(self):
-        declarations={(a['bank'],a['number']) for a in COM['allocations']+RES['allocations']}
-        self.assertEqual(len(declarations),len(COM['allocations'])+len(RES['allocations']))
-        self.assertEqual(max(n for b,n in declarations if b=='R'),200)
+        declarations={(a['bank'],a['number']) for a in COM['allocations']+RES['allocations']+BOX['allocations']+COMMON['allocations']}
+        self.assertEqual(len(declarations),len(COM['allocations'])+len(RES['allocations'])+len(BOX['allocations'])+len(COMMON['allocations']))
+        self.assertLessEqual(max(n for b,n in declarations if b=='R'),360)
         self.assertLessEqual(max(n for b,n in declarations if b=='F'),1024)
-        for path in [p for d in ['COMM','TRAY','BG'] for p in (ROOT/'ROBOT'/d).glob('*.LS')]:
+        for path in [p for d in ['COMM','TRAY','BOX','BG','COMMON'] for p in (ROOT/'ROBOT'/d).glob('*.LS')]:
             text=path.read_text(encoding='ascii')
+            text=re.sub(r'((?:PR|R|F|DI|DO|GI|GO|UO|SI|SO)\[\d+(?:,\d+)?):[^\]]+\]',r'\1]',text)
             item_pattern=r'(?:PR\[\d+(?:,\d+)?\]|(?:R|F|DI|DO|GI|GO)\[\d+\]|\$[A-Z0-9_.$\[\]]+)|\d+(?:\.\d+)?|AND|OR|MOD|DIV|<>|>=|<=|[=+*/!<>-]'
             for line in text.splitlines():
                 m=re.match(r'\s*\d+:\s*(.*?)\s*;',line)
@@ -426,17 +462,22 @@ class TrayChecks(unittest.TestCase):
                     self.assertLessEqual(len(re.findall(item_pattern,expression)),20,(path.name,line))
             for bank,num in re.findall(r'\b(R|F)\[(\d+)\]',text):self.assertIn((bank,int(num)),declarations)
             for callee in re.findall(r'\b(?:CALL|RUN) (\w+)',text):self.assertIn(callee,PROGRAMS)
-            if path.stem not in ['RC_TX','RC_MON']:
+            if path.stem not in ['PLC_TX','BG_PLC']:
                 self.assertNotRegex(text,r'(?:DO|GO)\[\d+\]=')
-            if path.stem.startswith('RM_'):
-                self.assertIn('CALL RT_SAFE',text)
-                self.assertIn(RES['flags']['motionDone']+'=(OFF)',text)
-            if path.stem in ['RB_STATUS','RB_GUARD','RC_MON']:
-                self.assertNotRegex(text,r'\b(CALL|RUN|WAIT)\b')
-                self.assertNotRegex(text,r'\b[JL] PR\[')
+            if path.stem.startswith('MAIN_'):
+                self.assertNotRegex(text,r'CALL (?:RT|RX|RF|RG|RE|RM|XM)_')
+                self.assertIn('DEFAULT_GROUP = 1,*,*,*,*;',text)
+            code='\n'.join(m[1] for row in text.splitlines() if (m:=re.match(r'\s*\d+:\s*(.*?)\s*;',row)) and not m[1].startswith('!'))
+            if path.stem in ['BG_STATUS','BG_GUARD','BG_PLC']:
+                self.assertNotRegex(code,r'\b(CALL|RUN|WAIT)\b')
+                self.assertNotRegex(code,r'\b[JL] PR\[')
                 self.assertIn('DEFAULT_GROUP = *,*,*,*,*;',text)
-        # Offset matematyczny: X zmienia się najszybciej, niezależnie od ilości w grupach.
-        cell=Cell();cell.set(cell.p,'slot',3);cell.v.run('RT_OFFSET')
+        # Inspect the offset reached in the actual MAIN on its fourth single-group batch.
+        cell=Cell(settings={'qty2':0,'mask2':0});cell.start()
+        for n in range(3):
+            cell.begin(n+1,count=5);cell.until(lambda:cell.jobs[-1]['placed']==5)
+            cell.until(lambda:not cell.get(cell.b,'batchAssigned'))
+        cell.begin(4,count=5);cell.until(lambda:cell.get(cell.p,'state')==440)
         self.assertEqual(cell.v.read('PR[29,1]'),100);self.assertEqual(cell.v.read('PR[29,2]'),80)
 
 

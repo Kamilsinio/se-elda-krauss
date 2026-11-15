@@ -1,6 +1,6 @@
 # Komunikacja FANUC–PLC v2
 
-Stan: **PRZYGOTOWANE OFFLINE, NIEURUCHOMIONE**. Kontroler docelowy: R-30iB Mate Plus, HandlingTool V9.40P/80. Pakiet LIVE zawiera 17 źródeł LS bez ruchów. Program tacek i trzy BG opisują [instrukcja produkcji](../TRAY/README.md) oraz [instrukcja BG](../BG/README.md).
+Stan: **PRZYGOTOWANE OFFLINE, NIEURUCHOMIONE**. Kontroler docelowy: R-30iB Mate Plus, HandlingTool V9.40P/80. Pakiet LIVE zawiera 17 źródeł LS bez ruchów. Programy [BOX](../BOX/README.md), [COMMON](../COMMON/README.md), tacek i trzy BG opisują [instrukcja produkcji](../TRAY/README.md) oraz [instrukcja BG](../BG/README.md).
 
 [Kontrakt](../../docs/robot-plc-contract.md) i [katalog 227 sygnałów](../../docs/robot-plc-signals.json) definiują znaczenie. [mapping.csv](mapping.csv) / [mapping.json](mapping.json) określają proponowany transport, a [resources.json](resources.json) lokalne R/F. Źródła generuje tools/build_fanuc_comm.py. Układy 220 pól v1 i pełny układ v2 mają kontrolowane skróty; zmiana wymaga przeglądu i wersjonowania obu stron.
 
@@ -39,9 +39,9 @@ PLC musi wdrożyć nowe dane i niezależne rozliczenie odrzutów. Suma productsP
 
 ## Wykonanie i właściciele
 
-RC_RX tworzy snapshot. RC_LINK/RC_DROP/RC_RECOV obsługują synchronizację i jawne odzyskanie. RC_CMD oraz helpery tworzą żądania. RC_EVENTS utrzymuje dziesięć niezależnych zdarzeń i pięć przedmuchów; payload jest zamrożony do ACK=0. RC_SMPL utrzymuje odpowiedź na próbki. RC_TX jest jedynym writerem DO/GO poza heartbeat, zapisywanym przez RC_MON.
+PLC_RX tworzy snapshot. PLC_LINK/PLC_LOST/PLC_REC obsługują synchronizację i jawne odzyskanie. PLC_CMD oraz helpery tworzą żądania. PLC_EVT utrzymuje dziesięć niezależnych zdarzeń i pięć przedmuchów; payload jest zamrożony do ACK=0. PLC_SMPL utrzymuje odpowiedź na próbki. PLC_TX jest jedynym writerem DO/GO poza heartbeat, zapisywanym przez BG_PLC.
 
-RC_SVC jest jednym zwykłym zadaniem TP z WAIT 0.02 s. RC_MON pracuje jako BG niezależnie od WAIT programu produkcyjnego, ale zatrzymuje heartbeat po wykryciu zatrzymania serwisu. Przy productionRequired sprawdza też skany pozostałych BG. Sam żywy interfejs nie oznacza pracującego RT_MAIN.
+PLC_SVC jest jednym zwykłym zadaniem TP z WAIT 0.02 s. BG_PLC pracuje jako BG niezależnie od WAIT programu produkcyjnego, ale zatrzymuje heartbeat po wykryciu zatrzymania serwisu. Przy productionRequired sprawdza też skany pozostałych BG. Sam żywy interfejs nie oznacza pracującego MAIN_TRAY/MAIN_BOX.
 
 Lokalny interfejs aplikacji znajduje się w resources.json. Aplikacja nie zapisuje fizycznych DO/GO ani snapshotu rx. Dla submit ustawia najpierw payload, a flagę żądania jako ostatnią; nie powtarza jej w każdej iteracji. state=10 czeka na ACK, 20 na ACK=0, 0 zwalnia kanał. Wynik 20 nie zwalnia kanału przed ACK=0. Nie ma automatycznego retry ani trwałego exactly-once po restarcie.
 
@@ -52,10 +52,12 @@ Clear i accessReq obszarów są utrzymywane przy ważnej sesji niezależnie od p
 | Pakiet | Pamięć | Przeznaczenie |
 |---|---|---|
 | ROBOT/COMM LIVE | R51–176, F501–759 | transport używany przez produkcję |
-| ROBOT/TRAY + BG | R1–50, R177–200, F1–98, PR1–40 | konfiguracja, kontekst i statusy |
-| [ROBOT/TEST/COMM](../TEST/COMM/RC_TEST.LS) | wspólny transport oraz mock R1–28 i dodatkowe F | izolowany test komunikacji, bez produkcji |
+| ROBOT/TRAY | R1–50, R177–200, F1–98, PR1–40 | prywatne nastawy i kontekst tacek |
+| ROBOT/BOX | R201–330, F101–300, PR41–95 oraz PR1 | prywatne nastawy i kontekst pojemników |
+| ROBOT/COMMON + BG | R331–360, F401–480 | native i właściciel; stary mailbox nieużywany; wymagana pojemność R1–400 |
+| [ROBOT/TEST/COMM](../TEST/COMM/PLC_TEST.LS) | wspólny transport oraz mock R1–28 i dodatkowe F | izolowany test komunikacji, bez produkcji |
 
-W LIVE nie ma obrazu mock ani RC_TEST. W TEST wszystkie obsługiwane DO/GO są zapisywane zerami niezależnie od flagi test, a RC_LIVE nie uruchamia serwisu. Nazwy programów są wspólne z LIVE; testować na osobnej kopii i nigdy nie wgrywać obu pakietów razem. RC_TEST oczekuje testResult=1 i pozostawia configured/run OFF.
+W LIVE nie ma obrazu mock ani PLC_TEST. W TEST wszystkie obsługiwane DO/GO są zapisywane zerami niezależnie od flagi test, a PLC_LIVE nie uruchamia serwisu. Nazwy programów są wspólne z LIVE; testować na osobnej kopii i nigdy nie wgrywać obu pakietów razem. PLC_TEST oczekuje testResult=1 i pozostawia configured/run OFF.
 
 Backup nie dowodzi wolności zasobów. Sprawdzić wszystkie R/F/PR, makra, BG i pojemność przed importem. Nie odtwarzać NUMREG, FLAG ani binarnych konfiguracji z innego robota. Nie przywracać starych programów ruchowych do tych samych zasobów.
 
@@ -63,9 +65,9 @@ Backup nie dowodzi wolności zasobów. Sprawdzić wszystkie R/F/PR, makra, BG i 
 
 Backup ma DI121–184 i DO121–184 w rack 89/slot 1. Propozycja rozszerza DI i dodaje GI/GO. Zachować pozostałe przypisania rack 48 i UOP. Nie używać globalnego CLR_ASG. Sprawdzić IO_AUTO_CFG/IO_AUTO_UOP i brak konkurujących writerów. Nie dodawać zdalnego startu lub wyboru programu przez UOP.
 
-RC_INIT zeruje tylko lokalną pamięć komunikacji, w LIVE pozostawia configured/run OFF. Wykonywać wyłącznie przy zatrzymanych zadaniach i uzgodnionym stanie. Nie używać INIT do recovery. RC_DROP zachowuje maskę ładunku i zamrożone dane, lecz unieważnia żądania i uzbrojenie; odbiorca nie może traktować ostatniego snapshotu jako aktualnego.
+PLC_INIT zeruje tylko lokalną pamięć komunikacji, w LIVE pozostawia configured/run OFF. Wykonywać wyłącznie przy zatrzymanych zadaniach i uzgodnionym stanie. Nie używać INIT do recovery. PLC_LOST zachowuje maskę ładunku i zamrożone dane, lecz unieważnia żądania i uzbrojenie; odbiorca nie może traktować ostatniego snapshotu jako aktualnego.
 
-Po potwierdzeniu konfiguracji uruchomić RC_MON jako BG, ustawić configured i jawnie wywołać RC_LIVE. Zakończyć obie wymiany synchronizacji, uzgodnić stan i wywołać RC_RECOV. appArm jest kasowane przy zaniku sesji, criticalBlock, recoveryRequired lub guardRequest. Powrót warunków sam go nie ustawia.
+Po potwierdzeniu konfiguracji uruchomić BG_PLC jako BG, ustawić configured i jawnie wywołać PLC_LIVE. Zakończyć obie wymiany synchronizacji, uzgodnić stan i wywołać PLC_REC. appArm jest kasowane przy zaniku sesji, criticalBlock, recoveryRequired lub guardRequest. Powrót warunków sam go nie ustawia.
 
 Zegar $FAST_CLOCK wymaga pomiaru na V9.40: jednostki, zawijanie i dokładność w R przy długim uptime. W INIT ustawiono testowe heartbeatPeriod=64, peerTimeout=512, serviceTimeout=256, syncTimeout=2048 surowych ticków. Starszy manual podaje krok 4 ms; nie zakładać kroku 1 ms. Zatwierdzić parametry względem zmierzonego RPI i cyklu.
 

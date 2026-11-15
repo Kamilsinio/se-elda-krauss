@@ -713,3121 +713,4162 @@
       "name": "rx.p2r.area.elevator.granted",
       "bank": "F",
       "number": 501,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxWindZez",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: przyznany dostep do tego obszaru przy utrzymanym accessReq i blokadach. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.area.elevator.ready",
       "bank": "F",
       "number": 502,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxWindGot",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: material/urzadzenie gotowe; nie jest przyznaniem dostepu. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.area.elevator.valid",
       "bank": "F",
       "number": 503,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxWindWaz",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: aktualne dane zaleznych urzadzen. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.area.source.granted",
       "bank": "F",
       "number": 504,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxZrodZez",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: przyznany dostep do tego obszaru przy utrzymanym accessReq i blokadach. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.area.source.ready",
       "bank": "F",
       "number": 505,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxZrodGot",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: material/urzadzenie gotowe; nie jest przyznaniem dostepu. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.area.source.valid",
       "bank": "F",
       "number": 506,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxZrodWaz",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: aktualne dane zaleznych urzadzen. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.area.storage.granted",
       "bank": "F",
       "number": 507,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxMagZez",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: przyznany dostep do tego obszaru przy utrzymanym accessReq i blokadach. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.area.storage.ready",
       "bank": "F",
       "number": 508,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxMagGot",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: material/urzadzenie gotowe; nie jest przyznaniem dostepu. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.area.storage.valid",
       "bank": "F",
       "number": 509,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxMagWaz",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: aktualne dane zaleznych urzadzen. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.cyl.V501.acceptedHome",
       "bank": "F",
       "number": 510,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxV501AkHome",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: biezace zadanie HOME przyjete przez arbitraz. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.cyl.V501.acceptedWork",
       "bank": "F",
       "number": 511,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxV501AkWork",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: biezace zadanie WORK przyjete przez arbitraz. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.cyl.V501.atHome",
       "bank": "F",
       "number": 512,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxV501WHome",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: rzeczywiste HOME po filtracji; 0: brak potwierdzenia HOME. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.cyl.V501.atWork",
       "bank": "F",
       "number": 513,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxV501WWork",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: rzeczywiste WORK po filtracji; 0: brak potwierdzenia WORK. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.cyl.V501.busy",
       "bank": "F",
       "number": 514,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxV501Trwa",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: trwa ruch do przyjetego celu. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.cyl.V501.valid",
       "bank": "F",
       "number": 515,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxV501Waz",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: aktualne czujniki i diagnostyka; 0: nie uzywac potwierdzen. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.cyl.V502.acceptedHome",
       "bank": "F",
       "number": 516,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxV502AkHome",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: biezace zadanie HOME przyjete przez arbitraz. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.cyl.V502.acceptedWork",
       "bank": "F",
       "number": 517,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxV502AkWork",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: biezace zadanie WORK przyjete przez arbitraz. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.cyl.V502.atHome",
       "bank": "F",
       "number": 518,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxV502WHome",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: rzeczywiste HOME po filtracji; 0: brak potwierdzenia HOME. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.cyl.V502.atWork",
       "bank": "F",
       "number": 519,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxV502WWork",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: rzeczywiste WORK po filtracji; 0: brak potwierdzenia WORK. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.cyl.V502.busy",
       "bank": "F",
       "number": 520,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxV502Trwa",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: trwa ruch do przyjetego celu. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.cyl.V502.valid",
       "bank": "F",
       "number": 521,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxV502Waz",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: aktualne czujniki i diagnostyka; 0: nie uzywac potwierdzen. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.cyl.V503.acceptedHome",
       "bank": "F",
       "number": 522,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxV503AkHome",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: biezace zadanie HOME przyjete przez arbitraz. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.cyl.V503.acceptedWork",
       "bank": "F",
       "number": 523,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxV503AkWork",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: biezace zadanie WORK przyjete przez arbitraz. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.cyl.V503.atHome",
       "bank": "F",
       "number": 524,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxV503WHome",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: rzeczywiste HOME po filtracji; 0: brak potwierdzenia HOME. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.cyl.V503.atWork",
       "bank": "F",
       "number": 525,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxV503WWork",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: rzeczywiste WORK po filtracji; 0: brak potwierdzenia WORK. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.cyl.V503.busy",
       "bank": "F",
       "number": 526,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxV503Trwa",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: trwa ruch do przyjetego celu. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.cyl.V503.valid",
       "bank": "F",
       "number": 527,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxV503Waz",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: aktualne czujniki i diagnostyka; 0: nie uzywac potwierdzen. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.cyl.V504.acceptedHome",
       "bank": "F",
       "number": 528,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxV504AkHome",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: biezace zadanie HOME przyjete przez arbitraz. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.cyl.V504.acceptedWork",
       "bank": "F",
       "number": 529,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxV504AkWork",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: biezace zadanie WORK przyjete przez arbitraz. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.cyl.V504.atHome",
       "bank": "F",
       "number": 530,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxV504WHome",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: rzeczywiste HOME po filtracji; 0: brak potwierdzenia HOME. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.cyl.V504.atWork",
       "bank": "F",
       "number": 531,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxV504WWork",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: rzeczywiste WORK po filtracji; 0: brak potwierdzenia WORK. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.cyl.V504.busy",
       "bank": "F",
       "number": 532,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxV504Trwa",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: trwa ruch do przyjetego celu. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.cyl.V504.valid",
       "bank": "F",
       "number": 533,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxV504Waz",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: aktualne czujniki i diagnostyka; 0: nie uzywac potwierdzen. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.cyl.V505.acceptedHome",
       "bank": "F",
       "number": 534,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxV505AkHome",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: biezace zadanie HOME przyjete przez arbitraz. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.cyl.V505.acceptedWork",
       "bank": "F",
       "number": 535,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxV505AkWork",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: biezace zadanie WORK przyjete przez arbitraz. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.cyl.V505.atHome",
       "bank": "F",
       "number": 536,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxV505WHome",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: rzeczywiste HOME po filtracji; 0: brak potwierdzenia HOME. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.cyl.V505.atWork",
       "bank": "F",
       "number": 537,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxV505WWork",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: rzeczywiste WORK po filtracji; 0: brak potwierdzenia WORK. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.cyl.V505.busy",
       "bank": "F",
       "number": 538,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxV505Trwa",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: trwa ruch do przyjetego celu. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.cyl.V505.valid",
       "bank": "F",
       "number": 539,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxV505Waz",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: aktualne czujniki i diagnostyka; 0: nie uzywac potwierdzen. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.event.blisterFinished.ack",
       "bank": "F",
       "number": 540,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxPelTacACK",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: ukonczenie pojedynczego blistra zarejestrowane raz. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.event.blisterPicked.ack",
       "bank": "F",
       "number": 541,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxPobrTaACK",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: zdarzenie blisterPicked zarejestrowane dokladnie raz w biezacej sesji; 0: kanal wolny po req=0. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.event.blisterPlaced.ack",
       "bank": "F",
       "number": 542,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxOdlTacACK",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: zdarzenie blisterPlaced zarejestrowane dokladnie raz w biezacej sesji; 0: kanal wolny po req=0. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.event.immPickupCompleted.ack",
       "bank": "F",
       "number": 543,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxPobrIMACK",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: zdarzenie immPickupCompleted zarejestrowane dokladnie raz w biezacej sesji; 0: kanal wolny po req=0. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.event.layerFinished.ack",
       "bank": "F",
       "number": 544,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxWarstwACK",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: zdarzenie layerFinished zarejestrowane dokladnie raz w biezacej sesji; 0: kanal wolny po req=0. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.event.productsPlaced.ack",
       "bank": "F",
       "number": 545,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxDobreACK",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: zdarzenie productsPlaced zarejestrowane dokladnie raz w biezacej sesji; 0: kanal wolny po req=0. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.event.samplesPlaced.ack",
       "bank": "F",
       "number": 546,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxProbkiACK",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: zdarzenie samplesPlaced zarejestrowane dokladnie raz w biezacej sesji; 0: kanal wolny po req=0. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.event.spacerPlaced.ack",
       "bank": "F",
       "number": 547,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxPrzeklACK",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: zdarzenie spacerPlaced zarejestrowane dokladnie raz w biezacej sesji; 0: kanal wolny po req=0. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.event.stackFinished.ack",
       "bank": "F",
       "number": 548,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxPelLadACK",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: zdarzenie stackFinished zarejestrowane dokladnie raz w biezacej sesji; 0: kanal wolny po req=0. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.imm.applied.ejectorBack",
       "bank": "F",
       "number": 549,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxIMMPWyrzTyl",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: koncowy procesowy sygnal ejectorBack wystawiony po arbitrazu; 0: niewystawiony. Nie potwierdza ruchu maszyny. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.imm.applied.ejectorForward",
       "bank": "F",
       "number": 550,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxIMMPWyrzPrz",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: koncowy procesowy sygnal ejectorForward wystawiony po arbitrazu; 0: niewystawiony. Nie potwierdza ruchu maszyny. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.imm.applied.mouldClose",
       "bank": "F",
       "number": 551,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxIMMPZamForme",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: koncowy procesowy sygnal mouldClose wystawiony po arbitrazu; 0: niewystawiony. Nie potwierdza ruchu maszyny. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.imm.applied.mouldFullOpen",
       "bank": "F",
       "number": 552,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxIMMPOtwForme",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: koncowy procesowy sygnal mouldFullOpen wystawiony po arbitrazu; 0: niewystawiony. Nie potwierdza ruchu maszyny. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.imm.cycleKnown",
       "bank": "F",
       "number": 553,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxIMMCyklZnany",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: model rozpoczetych wtryskow uzgodniony; 0: stan nieznany, blokada nowych cykli. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.imm.ejectorBack",
       "bank": "F",
       "number": 554,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxIMMWyrzTyl",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: wyrzutnik w pozycji tylnej. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.imm.ejectorForward",
       "bank": "F",
       "number": 555,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxIMMWyrzPrz",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: wyrzutnik w pozycji przedniej. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.imm.mouldClosed",
       "bank": "F",
       "number": 556,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxIMMFormaZam",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: potwierdzona forma zamknieta; nie dowodzi rozpoczecia wtrysku. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.imm.mouldIntermediate",
       "bank": "F",
       "number": 557,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxIMMFor_PozSr",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: potwierdzona pozycja posrednia; dostepnosc wg GAP-05. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.imm.mouldOpen",
       "bank": "F",
       "number": 558,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxIMMFormaOtw",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: potwierdzona forma otwarta. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.imm.newCyclePermit",
       "bank": "F",
       "number": 559,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxIMMNowyCykl",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: PLC pozwala na nowy wtrysk w biezacej fazie; 0: blokada nowych wtryskow. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.imm.pickupPending",
       "bank": "F",
       "number": 560,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxIMMDoPobr",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: cycleId przydzielono do nowego pobrania i jeszcze go nie potwierdzono przez immPickupCompleted; 0: nie rozpoczynac ponownego pobrania tego identyfikatora. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.imm.reject",
       "bank": "F",
       "number": 561,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxIMMOdrzut",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: odrzut detali w powiazanym cyklu; 0: brak odrzutu. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.imm.settled",
       "bank": "F",
       "number": 562,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxIMMRozlicz",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: rozliczone rozpoczete wtryski i wymagane operacje maszyny. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.imm.valid",
       "bank": "F",
       "number": 563,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxIMMWaz",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: dane EUROMAP aktualne i znormalizowane; 0: niewazne. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.imm.withRobot",
       "bank": "F",
       "number": 564,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxIMMZRobot",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: maszyna potwierdza wspolprace z robotem po normalizacji. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.link.ready",
       "bank": "F",
       "number": 565,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxLaczGot",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: lokalny interfejs gotowy; 0: brak gotowosci, nie jest to pozwolenie ruchu. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.link.syncAck",
       "bank": "F",
       "number": 566,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxLaczSyncACK",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: potwierdzenie zadania synchronizacji partnera; 0: brak potwierdzenia. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.link.syncRequest",
       "bank": "F",
       "number": 567,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxLaczSyncReq",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: zadanie nowej synchronizacji; 0: brak zadania. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.production.criticalBlock",
       "bank": "F",
       "number": 568,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxProdKrytBlok",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: blokada krytyczna; 0: brak zgloszonej blokady. Nie jest sygnalem safety. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.production.endOrderRequest",
       "bank": "F",
       "number": 569,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxProdKo_cZlec",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: zakonczyc operacje; PLC nastepnie oproznia stacje. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.production.finishPermit",
       "bank": "F",
       "number": 570,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxProdDo_czZez",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: dozwolone dokonczenie rozliczanych operacji przy spelnionych blokadach; 0: brak pozwolenia. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.production.newOperationPermit",
       "bank": "F",
       "number": 571,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxProdNoweZez",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: mozna rozpoczac nowa operacje produkcyjna; 0: nie rozpoczynac kolejnej. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.production.orderActive",
       "bank": "F",
       "number": 572,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxProdZlecON",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: zlecenie otwarte; 0: brak aktywnego zlecenia. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.production.recoveryRequired",
       "bank": "F",
       "number": 573,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxProdRecovery",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: wymagane uzgodnienie stanu; 0: uzgodniony stan. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.production.stopRequest",
       "bank": "F",
       "number": 574,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxProdStop",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: normalny Stop; trzymac do rozliczenia i swiadomego wznowienia. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.production.withRobot",
       "bank": "F",
       "number": 575,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxProdZRobot",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: wspolpraca wybrana; 0: samodzielny Krauss po wymaganym Stop i HOME. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.samples.req",
       "bank": "F",
       "number": 576,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxProbkiReq",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: jednorazowe zadanie odlozenia probek; 0: zwolnienie kanalu po ACK. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.vac.1.accepted",
       "bank": "F",
       "number": 577,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxVac1Akc",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: biezacy cmdValid/hold zostal przyjety. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.vac.1.blowAck",
       "bank": "F",
       "number": 578,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxVac1DmACK",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: terminalny wynik przedmuchu dostepny; trzymany do blowReq=0. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.vac.1.busy",
       "bank": "F",
       "number": 579,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxVac1Trwa",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: wykonywanie przedmuchu lub oczekiwanie na prog po przyjetym zadaniu. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.vac.1.holdApplied",
       "bank": "F",
       "number": 580,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxVac1TrzymAkt",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: koncowa komenda prozni jest zalaczona; nie jest pomiarem podcisnienia. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.vac.1.ok",
       "bank": "F",
       "number": 581,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxVac1OK",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: rzeczywiste podcisnienie OK; 0: prog nieosiagniety; wazne z valid. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.vac.1.valid",
       "bank": "F",
       "number": 582,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxVac1Waz",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: aktualne wejscia i diagnostyka obwodu. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.vac.2.accepted",
       "bank": "F",
       "number": 583,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxVac2Akc",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: biezacy cmdValid/hold zostal przyjety. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.vac.2.blowAck",
       "bank": "F",
       "number": 584,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxVac2DmACK",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: terminalny wynik przedmuchu dostepny; trzymany do blowReq=0. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.vac.2.busy",
       "bank": "F",
       "number": 585,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxVac2Trwa",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: wykonywanie przedmuchu lub oczekiwanie na prog po przyjetym zadaniu. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.vac.2.holdApplied",
       "bank": "F",
       "number": 586,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxVac2TrzymAkt",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: koncowa komenda prozni jest zalaczona; nie jest pomiarem podcisnienia. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.vac.2.ok",
       "bank": "F",
       "number": 587,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxVac2OK",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: rzeczywiste podcisnienie OK; 0: prog nieosiagniety; wazne z valid. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.vac.2.valid",
       "bank": "F",
       "number": 588,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxVac2Waz",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: aktualne wejscia i diagnostyka obwodu. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.vac.3.accepted",
       "bank": "F",
       "number": 589,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxVac3Akc",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: biezacy cmdValid/hold zostal przyjety. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.vac.3.blowAck",
       "bank": "F",
       "number": 590,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxVac3DmACK",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: terminalny wynik przedmuchu dostepny; trzymany do blowReq=0. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.vac.3.busy",
       "bank": "F",
       "number": 591,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxVac3Trwa",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: wykonywanie przedmuchu lub oczekiwanie na prog po przyjetym zadaniu. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.vac.3.holdApplied",
       "bank": "F",
       "number": 592,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxVac3TrzymAkt",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: koncowa komenda prozni jest zalaczona; nie jest pomiarem podcisnienia. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.vac.3.ok",
       "bank": "F",
       "number": 593,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxVac3OK",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: rzeczywiste podcisnienie OK; 0: prog nieosiagniety; wazne z valid. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.vac.3.valid",
       "bank": "F",
       "number": 594,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxVac3Waz",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: aktualne wejscia i diagnostyka obwodu. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.vac.4.accepted",
       "bank": "F",
       "number": 595,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxVac4Akc",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: biezacy cmdValid/hold zostal przyjety. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.vac.4.blowAck",
       "bank": "F",
       "number": 596,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxVac4DmACK",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: terminalny wynik przedmuchu dostepny; trzymany do blowReq=0. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.vac.4.busy",
       "bank": "F",
       "number": 597,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxVac4Trwa",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: wykonywanie przedmuchu lub oczekiwanie na prog po przyjetym zadaniu. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.vac.4.holdApplied",
       "bank": "F",
       "number": 598,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxVac4TrzymAkt",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: koncowa komenda prozni jest zalaczona; nie jest pomiarem podcisnienia. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.vac.4.ok",
       "bank": "F",
       "number": 599,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxVac4OK",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: rzeczywiste podcisnienie OK; 0: prog nieosiagniety; wazne z valid. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.vac.4.valid",
       "bank": "F",
       "number": 600,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxVac4Waz",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: aktualne wejscia i diagnostyka obwodu. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.vac.5.accepted",
       "bank": "F",
       "number": 601,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxVac5Akc",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: biezacy cmdValid/hold zostal przyjety. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.vac.5.blowAck",
       "bank": "F",
       "number": 602,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxVac5DmACK",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: terminalny wynik przedmuchu dostepny; trzymany do blowReq=0. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.vac.5.busy",
       "bank": "F",
       "number": 603,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxVac5Trwa",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: wykonywanie przedmuchu lub oczekiwanie na prog po przyjetym zadaniu. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.vac.5.holdApplied",
       "bank": "F",
       "number": 604,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxVac5TrzymAkt",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: koncowa komenda prozni jest zalaczona; nie jest pomiarem podcisnienia. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.vac.5.ok",
       "bank": "F",
       "number": 605,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxVac5OK",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: rzeczywiste podcisnienie OK; 0: prog nieosiagniety; wazne z valid. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.vac.5.valid",
       "bank": "F",
       "number": 606,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxVac5Waz",
+      "comment": "Snapshot odebrany przez PLC_RX. 1: aktualne wejscia i diagnostyka obwodu. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.link.version",
       "bank": "R",
       "number": 51,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxLaczWers",
+      "comment": "Snapshot odebrany przez PLC_RX. Wersja kontraktu: 2; inna wartosc blokuje uzbrojenie. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.link.heartbeat",
       "bank": "R",
       "number": 52,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxLaczHB",
+      "comment": "Snapshot odebrany przez PLC_RX. Licznik 0..65535 modulo 65536; cykliczny niezaleznie od WAIT programu. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.area.elevator.reason",
       "bank": "R",
       "number": 53,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxWindPr_czyna",
+      "comment": "Snapshot odebrany przez PLC_RX. Kod blokady/oczekiwania; jak dla urzadzen. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.area.source.reason",
       "bank": "R",
       "number": 54,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxZrodPr_czyna",
+      "comment": "Snapshot odebrany przez PLC_RX. Kod blokady/oczekiwania; jak dla urzadzen. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.area.storage.reason",
       "bank": "R",
       "number": 55,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxMagPrzyczyna",
+      "comment": "Snapshot odebrany przez PLC_RX. Kod blokady/oczekiwania; jak dla urzadzen. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.cyl.V501.reason",
       "bank": "R",
       "number": 56,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxV501Pr_czyna",
+      "comment": "Snapshot odebrany przez PLC_RX. 0 brak; 10 brak sesji; 20 tryb; 30 blokada; 40 konflikt; 50 nieaktualne wejscia; 60 timeout; 70 sprzeczne czujniki; 80 odzyskiwanie. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.cyl.V502.reason",
       "bank": "R",
       "number": 57,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxV502Pr_czyna",
+      "comment": "Snapshot odebrany przez PLC_RX. 0 brak; 10 brak sesji; 20 tryb; 30 blokada; 40 konflikt; 50 nieaktualne wejscia; 60 timeout; 70 sprzeczne czujniki; 80 odzyskiwanie. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.cyl.V503.reason",
       "bank": "R",
       "number": 58,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxV503Pr_czyna",
+      "comment": "Snapshot odebrany przez PLC_RX. 0 brak; 10 brak sesji; 20 tryb; 30 blokada; 40 konflikt; 50 nieaktualne wejscia; 60 timeout; 70 sprzeczne czujniki; 80 odzyskiwanie. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.cyl.V504.reason",
       "bank": "R",
       "number": 59,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxV504Pr_czyna",
+      "comment": "Snapshot odebrany przez PLC_RX. 0 brak; 10 brak sesji; 20 tryb; 30 blokada; 40 konflikt; 50 nieaktualne wejscia; 60 timeout; 70 sprzeczne czujniki; 80 odzyskiwanie. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.cyl.V505.reason",
       "bank": "R",
       "number": 60,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxV505Pr_czyna",
+      "comment": "Snapshot odebrany przez PLC_RX. 0 brak; 10 brak sesji; 20 tryb; 30 blokada; 40 konflikt; 50 nieaktualne wejscia; 60 timeout; 70 sprzeczne czujniki; 80 odzyskiwanie. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.imm.cycleId",
       "bank": "R",
       "number": 61,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxIMMCykl",
+      "comment": "Snapshot odebrany przez PLC_RX. Identyfikator rzeczywiscie rozpoczetego cyklu przydzielonego do pobrania; utrzymac do konca handshake immPickupCompleted. Nastepne starty PLC zapisuje osobno. Modulo 65536. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.imm.reason",
       "bank": "R",
       "number": 62,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxIMMPrzyczyna",
+      "comment": "Snapshot odebrany przez PLC_RX. Kod blokady w ImmInterface; jak dla urzadzen. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.imm.unsettledCount",
       "bank": "R",
       "number": 63,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxIMMNie_zlicz",
+      "comment": "Snapshot odebrany przez PLC_RX. Liczba rozpoczetych wtryskow, ktorych robot jeszcze nie rozliczyl; prowadzi PLC. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.production.blockCode",
       "bank": "R",
       "number": 64,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxProdKodBlok",
+      "comment": "Snapshot odebrany przez PLC_RX. 0: brak; kody diagnostyczne wedlug kontraktu. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.production.expectedProgram",
       "bank": "R",
       "number": 65,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxProdProgram",
+      "comment": "Snapshot odebrany przez PLC_RX. 0: brak wyboru; 1: Pojemniki; 2: Blistry. Nie wybiera programu na FANUC. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.production.stackId",
       "bank": "R",
       "number": 66,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxProdLad",
+      "comment": "Snapshot odebrany przez PLC_RX. Identyfikator aktualnego stosu/pojemnika nadany przez PLC; nie zmieniac przed zakonczeniem wymian tego stosu. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.vac.1.blowResult",
       "bank": "R",
       "number": 67,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxVac1DmWyn",
+      "comment": "Snapshot odebrany przez PLC_RX. 0 brak; 1 impuls zakonczony i potwierdzenie zwolnienia aktualne; 2 odrzucono; 3 usterka/timeout. Stabilne przy blowAck=1. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.vac.1.reason",
       "bank": "R",
       "number": 68,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxVac1Pr_czyna",
+      "comment": "Snapshot odebrany przez PLC_RX. Kody przyczyn jak dla silownikow; 90 utrata prozni; 100 brak potwierdzonej konfiguracji przedmuchu. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.vac.2.blowResult",
       "bank": "R",
       "number": 69,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxVac2DmWyn",
+      "comment": "Snapshot odebrany przez PLC_RX. 0 brak; 1 impuls zakonczony i potwierdzenie zwolnienia aktualne; 2 odrzucono; 3 usterka/timeout. Stabilne przy blowAck=1. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.vac.2.reason",
       "bank": "R",
       "number": 70,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxVac2Pr_czyna",
+      "comment": "Snapshot odebrany przez PLC_RX. Kody przyczyn jak dla silownikow; 90 utrata prozni; 100 brak potwierdzonej konfiguracji przedmuchu. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.vac.3.blowResult",
       "bank": "R",
       "number": 71,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxVac3DmWyn",
+      "comment": "Snapshot odebrany przez PLC_RX. 0 brak; 1 impuls zakonczony i potwierdzenie zwolnienia aktualne; 2 odrzucono; 3 usterka/timeout. Stabilne przy blowAck=1. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.vac.3.reason",
       "bank": "R",
       "number": 72,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxVac3Pr_czyna",
+      "comment": "Snapshot odebrany przez PLC_RX. Kody przyczyn jak dla silownikow; 90 utrata prozni; 100 brak potwierdzonej konfiguracji przedmuchu. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.vac.4.blowResult",
       "bank": "R",
       "number": 73,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxVac4DmWyn",
+      "comment": "Snapshot odebrany przez PLC_RX. 0 brak; 1 impuls zakonczony i potwierdzenie zwolnienia aktualne; 2 odrzucono; 3 usterka/timeout. Stabilne przy blowAck=1. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.vac.4.reason",
       "bank": "R",
       "number": 74,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxVac4Pr_czyna",
+      "comment": "Snapshot odebrany przez PLC_RX. Kody przyczyn jak dla silownikow; 90 utrata prozni; 100 brak potwierdzonej konfiguracji przedmuchu. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.vac.5.blowResult",
       "bank": "R",
       "number": 75,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxVac5DmWyn",
+      "comment": "Snapshot odebrany przez PLC_RX. 0 brak; 1 impuls zakonczony i potwierdzenie zwolnienia aktualne; 2 odrzucono; 3 usterka/timeout. Stabilne przy blowAck=1. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.vac.5.reason",
       "bank": "R",
       "number": 76,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxVac5Pr_czyna",
+      "comment": "Snapshot odebrany przez PLC_RX. Kody przyczyn jak dla silownikow; 90 utrata prozni; 100 brak potwierdzonej konfiguracji przedmuchu. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.imm.batchCount",
       "bank": "R",
       "number": 77,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxIMMSztPart",
+      "comment": "Snapshot odebrany przez PLC_RX. Ilosc sztuk przypisana do przydzielonego cycleId (1..65535). Stabilna wraz z cycleId i reject do konca handshake immPickupCompleted; nie biezacy parametr HMI. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.production.startToken",
       "bank": "R",
       "number": 78,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxProdStart",
+      "comment": "Snapshot odebrany przez PLC_RX. Licznik modulo 65536 zwiekszany wylacznie po przyjetym fizycznym Start. Zastana wartosc po inicjalizacji/recovery nie uruchamia pracy; potrzebna kolejna zmiana. Nie jest zdalnym START UOP. Kierunek: PLC do robota."
     },
     {
       "name": "rx.p2r.event.rejectsPlaced.ack",
       "bank": "F",
       "number": 607,
-      "owner": "RC_RX"
+      "owner": "PLC_RX",
+      "label": "RxOdrzutACK",
+      "comment": "Snapshot odebrany przez PLC_RX. Odrzut zarejestrowany raz dla biezacego REQ; utrzymac ACK do REQ=0. Kierunek: PLC do robota."
     },
     {
       "name": "app.r2p.area.elevator.accessReq",
       "bank": "F",
       "number": 608,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdWindWejReq",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: robot zada dostepu; 0: zwalnia zadanie po opuszczeniu obszaru. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.area.elevator.clear",
       "bank": "F",
       "number": 609,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdWindPoza",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: robot faktycznie poza obszarem i nie planuje wejscia bez nowego przyznania; 0: brak zwolnienia. Nie jest safety. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.area.source.accessReq",
       "bank": "F",
       "number": 610,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdZrodWejReq",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: robot zada dostepu; 0: zwalnia zadanie po opuszczeniu obszaru. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.area.source.clear",
       "bank": "F",
       "number": 611,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdZrodPoza",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: robot faktycznie poza obszarem i nie planuje wejscia bez nowego przyznania; 0: brak zwolnienia. Nie jest safety. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.area.storage.accessReq",
       "bank": "F",
       "number": 612,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdMagWejReq",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: robot zada dostepu; 0: zwalnia zadanie po opuszczeniu obszaru. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.area.storage.clear",
       "bank": "F",
       "number": 613,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdMagPoza",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: robot faktycznie poza obszarem i nie planuje wejscia bez nowego przyznania; 0: brak zwolnienia. Nie jest safety. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.cyl.V501.home",
       "bank": "F",
       "number": 614,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdV501Home",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: zadanie pozycji HOME; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.cyl.V501.work",
       "bank": "F",
       "number": 615,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdV501Work",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: zadanie pozycji WORK; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.cyl.V502.home",
       "bank": "F",
       "number": 616,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdV502Home",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: zadanie pozycji HOME; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.cyl.V502.work",
       "bank": "F",
       "number": 617,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdV502Work",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: zadanie pozycji WORK; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.cyl.V503.home",
       "bank": "F",
       "number": 618,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdV503Home",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: zadanie pozycji HOME; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.cyl.V503.work",
       "bank": "F",
       "number": 619,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdV503Work",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: zadanie pozycji WORK; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.cyl.V504.home",
       "bank": "F",
       "number": 620,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdV504Home",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: zadanie pozycji HOME; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.cyl.V504.work",
       "bank": "F",
       "number": 621,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdV504Work",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: zadanie pozycji WORK; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.cyl.V505.home",
       "bank": "F",
       "number": 622,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdV505Home",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: zadanie pozycji HOME; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.cyl.V505.work",
       "bank": "F",
       "number": 623,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdV505Work",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: zadanie pozycji WORK; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.event.blisterFinished.req",
       "bank": "F",
       "number": 624,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdPelTacReq",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: pojedynczy blister napelniony; nie oznacza ukonczenia stosu. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.event.blisterPicked.req",
       "bank": "F",
       "number": 625,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdPobrTaReq",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: nowe zdarzenie blisterPicked; utrzymac do ACK; nastepne po pelnym wyzerowaniu kanalu. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.event.blisterPlaced.req",
       "bank": "F",
       "number": 626,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdOdlTacReq",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: nowe zdarzenie blisterPlaced; utrzymac do ACK; nastepne po pelnym wyzerowaniu kanalu. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.event.immPickupCompleted.req",
       "bank": "F",
       "number": 627,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdPobrIMReq",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: nowe zdarzenie immPickupCompleted; utrzymac do ACK; nastepne po pelnym wyzerowaniu kanalu. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.event.layerFinished.req",
       "bank": "F",
       "number": 628,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdWarstwReq",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: nowe zdarzenie layerFinished; utrzymac do ACK; nastepne po pelnym wyzerowaniu kanalu. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.event.productsPlaced.req",
       "bank": "F",
       "number": 629,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdDobreReq",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: nowe zdarzenie productsPlaced; utrzymac do ACK; nastepne po pelnym wyzerowaniu kanalu. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.event.samplesPlaced.req",
       "bank": "F",
       "number": 630,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdProbkiReq",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: nowe zdarzenie samplesPlaced; utrzymac do ACK; nastepne po pelnym wyzerowaniu kanalu. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.event.spacerPlaced.req",
       "bank": "F",
       "number": 631,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdPrzeklReq",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: nowe zdarzenie spacerPlaced; utrzymac do ACK; nastepne po pelnym wyzerowaniu kanalu. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.event.stackFinished.req",
       "bank": "F",
       "number": 632,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdPelLadReq",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: nowe zdarzenie stackFinished; utrzymac do ACK; nastepne po pelnym wyzerowaniu kanalu. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.imm.req.ejectorBack",
       "bank": "F",
       "number": 633,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdIMMZWyrzTyl",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: robot zada procesowego pozwolenia ejectorBack; 0: nie zada. PLC kontroluje koncowe wyjscie. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.imm.req.ejectorForward",
       "bank": "F",
       "number": 634,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdIMMZWyrzPrz",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: robot zada procesowego pozwolenia ejectorForward; 0: nie zada. PLC kontroluje koncowe wyjscie. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.imm.req.mouldClose",
       "bank": "F",
       "number": 635,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdIMMZZ_Forme",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: robot zada procesowego pozwolenia mouldClose; 0: nie zada. PLC kontroluje koncowe wyjscie. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.imm.req.mouldFullOpen",
       "bank": "F",
       "number": 636,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdIMMZO_Forme",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: robot zada procesowego pozwolenia mouldFullOpen; 0: nie zada. PLC kontroluje koncowe wyjscie. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.link.ready",
       "bank": "F",
       "number": 637,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdLaczGot",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: lokalny interfejs gotowy; 0: brak gotowosci, nie jest to pozwolenie ruchu. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.link.syncAck",
       "bank": "F",
       "number": 638,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdLaczSyncACK",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: potwierdzenie zadania synchronizacji partnera; 0: brak potwierdzenia. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.link.syncRequest",
       "bank": "F",
       "number": 639,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdLaczSyncReq",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: zadanie nowej synchronizacji; 0: brak zadania. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.production.autoMode",
       "bank": "F",
       "number": 640,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdProdT_bAUTO",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: AUTO; 0: poza AUTO. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.production.estopActive",
       "bank": "F",
       "number": 641,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdProdE_opAkt",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: diagnostyczny E-STOP; nie zastepuje toru bezpieczenstwa. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.production.fault",
       "bank": "F",
       "number": 642,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdProdA_obota",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: blad FANUC; 0: brak zgloszonego bledu. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.production.home",
       "bank": "F",
       "number": 643,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdProdHome",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: potwierdzone HOME z monitorowania pozycji; nie ustawiac stale w programie. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.production.inputSimulated",
       "bank": "F",
       "number": 644,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdProdS_Wejsc",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: symulowane wejscia; blokada odbioru produkcyjnego. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.production.loadKnown",
       "bank": "F",
       "number": 645,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdProdL_Znany",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: maska ladunku uzgodniona z czujnikami; 0: stan nieznany, nie traktowac jako pusty. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.production.operationsSettled",
       "bank": "F",
       "number": 646,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdProdO_rRozl",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: robot rozliczyl pobranie/odlozenie wszystkich przypisanych rozpoczetych wtryskow; nie potwierdza transferow PLC. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.production.outputSimulated",
       "bank": "F",
       "number": 647,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdProdS_Wyjsc",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: symulowane wyjscia; blokada odbioru produkcyjnego. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.production.running",
       "bank": "F",
       "number": 648,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdProdPraca",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: program produkcyjny wykonuje sie; 0: nie wykonuje sie. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.production.stopping",
       "bank": "F",
       "number": 649,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdProdZatrzym",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: konczenie rozpoczetych operacji. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.production.systemReady",
       "bank": "F",
       "number": 650,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdProdS_Gotow",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: gotowosc systemu; 0: brak. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.production.t1Mode",
       "bank": "F",
       "number": 651,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdProdTrybT1",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: T1; 0: nie T1. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.production.t2Mode",
       "bank": "F",
       "number": 652,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdProdTrybT2",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: T2; 0: nie T2. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.production.tpEnabled",
       "bank": "F",
       "number": 653,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdProdP_antON",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: pendant aktywny; 0: nieaktywny. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.production.waitingResume",
       "bank": "F",
       "number": 654,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdProdC_Start",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: oczekiwanie na swiadome wznowienie. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.samples.ack",
       "bank": "F",
       "number": 655,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdProbkiACK",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: zadanie probek przyjete; nie oznacza odlozenia; ukonczenie przez event.samplesPlaced. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.vac.1.blowReq",
       "bank": "F",
       "number": 656,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdVac1DmReq",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: jednorazowy przedmuch; utrzymac do blowAck; 0: brak/zwolnienie zadania. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.vac.1.cmdValid",
       "bank": "F",
       "number": 657,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdVac1WazCmd",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: jawnie zadany stan prozni; 0: brak nowego zadania, nie wylacza samoczynnie podcisnienia. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.vac.1.hold",
       "bank": "F",
       "number": 658,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdVac1Trzymaj",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: utrzymuj proznie; 0: zadaj wylaczenia, tylko gdy cmdValid=1. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.vac.2.blowReq",
       "bank": "F",
       "number": 659,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdVac2DmReq",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: jednorazowy przedmuch; utrzymac do blowAck; 0: brak/zwolnienie zadania. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.vac.2.cmdValid",
       "bank": "F",
       "number": 660,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdVac2WazCmd",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: jawnie zadany stan prozni; 0: brak nowego zadania, nie wylacza samoczynnie podcisnienia. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.vac.2.hold",
       "bank": "F",
       "number": 661,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdVac2Trzymaj",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: utrzymuj proznie; 0: zadaj wylaczenia, tylko gdy cmdValid=1. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.vac.3.blowReq",
       "bank": "F",
       "number": 662,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdVac3DmReq",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: jednorazowy przedmuch; utrzymac do blowAck; 0: brak/zwolnienie zadania. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.vac.3.cmdValid",
       "bank": "F",
       "number": 663,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdVac3WazCmd",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: jawnie zadany stan prozni; 0: brak nowego zadania, nie wylacza samoczynnie podcisnienia. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.vac.3.hold",
       "bank": "F",
       "number": 664,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdVac3Trzymaj",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: utrzymuj proznie; 0: zadaj wylaczenia, tylko gdy cmdValid=1. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.vac.4.blowReq",
       "bank": "F",
       "number": 665,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdVac4DmReq",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: jednorazowy przedmuch; utrzymac do blowAck; 0: brak/zwolnienie zadania. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.vac.4.cmdValid",
       "bank": "F",
       "number": 666,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdVac4WazCmd",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: jawnie zadany stan prozni; 0: brak nowego zadania, nie wylacza samoczynnie podcisnienia. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.vac.4.hold",
       "bank": "F",
       "number": 667,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdVac4Trzymaj",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: utrzymuj proznie; 0: zadaj wylaczenia, tylko gdy cmdValid=1. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.vac.5.blowReq",
       "bank": "F",
       "number": 668,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdVac5DmReq",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: jednorazowy przedmuch; utrzymac do blowAck; 0: brak/zwolnienie zadania. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.vac.5.cmdValid",
       "bank": "F",
       "number": 669,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdVac5WazCmd",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: jawnie zadany stan prozni; 0: brak nowego zadania, nie wylacza samoczynnie podcisnienia. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.vac.5.hold",
       "bank": "F",
       "number": 670,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdVac5Trzymaj",
+      "comment": "Lokalne zadanie lub status aplikacji. 1: utrzymuj proznie; 0: zadaj wylaczenia, tylko gdy cmdValid=1. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.link.version",
       "bank": "R",
       "number": 79,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdLaczWers",
+      "comment": "Lokalne zadanie lub status aplikacji. Wersja kontraktu: 2; inna wartosc blokuje uzbrojenie. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.link.heartbeat",
       "bank": "R",
       "number": 80,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdLaczHB",
+      "comment": "Lokalne zadanie lub status aplikacji. Licznik 0..65535 modulo 65536; cykliczny niezaleznie od WAIT programu. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.event.blisterFinished.index",
       "bank": "R",
       "number": 81,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdPelTacIdx",
+      "comment": "Lokalne zadanie lub status aplikacji. Indeks ukonczonego blistra od 0, stabilny w calej wymianie. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.event.blisterFinished.stackId",
       "bank": "R",
       "number": 82,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdPelTacLad",
+      "comment": "Lokalne zadanie lub status aplikacji. Identyfikator stosu blistrow, stabilny w calej wymianie. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.event.blisterPicked.stackId",
       "bank": "R",
       "number": 83,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdPobrTaLad",
+      "comment": "Lokalne zadanie lub status aplikacji. Identyfikator stosu/pojemnika nadany przez PLC; echo production.stackId. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.event.blisterPlaced.stackId",
       "bank": "R",
       "number": 84,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdOdlTacLad",
+      "comment": "Lokalne zadanie lub status aplikacji. Identyfikator stosu/pojemnika nadany przez PLC; echo production.stackId. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.event.immPickupCompleted.cycleId",
       "bank": "R",
       "number": 85,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdPobrIMCykl",
+      "comment": "Lokalne zadanie lub status aplikacji. Identyfikator rzeczywiscie rozpoczetego wtrysku; wiaze zdarzenie z rozliczeniem detali. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.event.immPickupCompleted.stackId",
       "bank": "R",
       "number": 86,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdPobrIMLad",
+      "comment": "Lokalne zadanie lub status aplikacji. Identyfikator stosu/pojemnika nadany przez PLC; echo production.stackId. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.event.layerFinished.index",
       "bank": "R",
       "number": 87,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdWarstwIdx",
+      "comment": "Lokalne zadanie lub status aplikacji. Indeks ukonczonej warstwy od 0. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.event.layerFinished.stackId",
       "bank": "R",
       "number": 88,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdWarstwLad",
+      "comment": "Lokalne zadanie lub status aplikacji. Identyfikator stosu/pojemnika nadany przez PLC; echo production.stackId. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.event.productsPlaced.count",
       "bank": "R",
       "number": 89,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdDobreSzt",
+      "comment": "Lokalne zadanie lub status aplikacji. Potwierdzona liczba odlozonych detali: UINT 1..65535, nie wiecej niz nierozliczona ilosc przypisanej partii; niezalezna od obwodow prozni. Nastawe stosowac tylko przy wylaczonym zleceniu i niepracujacej stacji (DEC-18). Payload stabilny przed REQ=1 az do ACK=0. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.event.productsPlaced.cycleId",
       "bank": "R",
       "number": 90,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdDobreCykl",
+      "comment": "Lokalne zadanie lub status aplikacji. Identyfikator rzeczywiscie rozpoczetego wtrysku; wiaze zdarzenie z rozliczeniem detali. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.event.productsPlaced.stackId",
       "bank": "R",
       "number": 91,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdDobreLad",
+      "comment": "Lokalne zadanie lub status aplikacji. Identyfikator stosu/pojemnika nadany przez PLC; echo production.stackId. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.event.samplesPlaced.count",
       "bank": "R",
       "number": 92,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdProbkiSzt",
+      "comment": "Lokalne zadanie lub status aplikacji. Potwierdzona liczba odlozonych detali: UINT 1..65535, nie wiecej niz nierozliczona ilosc przypisanej partii; niezalezna od obwodow prozni. Nastawe stosowac tylko przy wylaczonym zleceniu i niepracujacej stacji (DEC-18). Payload stabilny przed REQ=1 az do ACK=0. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.event.samplesPlaced.cycleId",
       "bank": "R",
       "number": 93,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdProbkiCykl",
+      "comment": "Lokalne zadanie lub status aplikacji. Identyfikator rzeczywiscie rozpoczetego wtrysku; wiaze zdarzenie z rozliczeniem detali. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.event.samplesPlaced.stackId",
       "bank": "R",
       "number": 94,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdProbkiLad",
+      "comment": "Lokalne zadanie lub status aplikacji. Identyfikator stosu/pojemnika nadany przez PLC; echo production.stackId. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.event.spacerPlaced.stackId",
       "bank": "R",
       "number": 95,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdPrzeklLad",
+      "comment": "Lokalne zadanie lub status aplikacji. Identyfikator stosu/pojemnika nadany przez PLC; echo production.stackId. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.event.stackFinished.stackId",
       "bank": "R",
       "number": 96,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdPelLadLad",
+      "comment": "Lokalne zadanie lub status aplikacji. Identyfikator stosu/pojemnika nadany przez PLC; echo production.stackId. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.production.faultCode",
       "bank": "R",
       "number": 97,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdProdK_Bledu",
+      "comment": "Lokalne zadanie lub status aplikacji. 0 brak; kod przyczyny, odrebny od miejsca. Kierunek: Robot do PLC. Kody: 1001 nastawy; 1100 blokada; 1101/2101 punkt lub granica; 1102 nieznany krok; 1201 przedmuch; 1301..1303 przypisanie; 1401..1408 recovery; 1501 szukanie; 1502 zastana proznia; 1601 brak miejsca; 1700+krok timeout; 1800 BG; 1900 sekwencja."
     },
     {
       "name": "app.r2p.production.loadMask",
       "bank": "R",
       "number": 98,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdProdMaskLad",
+      "comment": "Lokalne zadanie lub status aplikacji. Bity 0..4: zajecie fizycznych obwodow prozni 1..5 wedlug potwierdzonego profilu narzedzia; nie liczba detali. W F-2680 obwod 3 dotyczy blistrow. Pozostale bity 0. Wazne tylko z loadKnown=1. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.production.phase",
       "bank": "R",
       "number": 99,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdProdFaza",
+      "comment": "Lokalne zadanie lub status aplikacji. 0 nieznana; 10 oczekiwanie; 20 pobranie IMM; 30 odkladanie; 40 blister/przekladka; 50 probki; 60 zatrzymywanie; 70 zatrzymany; 900 blad/odzyskiwanie. Kierunek: Robot do PLC. 10 gotowosc; 20 IMM; 30 odkladanie; 40 pusty nosnik/przekladki/koniec; 50 probki/odrzuty; 60 powrot HOME; 70 postoj; 900 recovery."
     },
     {
       "name": "app.r2p.production.program",
       "bank": "R",
       "number": 100,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdProdProgram",
+      "comment": "Lokalne zadanie lub status aplikacji. 0: zaden/nieznany; 1: Pojemniki; 2: Blistry; identyfikacja programu faktycznie uruchomionego. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.production.step",
       "bank": "R",
       "number": 101,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdProdKrok",
+      "comment": "Lokalne zadanie lub status aplikacji. Kod miejsca w procedurze wg robot-modernization.md. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.production.waitCode",
       "bank": "R",
       "number": 102,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdProdC_kaKod",
+      "comment": "Lokalne zadanie lub status aplikacji. 0 brak; 10 synchronizacja; 20 pozwolenie; 30 IMM; 40 silownik; 50 proznia; 60 obszar; 70 ACK; 80 operator. Kierunek: Robot do PLC. 0 brak; 20 partia; 30 forma; 40 chwytak; 50 proznia/przedmuch; 60 obszar/nosnik; 70 ACK; 80 operator lub Start."
     },
     {
       "name": "app.r2p.samples.result",
       "bank": "R",
       "number": 103,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdProbkiWynik",
+      "comment": "Lokalne zadanie lub status aplikacji. 0 brak; 1 przyjeto; 2 odrzucono; stabilne przy samples.ack=1. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.event.rejectsPlaced.req",
       "bank": "F",
       "number": 671,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdOdrzutReq",
+      "comment": "Lokalne zadanie lub status aplikacji. Potwierdzone odlozenie odrzutu do miejsca probek. Osobny kanal i rozliczenie; nie zwieksza dobrych sztuk ani probek. Pelny REQ/ACK. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.event.rejectsPlaced.count",
       "bank": "R",
       "number": 104,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdOdrzutSzt",
+      "comment": "Lokalne zadanie lub status aplikacji. Potwierdzona ilosc odlozonej grupy odrzutow 1..65535; nie wiecej niz pozostala ilosc partii. Stabilne od REQ=1 do ACK=0. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.event.rejectsPlaced.cycleId",
       "bank": "R",
       "number": 105,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdOdrzutCykl",
+      "comment": "Lokalne zadanie lub status aplikacji. Identyfikator partii odrzutow przypisany przed pobraniem. Stabilne od REQ=1 do ACK=0. Kierunek: Robot do PLC."
     },
     {
       "name": "app.r2p.event.rejectsPlaced.stackId",
       "bank": "R",
       "number": 106,
-      "owner": "APPLICATION"
+      "owner": "APPLICATION",
+      "label": "CmdOdrzutLad",
+      "comment": "Lokalne zadanie lub status aplikacji. Kontekst stosu w chwili przypisania partii; odrzut nie zapelnia tacki. Stabilne od REQ=1 do ACK=0. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.area.elevator.accessReq",
       "bank": "F",
       "number": 672,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxWindWejReq",
+      "comment": "Bufor wyjscia po walidacji. 1: robot zada dostepu; 0: zwalnia zadanie po opuszczeniu obszaru. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.area.elevator.clear",
       "bank": "F",
       "number": 673,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxWindPoza",
+      "comment": "Bufor wyjscia po walidacji. 1: robot faktycznie poza obszarem i nie planuje wejscia bez nowego przyznania; 0: brak zwolnienia. Nie jest safety. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.area.source.accessReq",
       "bank": "F",
       "number": 674,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxZrodWejReq",
+      "comment": "Bufor wyjscia po walidacji. 1: robot zada dostepu; 0: zwalnia zadanie po opuszczeniu obszaru. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.area.source.clear",
       "bank": "F",
       "number": 675,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxZrodPoza",
+      "comment": "Bufor wyjscia po walidacji. 1: robot faktycznie poza obszarem i nie planuje wejscia bez nowego przyznania; 0: brak zwolnienia. Nie jest safety. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.area.storage.accessReq",
       "bank": "F",
       "number": 676,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxMagWejReq",
+      "comment": "Bufor wyjscia po walidacji. 1: robot zada dostepu; 0: zwalnia zadanie po opuszczeniu obszaru. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.area.storage.clear",
       "bank": "F",
       "number": 677,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxMagPoza",
+      "comment": "Bufor wyjscia po walidacji. 1: robot faktycznie poza obszarem i nie planuje wejscia bez nowego przyznania; 0: brak zwolnienia. Nie jest safety. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.cyl.V501.home",
       "bank": "F",
       "number": 678,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxV501Home",
+      "comment": "Bufor wyjscia po walidacji. 1: zadanie pozycji HOME; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.cyl.V501.work",
       "bank": "F",
       "number": 679,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxV501Work",
+      "comment": "Bufor wyjscia po walidacji. 1: zadanie pozycji WORK; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.cyl.V502.home",
       "bank": "F",
       "number": 680,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxV502Home",
+      "comment": "Bufor wyjscia po walidacji. 1: zadanie pozycji HOME; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.cyl.V502.work",
       "bank": "F",
       "number": 681,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxV502Work",
+      "comment": "Bufor wyjscia po walidacji. 1: zadanie pozycji WORK; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.cyl.V503.home",
       "bank": "F",
       "number": 682,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxV503Home",
+      "comment": "Bufor wyjscia po walidacji. 1: zadanie pozycji HOME; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.cyl.V503.work",
       "bank": "F",
       "number": 683,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxV503Work",
+      "comment": "Bufor wyjscia po walidacji. 1: zadanie pozycji WORK; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.cyl.V504.home",
       "bank": "F",
       "number": 684,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxV504Home",
+      "comment": "Bufor wyjscia po walidacji. 1: zadanie pozycji HOME; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.cyl.V504.work",
       "bank": "F",
       "number": 685,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxV504Work",
+      "comment": "Bufor wyjscia po walidacji. 1: zadanie pozycji WORK; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.cyl.V505.home",
       "bank": "F",
       "number": 686,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxV505Home",
+      "comment": "Bufor wyjscia po walidacji. 1: zadanie pozycji HOME; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.cyl.V505.work",
       "bank": "F",
       "number": 687,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxV505Work",
+      "comment": "Bufor wyjscia po walidacji. 1: zadanie pozycji WORK; 0: brak tego zadania. Para 00=brak nowego ruchu, 11=odrzuc. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.event.blisterFinished.req",
       "bank": "F",
       "number": 688,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxPelTacReq",
+      "comment": "Bufor wyjscia po walidacji. 1: pojedynczy blister napelniony; nie oznacza ukonczenia stosu. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.event.blisterPicked.req",
       "bank": "F",
       "number": 689,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxPobrTaReq",
+      "comment": "Bufor wyjscia po walidacji. 1: nowe zdarzenie blisterPicked; utrzymac do ACK; nastepne po pelnym wyzerowaniu kanalu. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.event.blisterPlaced.req",
       "bank": "F",
       "number": 690,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxOdlTacReq",
+      "comment": "Bufor wyjscia po walidacji. 1: nowe zdarzenie blisterPlaced; utrzymac do ACK; nastepne po pelnym wyzerowaniu kanalu. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.event.immPickupCompleted.req",
       "bank": "F",
       "number": 691,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxPobrIMReq",
+      "comment": "Bufor wyjscia po walidacji. 1: nowe zdarzenie immPickupCompleted; utrzymac do ACK; nastepne po pelnym wyzerowaniu kanalu. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.event.layerFinished.req",
       "bank": "F",
       "number": 692,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxWarstwReq",
+      "comment": "Bufor wyjscia po walidacji. 1: nowe zdarzenie layerFinished; utrzymac do ACK; nastepne po pelnym wyzerowaniu kanalu. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.event.productsPlaced.req",
       "bank": "F",
       "number": 693,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxDobreReq",
+      "comment": "Bufor wyjscia po walidacji. 1: nowe zdarzenie productsPlaced; utrzymac do ACK; nastepne po pelnym wyzerowaniu kanalu. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.event.samplesPlaced.req",
       "bank": "F",
       "number": 694,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxProbkiReq",
+      "comment": "Bufor wyjscia po walidacji. 1: nowe zdarzenie samplesPlaced; utrzymac do ACK; nastepne po pelnym wyzerowaniu kanalu. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.event.spacerPlaced.req",
       "bank": "F",
       "number": 695,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxPrzeklReq",
+      "comment": "Bufor wyjscia po walidacji. 1: nowe zdarzenie spacerPlaced; utrzymac do ACK; nastepne po pelnym wyzerowaniu kanalu. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.event.stackFinished.req",
       "bank": "F",
       "number": 696,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxPelLadReq",
+      "comment": "Bufor wyjscia po walidacji. 1: nowe zdarzenie stackFinished; utrzymac do ACK; nastepne po pelnym wyzerowaniu kanalu. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.imm.req.ejectorBack",
       "bank": "F",
       "number": 697,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxIMMZWyrzTyl",
+      "comment": "Bufor wyjscia po walidacji. 1: robot zada procesowego pozwolenia ejectorBack; 0: nie zada. PLC kontroluje koncowe wyjscie. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.imm.req.ejectorForward",
       "bank": "F",
       "number": 698,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxIMMZWyrzPrz",
+      "comment": "Bufor wyjscia po walidacji. 1: robot zada procesowego pozwolenia ejectorForward; 0: nie zada. PLC kontroluje koncowe wyjscie. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.imm.req.mouldClose",
       "bank": "F",
       "number": 699,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxIMMZZamForme",
+      "comment": "Bufor wyjscia po walidacji. 1: robot zada procesowego pozwolenia mouldClose; 0: nie zada. PLC kontroluje koncowe wyjscie. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.imm.req.mouldFullOpen",
       "bank": "F",
       "number": 700,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxIMMZOtwForme",
+      "comment": "Bufor wyjscia po walidacji. 1: robot zada procesowego pozwolenia mouldFullOpen; 0: nie zada. PLC kontroluje koncowe wyjscie. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.link.ready",
       "bank": "F",
       "number": 701,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxLaczGot",
+      "comment": "Bufor wyjscia po walidacji. 1: lokalny interfejs gotowy; 0: brak gotowosci, nie jest to pozwolenie ruchu. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.link.syncAck",
       "bank": "F",
       "number": 702,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxLaczSyncACK",
+      "comment": "Bufor wyjscia po walidacji. 1: potwierdzenie zadania synchronizacji partnera; 0: brak potwierdzenia. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.link.syncRequest",
       "bank": "F",
       "number": 703,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxLaczSyncReq",
+      "comment": "Bufor wyjscia po walidacji. 1: zadanie nowej synchronizacji; 0: brak zadania. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.production.autoMode",
       "bank": "F",
       "number": 704,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxProdTrybAUTO",
+      "comment": "Bufor wyjscia po walidacji. 1: AUTO; 0: poza AUTO. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.production.estopActive",
       "bank": "F",
       "number": 705,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxProdEStopAkt",
+      "comment": "Bufor wyjscia po walidacji. 1: diagnostyczny E-STOP; nie zastepuje toru bezpieczenstwa. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.production.fault",
       "bank": "F",
       "number": 706,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxProdAl_obota",
+      "comment": "Bufor wyjscia po walidacji. 1: blad FANUC; 0: brak zgloszonego bledu. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.production.home",
       "bank": "F",
       "number": 707,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxProdHome",
+      "comment": "Bufor wyjscia po walidacji. 1: potwierdzone HOME z monitorowania pozycji; nie ustawiac stale w programie. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.production.inputSimulated",
       "bank": "F",
       "number": 708,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxProdSymWejsc",
+      "comment": "Bufor wyjscia po walidacji. 1: symulowane wejscia; blokada odbioru produkcyjnego. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.production.loadKnown",
       "bank": "F",
       "number": 709,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxProdLadZnany",
+      "comment": "Bufor wyjscia po walidacji. 1: maska ladunku uzgodniona z czujnikami; 0: stan nieznany, nie traktowac jako pusty. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.production.operationsSettled",
       "bank": "F",
       "number": 710,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxProdOperRozl",
+      "comment": "Bufor wyjscia po walidacji. 1: robot rozliczyl pobranie/odlozenie wszystkich przypisanych rozpoczetych wtryskow; nie potwierdza transferow PLC. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.production.outputSimulated",
       "bank": "F",
       "number": 711,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxProdSymWyjsc",
+      "comment": "Bufor wyjscia po walidacji. 1: symulowane wyjscia; blokada odbioru produkcyjnego. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.production.running",
       "bank": "F",
       "number": 712,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxProdPraca",
+      "comment": "Bufor wyjscia po walidacji. 1: program produkcyjny wykonuje sie; 0: nie wykonuje sie. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.production.stopping",
       "bank": "F",
       "number": 713,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxProdZatrzym",
+      "comment": "Bufor wyjscia po walidacji. 1: konczenie rozpoczetych operacji. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.production.systemReady",
       "bank": "F",
       "number": 714,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxProdSy_Gotow",
+      "comment": "Bufor wyjscia po walidacji. 1: gotowosc systemu; 0: brak. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.production.t1Mode",
       "bank": "F",
       "number": 715,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxProdTrybT1",
+      "comment": "Bufor wyjscia po walidacji. 1: T1; 0: nie T1. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.production.t2Mode",
       "bank": "F",
       "number": 716,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxProdTrybT2",
+      "comment": "Bufor wyjscia po walidacji. 1: T2; 0: nie T2. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.production.tpEnabled",
       "bank": "F",
       "number": 717,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxProdPe_antON",
+      "comment": "Bufor wyjscia po walidacji. 1: pendant aktywny; 0: nieaktywny. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.production.waitingResume",
       "bank": "F",
       "number": 718,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxProdCz_Start",
+      "comment": "Bufor wyjscia po walidacji. 1: oczekiwanie na swiadome wznowienie. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.samples.ack",
       "bank": "F",
       "number": 719,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxProbkiACK",
+      "comment": "Bufor wyjscia po walidacji. 1: zadanie probek przyjete; nie oznacza odlozenia; ukonczenie przez event.samplesPlaced. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.vac.1.blowReq",
       "bank": "F",
       "number": 720,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxVac1DmReq",
+      "comment": "Bufor wyjscia po walidacji. 1: jednorazowy przedmuch; utrzymac do blowAck; 0: brak/zwolnienie zadania. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.vac.1.cmdValid",
       "bank": "F",
       "number": 721,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxVac1WazCmd",
+      "comment": "Bufor wyjscia po walidacji. 1: jawnie zadany stan prozni; 0: brak nowego zadania, nie wylacza samoczynnie podcisnienia. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.vac.1.hold",
       "bank": "F",
       "number": 722,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxVac1Trzymaj",
+      "comment": "Bufor wyjscia po walidacji. 1: utrzymuj proznie; 0: zadaj wylaczenia, tylko gdy cmdValid=1. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.vac.2.blowReq",
       "bank": "F",
       "number": 723,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxVac2DmReq",
+      "comment": "Bufor wyjscia po walidacji. 1: jednorazowy przedmuch; utrzymac do blowAck; 0: brak/zwolnienie zadania. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.vac.2.cmdValid",
       "bank": "F",
       "number": 724,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxVac2WazCmd",
+      "comment": "Bufor wyjscia po walidacji. 1: jawnie zadany stan prozni; 0: brak nowego zadania, nie wylacza samoczynnie podcisnienia. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.vac.2.hold",
       "bank": "F",
       "number": 725,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxVac2Trzymaj",
+      "comment": "Bufor wyjscia po walidacji. 1: utrzymuj proznie; 0: zadaj wylaczenia, tylko gdy cmdValid=1. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.vac.3.blowReq",
       "bank": "F",
       "number": 726,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxVac3DmReq",
+      "comment": "Bufor wyjscia po walidacji. 1: jednorazowy przedmuch; utrzymac do blowAck; 0: brak/zwolnienie zadania. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.vac.3.cmdValid",
       "bank": "F",
       "number": 727,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxVac3WazCmd",
+      "comment": "Bufor wyjscia po walidacji. 1: jawnie zadany stan prozni; 0: brak nowego zadania, nie wylacza samoczynnie podcisnienia. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.vac.3.hold",
       "bank": "F",
       "number": 728,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxVac3Trzymaj",
+      "comment": "Bufor wyjscia po walidacji. 1: utrzymuj proznie; 0: zadaj wylaczenia, tylko gdy cmdValid=1. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.vac.4.blowReq",
       "bank": "F",
       "number": 729,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxVac4DmReq",
+      "comment": "Bufor wyjscia po walidacji. 1: jednorazowy przedmuch; utrzymac do blowAck; 0: brak/zwolnienie zadania. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.vac.4.cmdValid",
       "bank": "F",
       "number": 730,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxVac4WazCmd",
+      "comment": "Bufor wyjscia po walidacji. 1: jawnie zadany stan prozni; 0: brak nowego zadania, nie wylacza samoczynnie podcisnienia. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.vac.4.hold",
       "bank": "F",
       "number": 731,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxVac4Trzymaj",
+      "comment": "Bufor wyjscia po walidacji. 1: utrzymuj proznie; 0: zadaj wylaczenia, tylko gdy cmdValid=1. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.vac.5.blowReq",
       "bank": "F",
       "number": 732,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxVac5DmReq",
+      "comment": "Bufor wyjscia po walidacji. 1: jednorazowy przedmuch; utrzymac do blowAck; 0: brak/zwolnienie zadania. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.vac.5.cmdValid",
       "bank": "F",
       "number": 733,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxVac5WazCmd",
+      "comment": "Bufor wyjscia po walidacji. 1: jawnie zadany stan prozni; 0: brak nowego zadania, nie wylacza samoczynnie podcisnienia. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.vac.5.hold",
       "bank": "F",
       "number": 734,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxVac5Trzymaj",
+      "comment": "Bufor wyjscia po walidacji. 1: utrzymuj proznie; 0: zadaj wylaczenia, tylko gdy cmdValid=1. Kierunek: Robot do PLC."
     },
     {
       "name": "tx.r2p.event.rejectsPlaced.req",
       "bank": "F",
       "number": 735,
-      "owner": "RC_CMD"
+      "owner": "PLC_CMD",
+      "label": "TxOdrzutReq",
+      "comment": "Bufor wyjscia po walidacji. Potwierdzone odlozenie odrzutu do miejsca probek. Osobny kanal i rozliczenie; nie zwieksza dobrych sztuk ani probek. Pelny REQ/ACK. Kierunek: Robot do PLC."
     },
     {
       "name": "frozen.r2p.event.blisterFinished.index",
       "bank": "R",
       "number": 107,
-      "owner": "RC_EVENTS"
+      "owner": "PLC_EVT",
+      "label": "ACKPelTacIdx",
+      "comment": "Payload zamrozony od REQ do ACK=0. Indeks ukonczonego blistra od 0, stabilny w calej wymianie. Kierunek: Robot do PLC."
     },
     {
       "name": "frozen.r2p.event.blisterFinished.stackId",
       "bank": "R",
       "number": 108,
-      "owner": "RC_EVENTS"
+      "owner": "PLC_EVT",
+      "label": "ACKPelTacLad",
+      "comment": "Payload zamrozony od REQ do ACK=0. Identyfikator stosu blistrow, stabilny w calej wymianie. Kierunek: Robot do PLC."
     },
     {
       "name": "frozen.r2p.event.blisterPicked.stackId",
       "bank": "R",
       "number": 109,
-      "owner": "RC_EVENTS"
+      "owner": "PLC_EVT",
+      "label": "ACKPobrTaLad",
+      "comment": "Payload zamrozony od REQ do ACK=0. Identyfikator stosu/pojemnika nadany przez PLC; echo production.stackId. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC."
     },
     {
       "name": "frozen.r2p.event.blisterPlaced.stackId",
       "bank": "R",
       "number": 110,
-      "owner": "RC_EVENTS"
+      "owner": "PLC_EVT",
+      "label": "ACKOdlTacLad",
+      "comment": "Payload zamrozony od REQ do ACK=0. Identyfikator stosu/pojemnika nadany przez PLC; echo production.stackId. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC."
     },
     {
       "name": "frozen.r2p.event.immPickupCompleted.cycleId",
       "bank": "R",
       "number": 111,
-      "owner": "RC_EVENTS"
+      "owner": "PLC_EVT",
+      "label": "ACKPobrIMCykl",
+      "comment": "Payload zamrozony od REQ do ACK=0. Identyfikator rzeczywiscie rozpoczetego wtrysku; wiaze zdarzenie z rozliczeniem detali. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC."
     },
     {
       "name": "frozen.r2p.event.immPickupCompleted.stackId",
       "bank": "R",
       "number": 112,
-      "owner": "RC_EVENTS"
+      "owner": "PLC_EVT",
+      "label": "ACKPobrIMLad",
+      "comment": "Payload zamrozony od REQ do ACK=0. Identyfikator stosu/pojemnika nadany przez PLC; echo production.stackId. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC."
     },
     {
       "name": "frozen.r2p.event.layerFinished.index",
       "bank": "R",
       "number": 113,
-      "owner": "RC_EVENTS"
+      "owner": "PLC_EVT",
+      "label": "ACKWarstwIdx",
+      "comment": "Payload zamrozony od REQ do ACK=0. Indeks ukonczonej warstwy od 0. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC."
     },
     {
       "name": "frozen.r2p.event.layerFinished.stackId",
       "bank": "R",
       "number": 114,
-      "owner": "RC_EVENTS"
+      "owner": "PLC_EVT",
+      "label": "ACKWarstwLad",
+      "comment": "Payload zamrozony od REQ do ACK=0. Identyfikator stosu/pojemnika nadany przez PLC; echo production.stackId. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC."
     },
     {
       "name": "frozen.r2p.event.productsPlaced.count",
       "bank": "R",
       "number": 115,
-      "owner": "RC_EVENTS"
+      "owner": "PLC_EVT",
+      "label": "ACKDobreSzt",
+      "comment": "Payload zamrozony od REQ do ACK=0. Potwierdzona liczba odlozonych detali: UINT 1..65535, nie wiecej niz nierozliczona ilosc przypisanej partii; niezalezna od obwodow prozni. Nastawe stosowac tylko przy wylaczonym zleceniu i niepracujacej stacji (DEC-18). Payload stabilny przed REQ=1 az do ACK=0. Kierunek: Robot do PLC."
     },
     {
       "name": "frozen.r2p.event.productsPlaced.cycleId",
       "bank": "R",
       "number": 116,
-      "owner": "RC_EVENTS"
+      "owner": "PLC_EVT",
+      "label": "ACKDobreCykl",
+      "comment": "Payload zamrozony od REQ do ACK=0. Identyfikator rzeczywiscie rozpoczetego wtrysku; wiaze zdarzenie z rozliczeniem detali. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC."
     },
     {
       "name": "frozen.r2p.event.productsPlaced.stackId",
       "bank": "R",
       "number": 117,
-      "owner": "RC_EVENTS"
+      "owner": "PLC_EVT",
+      "label": "ACKDobreLad",
+      "comment": "Payload zamrozony od REQ do ACK=0. Identyfikator stosu/pojemnika nadany przez PLC; echo production.stackId. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC."
     },
     {
       "name": "frozen.r2p.event.samplesPlaced.count",
       "bank": "R",
       "number": 118,
-      "owner": "RC_EVENTS"
+      "owner": "PLC_EVT",
+      "label": "ACKProbkiSzt",
+      "comment": "Payload zamrozony od REQ do ACK=0. Potwierdzona liczba odlozonych detali: UINT 1..65535, nie wiecej niz nierozliczona ilosc przypisanej partii; niezalezna od obwodow prozni. Nastawe stosowac tylko przy wylaczonym zleceniu i niepracujacej stacji (DEC-18). Payload stabilny przed REQ=1 az do ACK=0. Kierunek: Robot do PLC."
     },
     {
       "name": "frozen.r2p.event.samplesPlaced.cycleId",
       "bank": "R",
       "number": 119,
-      "owner": "RC_EVENTS"
+      "owner": "PLC_EVT",
+      "label": "ACKProbkiCykl",
+      "comment": "Payload zamrozony od REQ do ACK=0. Identyfikator rzeczywiscie rozpoczetego wtrysku; wiaze zdarzenie z rozliczeniem detali. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC."
     },
     {
       "name": "frozen.r2p.event.samplesPlaced.stackId",
       "bank": "R",
       "number": 120,
-      "owner": "RC_EVENTS"
+      "owner": "PLC_EVT",
+      "label": "ACKProbkiLad",
+      "comment": "Payload zamrozony od REQ do ACK=0. Identyfikator stosu/pojemnika nadany przez PLC; echo production.stackId. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC."
     },
     {
       "name": "frozen.r2p.event.spacerPlaced.stackId",
       "bank": "R",
       "number": 121,
-      "owner": "RC_EVENTS"
+      "owner": "PLC_EVT",
+      "label": "ACKPrzeklLad",
+      "comment": "Payload zamrozony od REQ do ACK=0. Identyfikator stosu/pojemnika nadany przez PLC; echo production.stackId. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC."
     },
     {
       "name": "frozen.r2p.event.stackFinished.stackId",
       "bank": "R",
       "number": 122,
-      "owner": "RC_EVENTS"
+      "owner": "PLC_EVT",
+      "label": "ACKPelLadLad",
+      "comment": "Payload zamrozony od REQ do ACK=0. Identyfikator stosu/pojemnika nadany przez PLC; echo production.stackId. Stabilne przed REQ=1 az do ACK=0; osobny payload kazdego kanalu. Kierunek: Robot do PLC."
     },
     {
       "name": "frozen.r2p.event.rejectsPlaced.count",
       "bank": "R",
       "number": 123,
-      "owner": "RC_EVENTS"
+      "owner": "PLC_EVT",
+      "label": "ACKOdrzutSzt",
+      "comment": "Payload zamrozony od REQ do ACK=0. Potwierdzona ilosc odlozonej grupy odrzutow 1..65535; nie wiecej niz pozostala ilosc partii. Stabilne od REQ=1 do ACK=0. Kierunek: Robot do PLC."
     },
     {
       "name": "frozen.r2p.event.rejectsPlaced.cycleId",
       "bank": "R",
       "number": 124,
-      "owner": "RC_EVENTS"
+      "owner": "PLC_EVT",
+      "label": "ACKOdrzutCykl",
+      "comment": "Payload zamrozony od REQ do ACK=0. Identyfikator partii odrzutow przypisany przed pobraniem. Stabilne od REQ=1 do ACK=0. Kierunek: Robot do PLC."
     },
     {
       "name": "frozen.r2p.event.rejectsPlaced.stackId",
       "bank": "R",
       "number": 125,
-      "owner": "RC_EVENTS"
+      "owner": "PLC_EVT",
+      "label": "ACKOdrzutLad",
+      "comment": "Payload zamrozony od REQ do ACK=0. Kontekst stosu w chwili przypisania partii; odrzut nie zapelnia tacki. Stabilne od REQ=1 do ACK=0. Kierunek: Robot do PLC."
     },
     {
       "name": "control.state",
       "bank": "R",
       "number": 126,
-      "owner": "RC_LINK"
+      "owner": "PLC_LINK",
+      "label": "StanLacza",
+      "comment": "Stan: 0 rozbrojone; 10 zadanie SYNC; 20 wygaszanie ACK; 30 recovery; 40 po jawnym recovery, gotowosc sesji."
     },
     {
       "name": "control.serviceSeq",
       "bank": "R",
       "number": 127,
-      "owner": "RC_LINK"
+      "owner": "PLC_LINK",
+      "label": "CyklSerwisu",
+      "comment": "Licznik cykli PLC_SCAN do wykrycia zatrzymania PLC_SVC."
     },
     {
       "name": "control.lastServiceSeq",
       "bank": "R",
       "number": 128,
-      "owner": "RC_MON"
+      "owner": "BG_PLC",
+      "label": "CyklSVCpop",
+      "comment": "Ostatnio widziany licznik serwisu."
     },
     {
       "name": "control.now",
       "bank": "R",
       "number": 129,
-      "owner": "RC_MON"
+      "owner": "BG_PLC",
+      "label": "CzasTeraz_t",
+      "comment": "Biezacy czas watchdogow [surowe ticki]; czestotliwosc do pomiaru."
     },
     {
       "name": "control.lastNow",
       "bank": "R",
       "number": 130,
-      "owner": "RC_MON"
+      "owner": "BG_PLC",
+      "label": "CzasPoprz_t",
+      "comment": "Poprzedni czas do wykrycia cofniecia zegara."
     },
     {
       "name": "control.peerChangedAt",
       "bank": "R",
       "number": 131,
-      "owner": "RC_MON"
+      "owner": "BG_PLC",
+      "label": "PLCzmiana_t",
+      "comment": "Czas ostatniej zmiany heartbeat PLC [ticki]."
     },
     {
       "name": "control.serviceChangedAt",
       "bank": "R",
       "number": 132,
-      "owner": "RC_MON"
+      "owner": "BG_PLC",
+      "label": "SVCzmiana_t",
+      "comment": "Czas ostatniej zmiany licznika serwisu [ticki]."
     },
     {
       "name": "control.lastPeerHeartbeat",
       "bank": "R",
       "number": 133,
-      "owner": "RC_MON"
+      "owner": "BG_PLC",
+      "label": "HBPLCpoprz",
+      "comment": "Ostatni heartbeat PLC 0..65535."
     },
     {
       "name": "control.heartbeatAt",
       "bank": "R",
       "number": 134,
-      "owner": "RC_MON"
+      "owner": "BG_PLC",
+      "label": "HBczas_t",
+      "comment": "Czas ostatniego zwiekszenia heartbeat robota [ticki]."
     },
     {
       "name": "control.heartbeat",
       "bank": "R",
       "number": 135,
-      "owner": "RC_MON"
+      "owner": "BG_PLC",
+      "label": "HBRobot",
+      "comment": "Licznik heartbeat robota 0..65535 modulo; BG_PLC jest jedynym pisarzem jego GO."
     },
     {
       "name": "control.heartbeatPeriod",
       "bank": "R",
       "number": 136,
-      "owner": "RC_LINK"
+      "owner": "PLC_LINK",
+      "label": "HBokres_t",
+      "comment": "Okres zwiekszania heartbeat [surowe ticki]."
     },
     {
       "name": "control.peerTimeout",
       "bank": "R",
       "number": 137,
-      "owner": "RC_LINK"
+      "owner": "PLC_LINK",
+      "label": "PLCczasMax_t",
+      "comment": "Limit niezmiennego heartbeat PLC [ticki]."
     },
     {
       "name": "control.serviceTimeout",
       "bank": "R",
       "number": 138,
-      "owner": "RC_LINK"
+      "owner": "PLC_LINK",
+      "label": "SVCczasMax_t",
+      "comment": "Limit nieaktualnego serwisu lub BG [ticki]."
     },
     {
       "name": "control.syncTimeout",
       "bank": "R",
       "number": 139,
-      "owner": "RC_LINK"
+      "owner": "PLC_LINK",
+      "label": "SYNCmax_t",
+      "comment": "Limit synchronizacji lacza [ticki]."
     },
     {
       "name": "control.stateSince",
       "bank": "R",
       "number": 140,
-      "owner": "RC_LINK"
+      "owner": "PLC_LINK",
+      "label": "SYNCod_t",
+      "comment": "Czas rozpoczecia synchronizacji [ticki]."
     },
     {
       "name": "control.fault",
       "bank": "R",
       "number": 141,
-      "owner": "RC_LINK"
+      "owner": "PLC_LINK",
+      "label": "BladLacza",
+      "comment": "Kod: 0 brak; 902 timeout SYNC; 905 zajety kanal; 906 bledny wynik przedmuchu."
     },
     {
       "name": "control.mockClock",
       "bank": "R",
       "number": 142,
-      "owner": "RC_LINK"
+      "owner": "PLC_LINK",
+      "label": "CzasStatus_t",
+      "comment": "LIVE: czas ostatniego BG_STATUS [ticki]. TEST: syntetyczny zegar testu."
     },
     {
       "name": "control.sampleState",
       "bank": "R",
       "number": 143,
-      "owner": "RC_LINK"
+      "owner": "PLC_LINK",
+      "label": "StanProbek",
+      "comment": "0 bezczynna; 10 czeka na decyzje main; 20 utrzymuje ACK do zaniku zadania PLC."
     },
     {
       "name": "control.sampleStatus",
       "bank": "R",
       "number": 144,
-      "owner": "RC_LINK"
+      "owner": "PLC_LINK",
+      "label": "WynikProbek",
+      "comment": "0 brak; 10 oczekiwanie; 20 przyjeto; 30 odrzucono; 904 bledny wynik."
     },
     {
       "name": "control.sampleResult",
       "bank": "R",
       "number": 145,
-      "owner": "RC_LINK"
+      "owner": "PLC_LINK",
+      "label": "DecyzjaProb",
+      "comment": "Odpowiedz probek: 1 przyjeto caly nastepny komplet; 2 odrzucono."
     },
     {
       "name": "control.testResult",
       "bank": "R",
       "number": 146,
-      "owner": "RC_LINK"
+      "owner": "PLC_LINK",
+      "label": "CzasGuard_t",
+      "comment": "LIVE: czas ostatniego BG_GUARD [ticki]. TEST: 1 PASS, 900 FAIL, 0 niewykonany."
     },
     {
       "name": "control.run",
       "bank": "F",
       "number": 736,
-      "owner": "RC_LINK"
+      "owner": "PLC_LINK",
+      "label": "SerwisON",
+      "comment": "Serwis ma pracowac; OFF konczy serwis i uniewaznia sesje. ON opisany warunek/zadanie; OFF brak."
     },
     {
       "name": "control.test",
       "bank": "F",
       "number": 737,
-      "owner": "RC_LINK"
+      "owner": "PLC_LINK",
+      "label": "WariantTEST",
+      "comment": "ON izolowany TEST; OFF LIVE. Nie dopuszcza mock w produkcji. ON opisany warunek/zadanie; OFF brak."
     },
     {
       "name": "control.configured",
       "bank": "F",
       "number": 738,
-      "owner": "RC_LINK"
+      "owner": "PLC_LINK",
+      "label": "MapaOdebr",
+      "comment": "Odebrano rzeczywista konfiguracje EIP; OFF brak dopuszczenia lacza. ON opisany warunek/zadanie; OFF brak."
     },
     {
       "name": "control.appArm",
       "bank": "F",
       "number": 739,
-      "owner": "RC_LINK"
+      "owner": "PLC_LINK",
+      "label": "ProcesUzbr",
+      "comment": "Main uzbroil proces; OFF robot nie moze wydawac komend wykonawczych. ON opisany warunek/zadanie; OFF brak."
     },
     {
       "name": "control.recover",
       "bank": "F",
       "number": 740,
-      "owner": "RC_LINK"
+      "owner": "PLC_LINK",
+      "label": "ZadRecLacza",
+      "comment": "Jednorazowe zadanie jawnego recovery lacza, konsumowane przez PLC_LINK. ON opisany warunek/zadanie; OFF brak."
     },
     {
       "name": "control.peerSeen",
       "bank": "F",
       "number": 741,
-      "owner": "RC_MON"
+      "owner": "BG_PLC",
+      "label": "HBPLCswiezy",
+      "comment": "Heartbeat PLC zmienia sie w dopuszczalnym czasie. ON opisany warunek/zadanie; OFF brak."
     },
     {
       "name": "control.serviceSeen",
       "bank": "F",
       "number": 742,
-      "owner": "RC_MON"
+      "owner": "BG_PLC",
+      "label": "SVCswiezy",
+      "comment": "PLC_SVC aktualizuje licznik w dopuszczalnym czasie. ON opisany warunek/zadanie; OFF brak."
     },
     {
       "name": "control.monitorOk",
       "bank": "F",
       "number": 743,
-      "owner": "RC_MON"
+      "owner": "BG_PLC",
+      "label": "WatchdogOK",
+      "comment": "Wszystkie wymagane warunki watchdogow spelnione; OFF blokuje sesje. ON opisany warunek/zadanie; OFF brak."
     },
     {
       "name": "control.clockOk",
       "bank": "F",
       "number": 744,
-      "owner": "RC_MON"
+      "owner": "BG_PLC",
+      "label": "ZegarOK",
+      "comment": "Zegar nie cofnal sie; OFF wymaga ponownego uzgodnienia. ON opisany warunek/zadanie; OFF brak."
     },
     {
       "name": "control.session",
       "bank": "F",
       "number": 745,
-      "owner": "RC_LINK"
+      "owner": "PLC_LINK",
+      "label": "SesjaWazna",
+      "comment": "Obustronna synchronizacja i gotowosc sa aktualne; OFF brak waznych komend. ON opisany warunek/zadanie; OFF brak."
     },
     {
       "name": "control.localReady",
       "bank": "F",
       "number": 746,
-      "owner": "RC_LINK"
+      "owner": "PLC_LINK",
+      "label": "RobotGotow",
+      "comment": "Robot zakonczyl recovery lacza i ma wazne monitory. ON opisany warunek/zadanie; OFF brak."
     },
     {
       "name": "control.syncReq",
       "bank": "F",
       "number": 747,
-      "owner": "RC_LINK"
+      "owner": "PLC_LINK",
+      "label": "ZadSYNC",
+      "comment": "Robot zada synchronizacji; OFF zadanie wygaszone. ON opisany warunek/zadanie; OFF brak."
     },
     {
       "name": "control.syncAck",
       "bank": "F",
       "number": 748,
-      "owner": "RC_LINK"
+      "owner": "PLC_LINK",
+      "label": "ACK_SYNC",
+      "comment": "Odpowiedz na zadanie SYNC PLC: ON potwierdza, OFF wygasza. ON opisany warunek/zadanie; OFF brak."
     },
     {
       "name": "control.peerSyncSeen",
       "bank": "F",
       "number": 749,
-      "owner": "RC_LINK"
+      "owner": "PLC_LINK",
+      "label": "SYNCPLCbyl",
+      "comment": "W biezacej wymianie odebrano zadanie SYNC PLC. ON opisany warunek/zadanie; OFF brak."
     },
     {
       "name": "control.wasSession",
       "bank": "F",
       "number": 750,
-      "owner": "RC_LINK"
+      "owner": "PLC_LINK",
+      "label": "SesjaByla",
+      "comment": "Od resetu istniala sesja; wykrywanie utraty gotowosci partnera. ON opisany warunek/zadanie; OFF brak."
     },
     {
       "name": "control.protocolFault",
       "bank": "F",
       "number": 751,
-      "owner": "RC_LINK"
+      "owner": "PLC_LINK",
+      "label": "BladProto",
+      "comment": "Zatrzasniety blad protokolu; OFF brak takiego bledu. ON opisany warunek/zadanie; OFF brak."
     },
     {
       "name": "control.allowCommands",
       "bank": "F",
       "number": 752,
-      "owner": "RC_LINK"
+      "owner": "PLC_LINK",
+      "label": "KomendyDozw",
+      "comment": "Komunikacja dopuszcza wykonanie po walidacji sesji i procesu; OFF blokada. ON opisany warunek/zadanie; OFF brak."
     },
     {
       "name": "control.testFail",
       "bank": "F",
       "number": 753,
-      "owner": "RC_LINK"
+      "owner": "PLC_LINK",
+      "label": "TestBlad",
+      "comment": "Odizolowany test wykryl blad; OFF nie wykryl. ON opisany warunek/zadanie; OFF brak."
     },
     {
       "name": "control.heartbeatPulse",
       "bank": "F",
       "number": 754,
-      "owner": "RC_LINK"
+      "owner": "PLC_LINK",
+      "label": "HBkrok",
+      "comment": "Roboczy warunek zwiekszenia heartbeat w tym skanie. ON opisany warunek/zadanie; OFF brak."
     },
     {
       "name": "control.allAckLow",
       "bank": "F",
       "number": 755,
-      "owner": "RC_LINK"
+      "owner": "PLC_LINK",
+      "label": "ACK_wszyst0",
+      "comment": "Wszystkie kanaly zdarzen i przedmuchow maja ACK=0. ON opisany warunek/zadanie; OFF brak."
     },
     {
       "name": "control.productionRequired",
       "bank": "F",
       "number": 756,
-      "owner": "RC_LINK"
+      "owner": "PLC_LINK",
+      "label": "MainWymag",
+      "comment": "Wybrany main wymaga aktualnych BG; OFF sam serwis komunikacji. ON opisany warunek/zadanie; OFF brak."
     },
     {
       "name": "control.productionPermit",
       "bank": "F",
       "number": 757,
-      "owner": "RC_LINK"
+      "owner": "PLC_LINK",
+      "label": "ProcesDozw",
+      "comment": "BG potwierdza blokady procesu, native, profil i zlecenie; OFF ruch i komendy zabronione. ON opisany warunek/zadanie; OFF brak."
     },
     {
       "name": "control.bgHealthy",
       "bank": "F",
       "number": 758,
-      "owner": "RC_LINK"
+      "owner": "PLC_LINK",
+      "label": "BGswieze",
+      "comment": "BG_STATUS i BG_GUARD maja aktualne znaczniki czasu. ON opisany warunek/zadanie; OFF brak."
     },
     {
       "name": "control.guardRequest",
       "bank": "F",
       "number": 759,
-      "owner": "RC_LINK"
+      "owner": "PLC_LINK",
+      "label": "BlokadaBG",
+      "comment": "Zadano krytyczna blokade i recovery; OFF brak tego zadania. ON opisany warunek/zadanie; OFF brak."
     },
     {
       "name": "channel.blisterPicked.state",
       "bank": "R",
       "number": 147,
-      "owner": "RC_EVENTS"
+      "owner": "PLC_EVT",
+      "label": "PobrTackStan",
+      "comment": "Kanal: pobranie pustej tacki. Stan wymiany: 0 bezczynna; 10 REQ=1 czeka ACK=1; 20 REQ=0 czeka ACK=0."
     },
     {
       "name": "channel.blisterPicked.status",
       "bank": "R",
       "number": 148,
-      "owner": "RC_EVENTS"
+      "owner": "PLC_EVT",
+      "label": "PobrTackWynik",
+      "comment": "Kanal: pobranie pustej tacki. Wynik: 0 brak; 10 trwa; 20 sukces (wymaga stanu 0); 30 odrzucono; 40 blad wykonania; 900 utrata sesji; 901 brak pozwolenia; 903 zastane ACK=1; 904 bledny payload."
     },
     {
       "name": "channel.blisterPlaced.state",
       "bank": "R",
       "number": 149,
-      "owner": "RC_EVENTS"
+      "owner": "PLC_EVT",
+      "label": "OdlTackStan",
+      "comment": "Kanal: odlozenie pustej tacki. Stan wymiany: 0 bezczynna; 10 REQ=1 czeka ACK=1; 20 REQ=0 czeka ACK=0."
     },
     {
       "name": "channel.blisterPlaced.status",
       "bank": "R",
       "number": 150,
-      "owner": "RC_EVENTS"
+      "owner": "PLC_EVT",
+      "label": "OdlTackWynik",
+      "comment": "Kanal: odlozenie pustej tacki. Wynik: 0 brak; 10 trwa; 20 sukces (wymaga stanu 0); 30 odrzucono; 40 blad wykonania; 900 utrata sesji; 901 brak pozwolenia; 903 zastane ACK=1; 904 bledny payload."
     },
     {
       "name": "channel.blisterFinished.state",
       "bank": "R",
       "number": 151,
-      "owner": "RC_EVENTS"
+      "owner": "PLC_EVT",
+      "label": "PelTackStan",
+      "comment": "Kanal: napelnienie pojedynczej tacki. Stan wymiany: 0 bezczynna; 10 REQ=1 czeka ACK=1; 20 REQ=0 czeka ACK=0."
     },
     {
       "name": "channel.blisterFinished.status",
       "bank": "R",
       "number": 152,
-      "owner": "RC_EVENTS"
+      "owner": "PLC_EVT",
+      "label": "PelTackWynik",
+      "comment": "Kanal: napelnienie pojedynczej tacki. Wynik: 0 brak; 10 trwa; 20 sukces (wymaga stanu 0); 30 odrzucono; 40 blad wykonania; 900 utrata sesji; 901 brak pozwolenia; 903 zastane ACK=1; 904 bledny payload."
     },
     {
       "name": "channel.spacerPlaced.state",
       "bank": "R",
       "number": 153,
-      "owner": "RC_EVENTS"
+      "owner": "PLC_EVT",
+      "label": "PrzeklStan",
+      "comment": "Kanal: odlozenie przekladki. Stan wymiany: 0 bezczynna; 10 REQ=1 czeka ACK=1; 20 REQ=0 czeka ACK=0."
     },
     {
       "name": "channel.spacerPlaced.status",
       "bank": "R",
       "number": 154,
-      "owner": "RC_EVENTS"
+      "owner": "PLC_EVT",
+      "label": "PrzeklWynik",
+      "comment": "Kanal: odlozenie przekladki. Wynik: 0 brak; 10 trwa; 20 sukces (wymaga stanu 0); 30 odrzucono; 40 blad wykonania; 900 utrata sesji; 901 brak pozwolenia; 903 zastane ACK=1; 904 bledny payload."
     },
     {
       "name": "channel.productsPlaced.state",
       "bank": "R",
       "number": 155,
-      "owner": "RC_EVENTS"
+      "owner": "PLC_EVT",
+      "label": "DobreStan",
+      "comment": "Kanal: odlozenie dobrych detali. Stan wymiany: 0 bezczynna; 10 REQ=1 czeka ACK=1; 20 REQ=0 czeka ACK=0."
     },
     {
       "name": "channel.productsPlaced.status",
       "bank": "R",
       "number": 156,
-      "owner": "RC_EVENTS"
+      "owner": "PLC_EVT",
+      "label": "DobreWynik",
+      "comment": "Kanal: odlozenie dobrych detali. Wynik: 0 brak; 10 trwa; 20 sukces (wymaga stanu 0); 30 odrzucono; 40 blad wykonania; 900 utrata sesji; 901 brak pozwolenia; 903 zastane ACK=1; 904 bledny payload."
     },
     {
       "name": "channel.samplesPlaced.state",
       "bank": "R",
       "number": 157,
-      "owner": "RC_EVENTS"
+      "owner": "PLC_EVT",
+      "label": "ProbkiStan",
+      "comment": "Kanal: odlozenie probek. Stan wymiany: 0 bezczynna; 10 REQ=1 czeka ACK=1; 20 REQ=0 czeka ACK=0."
     },
     {
       "name": "channel.samplesPlaced.status",
       "bank": "R",
       "number": 158,
-      "owner": "RC_EVENTS"
+      "owner": "PLC_EVT",
+      "label": "ProbkiWynik",
+      "comment": "Kanal: odlozenie probek. Wynik: 0 brak; 10 trwa; 20 sukces (wymaga stanu 0); 30 odrzucono; 40 blad wykonania; 900 utrata sesji; 901 brak pozwolenia; 903 zastane ACK=1; 904 bledny payload."
     },
     {
       "name": "channel.layerFinished.state",
       "bank": "R",
       "number": 159,
-      "owner": "RC_EVENTS"
+      "owner": "PLC_EVT",
+      "label": "WarstwaStan",
+      "comment": "Kanal: ukonczenie warstwy BOX. Stan wymiany: 0 bezczynna; 10 REQ=1 czeka ACK=1; 20 REQ=0 czeka ACK=0."
     },
     {
       "name": "channel.layerFinished.status",
       "bank": "R",
       "number": 160,
-      "owner": "RC_EVENTS"
+      "owner": "PLC_EVT",
+      "label": "WarstwaWynik",
+      "comment": "Kanal: ukonczenie warstwy BOX. Wynik: 0 brak; 10 trwa; 20 sukces (wymaga stanu 0); 30 odrzucono; 40 blad wykonania; 900 utrata sesji; 901 brak pozwolenia; 903 zastane ACK=1; 904 bledny payload."
     },
     {
       "name": "channel.stackFinished.state",
       "bank": "R",
       "number": 161,
-      "owner": "RC_EVENTS"
+      "owner": "PLC_EVT",
+      "label": "PelLadStan",
+      "comment": "Kanal: ukonczenie stosu lub pojemnika. Stan wymiany: 0 bezczynna; 10 REQ=1 czeka ACK=1; 20 REQ=0 czeka ACK=0."
     },
     {
       "name": "channel.stackFinished.status",
       "bank": "R",
       "number": 162,
-      "owner": "RC_EVENTS"
+      "owner": "PLC_EVT",
+      "label": "PelLadWynik",
+      "comment": "Kanal: ukonczenie stosu lub pojemnika. Wynik: 0 brak; 10 trwa; 20 sukces (wymaga stanu 0); 30 odrzucono; 40 blad wykonania; 900 utrata sesji; 901 brak pozwolenia; 903 zastane ACK=1; 904 bledny payload."
     },
     {
       "name": "channel.immPickupCompleted.state",
       "bank": "R",
       "number": 163,
-      "owner": "RC_EVENTS"
+      "owner": "PLC_EVT",
+      "label": "PobrIMMStan",
+      "comment": "Kanal: pobranie partii i wyjazd z IMM. Stan wymiany: 0 bezczynna; 10 REQ=1 czeka ACK=1; 20 REQ=0 czeka ACK=0."
     },
     {
       "name": "channel.immPickupCompleted.status",
       "bank": "R",
       "number": 164,
-      "owner": "RC_EVENTS"
+      "owner": "PLC_EVT",
+      "label": "PobrIMMWynik",
+      "comment": "Kanal: pobranie partii i wyjazd z IMM. Wynik: 0 brak; 10 trwa; 20 sukces (wymaga stanu 0); 30 odrzucono; 40 blad wykonania; 900 utrata sesji; 901 brak pozwolenia; 903 zastane ACK=1; 904 bledny payload."
     },
     {
       "name": "channel.rejectsPlaced.state",
       "bank": "R",
       "number": 165,
-      "owner": "RC_EVENTS"
+      "owner": "PLC_EVT",
+      "label": "OdrzutyStan",
+      "comment": "Kanal: odlozenie odrzutow. Stan wymiany: 0 bezczynna; 10 REQ=1 czeka ACK=1; 20 REQ=0 czeka ACK=0."
     },
     {
       "name": "channel.rejectsPlaced.status",
       "bank": "R",
       "number": 166,
-      "owner": "RC_EVENTS"
+      "owner": "PLC_EVT",
+      "label": "OdrzutyWynik",
+      "comment": "Kanal: odlozenie odrzutow. Wynik: 0 brak; 10 trwa; 20 sukces (wymaga stanu 0); 30 odrzucono; 40 blad wykonania; 900 utrata sesji; 901 brak pozwolenia; 903 zastane ACK=1; 904 bledny payload."
     },
     {
       "name": "channel.blow1.state",
       "bank": "R",
       "number": 167,
-      "owner": "RC_EVENTS"
+      "owner": "PLC_EVT",
+      "label": "Dm1Stan",
+      "comment": "Kanal: przedmuch obwodu 1. Stan wymiany: 0 bezczynna; 10 REQ=1 czeka ACK=1; 20 REQ=0 czeka ACK=0."
     },
     {
       "name": "channel.blow1.status",
       "bank": "R",
       "number": 168,
-      "owner": "RC_EVENTS"
+      "owner": "PLC_EVT",
+      "label": "Dm1Wynik",
+      "comment": "Kanal: przedmuch obwodu 1. Wynik: 0 brak; 10 trwa; 20 sukces (wymaga stanu 0); 30 odrzucono; 40 blad wykonania; 900 utrata sesji; 901 brak pozwolenia; 903 zastane ACK=1; 904 bledny payload."
     },
     {
       "name": "channel.blow2.state",
       "bank": "R",
       "number": 169,
-      "owner": "RC_EVENTS"
+      "owner": "PLC_EVT",
+      "label": "Dm2Stan",
+      "comment": "Kanal: przedmuch obwodu 2. Stan wymiany: 0 bezczynna; 10 REQ=1 czeka ACK=1; 20 REQ=0 czeka ACK=0."
     },
     {
       "name": "channel.blow2.status",
       "bank": "R",
       "number": 170,
-      "owner": "RC_EVENTS"
+      "owner": "PLC_EVT",
+      "label": "Dm2Wynik",
+      "comment": "Kanal: przedmuch obwodu 2. Wynik: 0 brak; 10 trwa; 20 sukces (wymaga stanu 0); 30 odrzucono; 40 blad wykonania; 900 utrata sesji; 901 brak pozwolenia; 903 zastane ACK=1; 904 bledny payload."
     },
     {
       "name": "channel.blow3.state",
       "bank": "R",
       "number": 171,
-      "owner": "RC_EVENTS"
+      "owner": "PLC_EVT",
+      "label": "Dm3Stan",
+      "comment": "Kanal: przedmuch obwodu 3. Stan wymiany: 0 bezczynna; 10 REQ=1 czeka ACK=1; 20 REQ=0 czeka ACK=0."
     },
     {
       "name": "channel.blow3.status",
       "bank": "R",
       "number": 172,
-      "owner": "RC_EVENTS"
+      "owner": "PLC_EVT",
+      "label": "Dm3Wynik",
+      "comment": "Kanal: przedmuch obwodu 3. Wynik: 0 brak; 10 trwa; 20 sukces (wymaga stanu 0); 30 odrzucono; 40 blad wykonania; 900 utrata sesji; 901 brak pozwolenia; 903 zastane ACK=1; 904 bledny payload."
     },
     {
       "name": "channel.blow4.state",
       "bank": "R",
       "number": 173,
-      "owner": "RC_EVENTS"
+      "owner": "PLC_EVT",
+      "label": "Dm4Stan",
+      "comment": "Kanal: przedmuch obwodu 4. Stan wymiany: 0 bezczynna; 10 REQ=1 czeka ACK=1; 20 REQ=0 czeka ACK=0."
     },
     {
       "name": "channel.blow4.status",
       "bank": "R",
       "number": 174,
-      "owner": "RC_EVENTS"
+      "owner": "PLC_EVT",
+      "label": "Dm4Wynik",
+      "comment": "Kanal: przedmuch obwodu 4. Wynik: 0 brak; 10 trwa; 20 sukces (wymaga stanu 0); 30 odrzucono; 40 blad wykonania; 900 utrata sesji; 901 brak pozwolenia; 903 zastane ACK=1; 904 bledny payload."
     },
     {
       "name": "channel.blow5.state",
       "bank": "R",
       "number": 175,
-      "owner": "RC_EVENTS"
+      "owner": "PLC_EVT",
+      "label": "Dm5Stan",
+      "comment": "Kanal: przedmuch obwodu 5. Stan wymiany: 0 bezczynna; 10 REQ=1 czeka ACK=1; 20 REQ=0 czeka ACK=0."
     },
     {
       "name": "channel.blow5.status",
       "bank": "R",
       "number": 176,
-      "owner": "RC_EVENTS"
+      "owner": "PLC_EVT",
+      "label": "Dm5Wynik",
+      "comment": "Kanal: przedmuch obwodu 5. Wynik: 0 brak; 10 trwa; 20 sukces (wymaga stanu 0); 30 odrzucono; 40 blad wykonania; 900 utrata sesji; 901 brak pozwolenia; 903 zastane ACK=1; 904 bledny payload."
     },
     {
       "name": "mock.p2r.area.elevator.granted",
       "bank": "F",
       "number": 760,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MWindZez",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: przyznany dostep do tego obszaru przy utrzymanym accessReq i blokadach. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.area.elevator.ready",
       "bank": "F",
       "number": 761,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MWindGot",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: material/urzadzenie gotowe; nie jest przyznaniem dostepu. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.area.elevator.valid",
       "bank": "F",
       "number": 762,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MWindWaz",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: aktualne dane zaleznych urzadzen. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.area.source.granted",
       "bank": "F",
       "number": 763,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MZrodZez",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: przyznany dostep do tego obszaru przy utrzymanym accessReq i blokadach. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.area.source.ready",
       "bank": "F",
       "number": 764,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MZrodGot",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: material/urzadzenie gotowe; nie jest przyznaniem dostepu. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.area.source.valid",
       "bank": "F",
       "number": 765,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MZrodWaz",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: aktualne dane zaleznych urzadzen. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.area.storage.granted",
       "bank": "F",
       "number": 766,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MMagZez",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: przyznany dostep do tego obszaru przy utrzymanym accessReq i blokadach. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.area.storage.ready",
       "bank": "F",
       "number": 767,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MMagGot",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: material/urzadzenie gotowe; nie jest przyznaniem dostepu. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.area.storage.valid",
       "bank": "F",
       "number": 768,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MMagWaz",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: aktualne dane zaleznych urzadzen. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.cyl.V501.acceptedHome",
       "bank": "F",
       "number": 769,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MV501AkHome",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: biezace zadanie HOME przyjete przez arbitraz. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.cyl.V501.acceptedWork",
       "bank": "F",
       "number": 770,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MV501AkWork",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: biezace zadanie WORK przyjete przez arbitraz. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.cyl.V501.atHome",
       "bank": "F",
       "number": 771,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MV501WHome",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: rzeczywiste HOME po filtracji; 0: brak potwierdzenia HOME. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.cyl.V501.atWork",
       "bank": "F",
       "number": 772,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MV501WWork",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: rzeczywiste WORK po filtracji; 0: brak potwierdzenia WORK. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.cyl.V501.busy",
       "bank": "F",
       "number": 773,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MV501Trwa",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: trwa ruch do przyjetego celu. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.cyl.V501.valid",
       "bank": "F",
       "number": 774,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MV501Waz",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: aktualne czujniki i diagnostyka; 0: nie uzywac potwierdzen. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.cyl.V502.acceptedHome",
       "bank": "F",
       "number": 775,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MV502AkHome",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: biezace zadanie HOME przyjete przez arbitraz. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.cyl.V502.acceptedWork",
       "bank": "F",
       "number": 776,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MV502AkWork",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: biezace zadanie WORK przyjete przez arbitraz. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.cyl.V502.atHome",
       "bank": "F",
       "number": 777,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MV502WHome",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: rzeczywiste HOME po filtracji; 0: brak potwierdzenia HOME. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.cyl.V502.atWork",
       "bank": "F",
       "number": 778,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MV502WWork",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: rzeczywiste WORK po filtracji; 0: brak potwierdzenia WORK. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.cyl.V502.busy",
       "bank": "F",
       "number": 779,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MV502Trwa",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: trwa ruch do przyjetego celu. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.cyl.V502.valid",
       "bank": "F",
       "number": 780,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MV502Waz",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: aktualne czujniki i diagnostyka; 0: nie uzywac potwierdzen. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.cyl.V503.acceptedHome",
       "bank": "F",
       "number": 781,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MV503AkHome",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: biezace zadanie HOME przyjete przez arbitraz. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.cyl.V503.acceptedWork",
       "bank": "F",
       "number": 782,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MV503AkWork",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: biezace zadanie WORK przyjete przez arbitraz. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.cyl.V503.atHome",
       "bank": "F",
       "number": 783,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MV503WHome",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: rzeczywiste HOME po filtracji; 0: brak potwierdzenia HOME. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.cyl.V503.atWork",
       "bank": "F",
       "number": 784,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MV503WWork",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: rzeczywiste WORK po filtracji; 0: brak potwierdzenia WORK. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.cyl.V503.busy",
       "bank": "F",
       "number": 785,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MV503Trwa",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: trwa ruch do przyjetego celu. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.cyl.V503.valid",
       "bank": "F",
       "number": 786,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MV503Waz",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: aktualne czujniki i diagnostyka; 0: nie uzywac potwierdzen. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.cyl.V504.acceptedHome",
       "bank": "F",
       "number": 787,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MV504AkHome",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: biezace zadanie HOME przyjete przez arbitraz. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.cyl.V504.acceptedWork",
       "bank": "F",
       "number": 788,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MV504AkWork",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: biezace zadanie WORK przyjete przez arbitraz. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.cyl.V504.atHome",
       "bank": "F",
       "number": 789,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MV504WHome",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: rzeczywiste HOME po filtracji; 0: brak potwierdzenia HOME. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.cyl.V504.atWork",
       "bank": "F",
       "number": 790,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MV504WWork",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: rzeczywiste WORK po filtracji; 0: brak potwierdzenia WORK. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.cyl.V504.busy",
       "bank": "F",
       "number": 791,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MV504Trwa",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: trwa ruch do przyjetego celu. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.cyl.V504.valid",
       "bank": "F",
       "number": 792,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MV504Waz",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: aktualne czujniki i diagnostyka; 0: nie uzywac potwierdzen. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.cyl.V505.acceptedHome",
       "bank": "F",
       "number": 793,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MV505AkHome",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: biezace zadanie HOME przyjete przez arbitraz. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.cyl.V505.acceptedWork",
       "bank": "F",
       "number": 794,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MV505AkWork",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: biezace zadanie WORK przyjete przez arbitraz. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.cyl.V505.atHome",
       "bank": "F",
       "number": 795,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MV505WHome",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: rzeczywiste HOME po filtracji; 0: brak potwierdzenia HOME. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.cyl.V505.atWork",
       "bank": "F",
       "number": 796,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MV505WWork",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: rzeczywiste WORK po filtracji; 0: brak potwierdzenia WORK. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.cyl.V505.busy",
       "bank": "F",
       "number": 797,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MV505Trwa",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: trwa ruch do przyjetego celu. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.cyl.V505.valid",
       "bank": "F",
       "number": 798,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MV505Waz",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: aktualne czujniki i diagnostyka; 0: nie uzywac potwierdzen. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.event.blisterFinished.ack",
       "bank": "F",
       "number": 799,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MPelTacACK",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: ukonczenie pojedynczego blistra zarejestrowane raz. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.event.blisterPicked.ack",
       "bank": "F",
       "number": 800,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MPobrTaACK",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: zdarzenie blisterPicked zarejestrowane dokladnie raz w biezacej sesji; 0: kanal wolny po req=0. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.event.blisterPlaced.ack",
       "bank": "F",
       "number": 801,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MOdlTacACK",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: zdarzenie blisterPlaced zarejestrowane dokladnie raz w biezacej sesji; 0: kanal wolny po req=0. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.event.immPickupCompleted.ack",
       "bank": "F",
       "number": 802,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MPobrIMACK",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: zdarzenie immPickupCompleted zarejestrowane dokladnie raz w biezacej sesji; 0: kanal wolny po req=0. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.event.layerFinished.ack",
       "bank": "F",
       "number": 803,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MWarstwACK",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: zdarzenie layerFinished zarejestrowane dokladnie raz w biezacej sesji; 0: kanal wolny po req=0. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.event.productsPlaced.ack",
       "bank": "F",
       "number": 804,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MDobreACK",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: zdarzenie productsPlaced zarejestrowane dokladnie raz w biezacej sesji; 0: kanal wolny po req=0. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.event.samplesPlaced.ack",
       "bank": "F",
       "number": 805,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MProbkiACK",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: zdarzenie samplesPlaced zarejestrowane dokladnie raz w biezacej sesji; 0: kanal wolny po req=0. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.event.spacerPlaced.ack",
       "bank": "F",
       "number": 806,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MPrzeklACK",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: zdarzenie spacerPlaced zarejestrowane dokladnie raz w biezacej sesji; 0: kanal wolny po req=0. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.event.stackFinished.ack",
       "bank": "F",
       "number": 807,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MPelLadACK",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: zdarzenie stackFinished zarejestrowane dokladnie raz w biezacej sesji; 0: kanal wolny po req=0. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.imm.applied.ejectorBack",
       "bank": "F",
       "number": 808,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MIMMPWyrzTyl",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: koncowy procesowy sygnal ejectorBack wystawiony po arbitrazu; 0: niewystawiony. Nie potwierdza ruchu maszyny. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.imm.applied.ejectorForward",
       "bank": "F",
       "number": 809,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MIMMPWyrzPrz",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: koncowy procesowy sygnal ejectorForward wystawiony po arbitrazu; 0: niewystawiony. Nie potwierdza ruchu maszyny. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.imm.applied.mouldClose",
       "bank": "F",
       "number": 810,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MIMMPZamForme",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: koncowy procesowy sygnal mouldClose wystawiony po arbitrazu; 0: niewystawiony. Nie potwierdza ruchu maszyny. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.imm.applied.mouldFullOpen",
       "bank": "F",
       "number": 811,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MIMMPOtwForme",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: koncowy procesowy sygnal mouldFullOpen wystawiony po arbitrazu; 0: niewystawiony. Nie potwierdza ruchu maszyny. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.imm.cycleKnown",
       "bank": "F",
       "number": 812,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MIMMCyklZnany",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: model rozpoczetych wtryskow uzgodniony; 0: stan nieznany, blokada nowych cykli. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.imm.ejectorBack",
       "bank": "F",
       "number": 813,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MIMMWyrzTyl",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: wyrzutnik w pozycji tylnej. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.imm.ejectorForward",
       "bank": "F",
       "number": 814,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MIMMWyrzPrz",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: wyrzutnik w pozycji przedniej. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.imm.mouldClosed",
       "bank": "F",
       "number": 815,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MIMMFormaZam",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: potwierdzona forma zamknieta; nie dowodzi rozpoczecia wtrysku. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.imm.mouldIntermediate",
       "bank": "F",
       "number": 816,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MIMMFormaPozSr",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: potwierdzona pozycja posrednia; dostepnosc wg GAP-05. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.imm.mouldOpen",
       "bank": "F",
       "number": 817,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MIMMFormaOtw",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: potwierdzona forma otwarta. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.imm.newCyclePermit",
       "bank": "F",
       "number": 818,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MIMMNowyCykl",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: PLC pozwala na nowy wtrysk w biezacej fazie; 0: blokada nowych wtryskow. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.imm.pickupPending",
       "bank": "F",
       "number": 819,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MIMMDoPobr",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: cycleId przydzielono do nowego pobrania i jeszcze go nie potwierdzono przez immPickupCompleted; 0: nie rozpoczynac ponownego pobrania tego identyfikatora. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.imm.reject",
       "bank": "F",
       "number": 820,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MIMMOdrzut",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: odrzut detali w powiazanym cyklu; 0: brak odrzutu. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.imm.settled",
       "bank": "F",
       "number": 821,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MIMMRozlicz",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: rozliczone rozpoczete wtryski i wymagane operacje maszyny. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.imm.valid",
       "bank": "F",
       "number": 822,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MIMMWaz",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: dane EUROMAP aktualne i znormalizowane; 0: niewazne. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.imm.withRobot",
       "bank": "F",
       "number": 823,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MIMMZRobot",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: maszyna potwierdza wspolprace z robotem po normalizacji. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.link.ready",
       "bank": "F",
       "number": 824,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MLaczGot",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: lokalny interfejs gotowy; 0: brak gotowosci, nie jest to pozwolenie ruchu. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.link.syncAck",
       "bank": "F",
       "number": 825,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MLaczSyncACK",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: potwierdzenie zadania synchronizacji partnera; 0: brak potwierdzenia. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.link.syncRequest",
       "bank": "F",
       "number": 826,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MLaczSyncReq",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: zadanie nowej synchronizacji; 0: brak zadania. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.production.criticalBlock",
       "bank": "F",
       "number": 827,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MProdKrytBlok",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: blokada krytyczna; 0: brak zgloszonej blokady. Nie jest sygnalem safety. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.production.endOrderRequest",
       "bank": "F",
       "number": 828,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MProdKon_cZlec",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: zakonczyc operacje; PLC nastepnie oproznia stacje. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.production.finishPermit",
       "bank": "F",
       "number": 829,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MProdDok_czZez",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: dozwolone dokonczenie rozliczanych operacji przy spelnionych blokadach; 0: brak pozwolenia. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.production.newOperationPermit",
       "bank": "F",
       "number": 830,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MProdNoweZez",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: mozna rozpoczac nowa operacje produkcyjna; 0: nie rozpoczynac kolejnej. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.production.orderActive",
       "bank": "F",
       "number": 831,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MProdZlecON",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: zlecenie otwarte; 0: brak aktywnego zlecenia. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.production.recoveryRequired",
       "bank": "F",
       "number": 832,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MProdRecovery",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: wymagane uzgodnienie stanu; 0: uzgodniony stan. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.production.stopRequest",
       "bank": "F",
       "number": 833,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MProdStop",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: normalny Stop; trzymac do rozliczenia i swiadomego wznowienia. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.production.withRobot",
       "bank": "F",
       "number": 834,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MProdZRobot",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: wspolpraca wybrana; 0: samodzielny Krauss po wymaganym Stop i HOME. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.samples.req",
       "bank": "F",
       "number": 835,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MProbkiReq",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: jednorazowe zadanie odlozenia probek; 0: zwolnienie kanalu po ACK. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.vac.1.accepted",
       "bank": "F",
       "number": 836,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MVac1Akc",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: biezacy cmdValid/hold zostal przyjety. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.vac.1.blowAck",
       "bank": "F",
       "number": 837,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MVac1DmACK",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: terminalny wynik przedmuchu dostepny; trzymany do blowReq=0. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.vac.1.busy",
       "bank": "F",
       "number": 838,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MVac1Trwa",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: wykonywanie przedmuchu lub oczekiwanie na prog po przyjetym zadaniu. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.vac.1.holdApplied",
       "bank": "F",
       "number": 839,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MVac1TrzymAkt",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: koncowa komenda prozni jest zalaczona; nie jest pomiarem podcisnienia. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.vac.1.ok",
       "bank": "F",
       "number": 840,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MVac1OK",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: rzeczywiste podcisnienie OK; 0: prog nieosiagniety; wazne z valid. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.vac.1.valid",
       "bank": "F",
       "number": 841,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MVac1Waz",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: aktualne wejscia i diagnostyka obwodu. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.vac.2.accepted",
       "bank": "F",
       "number": 842,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MVac2Akc",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: biezacy cmdValid/hold zostal przyjety. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.vac.2.blowAck",
       "bank": "F",
       "number": 843,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MVac2DmACK",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: terminalny wynik przedmuchu dostepny; trzymany do blowReq=0. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.vac.2.busy",
       "bank": "F",
       "number": 844,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MVac2Trwa",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: wykonywanie przedmuchu lub oczekiwanie na prog po przyjetym zadaniu. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.vac.2.holdApplied",
       "bank": "F",
       "number": 845,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MVac2TrzymAkt",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: koncowa komenda prozni jest zalaczona; nie jest pomiarem podcisnienia. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.vac.2.ok",
       "bank": "F",
       "number": 846,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MVac2OK",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: rzeczywiste podcisnienie OK; 0: prog nieosiagniety; wazne z valid. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.vac.2.valid",
       "bank": "F",
       "number": 847,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MVac2Waz",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: aktualne wejscia i diagnostyka obwodu. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.vac.3.accepted",
       "bank": "F",
       "number": 848,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MVac3Akc",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: biezacy cmdValid/hold zostal przyjety. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.vac.3.blowAck",
       "bank": "F",
       "number": 849,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MVac3DmACK",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: terminalny wynik przedmuchu dostepny; trzymany do blowReq=0. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.vac.3.busy",
       "bank": "F",
       "number": 850,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MVac3Trwa",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: wykonywanie przedmuchu lub oczekiwanie na prog po przyjetym zadaniu. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.vac.3.holdApplied",
       "bank": "F",
       "number": 851,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MVac3TrzymAkt",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: koncowa komenda prozni jest zalaczona; nie jest pomiarem podcisnienia. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.vac.3.ok",
       "bank": "F",
       "number": 852,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MVac3OK",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: rzeczywiste podcisnienie OK; 0: prog nieosiagniety; wazne z valid. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.vac.3.valid",
       "bank": "F",
       "number": 853,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MVac3Waz",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: aktualne wejscia i diagnostyka obwodu. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.vac.4.accepted",
       "bank": "F",
       "number": 854,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MVac4Akc",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: biezacy cmdValid/hold zostal przyjety. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.vac.4.blowAck",
       "bank": "F",
       "number": 855,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MVac4DmACK",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: terminalny wynik przedmuchu dostepny; trzymany do blowReq=0. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.vac.4.busy",
       "bank": "F",
       "number": 856,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MVac4Trwa",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: wykonywanie przedmuchu lub oczekiwanie na prog po przyjetym zadaniu. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.vac.4.holdApplied",
       "bank": "F",
       "number": 857,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MVac4TrzymAkt",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: koncowa komenda prozni jest zalaczona; nie jest pomiarem podcisnienia. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.vac.4.ok",
       "bank": "F",
       "number": 858,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MVac4OK",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: rzeczywiste podcisnienie OK; 0: prog nieosiagniety; wazne z valid. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.vac.4.valid",
       "bank": "F",
       "number": 859,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MVac4Waz",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: aktualne wejscia i diagnostyka obwodu. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.vac.5.accepted",
       "bank": "F",
       "number": 860,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MVac5Akc",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: biezacy cmdValid/hold zostal przyjety. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.vac.5.blowAck",
       "bank": "F",
       "number": 861,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MVac5DmACK",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: terminalny wynik przedmuchu dostepny; trzymany do blowReq=0. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.vac.5.busy",
       "bank": "F",
       "number": 862,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MVac5Trwa",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: wykonywanie przedmuchu lub oczekiwanie na prog po przyjetym zadaniu. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.vac.5.holdApplied",
       "bank": "F",
       "number": 863,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MVac5TrzymAkt",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: koncowa komenda prozni jest zalaczona; nie jest pomiarem podcisnienia. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.vac.5.ok",
       "bank": "F",
       "number": 864,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MVac5OK",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: rzeczywiste podcisnienie OK; 0: prog nieosiagniety; wazne z valid. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.vac.5.valid",
       "bank": "F",
       "number": 865,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MVac5Waz",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 1: aktualne wejscia i diagnostyka obwodu. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.link.version",
       "bank": "R",
       "number": 1,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MLaczWers",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. Wersja kontraktu: 2; inna wartosc blokuje uzbrojenie. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.link.heartbeat",
       "bank": "R",
       "number": 2,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MLaczHB",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. Licznik 0..65535 modulo 65536; cykliczny niezaleznie od WAIT programu. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.area.elevator.reason",
       "bank": "R",
       "number": 3,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MWindPrzyczyna",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. Kod blokady/oczekiwania; jak dla urzadzen. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.area.source.reason",
       "bank": "R",
       "number": 4,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MZrodPrzyczyna",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. Kod blokady/oczekiwania; jak dla urzadzen. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.area.storage.reason",
       "bank": "R",
       "number": 5,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MMagPrzyczyna",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. Kod blokady/oczekiwania; jak dla urzadzen. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.cyl.V501.reason",
       "bank": "R",
       "number": 6,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MV501Przyczyna",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 0 brak; 10 brak sesji; 20 tryb; 30 blokada; 40 konflikt; 50 nieaktualne wejscia; 60 timeout; 70 sprzeczne czujniki; 80 odzyskiwanie. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.cyl.V502.reason",
       "bank": "R",
       "number": 7,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MV502Przyczyna",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 0 brak; 10 brak sesji; 20 tryb; 30 blokada; 40 konflikt; 50 nieaktualne wejscia; 60 timeout; 70 sprzeczne czujniki; 80 odzyskiwanie. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.cyl.V503.reason",
       "bank": "R",
       "number": 8,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MV503Przyczyna",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 0 brak; 10 brak sesji; 20 tryb; 30 blokada; 40 konflikt; 50 nieaktualne wejscia; 60 timeout; 70 sprzeczne czujniki; 80 odzyskiwanie. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.cyl.V504.reason",
       "bank": "R",
       "number": 9,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MV504Przyczyna",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 0 brak; 10 brak sesji; 20 tryb; 30 blokada; 40 konflikt; 50 nieaktualne wejscia; 60 timeout; 70 sprzeczne czujniki; 80 odzyskiwanie. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.cyl.V505.reason",
       "bank": "R",
       "number": 10,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MV505Przyczyna",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 0 brak; 10 brak sesji; 20 tryb; 30 blokada; 40 konflikt; 50 nieaktualne wejscia; 60 timeout; 70 sprzeczne czujniki; 80 odzyskiwanie. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.imm.cycleId",
       "bank": "R",
       "number": 11,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MIMMCykl",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. Identyfikator rzeczywiscie rozpoczetego cyklu przydzielonego do pobrania; utrzymac do konca handshake immPickupCompleted. Nastepne starty PLC zapisuje osobno. Modulo 65536. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.imm.reason",
       "bank": "R",
       "number": 12,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MIMMPrzyczyna",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. Kod blokady w ImmInterface; jak dla urzadzen. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.imm.unsettledCount",
       "bank": "R",
       "number": 13,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MIMMNieRozlicz",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. Liczba rozpoczetych wtryskow, ktorych robot jeszcze nie rozliczyl; prowadzi PLC. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.production.blockCode",
       "bank": "R",
       "number": 14,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MProdKodBlok",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 0: brak; kody diagnostyczne wedlug kontraktu. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.production.expectedProgram",
       "bank": "R",
       "number": 15,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MProdProgram",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 0: brak wyboru; 1: Pojemniki; 2: Blistry. Nie wybiera programu na FANUC. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.production.stackId",
       "bank": "R",
       "number": 16,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MProdLad",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. Identyfikator aktualnego stosu/pojemnika nadany przez PLC; nie zmieniac przed zakonczeniem wymian tego stosu. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.vac.1.blowResult",
       "bank": "R",
       "number": 17,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MVac1DmWyn",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 0 brak; 1 impuls zakonczony i potwierdzenie zwolnienia aktualne; 2 odrzucono; 3 usterka/timeout. Stabilne przy blowAck=1. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.vac.1.reason",
       "bank": "R",
       "number": 18,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MVac1Przyczyna",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. Kody przyczyn jak dla silownikow; 90 utrata prozni; 100 brak potwierdzonej konfiguracji przedmuchu. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.vac.2.blowResult",
       "bank": "R",
       "number": 19,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MVac2DmWyn",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 0 brak; 1 impuls zakonczony i potwierdzenie zwolnienia aktualne; 2 odrzucono; 3 usterka/timeout. Stabilne przy blowAck=1. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.vac.2.reason",
       "bank": "R",
       "number": 20,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MVac2Przyczyna",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. Kody przyczyn jak dla silownikow; 90 utrata prozni; 100 brak potwierdzonej konfiguracji przedmuchu. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.vac.3.blowResult",
       "bank": "R",
       "number": 21,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MVac3DmWyn",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 0 brak; 1 impuls zakonczony i potwierdzenie zwolnienia aktualne; 2 odrzucono; 3 usterka/timeout. Stabilne przy blowAck=1. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.vac.3.reason",
       "bank": "R",
       "number": 22,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MVac3Przyczyna",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. Kody przyczyn jak dla silownikow; 90 utrata prozni; 100 brak potwierdzonej konfiguracji przedmuchu. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.vac.4.blowResult",
       "bank": "R",
       "number": 23,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MVac4DmWyn",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 0 brak; 1 impuls zakonczony i potwierdzenie zwolnienia aktualne; 2 odrzucono; 3 usterka/timeout. Stabilne przy blowAck=1. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.vac.4.reason",
       "bank": "R",
       "number": 24,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MVac4Przyczyna",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. Kody przyczyn jak dla silownikow; 90 utrata prozni; 100 brak potwierdzonej konfiguracji przedmuchu. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.vac.5.blowResult",
       "bank": "R",
       "number": 25,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MVac5DmWyn",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. 0 brak; 1 impuls zakonczony i potwierdzenie zwolnienia aktualne; 2 odrzucono; 3 usterka/timeout. Stabilne przy blowAck=1. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.vac.5.reason",
       "bank": "R",
       "number": 26,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MVac5Przyczyna",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. Kody przyczyn jak dla silownikow; 90 utrata prozni; 100 brak potwierdzonej konfiguracji przedmuchu. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.imm.batchCount",
       "bank": "R",
       "number": 27,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MIMMSztPart",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. Ilosc sztuk przypisana do przydzielonego cycleId (1..65535). Stabilna wraz z cycleId i reject do konca handshake immPickupCompleted; nie biezacy parametr HMI. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.production.startToken",
       "bank": "R",
       "number": 28,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MProdStart",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. Licznik modulo 65536 zwiekszany wylacznie po przyjetym fizycznym Start. Zastana wartosc po inicjalizacji/recovery nie uruchamia pracy; potrzebna kolejna zmiana. Nie jest zdalnym START UOP. Kierunek: PLC do robota."
     },
     {
       "name": "mock.p2r.event.rejectsPlaced.ack",
       "bank": "F",
       "number": 866,
-      "owner": "TEST_ONLY"
+      "owner": "TEST_ONLY",
+      "label": "MOdrzutACK",
+      "comment": "Syntetyczne wejscie tylko izolowanego TEST. Odrzut zarejestrowany raz dla biezacego REQ; utrzymac ACK do REQ=0. Kierunek: PLC do robota."
     }
-  ]
+  ],
+  "descriptions_file": "descriptions.csv"
 }
