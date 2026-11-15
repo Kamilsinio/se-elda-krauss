@@ -15,7 +15,7 @@ STRUCT
     valid : BOOL;
     orderActive : BOOL;
     ending : BOOL;
-    program : UINT;
+    program_ : UINT;
     withRobot : BOOL;
     batchCount : UINT;
     nextCycleId : UINT;

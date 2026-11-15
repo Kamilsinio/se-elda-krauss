@@ -20,7 +20,7 @@ class DrainCell:
     def __init__(self,r,occupied,mode=2):
         self.r=r;self.order=r.instance('FB_OrderManager');self.drain=r.instance('FB_StationDrain')
         self.transport=r.instance('FB_StationTransport');self.material=r.instance('FB_StationMaterial')
-        self.c=context(r);self.c.update(orderActive=True,program=mode)
+        self.c=context(r);self.c.update(orderActive=True,program_=mode)
         self.d=r.value('ST_RobotDrain');self.cmd=r.value('ST_RobotCommands')
         self.di=r.value('ST_StationDrainIn');self.ti=r.value('ST_StationTransportIn')
         self.mi=r.value('ST_StationMaterialIn');self.occ={i:i in occupied for i in range(1,8)}
@@ -42,7 +42,7 @@ class DrainCell:
             lowerCanAccept=not self.occ[5],actionAccepted=self.transport.v['Sts']['start'] and self.transport.v['Sts']['owner']==20,
             actionDone=self.transport.v['Sts']['done'] and self.transport.v['Sts']['completedOwner']==20)
         self.drain.run(Inp=self.di,Drain=self.d)
-        self.ti.update(permit=True,drainPermit=self.d['runPermit'],drainAction=self.drain.v['Sts']['action'],actionDone=False)
+        self.ti.update(permit=True,drainPermit=self.d['runPermit'],drainAction=self.drain.v['Sts']['action_'],actionDone=False)
         if self.action:
             self.timer-=1
             if self.timer<=0 and (self.action!=60 or self.autoPickup):
@@ -56,7 +56,7 @@ class DrainCell:
                 self.ti['actionDone']=True;self.action=0;self.physicalBusy=False
         self.transport.run(Inp=self.ti)
         if self.transport.v['Sts']['start']:
-            self.action=self.transport.v['Sts']['action'];self.lastAction=self.action;self.timer=3;self.physicalBusy=True
+            self.action=self.transport.v['Sts']['action_'];self.lastAction=self.action;self.timer=3;self.physicalBusy=True
         self.mi.update(observed=copy.deepcopy(self.occ),sensed=copy.deepcopy(self.occ),
             moving=self.physicalBusy,commit=self.ti['actionDone'],pending=self.transport.v['Sts']['busy'])
         self.material.run(Inp=self.mi)

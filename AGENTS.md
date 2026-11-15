@@ -66,6 +66,7 @@ Zachowaj przepływ: konfiguracja urządzeń i RAW → normalizacja/diagnostyka k
 
 ## Zasady ST i FANUC
 
+- Nie używaj zarezerwowanych słów `action`, `program` i `reference` jako identyfikatorów zmiennych ani pól struktur; stosuj `action_`, `program_` i `reference_` oraz aktualizuj odwołania. Słowo kluczowe `PROGRAM` w deklaracji POU pozostaje bez zmiany. Nazwy złożone, np. `actionText`, `actionDone`, `production_program` i `uiProgram`, są odrębnymi identyfikatorami.
 - Zachowaj zgodność z docelowym Machine Expert; stosuj `TO_UINT(expr)`, `TO_INT(expr)` i inne jawne konwersje.
 - Enumy kwalifikuj przez kropkę: `E_State.IDLE`. Nie stosuj `E_State#IDLE` ani liczb zamiast wartości ścisłego enumu.
 - `{attribute 'qualified_only'}`, `{attribute 'strict'}`, `TYPE` i `END_TYPE` zapisuj w osobnych właściwych liniach.

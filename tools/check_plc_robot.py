@@ -24,7 +24,7 @@ def runtime():
 
 def context(r):
     c=r.value('ST_RobotContext')
-    c.update(schema=4,valid=True,program=2,batchCount=7,stackId=10,withRobot=True,occupancyKnown=True)
+    c.update(schema=4,valid=True,program_=2,batchCount=7,stackId=10,withRobot=True,occupancyKnown=True)
     return c
 
 def plant(r):
@@ -132,7 +132,7 @@ class Checks(unittest.TestCase):
         f=self.r.instance('FB_RobotCycleLedger');c=context(self.r)
         events={i:self.r.value('ST_RobotEvent') for i in range(1,11)}
         pending={i:False for i in events}
-        args=dict(Session=True,Context=c,StartValid=True,CyclesKnown=True,Quantity=7,StackId=10,Program=2,
+        args=dict(Session=True,Context=c,StartValid=True,CyclesKnown=True,Quantity=7,StackId=10,Program_=2,
                   Pending=pending,Events=events,TaskDone={i:False for i in events})
         f.run(**args,StartConfirmed=False)
         f.run(**args,StartConfirmed=True)
@@ -237,7 +237,7 @@ class Checks(unittest.TestCase):
         f=self.r.instance('FB_OrderManager');c=context(self.r);d=self.r.value('ST_RobotDrain');cmd=self.r.value('ST_RobotCommands')
         a=dict(Context=c,Drain=d,Cmd=cmd,Session=True,ProgramOK=True,HomeValid=True,ProcessOK=True,
                OperationsSettled=True,AreasClear=True,StationIdle=True)
-        cmd.update(openOrder=True,program=2);f.run(**a)
+        cmd.update(openOrder=True,program_=2);f.run(**a)
         self.assertTrue(c['orderActive']);self.assertFalse(f.v['Sts']['running'])
         cmd['openOrder']=False;f.run(**a,PhysicalStart=True);self.assertEqual(f.v['Sts']['startToken'],1)
         f.run(**{**a,'OperationsSettled':False},PhysicalStart=False,PhysicalStop=True)

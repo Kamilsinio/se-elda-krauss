@@ -223,7 +223,7 @@ class RetryAndArithmeticReviewTests(unittest.TestCase):
         r=self.r; c=context(r)
         c['cycles'][1].update(occupied=True,id=1,quantity=7,good=4294967295,samples=1)
         f=r.instance('FB_RobotCycleLedger')
-        f.run(Context=c,Session=True,StartValid=True,CyclesKnown=True,Quantity=7,StackId=10,Program=2)
+        f.run(Context=c,Session=True,StartValid=True,CyclesKnown=True,Quantity=7,StackId=10,Program_=2)
         self.assertTrue(f.v['Fault'])
         proposal=copy.deepcopy(c); cmd=r.value('ST_RobotCommands'); cmd['recover']=True
         rx=r.value('ST_RobotRxV2'); rx.update(production_home=True,production_loadKnown=True)

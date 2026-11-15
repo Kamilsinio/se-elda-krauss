@@ -10,7 +10,7 @@ class StationCell:
         self.controller=r.instance('FB_StationController');self.codec=r.instance('FB_RobotCodec')
         self.native=Cell(mode=mode);self.mode=mode;self.step=0;self.reqid=0
         self.cfg=r.value('ST_StationCfg');self.inp=r.value('ST_StationInputs')
-        self.c=context(r);self.c['program']=mode;self.c['occupied'][2]=True;self.c['occupied'][3]=True
+        self.c=context(r);self.c['program_']=mode;self.c['occupied'][2]=True;self.c['occupied'][3]=True
         self.proposal=copy.deepcopy(self.c);self.hmi=r.value('ST_RobotHmiV2')
         self.cfg['robot_Cfg']=config(r);self.cfg['robot_Cfg']['link'].update(peerTimeout=20000,syncTimeout=50000)
         self.cfg.update(robot_stationIoBound=True,robot_stationCoilPolicyVerified=True,

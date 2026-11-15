@@ -176,7 +176,7 @@ Events(Session := Link.Session AND NOT Recovery.Required, Reset := Recovery.Appr
 Ledger(Session := Link.Session AND NOT Recovery.Required, Reset := Recovery.Approved,
     StartConfirmed := Plant.imm.startConfirmed, StartValid := Plant.imm.startSignalValid,
     CyclesKnown := Plant.imm.cycleKnown, Quantity := Context.batchCount,
-    RejectBatch := Plant.imm.reject, StackId := Context.stackId, Program := Context.program,
+    RejectBatch := Plant.imm.reject, StackId := Context.stackId, Program_ := Context.program_,
     Pending := Events.Pending, Events := Events.Frozen, TaskDone := Plant.taskDone, Context := Context);
 committed := Ledger.Commit;
 IF Events.Diag.fault OR Ledger.Fault THEN protocolFault := TRUE; END_IF;
@@ -187,7 +187,7 @@ FOR i := 1 TO 3 DO
     IF Link.Session AND accessReq[i] AND Areas.Outp[i].granted THEN Context.areaReserved[i] := TRUE; END_IF;
     areasClearNow := areasClearNow AND NOT Context.areaReserved[i];
 END_FOR;
-programOK := (Context.program > 0) AND (Rx.production_program = Context.program);
+programOK := (Context.program_ > 0) AND (Rx.production_program = Context.program_);
 homeValid := Link.Session AND Rx.production_home AND Rx.production_loadKnown;
 IF Recovery.Approved AND Ledger.Unsettled = 0 AND allTasksIdle AND Plant.stationEmptyConfirmed AND
    Plant.loadsConfirmed AND Plant.cyclesConfirmed AND Plant.robotContextConfirmed AND Rx.production_loadMask = 0 THEN
@@ -278,7 +278,7 @@ Tx.link_syncRequest := Link.SyncRequest;
 Tx.link_syncAck := Link.SyncAck;
 Tx.link_ready := Link.LocalReady AND NOT Recovery.Required AND NOT protocolFault AND NOT criticalNow;
 Tx.production_orderActive := Context.orderActive;
-Tx.production_expectedProgram := Context.program;
+Tx.production_expectedProgram := Context.program_;
 Tx.production_withRobot := Context.withRobot;
 Tx.production_newOperationPermit := Sts.order.newPermit;
 Tx.production_finishPermit := Sts.order.finishPermit;
@@ -407,11 +407,11 @@ Tx.area_storage_valid := Sts.areas[3].valid;
 Tx.area_storage_ready := Sts.areas[3].ready;
 Tx.area_storage_granted := Sts.areas[3].granted;
 Tx.area_storage_reason := Sts.areas[3].reason;
-Hmi.actual.uiProgram := Context.program;
+Hmi.actual.uiProgram := Context.program_;
 Hmi.actual.uiBatchCount := Context.batchCount;
 Hmi.state.uiMode := 20;
 IF Order.Sts.manual THEN Hmi.state.uiMode := 10; END_IF;
-Hmi.state.uiProduction := Context.program * 10;
+Hmi.state.uiProduction := Context.program_ * 10;
 Hmi.state.uiOrderState := 0;
 IF Context.orderActive THEN Hmi.state.uiOrderState := 10; END_IF;
 IF Context.ending THEN Hmi.state.uiOrderState := 20; END_IF;

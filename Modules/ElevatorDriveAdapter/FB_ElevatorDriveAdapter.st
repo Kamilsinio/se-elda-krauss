@@ -16,7 +16,7 @@ END_VAR
 fbAtv(Axis := Altivar_320, i_xEn := Cmd.enable AND MappingVerified AND CommHealthy,
  i_xKeepOpEn := TRUE, i_xFwd := Cmd.enable AND MappingVerified AND CommHealthy AND FrequencyValid AND Cmd.forward AND NOT Cmd.reverse,
  i_xRev := Cmd.enable AND MappingVerified AND CommHealthy AND FrequencyValid AND Cmd.reverse AND NOT Cmd.forward, i_xQckStop := TRUE,
- i_xFreeWhl := TRUE, i_xFltRst := Cmd.reset, i_wSpdRef := Cmd.reference);
+ i_xFreeWhl := TRUE, i_xFltRst := Cmd.reset, i_wSpdRef := Cmd.reference_);
 Feedback.valid := MappingVerified AND CommHealthy AND FrequencyValid;
 Feedback.commHealthy := MappingVerified AND CommHealthy;
 Feedback.statusword := fbAtv.q_wStatusword;

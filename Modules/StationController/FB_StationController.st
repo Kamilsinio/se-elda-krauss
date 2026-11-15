@@ -107,7 +107,7 @@ VAR
     io : FB_StationIo;
     material : FB_StationMaterial;
     transport : FB_StationTransport;
-    drain : FB_StationDrain;
+    fbStationDrain : FB_StationDrain;
     alarms : FB_AlarmManager;
     parameters : FB_StationParameters;
     manual : FB_StationManual;
@@ -231,8 +231,8 @@ plantNow.areas[1].ready := material.Sts.known AND material.Sts.occupied[3] AND f
     NOT fbConvTop.Outp.Q_Fwd AND NOT fbTopFlow.Sts.Busy AND fbTopFlow.Sts.State = E_TopFlowState.IDLE;
 plantNow.areas[2].ready := Inp.drive.valid AND Inp.drive.commHealthy AND elevStat.xStandstill AND NOT elevStat.xBusy AND NOT fbConvElev.Sts.Running AND NOT elevStat.xVfdRunning AND
     NOT fbConvElev.Outp.Q_Fwd AND NOT fbConvElev.Outp.Q_Bwd AND
-    ((fbTraySeq.Outp.ElevatorReady AND Context.program = 2) OR
-     (fbBoxSeq.Outp.ElevatorReady AND Context.program = 1));
+    ((fbTraySeq.Outp.ElevatorReady AND Context.program_ = 2) OR
+     (fbBoxSeq.Outp.ElevatorReady AND Context.program_ = 1));
 plantNow.areas[3].ready := fbStorage.Sts.RobotSideOpen AND fbStorage.Sts.RobotAccessGranted AND NOT fbStorage.Sts.Empty;
 plantNow.areas[1].blocked := plantNow.areas[1].blocked OR fbStopM4.Diag.Fault OR fbPosM5.Diag.Fault OR stationCoils.RestartRequired[4] OR stationCoils.RestartRequired[5];
 plantNow.areas[2].blocked := plantNow.areas[2].blocked OR (fbV201.Diag.Fault OR fbV202.Diag.Fault) OR fbPosM7.Diag.Fault OR stationCoils.RestartRequired[6] OR stationCoils.RestartRequired[8] OR stationCoils.RestartRequired[7];
@@ -282,8 +282,8 @@ IF reconciledNow THEN
 END_IF;
 FOR i := 1 TO 10 DO taskDoneNext[i] := FALSE; END_FOR;
 xResetAll := robot.Panel.Cmd.reset AND Hmi.link.xArmed;
-xModeTray := Context.program = 2;
-xModeBox := Context.program = 1;
+xModeTray := Context.program_ = 2;
+xModeBox := Context.program_ = 1;
 xHmiManualMode := robot.Sts.order.manual;
 xEmptyRunning := Drain.request;
 xGlobalEnable := xGlobalEnable AND NOT plantNow.critical AND
@@ -778,7 +778,7 @@ drainIn.actionAccepted := transport.Sts.start AND transport.Sts.owner = E_Statio
 drainIn.actionDone := transport.Sts.done AND transport.Sts.completedOwner = E_StationOwner.DRAIN;
 drainIn.actionFault := transport.Sts.fault;
 drainIn.reconcile := reconciledNow;
-drain(Inp := drainIn, Drain := Drain);
+fbStationDrain(Inp := drainIn, Drain := Drain);
 transportIn.permit := xGlobalEnable AND robot.Sts.session;
 transportIn.critical := plantNow.critical OR robot.Recovery.Required OR (stationRecovery.Required AND NOT xHmiManualMode);
 transportIn.productionPermit := productionPermit;
@@ -795,7 +795,7 @@ transportIn.executorAccepted := fbBottom567.Outp.AcceptedPulse;
 transportIn.executorStarted := fbConvBottom.Sts.Running OR fbConvElev.Sts.Running OR elevStat.xBusy;
 transportIn.productionBusy := topTransferActive OR elevStat.xBusy OR fbBottom567.Sts.Busy;
 transportIn.productionNeedsLower := fbBottom567.Cmd.DischargeReq;
-transportIn.drainAction := drain.Sts.action;
+transportIn.drainAction := fbStationDrain.Sts.action_;
 transportIn.drainPermit := Drain.runPermit;
 transportIn.localRequest := Outp.robot_singleUnloadRequest;
 transportIn.localReady := Outp.robot_singleUnloadReady;
@@ -806,7 +806,7 @@ transportIn.reconcile := reconciledNow;
 transportIn.requireIds := TRUE;
 transportIn.acceptedId := 0; transportIn.startedId := 0; transportIn.doneId := 0;
 transportIn.actionDone := FALSE; transportIn.executorAccepted := FALSE; transportIn.executorStarted := FALSE;
-CASE transport.Sts.action OF
+CASE transport.Sts.action_ OF
  E_StationAction.ELEV_TOP:
   transportIn.actionDone := elevStat.CompletedId = transport.Sts.operationId AND elevStat.xStandstill AND elevStat.ePos = E_ElevatorPos.posTop;
   transportIn.doneId := elevStat.CompletedId; transportIn.acceptedId := elevStat.AcceptedId;
@@ -833,7 +833,7 @@ IF transportIn.executorStarted THEN transportIn.startedId := transport.Sts.opera
 transportIn.actionFault := fbTopFlow.Diag.Fault OR fbBottom567.Diag.Fault OR elevStat.xFault;
 transport(Inp := transportIn, Context := Context.station);
 Outp.station_Transport := transport.Sts;
-Outp.station_DrainStatus := drain.Sts;
+Outp.station_DrainStatus := fbStationDrain.Sts;
 fbTopFlow.Cmd.AllowNewTransfers := robot.Sts.order.newPermit;
 fbBottom567.Cmd.FinishPermit := productionPermit;
 fbBottom567.Cmd.SingleUnloadReq := FALSE;
@@ -846,20 +846,20 @@ IF NOT transport.Sts.productionAxisAllowed THEN elevCmd.xAutoGo := FALSE; END_IF
 
 actionPermit := xGlobalEnable AND robot.Sts.session AND NOT transport.Sts.fault;
 IF transport.Sts.owner = E_StationOwner.DRAIN OR transport.Sts.owner = E_StationOwner.LOCAL THEN
- IF transport.Sts.action <> E_StationAction.UNLOAD AND transport.Sts.action <> E_StationAction.ADVANCE THEN
+ IF transport.Sts.action_ <> E_StationAction.UNLOAD AND transport.Sts.action_ <> E_StationAction.ADVANCE THEN
   fbV201.CmdExtend := FALSE; fbV202.CmdExtend := FALSE; fbPosM7.HoldUp := FALSE;
  END_IF;
  fbBottom567.Cmd.FinishPermit := actionPermit;
- CASE transport.Sts.action OF
+ CASE transport.Sts.action_ OF
   E_StationAction.ELEV_TOP:
    elevCmd.eAutoTarget := E_ElevatorTarget.posTop;
-   IF transport.Sts.action = E_StationAction.ELEV_BOTTOM THEN elevCmd.eAutoTarget := E_ElevatorTarget.posBottom; END_IF;
+   IF transport.Sts.action_ = E_StationAction.ELEV_BOTTOM THEN elevCmd.eAutoTarget := E_ElevatorTarget.posBottom; END_IF;
    elevCmd.xAutoGo := actionPermit AND fbV201.Sts.AtRet AND fbV202.Sts.AtRet AND fbPosM7.Sts.IsDown AND
     elevStat.eState = E_ElevatorState.IDLE;
    elevCmd.xStop := NOT actionPermit;
   E_StationAction.ELEV_BOTTOM:
    elevCmd.eAutoTarget := E_ElevatorTarget.posTop;
-   IF transport.Sts.action = E_StationAction.ELEV_BOTTOM THEN elevCmd.eAutoTarget := E_ElevatorTarget.posBottom; END_IF;
+   IF transport.Sts.action_ = E_StationAction.ELEV_BOTTOM THEN elevCmd.eAutoTarget := E_ElevatorTarget.posBottom; END_IF;
    elevCmd.xAutoGo := actionPermit AND fbV201.Sts.AtRet AND fbV202.Sts.AtRet AND fbPosM7.Sts.IsDown AND
     elevStat.eState = E_ElevatorState.IDLE;
    elevCmd.xStop := NOT actionPermit;
@@ -886,7 +886,7 @@ IF productionTopId = 0 AND fbTopFlow.Cmd.EnableAuto AND transport.Sts.owner <> E
  ELSE reconcileRequired := TRUE; END_IF;
 END_IF;
 fbTopFlow.Cmd.OperationId := productionTopId;
-IF transport.Sts.owner = E_StationOwner.DRAIN AND transport.Sts.action = E_StationAction.FEED THEN fbTopFlow.Cmd.OperationId := transport.Sts.operationId; END_IF;
+IF transport.Sts.owner = E_StationOwner.DRAIN AND transport.Sts.action_ = E_StationAction.FEED THEN fbTopFlow.Cmd.OperationId := transport.Sts.operationId; END_IF;
 topWasBusy := fbTopFlow.Sts.Busy;
 fbTopFlow();
 IF fbTopFlow.Outp.TransferDonePulse THEN productionTopId := 0; END_IF;
@@ -913,7 +913,7 @@ END_IF;
 
 IF NOT fbBottom567.Cmd.DischargeReq AND NOT fbBottom567.Sts.Busy THEN productionDischargeId := 0; END_IF;
 IF NOT fbBottom567.Cmd.AdvanceReq AND NOT fbBottom567.Sts.Busy THEN productionAdvanceId := 0; END_IF;
-IF fbBottom567.Cmd.DischargeReq AND productionDischargeId = 0 AND transport.Sts.action <> E_StationAction.DISCHARGE THEN
+IF fbBottom567.Cmd.DischargeReq AND productionDischargeId = 0 AND transport.Sts.action_ <> E_StationAction.DISCHARGE THEN
  IF Context.station.nextOperationId < 16#FFFFFFFF THEN Context.station.nextOperationId := Context.station.nextOperationId + 1; productionDischargeId := Context.station.nextOperationId; ELSE reconcileRequired := TRUE; END_IF;
 END_IF;
 IF fbBottom567.Cmd.AdvanceReq AND productionAdvanceId = 0 THEN
@@ -921,8 +921,8 @@ IF fbBottom567.Cmd.AdvanceReq AND productionAdvanceId = 0 THEN
 END_IF;
 fbBottom567.Cmd.DischargeId := productionDischargeId; fbBottom567.Cmd.AdvanceId := productionAdvanceId;
 fbBottom567.Cmd.UnloadId := 0;
-IF transport.Sts.action = E_StationAction.DISCHARGE THEN fbBottom567.Cmd.DischargeId := transport.Sts.operationId; END_IF;
-IF transport.Sts.action = E_StationAction.UNLOAD THEN fbBottom567.Cmd.UnloadId := transport.Sts.operationId; END_IF;
+IF transport.Sts.action_ = E_StationAction.DISCHARGE THEN fbBottom567.Cmd.DischargeId := transport.Sts.operationId; END_IF;
+IF transport.Sts.action_ = E_StationAction.UNLOAD THEN fbBottom567.Cmd.UnloadId := transport.Sts.operationId; END_IF;
 eBottomStateBeforeCall := fbBottom567.Sts.State;
 lowerWasBusy := fbBottom567.Sts.Busy;
 fbBottom567();
@@ -1163,9 +1163,9 @@ IF xBottomTransferOwnerTray THEN Context.bottomTransferOwner := 2; END_IF;
 IF xBottomTransferOwnerBox THEN Context.bottomTransferOwner := 1; END_IF;
 Context.bottomDonePendingTray := xBottomDonePendingTray;
 Context.bottomDonePendingBox := xBottomDonePendingBox;
-Context.stationDrainStep := drain.Sts.state;
+Context.stationDrainStep := fbStationDrain.Sts.state;
 Context.stationOwner := transport.Sts.owner;
-Context.stationAction := transport.Sts.action;
+Context.stationAction := transport.Sts.action_;
 Context.pickupPending := fbBottom567.Sts.WaitingPickup;
 Context.pickupSeen := fbBottom567.Sts.PickupSeen;
 
@@ -1411,7 +1411,7 @@ IF robot.Panel.StationKey >= 12 AND robot.Panel.StationKey <= 15 THEN parameterI
 IF robot.Panel.StationKey >= 16 AND robot.Panel.StationKey <= 19 THEN parameterIn.reload := TO_UINT(robot.Panel.StationKey - 15); END_IF;
 IF robot.Panel.StationKey = 20 THEN
  Hmi.edit.uiBatchCount := Context.batchCount;
- Hmi.edit.uiProgram := Context.program;
+ Hmi.edit.uiProgram := Context.program_;
 END_IF;
 IF robot.Panel.StationKey >= 21 AND robot.Panel.StationKey <= 25 THEN stationReset := TO_UINT(robot.Panel.StationKey - 20); END_IF;
 parameters(Cfg := Cfg.station_ParameterCfg, Inp := parameterIn, Snapshot := robot.Panel.StationSnapshot,
@@ -1494,7 +1494,7 @@ IF autoGoRequest.Q AND transport.Sts.owner <> E_StationOwner.DRAIN THEN
  IF Context.station.nextOperationId < 16#FFFFFFFF THEN Context.station.nextOperationId := Context.station.nextOperationId + 1; productionElevatorId := Context.station.nextOperationId; ELSE reconcileRequired := TRUE; END_IF;
 END_IF;
 elevCmd.OperationId := productionElevatorId;
-IF transport.Sts.owner = E_StationOwner.DRAIN AND (transport.Sts.action = E_StationAction.ELEV_TOP OR transport.Sts.action = E_StationAction.ELEV_BOTTOM) THEN elevCmd.OperationId := transport.Sts.operationId; END_IF;
+IF transport.Sts.owner = E_StationOwner.DRAIN AND (transport.Sts.action_ = E_StationAction.ELEV_TOP OR transport.Sts.action_ = E_StationAction.ELEV_BOTTOM) THEN elevCmd.OperationId := transport.Sts.operationId; END_IF;
 fbElevator(
     xEnable := xGlobalEnable AND NOT plantNow.critical AND NOT alarms.Sts.critical AND NOT stationCommandFault,
     stCmd := elevCmd,
@@ -1573,7 +1573,7 @@ Outp.io_dout.ctrl_turn_on_light_yellow := alarms.Sts.warning OR robot.Sts.order.
 Outp.io_dout.ctrl_turn_on_light_green := robot.Sts.order.running AND NOT Outp.io_dout.ctrl_turn_on_light_red;
 Outp.io_dout.ctrl_turn_on_buzzer := Outp.io_dout.ctrl_turn_on_light_red;
 Outp.io_dout.ctrl_LED_button_start_emptying_process := Outp.robot_singleUnloadReady;
-panelIn.io := io.Sts; panelIn.material := material.Sts; panelIn.drain := drain.Sts;
+panelIn.io := io.Sts; panelIn.material := material.Sts; panelIn.drain := fbStationDrain.Sts;
 panelIn.transport := transport.Sts; panelIn.localReady := Outp.robot_singleUnloadReady;
 panelIn.waitingPickup := fbBottom567.Sts.WaitingPickup; panelIn.idle := parameterIn.idle;
 panelIn.manual := xHmiManualMode; panelIn.recovery := robot.Sts.recoveryRequired;
@@ -1629,7 +1629,7 @@ IF currentCritical THEN
  Outp.robot_Sts.imm.newCyclePermit := FALSE;
  Outp.robot_Tx.imm_applied_mouldClose := FALSE; Outp.robot_Tx.imm_applied_mouldFullOpen := FALSE;
  Outp.robot_Tx.imm_applied_ejectorBack := FALSE; Outp.robot_Tx.imm_applied_ejectorForward := FALSE;
- Outp.drive.forward := FALSE; Outp.drive.reverse := FALSE; Outp.drive.reference := 0;
+ Outp.drive.forward := FALSE; Outp.drive.reverse := FALSE; Outp.drive.reference_ := 0;
   Outp.robot_storageOut.Q_UnlockRobotSide := FALSE; Outp.robot_storageOut.Q_UnlockOperatorSide := FALSE;
   Outp.robot_storageOut.Q_V401Home := outputPolicy.StorageLoss[1].home;
   Outp.robot_storageOut.Q_V401Work := outputPolicy.StorageLoss[1].work;
@@ -2027,7 +2027,7 @@ Outp.hmi_hmiStatus.xConvTopRunning := Outp.io_dout.ctrl_turn_on_top_conveyor;
 Outp.hmi_hmiStatus.xConvElevRunning := Outp.io_dout.ctrl_turn_on_elevator_conveyor_in OR Outp.io_dout.ctrl_turn_on_elevator_conveyor_out;
 Outp.hmi_hmiStatus.xConvBottomRunning := Outp.io_dout.ctrl_turn_on_bottom_conveyor OR Outp.io_dout.ctrl_turn_on_bottom_conveyor_in;
 Outp.drive := elevOut.Drive;
-IF currentCritical THEN Outp.drive.forward := FALSE; Outp.drive.reverse := FALSE; Outp.drive.reference := 0; END_IF;
+IF currentCritical THEN Outp.drive.forward := FALSE; Outp.drive.reverse := FALSE; Outp.drive.reference_ := 0; END_IF;
 Outp.hmi_hmiIo.value.ctrl_run_elevator := Outp.drive.enable AND (Outp.drive.forward OR Outp.drive.reverse);
 Outp.drain := Drain;
 Outp.reconcileRequired := reconcileRequired;

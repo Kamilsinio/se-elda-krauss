@@ -158,7 +158,7 @@ IF newCount > 0 AND NOT Pending THEN
             ELSE
                 lastId[i] := req[i].udiRequestId;
                 Key := i; Pending := TRUE;
-                Cmd.program := Hmi.edit.uiProgram;
+                Cmd.program_ := Hmi.edit.uiProgram;
                 Cmd.quantity := Hmi.edit.uiBatchCount;
             END_IF;
         END_IF;

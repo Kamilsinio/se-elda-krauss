@@ -2,7 +2,7 @@ TYPE ST_StationOperation :
 STRUCT
     id : UDINT;
     owner : E_StationOwner;
-    action : E_StationAction;
+    action_ : E_StationAction;
     accepted : BOOL;
     started : BOOL;
     done : BOOL;

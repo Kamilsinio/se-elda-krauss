@@ -2,7 +2,7 @@ TYPE ST_StationTransportStatus :
 STRUCT
     owner : E_StationOwner;
     completedOwner : E_StationOwner;
-    action : E_StationAction;
+    action_ : E_StationAction;
     start : BOOL;
     busy : BOOL;
     done : BOOL;

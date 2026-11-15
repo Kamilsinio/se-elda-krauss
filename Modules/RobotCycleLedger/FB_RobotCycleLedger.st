@@ -9,7 +9,7 @@ VAR_INPUT
     Quantity : UINT;
     RejectBatch : BOOL;
     StackId : UINT;
-    Program : UINT;
+    Program_ : UINT;
     Pending : ARRAY[1..10] OF BOOL;
     Events : ARRAY[1..10] OF ST_RobotEvent;
     TaskDone : ARRAY[1..10] OF BOOL;
@@ -92,8 +92,8 @@ allValid := Session AND NOT Fault;
 FOR i := 1 TO 10 DO
     IF Pending[i] THEN
         IF Events[i].stackId <> StackId THEN allValid := FALSE; END_IF;
-        IF (i <= 3) AND Program <> 2 THEN allValid := FALSE; END_IF;
-        IF ((i = 4) OR (i = 7)) AND Program <> 1 THEN allValid := FALSE; END_IF;
+        IF (i <= 3) AND Program_ <> 2 THEN allValid := FALSE; END_IF;
+        IF ((i = 4) OR (i = 7)) AND Program_ <> 1 THEN allValid := FALSE; END_IF;
         IF (i = 5) OR (i = 6) OR (i = 9) OR (i = 10) THEN
             slot := 0;
             FOR j := 1 TO 2 DO

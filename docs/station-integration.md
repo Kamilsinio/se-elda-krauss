@@ -72,3 +72,23 @@ Oddzielny test 256 wariantów początkowej zajętości używa modelu koordynacji
 ## Poprawki po review
 
 [Pakiet poprawek](plc-review-fixes.md) zmienia kolejność końca skanu: wykonawcy Storage/Elevator → bieżące alarmy → StationCoils i końcowa finalizacja. FB_StationOutputPolicy waliduje polityki przed nadzorem. LocalFaultPolicy jest obowiązkową, odrębną macierzą serwisową; brak zatwierdzenia nie jest zastępowany TRUE. Po lokalnej usterce sam Reset nie wznawia ruchu. Recovery zamyka odrzucone zdarzenia do bieżącego nextMaterialEventId bez cofania licznika. Wire v2, Context schema=4 i HMI v4 pozostają bez zmian; nowe porty wymagają ponownego importu symboli.
+
+## Nazwa zarezerwowana ACTION — zmiana symboli
+
+Zgodnie z wymaganiem użytkownika deklaracje PLC o dokładnej nazwie `action` mają nazwę `action_`. Dotyczy to pól w ST_StationOperation, ST_StationTransportStatus, ST_StationDrainStatus i ST_StationHmiStatus oraz wszystkich odwołań w FB i modelach testowych. Kontrola struktury wykrywa nazwę ACTION niezależnie od wielkości liter w deklaracjach zmiennych i polach DUT.
+
+Aktualne ścieżki obejmują `GVL_Station.Transport.action_`, `GVL_Station.Transport.resources[i].action_`, `GVL_Station.DrainStatus.action_` oraz `GVL_HMI.hmiV2.station.action_`. Po imporcie odświeżyć symbole i powiązania HMI. Istniejące `actionText`, `actionDone`, `actionFault`, `drainAction` i `stationAction` zachowują nazwy. Kolumna `action` w pliku migracji CSV i słowo kluczowe `action` biblioteki Python argparse nie są deklaracjami PLC.
+
+Zmiana nazw nie zmienia typów, kolejności pól, numerów enum ani wire FANUC v2/80 B. Schema kontekstu pozostaje 4. Ze względu na pole operacji wewnątrz Context przed importem zachować backup i ponownie zweryfikować listę persistent oraz odtworzenie danych w projekcie natywnym.
+
+## Nazwa zarezerwowana PROGRAM — zmiana symboli
+
+Dokładna nazwa identyfikatora `program` otrzymuje końcowy podkreślnik: `program_`. Zmieniono pola `ST_RobotContext.program_`, `ST_RobotCommands.program_`, wejście `FB_RobotCycleLedger.Program_`, wszystkie odwołania ST oraz odpowiadające im klucze i argumenty testów offline. Słowo kluczowe `PROGRAM` deklarujące PRG_Main/PRG_IO_Read/PRG_IO_Write, komentarze, teksty operatora i identyfikatory kontraktu komunikacyjnego zachowują dotychczasową postać.
+
+Aktualna ścieżka zachowywanego pola to `GVL_RobotRetain.Context.program_`, a kandydata recovery `GVL_Robot.Proposal.program_`. Audyt odrzuca deklaracje o nazwach ACTION i PROGRAM niezależnie od wielkości liter. Nazwy `production_program`, `production_expectedProgram` i `uiProgram` pozostają poprawnymi, odrębnymi symbolami.
+
+Układ wire v2/80 B, typy, kolejność pól i schema=4 pozostają bez zmian. Przed importem zachować backup i zweryfikować listę persistent oraz mapowanie odtwarzanego kontekstu po zmianie nazwy pola. Odświeżyć eksport symboli i wszystkie zewnętrzne powiązania korzystające z dawnej nazwy.
+
+## Nazwa zarezerwowana REFERENCE — zmiana symboli
+
+Pole `ST_ElevatorDriveCmd.reference` otrzymuje nazwę `reference_`. Zaktualizowano producenta komendy w FB_Elevator, oba zerowania przy blokadzie krytycznej w FB_StationController, odczyt w FB_ElevatorDriveAdapter oraz test adaptera. Przed kompilacją w Machine Expert ponownie zaimportować DUT i deklaracje oraz implementacje zależnych FB. Audyt odrzuca nazwę REFERENCE niezależnie od wielkości liter. Typ WORD, skala prędkości i port biblioteki GIATV `i_wSpdRef` pozostają bez zmian.

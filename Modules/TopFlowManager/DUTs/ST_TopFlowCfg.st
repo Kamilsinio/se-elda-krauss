@@ -7,7 +7,7 @@ STRUCT
     tStopperTimeout : TIME := T#3s;
 
     // Timeout na dojazd pojemnika do czujnika docelowego (ruch taśmą)
-    tMoveTimeout : TIME := T#20s;
+    tMoveTimeout : TIME := T#25s;
 
     // Opcjonalnie: minimalny czas “stabilności” czujnika gdy taśma stoi (do inicjalizacji / diagnostyki)
     tSensorStable : TIME := T#80ms;

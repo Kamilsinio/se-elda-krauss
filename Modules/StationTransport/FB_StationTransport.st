@@ -22,7 +22,7 @@ END_VAR
 Sts.start := FALSE; Sts.done := FALSE; Sts.completedOwner := E_StationOwner.NONE; Sts.reason := 0;
 IF (Inp.critical OR NOT Inp.permit OR Inp.actionFault) AND Sts.owner <> E_StationOwner.NONE THEN Sts.fault := TRUE; END_IF;
 IF Inp.reconcile THEN
- Sts.fault := FALSE; Sts.owner := E_StationOwner.NONE; Sts.action := E_StationAction.NONE;
+ Sts.fault := FALSE; Sts.owner := E_StationOwner.NONE; Sts.action_ := E_StationAction.NONE;
  FOR i := 1 TO 6 DO Context.operations[i].done := TRUE; Context.operations[i].accepted := FALSE; END_FOR;
 END_IF;
 IF Inp.resourcesUsed THEN
@@ -60,7 +60,7 @@ IF Sts.owner = E_StationOwner.DRAIN OR Sts.owner = E_StationOwner.LOCAL THEN
   FOR i := 1 TO 6 DO
    IF Context.operations[i].id = Sts.operationId THEN Context.operations[i].accepted := FALSE; Context.operations[i].done := TRUE; END_IF;
   END_FOR;
-  Sts.owner := E_StationOwner.NONE; Sts.action := E_StationAction.NONE;
+  Sts.owner := E_StationOwner.NONE; Sts.action_ := E_StationAction.NONE;
  END_IF;
 END_IF;
 candidate := E_StationAction.NONE; candidateOwner := E_StationOwner.NONE;
@@ -93,9 +93,9 @@ IF NOT Inp.resourcesUsed AND Inp.productionBusy THEN available := FALSE; END_IF;
 IF candidate <> E_StationAction.NONE AND available THEN
  IF Context.nextOperationId < 16#FFFFFFFF THEN
   Context.nextOperationId := Context.nextOperationId + 1; Sts.operationId := Context.nextOperationId;
-  item := empty; item.id := Sts.operationId; item.owner := candidateOwner; item.action := candidate; item.accepted := TRUE;
+  item := empty; item.id := Sts.operationId; item.owner := candidateOwner; item.action_ := candidate; item.accepted := TRUE;
   FOR i := 1 TO 6 DO IF needed[i] THEN Context.operations[i] := item; END_IF; END_FOR;
-  Sts.owner := candidateOwner; Sts.action := candidate; Sts.start := TRUE;
+  Sts.owner := candidateOwner; Sts.action_ := candidate; Sts.start := TRUE;
  ELSE Sts.fault := TRUE; END_IF;
 END_IF;
 Sts.resources := Context.operations;

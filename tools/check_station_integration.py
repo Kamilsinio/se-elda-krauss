@@ -34,7 +34,7 @@ class AuditedFailures(unittest.TestCase):
         f=self.r.instance('FB_StationDrain');a=self.r.value('ST_StationDrainIn')
         a.update(enable=True,known=True,atBottom=True,lowerCanAccept=False);a['occupied'][4]=True;a['occupied'][3]=True
         d=self.r.value('ST_RobotDrain');d.update(request=True,runPermit=True)
-        f.run(Inp=a,Drain=d);f.run(Inp=a,Drain=d);self.assertEqual(f.v['Sts']['action'],0)
+        f.run(Inp=a,Drain=d);f.run(Inp=a,Drain=d);self.assertEqual(f.v['Sts']['action_'],0)
     def test_stopping_timeout_never_certifies_standstill(self):
         from plc_station_main import MainCell
         cell=MainCell();r=cell.r;f=r.instance('FB_Elevator');a=r.value('ST_ElevatorIn')
@@ -103,7 +103,7 @@ class ResourceAndLedgerTests(unittest.TestCase):
     def test_driver_ignores_unverified_mapping(self):
         from plc_station_main import MainCell
         cell=MainCell();f=cell.r.instance('FB_ElevatorDriveAdapter');f.v['Altivar_320']=False
-        cmd=cell.r.value('ST_ElevatorDriveCmd');cmd.update(enable=True,forward=True,reference=100)
+        cmd=cell.r.value('ST_ElevatorDriveCmd');cmd.update(enable=True,forward=True,reference_=100)
         f.run(Cmd=cmd,MappingVerified=False,CommHealthy=True,FrequencyValid=True)
         self.assertFalse(f.v['Feedback']['valid']);self.assertFalse(f.v['fbAtv'].v['i_xEn'])
         f.run(Cmd=cmd,MappingVerified=True,CommHealthy=True,FrequencyValid=False)

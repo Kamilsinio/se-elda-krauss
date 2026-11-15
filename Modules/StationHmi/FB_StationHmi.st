@@ -15,7 +15,7 @@ Sts.paused := Inp.drain.paused;
 Sts.waitingPickup := Inp.waitingPickup;
 Sts.localReady := Inp.localReady;
 Sts.drainStep := Inp.drain.state;
-Sts.owner := Inp.transport.owner; Sts.action := Inp.transport.action;
+Sts.owner := Inp.transport.owner; Sts.action_ := Inp.transport.action_;
 Sts.canApply := Inp.idle AND NOT Inp.recovery;
 Sts.canResetState := Inp.idle AND Inp.manual;
 Sts.reason := Inp.drain.reason;

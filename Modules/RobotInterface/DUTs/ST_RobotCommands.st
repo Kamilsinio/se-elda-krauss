@@ -3,7 +3,7 @@ TYPE ST_RobotCommands :
 STRUCT
 openOrder : BOOL;
     endOrder : BOOL;
-    program : UINT;
+    program_ : UINT;
     manual : BOOL;
     automatic : BOOL;
     robotEnable : BOOL;

@@ -29,7 +29,7 @@ Reason := 80;
 IF Invalidate THEN Required := TRUE; END_IF;
 validProposal := Proposal.valid AND Proposal.schema = 4 AND Proposal.occupancyKnown AND
     Plant.contextRestored AND Plant.retentionVerified AND Proposal.occupied[4] = Proposal.elevatorLoadPresent;
-IF Proposal.orderActive AND ((Proposal.program <> 1 AND Proposal.program <> 2) OR Proposal.batchCount = 0) THEN
+IF Proposal.orderActive AND ((Proposal.program_ <> 1 AND Proposal.program_ <> 2) OR Proposal.batchCount = 0) THEN
     validProposal := FALSE;
 END_IF;
 FOR i := 1 TO 2 DO

@@ -15,17 +15,33 @@ def validate():
                  'Modules/PRG_IO_Read.st','Modules/PRG_IO_Write.st','Modules/PRG_Main.st']:
         r.load(path)
     globals={}
+    global_declarations=[]
     for file in ['GVL_IO','GVL_HMI','GVL_Robot','GVL_RobotRetain','GVL_Station']:
         text=(ROOT/'GVLs'/f'{file}.st').read_text(encoding='utf-8')
         for match in re.finditer(r'\bTYPE\s+\w+\s*:.*?\bEND_TYPE',text,re.S):r.load_type(match[0])
-        fields={}
+        rows=[]
         for match in re.finditer(r'\bVAR_GLOBAL(?:\s+PERSISTENT\s+RETAIN|\s+CONSTANT)?\s+(.*?)END_VAR',text,re.S):
             p=Parser(match[1]+' END_VAR')
-            for name,typ,_ in p.declarations():fields[name]=typ
-        globals[file]=('fields',fields)
+            rows.extend(p.declarations())
+        global_declarations.append((file,rows))
+        globals[file]=('fields',{name:typ for name,typ,_ in rows})
     globals['GVL_IO_RAW']='external'
     globals['Altivar_320']='external' # Natywny Axis_Ref, GAP-06; nie jest modelem napedu.
     errors=[]
+    # IEC identifiers are case-insensitive; ACTION, PROGRAM and REFERENCE are reserved.
+    declarations=[(name,rows) for name,rows in r.types.items()]
+    declarations += [(name,definition[0]) for name,definition in r.definitions.items()]
+    declarations += global_declarations
+    for scope,rows in declarations:
+        seen={}
+        for member,_,_ in rows:
+            key=member.casefold()
+            if key in seen:
+                errors.append(scope+': duplicate identifier '+member+' conflicts with '+seen[key]+' (case-insensitive)')
+            else:
+                seen[key]=member
+            if key in {'action','program','reference'}:
+                errors.append(scope+': reserved identifier '+member.upper()+'; use '+member.lower()+'_')
     def infer(e,env):
         k=e[0]
         if k=='const':return 'scalar'

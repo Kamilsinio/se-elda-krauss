@@ -12,7 +12,7 @@ class CoupledCell:
     def __init__(self,mode=2,bootstrap=True):
         # Reuse validated synthetic native/geometry setup, then replace its PLC peer.
         self.robot=Cell(mode=mode)
-        self.mode=mode;self.r=runtime();self.c=context(self.r);self.c['program']=mode
+        self.mode=mode;self.r=runtime();self.c=context(self.r);self.c['program_']=mode
         self.proposal=copy.deepcopy(self.c);self.p=plant(self.r);self.cfg=config(self.r)
         self.cfg['link'].update(peerTimeout=2000,syncTimeout=5000)
         self.hmi=self.r.value('ST_RobotHmiV2');self.drain=self.r.value('ST_RobotDrain')

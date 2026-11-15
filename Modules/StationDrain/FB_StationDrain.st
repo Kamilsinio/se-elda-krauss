@@ -10,7 +10,7 @@ VAR_OUTPUT
  Sts : ST_StationDrainStatus;
 END_VAR
 Drain.connected := TRUE;
-Sts.action := E_StationAction.NONE;
+Sts.action_ := E_StationAction.NONE;
 Sts.reason := 0;
 IF NOT Drain.request THEN
  Drain.accepted := FALSE; Drain.busy := FALSE; Drain.done := FALSE; Drain.fault := FALSE;
@@ -33,10 +33,10 @@ CASE Sts.state OF
    IF Inp.emptyConfirmed THEN
     Drain.done := TRUE; Drain.emptyConfirmed := TRUE; Sts.state := E_StationDrainState.COMPLETE;
    ELSIF Inp.occupied[4] AND Inp.lowerCanAccept THEN
-    IF Inp.atBottom THEN Sts.action := E_StationAction.DISCHARGE; ELSE Sts.action := E_StationAction.ELEV_BOTTOM; END_IF;
-   ELSIF Inp.occupied[5] OR Inp.occupied[6] OR Inp.occupied[7] THEN Sts.action := E_StationAction.UNLOAD;
+    IF Inp.atBottom THEN Sts.action_ := E_StationAction.DISCHARGE; ELSE Sts.action_ := E_StationAction.ELEV_BOTTOM; END_IF;
+   ELSIF Inp.occupied[5] OR Inp.occupied[6] OR Inp.occupied[7] THEN Sts.action_ := E_StationAction.UNLOAD;
    ELSIF NOT Inp.occupied[4] AND (Inp.occupied[1] OR Inp.occupied[2] OR Inp.occupied[3]) THEN
-    IF NOT Inp.atTop THEN Sts.action := E_StationAction.ELEV_TOP; ELSE Sts.action := E_StationAction.FEED; END_IF;
+    IF NOT Inp.atTop THEN Sts.action_ := E_StationAction.ELEV_TOP; ELSE Sts.action_ := E_StationAction.FEED; END_IF;
    END_IF;
 
   END_IF;

@@ -10,7 +10,7 @@ STRUCT
     localReady : BOOL;
     drainStep : E_StationDrainState;
     owner : E_StationOwner;
-    action : E_StationAction;
+    action_ : E_StationAction;
     reason : UINT;
     canApply : BOOL;
     canResetState : BOOL;

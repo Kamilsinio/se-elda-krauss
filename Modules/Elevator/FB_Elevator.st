@@ -559,7 +559,7 @@ xAtvEnable := xEnable AND stIn.xSafetyOk AND stIn.xDoorClosed AND stStat.xVfdCom
 
 stOut.Drive.enable := xAtvEnable;
 stOut.Drive.forward := xAtvFwd; stOut.Drive.reverse := xAtvRev;
-stOut.Drive.reset := tpVfdReset.Q; stOut.Drive.reference := UINT_TO_WORD(uiRef_0p1Hz);
+stOut.Drive.reset := tpVfdReset.Q; stOut.Drive.reference_ := UINT_TO_WORD(uiRef_0p1Hz);
 
 stOut.xRunUp   := xMoveUpReq;
 stOut.xRunDown := xMoveDownReq;

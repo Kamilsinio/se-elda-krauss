@@ -49,8 +49,8 @@ IF Cmd.applyQuantity THEN
 END_IF;
 IF Cmd.openOrder THEN
  IF NOT Context.orderActive AND NOT RecoveryRequired AND Context.valid AND Context.batchCount > 0 AND
-  (Cmd.program = 1 OR Cmd.program = 2) AND NOT manualMode AND Sts.settled THEN
-  Context.orderActive := TRUE; Context.ending := FALSE; Context.program := Cmd.program;
+  (Cmd.program_ = 1 OR Cmd.program_ = 2) AND NOT manualMode AND Sts.settled THEN
+  Context.orderActive := TRUE; Context.ending := FALSE; Context.program_ := Cmd.program_;
   Context.drainRequested := FALSE; Context.drainResumeRequired := FALSE;
  ELSE Sts.reason := 30; END_IF;
 END_IF;

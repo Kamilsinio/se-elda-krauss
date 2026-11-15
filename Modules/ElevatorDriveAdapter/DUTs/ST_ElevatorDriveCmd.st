@@ -4,6 +4,6 @@ STRUCT
  forward : BOOL;
  reverse : BOOL;
  reset : BOOL;
- reference : WORD;
+ reference_ : WORD;
 END_STRUCT
 END_TYPE
