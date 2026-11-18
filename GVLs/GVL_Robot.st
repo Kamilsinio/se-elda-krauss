@@ -3,6 +3,11 @@
    Plant to znormalizowane wejscia, Sts.* jedyny wlasciciel komend robot/IMM. *)
 {attribute 'qualified_only'}
 VAR_GLOBAL
+    // Obraz skanera EtherNet/IP: mapowanie calych tablic WORD w I/O Mapping.
+    EipInWords : ARRAY[0..39] OF WORD; // Robot -> PLC, 80 bajtow.
+    EipOutWords : ARRAY[0..39] OF WORD; // PLC -> robot, 80 bajtow.
+    // Konwersja do/z obrazu BYTE w PRG_IO_Read i PRG_IO_Write.
+
     RawIn : ARRAY[0..79] OF BYTE;
     RawOut : ARRAY[0..79] OF BYTE;
     Rx : ST_RobotRxV2;
