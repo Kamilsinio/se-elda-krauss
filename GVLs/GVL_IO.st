@@ -1,7 +1,3 @@
-
-
-
-
 {attribute 'qualified_only'}
 // variable mapping 
 // used directly in FBS

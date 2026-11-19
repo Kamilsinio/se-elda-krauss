@@ -74,3 +74,13 @@ Podstawa: DEC-01–32, archiwalne programy tacek/BOX, dokumentacja instalacji i 
 Dodano [implementację PLC i testy rzeczywistych źródeł ST z LIVE LS](plc-robot-implementation.md). Zachowano 65 testów FANUC i nie zmieniono LS. Wspólny model przenosi pełne ramki 80 B i wykonuje dwa cykle obu produkcji, Stop N+1, próbki/odrzuty i utratę partnera.
 
 Nie wykonano kompilacji Machine Expert, importu FANUC, konfiguracji EtherNet/IP ani prób fizycznych. Żadnego native bindingu ani dopuszczenia ruchu nie zmieniono na zatwierdzone na podstawie modelu.
+
+## Kompilacja Machine Expert — aktualizacja 2026-11-19
+
+**POTWIERDZONE PRZEZ UŻYTKOWNIKA:** 2026-11-19 projekt zbudował się w Machine Expert V2.3 bez błędów po przeniesieniu struktur RAW do osobnych DUT i podmianie poprawionych źródeł. Status pozostałych ostrzeżeń nie został podany. Potwierdzenie pochodzi z rozmowy; agent nie wykonywał kompilacji natywnej samodzielnie.
+
+Zmiany obejmują konwersję obrazu skanera FANUC 40 WORD ↔ 80 BYTE przed dekodowaniem i po kodowaniu, wydzielone ST_GVL_IO_DI_RAW/ST_GVL_IO_DO_RAW oraz odtwarzanie zajętości transportu przez Inp.Reconcile/Restored zamiast zewnętrznego zapisu do VAR_OUTPUT Sts. Audyt odrzuca teraz niedozwolony zapis do wyjść i prywatnych pól innych FB.
+
+Weryfikacja tej zmiany: audyt check_plc_structure.py oraz 98 testów offline: check_plc_robot.py (41), check_station.py (32), check_station_integration.py (25). Testy obejmują kolejność bajtów, pełne ramki i rezerwy, odzyskiwanie zajętości przy ważnych wejściach i postoju oraz regresje cykli stacji.
+
+Potwierdzenie kompilacji aktualizuje wcześniejsze wpisy o jej niewykonaniu. Próby komunikacji online, import FANUC i odbiór fizyczny pozostają oddzielnymi etapami; nie zmieniono zatwierdzeń ruchu ani bindingów na podstawie samego builda.

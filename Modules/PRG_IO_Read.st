@@ -1,6 +1,7 @@
 PROGRAM PRG_IO_Read
 VAR
     decoder : FB_RobotCodec;
+    iEip : INT; // Indeks slowa obrazu EtherNet/IP: 0..39.
 END_VAR
 (**************************)	
 (********* INPUTS *********)	
@@ -108,6 +109,16 @@ GVL_IO.di.ATV320_stsWord := GVL_IO_RAW.di.ATV320_stsWord_ETA3201;
 GVL_IO.di.ATV320_currentFreq := GVL_IO_RAW.di.ATV320_currentFrequency_RFR3202;
 GVL_IO.di.ATV320_axisExcess := GVL_IO_RAW.di.ATV320_axisExcessError_L4D4004;
 
+
+(* FANUC -> PLC: 40 WORD ze skanera -> 80 BYTE kodeka v2.
+   Little endian: mlodszy bajt slowa pod indeksem parzystym.
+   Przepisujemy cala ramke, lacznie z rezerwami; waznosc ocenia diagnostyka linku. *)
+FOR iEip := 0 TO 39 DO
+    GVL_Robot.RawIn[2 * iEip] :=
+        TO_BYTE(WORD_TO_UINT(GVL_Robot.EipInWords[iEip]) AND 255);
+    GVL_Robot.RawIn[2 * iEip + 1] :=
+        TO_BYTE(SHR(GVL_Robot.EipInWords[iEip], 8));
+END_FOR;
 
 decoder(RawIn := GVL_Robot.RawIn);
 GVL_Robot.Rx := decoder.Rx;

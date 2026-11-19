@@ -1,6 +1,7 @@
 PROGRAM PRG_IO_Write
 VAR
     encoder : FB_RobotCodec;
+    iEip : INT; // Indeks slowa obrazu EtherNet/IP: 0..39.
 END_VAR
 (* DO: dout -> RAW *)
 
@@ -81,3 +82,12 @@ GVL_IO_RAW.dout.spare_qx8_7 := GVL_IO.dout.spare_qx8_7;
 
 encoder(Tx := GVL_Robot.Tx);
 GVL_Robot.RawOut := encoder.RawOut;
+
+(* PLC -> FANUC: po kodowaniu biezacego Tx przepisujemy 80 BYTE do 40 WORD.
+   Little endian: pierwszy bajt pary zajmuje bity 0..7, drugi bity 8..15.
+   Zapis calej ramki obejmuje rowniez rezerwy wyzerowane przez kodek. *)
+FOR iEip := 0 TO 39 DO
+    GVL_Robot.EipOutWords[iEip] := UINT_TO_WORD(
+        TO_UINT(GVL_Robot.RawOut[2 * iEip])
+        OR SHL(TO_UINT(GVL_Robot.RawOut[2 * iEip + 1]), 8));
+END_FOR;

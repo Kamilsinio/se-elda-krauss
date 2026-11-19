@@ -1,5 +1,7 @@
 # PLC–FANUC v2 — implementacja źródeł i integracja
 
+Aktualizacja 2026-11-19: użytkownik potwierdził zbudowanie projektu w Machine Expert V2.3 bez błędów po poprawkach zgodności i wydzieleniu DUT I/O RAW. [Aktualny zapis weryfikacji](robot-communication-verification.md#kompilacja-machine-expert--aktualizacja-2026-11-19) uzupełnia historyczny stan opisany niżej.
+
 Aktualizacja stacyjna 2026-11-15: opisane niżej ograniczenie Drain do samego interfejsu dotyczy poprzedniego pakietu. Aktualny wykonawca, transport, alarmy i rozszerzenie HMI są w [implementacji modułów stacji](station-plc-implementation.md). Kontekst PLC ma schema=4, HMI wersję 4; wire FANUC nadal v2/80 B.
 
 Stan: 2026-11-15. **ŹRÓDŁA I TESTY OFFLINE. NIE SKOMPILOWANO W MACHINE EXPERT, NIE URUCHOMIONO NA URZĄDZENIACH.**

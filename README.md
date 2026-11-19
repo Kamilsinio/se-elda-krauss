@@ -1,5 +1,7 @@
 # SE-ELDA-Krauss
 
+Aktualizacja 2026-11-19: **użytkownik potwierdził zbudowanie projektu w Machine Expert V2.3 bez błędów**. Przygotowano konwersję obrazu FANUC 40 WORD ↔ 80 BYTE, wydzielono DUT I/O RAW i poprawiono odtwarzanie zajętości transportu przez wejścia FB. Audyt statyczny i 98 testów offline przeszły poprawnie. [Zapis weryfikacji i zakres potwierdzenia](docs/robot-communication-verification.md#kompilacja-machine-expert--aktualizacja-2026-11-19).
+
 Aktualizacja po review 2026-11-15: poprawiono blokady Manual, końcowe wyjścia, lokalne timeouty, recovery materiału, warunki Apply i signed RFR. Dodano jawne lokalne polityki usterek, testy regresji i CI. [Zmiany, nowe porty i migracja](docs/plc-review-fixes.md). Kompilacja natywna i odbiór sprzętowy nadal niewykonane.
 
 Integracja 2026-11-15: typowany StationController, cienki PRG_Main, adapter GIATV, lokalne recovery, rezerwacje zasobów oraz zdarzeniowy model materiału. Kontekst i HMI mają wersję 4, wire robota pozostaje v2. [Architektura, migracja i dalsze uruchomienie](docs/station-integration.md).

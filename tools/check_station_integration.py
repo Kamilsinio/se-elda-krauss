@@ -7,6 +7,29 @@ from check_plc_robot import context,plant
 
 class AuditedFailures(unittest.TestCase):
     def setUp(self):self.r=station_runtime()
+    def test_transport_reconcile_requires_request_validity_and_standstill(self):
+        blocks = [
+            ('FB_TopFlowManager', 'ST_TopFlowCfg', 'ST_TopFlowCmd', 'ST_TopFlowIn', ('OccP1','OccP2','OccP3'), ('TopConveyor_Run','ElevConv_RunFwd')),
+            ('FB_BottomAccumulator_567', 'ST_Bottom567Cfg', 'ST_Bottom567Cmd', 'ST_Bottom567In', ('Occ5','Occ6','Occ7'), ('ConvRun','ElevConv_RunBwd')),
+        ]
+        for block,cfg_type,cmd_type,input_type,occupied,motion in blocks:
+            for mask in range(8):
+                for request,valid,stopped in [(False,True,True),(True,False,True),(True,True,False),(True,True,True)]:
+                    with self.subTest(block=block,mask=mask,request=request,valid=valid,stopped=stopped):
+                        f=self.r.instance(block)
+                        initial=[True,False,True]
+                        for key,value in zip(occupied,initial):f.v['Sts'][key]=value
+                        f.v['Sts']['State']=40
+                        inp=self.r.value(input_type)
+                        inp.update(Reconcile=request,Valid=valid,BeltsStopped=stopped)
+                        restored=[bool(mask & (1 << bit)) for bit in range(3)]
+                        inp['Restored'].update({index+1:value for index,value in enumerate(restored)})
+                        f.run(Cfg=self.r.value(cfg_type),Cmd=self.r.value(cmd_type),Inp=inp)
+                        accepted=request and valid and stopped
+                        self.assertEqual([f.v['Sts'][key] for key in occupied],restored if accepted else initial)
+                        self.assertEqual(f.v['Sts']['State'],10 if accepted else 40)
+                        self.assertFalse(any(f.v['Outp'][key] for key in motion))
+
     def test_stopper_timeout_does_not_publish_new_movement(self):
         f=self.r.instance('FB_StopperPair');cfg=self.r.value('ST_StopperPairCfg')
         cfg.update(tStable=10,tTimeout=20,HoldCoilInEndPos=True)
@@ -220,5 +243,58 @@ class FullStationTests(unittest.TestCase):
         c.start();c.until(lambda:not c.c['orderActive'],limit=400)
         self.assertFalse(any(c.positions.values()))
         self.assertTrue(c.controller.v['Outp']['station_Material']['emptyConfirmed'])
+
+class EtherNetIpImageTests(unittest.TestCase):
+    """Execute the actual I/O programs; hardware transport remains synthetic."""
+    def setUp(self):
+        from plc_station_main import MainCell
+        self.cell = MainCell()
+        self.robot = self.cell.g['GVL_Robot']
+
+    def test_input_bit_positions_endianness_and_current_scan_decode(self):
+        import struct
+        frames = [[0] * 40, [65535] * 40]
+        frames += [[1 << bit] * 40 for bit in range(16)]
+        frames += [[((index + 1) * 0x0102 + 0x0080) & 65535 for index in range(40)], [0] * 40]
+        self.robot['EipOutWords'].update({index: 0xA55A for index in range(40)})
+        self.robot['RawOut'].update({index: 0x5A for index in range(80)})
+        for number, words in enumerate(frames):
+            with self.subTest(frame=number):
+                self.robot['EipInWords'].update(dict(enumerate(words)))
+                self.robot['RawIn'].update({index: 0xCC for index in range(80)})
+                self.cell.g['PRG_IO_Read'].run()
+                self.assertEqual(bytes(self.robot['RawIn'][index] for index in range(80)),
+                                 struct.pack('<40H', *words))
+                self.assertEqual(self.robot['Rx']['link_version'], words[4])
+                self.assertEqual(self.robot['Rx']['link_heartbeat'], words[5])
+                self.assertEqual(list(self.robot['EipInWords'].values()), words)
+                self.assertTrue(all(value == 0xA55A for value in self.robot['EipOutWords'].values()))
+                self.assertTrue(all(value == 0x5A for value in self.robot['RawOut'].values()))
+
+    def test_output_uses_current_encoded_frame_and_clears_stale_reserves(self):
+        import json
+        import struct
+        from check_plc_robot import ROOT
+        from build_plc_robot import field
+        signals = json.loads((ROOT / 'ROBOT/COMM/mapping.json').read_text(encoding='utf-8'))['signals']
+        self.robot['EipInWords'].update({index: 0xA55A for index in range(40)})
+        self.robot['RawIn'].update({index: 0x5A for index in range(80)})
+        for number, value in enumerate([0, 1, 32768, 65535, 0]):
+            with self.subTest(value=value, frame=number):
+                tx = self.cell.r.value('ST_RobotTxV2')
+                for index, row in enumerate(signals):
+                    if row['id'].startswith('p2r.'):
+                        tx[field(row['id'])] = bool((index + number) % 2) if row['type'] == 'BOOL' else value
+                self.robot['Tx'] = tx
+                self.robot['EipOutWords'].update({index: 0xDEAD for index in range(40)})
+                self.cell.g['PRG_IO_Write'].run()
+                packet = bytes(self.robot['RawOut'][index] for index in range(80))
+                self.assertEqual(tuple(self.robot['EipOutWords'][index] for index in range(40)),
+                                 struct.unpack('<40H', packet))
+                self.assertEqual(self.robot['EipOutWords'][8], value)
+                self.assertEqual(self.robot['EipOutWords'][9], value)
+                self.assertTrue(all(self.robot['EipOutWords'][index] == 0 for index in range(36, 40)))
+                self.assertTrue(all(value == 0xA55A for value in self.robot['EipInWords'].values()))
+                self.assertTrue(all(value == 0x5A for value in self.robot['RawIn'].values()))
 
 if __name__=='__main__':unittest.main(verbosity=2)

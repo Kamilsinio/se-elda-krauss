@@ -1,6 +1,6 @@
 {
-  "date": "2026-11-15",
-  "verification": "offline source review fixes; native compile and FAT/SAT not performed",
+  "date": "2026-11-19",
+  "verification": "Targeted PLC source checks passed; error-free Machine Expert V2.3 build reported by user; physical commissioning and FAT/SAT not performed",
   "hashNormalization": "UTF-8 source with LF line endings",
   "contextSchema": 4,
   "hmiVersion": 4,
@@ -16,15 +16,15 @@
     },
     {
       "path": "GVLs/GVL_IO.st",
-      "sha256": "940f64adc5caa5c0b846f03536e36f7ede747563ecf5f66d477133d099f6e321"
+      "sha256": "b319505571b2327f848365c3b7be18813ca65f1af0e94bf507005f45f0e3c46b"
     },
     {
       "path": "GVLs/GVL_IO_RAW.st",
-      "sha256": "f1239e3c5cef4b3a5f2ebe6f70cde9092756162d30b8a25e673857ccf3db9332"
+      "sha256": "bebcef17e099ad620d9a488cea5d4851bb7873ef58f4ec89148186bd0a310c6d"
     },
     {
       "path": "GVLs/GVL_Robot.st",
-      "sha256": "bbb5e0a4b6b535187524ac85d165bcc9b22c63430a249b16a99f744eda601584"
+      "sha256": "c93f226d484a49d85aa6e7d80e6db08ad238137a77bb44becf8f08d268cc4283"
     },
     {
       "path": "GVLs/GVL_RobotRetain.st",
@@ -33,6 +33,14 @@
     {
       "path": "GVLs/GVL_Station.st",
       "sha256": "f899d367676b5eda134911eef65f03f0e42bff4821d97de896a65dcfc43de440"
+    },
+    {
+      "path": "GVLs/ST_GVL_IO_DI_RAW.st",
+      "sha256": "effa5870d275e771f18894c231cc1ec79d7146f9fe584c2496f0377371577557"
+    },
+    {
+      "path": "GVLs/ST_GVL_IO_DO_RAW.st",
+      "sha256": "7c4ef8535e2558186e589412a4630e7ffdc797321dae383b9827ee77532f9e24"
     },
     {
       "path": "Modules/AlarmManager/DUTs/ST_StationAlarmCfg.st",
@@ -256,11 +264,11 @@
     },
     {
       "path": "Modules/PRG_IO_Read.st",
-      "sha256": "23565f7665f8480ebcfa8064be76ad711a58bde322596020d6c3b33600a5aa3c"
+      "sha256": "82795eec310f1265ce59736ff8ae29833b94aa43dc7dae0898058793c3f8c817"
     },
     {
       "path": "Modules/PRG_IO_Write.st",
-      "sha256": "6dbaba5bd39e85f079e7eb945019e27b1c260d08a0fef2acda33136d4a019aa7"
+      "sha256": "b61bf4d446803967f54a2c26979982f2f73fa7fd5b5f1a759cfbf2249fa22c06"
     },
     {
       "path": "Modules/PRG_Main.st",
@@ -524,7 +532,7 @@
     },
     {
       "path": "Modules/StationController/FB_StationController.st",
-      "sha256": "302b5c37dc5bd14d9f0c69bc287814a4c81da4964ee4d891578391109a8900be"
+      "sha256": "60165b0ba6a71a9180a516503d9c41f2dd43d45c0a6fa1d24828b65a8ff8eeb3"
     },
     {
       "path": "Modules/StationDrain/DUTs/E_StationDrainState.st",
@@ -760,7 +768,7 @@
     },
     {
       "path": "Modules/TopFlowManager/DUTs/ST_TopFlowIn.st",
-      "sha256": "6c2a77cf4d70af34773b3d04228dc58cddcc28ea67a52bd6f58d7e9c271e9ec2"
+      "sha256": "862257921a57b6f750b7261f8ddcd1711b07b3e5481209b7d91e6861191da01b"
     },
     {
       "path": "Modules/TopFlowManager/DUTs/ST_TopFlowOut.st",
@@ -772,7 +780,7 @@
     },
     {
       "path": "Modules/TopFlowManager/FB_TopFlowManager.st",
-      "sha256": "aac1df317d645f522c598dc5afb70604a3439d9d53dbc94ecbc2abdc908c4291"
+      "sha256": "65f740dac43d6e54d11b5a5ccb990ea3da4d1d257c7f99aecc6a8e72f6aa74d9"
     },
     {
       "path": "Modules/TraySequencer/DUTs/E_TraySeqFault.st",
@@ -1084,11 +1092,11 @@
     },
     {
       "path": "tools/check_plc_robot.py",
-      "sha256": "6282317718bb2ca55ff3ef9abd05f8b44f1bc853aab8a43fc7a7a8a0dfb3442f"
+      "sha256": "be95008bcd5c741cfed357e4efc696a2c32cd526520f8130420a58e845fed939"
     },
     {
       "path": "tools/check_plc_structure.py",
-      "sha256": "c5996b1c77724fbbd941b6bc8eb80611884fc2c1c049da029251abff94dd8a31"
+      "sha256": "1d76bb3066ce6c9bbb164b027615acde4a66bd4d2886ec6875fa53622db61150"
     },
     {
       "path": "tools/check_robot_contract.py",
@@ -1100,7 +1108,7 @@
     },
     {
       "path": "tools/check_station_integration.py",
-      "sha256": "e37523f28e2796c4f73d33b753a0efc499be9cf2972ec1a1fd8b034801d13095"
+      "sha256": "7e7e91838bc17790764cbcedef970662701fec3aef44983b8e7512a297a57fa9"
     },
     {
       "path": "tools/fanuc_box.py",
@@ -1132,7 +1140,7 @@
     },
     {
       "path": "tools/plc_st_runtime.py",
-      "sha256": "664e8aaded817ac06acd6315bc7a54416f72510b34fa21d1f498a9aa12228512"
+      "sha256": "e1fb178012aaa07c4c92f11c063c92dcd20edea1efdf584774c60a8e1a1c03a6"
     },
     {
       "path": "tools/plc_station_cosim.py",
@@ -1143,8 +1151,8 @@
       "sha256": "d7097c3cf2823856142cc84bc08d6b131151822098ec8a8038887b8a25e74466"
     }
   ],
-  "checksPassed": 13,
-  "behaviorReadabilityTestsPassed": 179,
-  "nativeCompile": "NOT RUN",
+  "checksPassed": 4,
+  "behaviorReadabilityTestsPassed": 98,
+  "nativeCompile": "PASS_USER_REPORTED: Machine Expert V2.3, 2026-11-19, zero errors; warning count not reported; not independently executed by agent",
   "fatSat": "NOT RUN"
 }

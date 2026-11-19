@@ -445,6 +445,20 @@ class AdditionalChecks(unittest.TestCase):
         f.run(Cmd=cmd,LossPolicy=loss,NewPermit=True,PolicyVerified=True)
         self.assertTrue(f.v['Fault']);self.assertFalse(f.v['Applied'][7]['work'])
 
+    def test_audit_rejects_external_transport_output_writes(self):
+        from unittest.mock import patch
+        from check_plc_structure import validate
+        original_read=Path.read_text
+        station_path=(ROOT/'Modules/StationController/FB_StationController.st').resolve()
+        for instance,block in [('fbTopFlow','FB_TopFlowManager'),('fbBottom567','FB_BottomAccumulator_567')]:
+            def read_with_invalid_write(path,*args,**kwargs):
+                text=original_read(path,*args,**kwargs)
+                if path.resolve()==station_path:text+='\n'+instance+'.Sts.State := 0;\n'
+                return text
+            with self.subTest(block=block),patch.object(Path,'read_text',read_with_invalid_write):
+                errors=validate()
+            self.assertTrue(any('Write to non-input '+block+'.Sts' in error for error in errors),errors)
+
     def test_static_main_member_and_call_audit(self):
         from check_plc_structure import validate
         self.assertEqual(validate(),[])

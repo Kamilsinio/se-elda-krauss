@@ -266,14 +266,8 @@ IF reconciledNow THEN
     Context.station.lastMaterialEventId := Context.station.nextMaterialEventId;
     productionTopId := 0; productionDischargeId := 0; productionAdvanceId := 0; productionElevatorId := 0;
     (* Operator uzgodnil transfery w postoju; odtwarzamy model, nie ruch w polowie kroku. *)
-    fbTopFlow.Sts.OccP1 := Context.occupied[1];
-    fbTopFlow.Sts.OccP2 := Context.occupied[2];
-    fbTopFlow.Sts.OccP3 := Context.occupied[3];
-    fbTopFlow.Sts.State := E_TopFlowState.IDLE;
-    fbBottom567.Sts.Occ5 := Context.occupied[5];
-    fbBottom567.Sts.Occ6 := Context.occupied[6];
-    fbBottom567.Sts.Occ7 := Context.occupied[7];
-    fbBottom567.Sts.State := E_Bottom567State.IDLE;
+    (* Odtworzenie statusow transportu przez Inp.Reconcile/Restored
+       w ich FB; bez zewnetrznego zapisu do VAR_OUTPUT Sts. *)
     xElevatorLoadPresent := Context.elevatorLoadPresent;
     xBottomDonePendingTray := Context.bottomDonePendingTray;
     xBottomDonePendingBox := Context.bottomDonePendingBox;
@@ -515,6 +509,14 @@ fbTopFlow.Cmd.EmptyingMode := xEmptyRunning;
 // TrayMode: TRUE = produkcja tacek (M5 bramka, brak TG_ELEV)
 //           FALSE = produkcja kuwet (TG_ELEV możliwe, dwa transportery jednocześnie)
 fbTopFlow.Cmd.TrayMode := xModeTray;
+
+// Odtworzenie zajętości ma jawne wejście, ważność i potwierdzony postój.
+fbTopFlow.Inp.Valid := io.Sts.valid;
+fbTopFlow.Inp.Reconcile := reconciledNow;
+fbTopFlow.Inp.Restored[1] := Context.occupied[1];
+fbTopFlow.Inp.Restored[2] := Context.occupied[2];
+fbTopFlow.Inp.Restored[3] := Context.occupied[3];
+fbTopFlow.Inp.BeltsStopped := Inp.station_Inputs.beltsStopped[1] AND Inp.station_Inputs.beltsStopped[2];
 
 // Mapowanie czujników
 fbTopFlow.Inp.sPos1_raw := io.Sts.occupied[1];

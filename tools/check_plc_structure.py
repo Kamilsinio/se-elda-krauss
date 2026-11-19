@@ -73,12 +73,24 @@ def validate():
                 infer(arg,env)
                 if target in r.definitions:
                     fields={n:t for n,t,_ in r.definitions[target][0]}
-                    if name.rstrip('=>') not in fields:raise ValueError('Unknown argument '+target+'.'+str(name))
+                    argument=name[:-2] if name.endswith('=>') else name
+                    if argument not in fields:raise ValueError('Unknown argument '+target+'.'+str(name))
+                    if not name.endswith('=>') and argument not in r.definitions[target][2] | r.definitions[target][3]:
+                        raise ValueError('Not an input argument '+target+'.'+argument)
             return 'scalar'
         raise ValueError('Unsupported expression '+k)
+    def writable(expression,env):
+        if expression[0]=='member':
+            owner=infer(expression[1],env)
+            if isinstance(owner,str) and owner in r.definitions:
+                _,_,inputs,inouts=r.definitions[owner]
+                if expression[2] not in inputs | inouts:
+                    raise ValueError('Write to non-input '+owner+'.'+expression[2])
+            writable(expression[1],env)
+        elif expression[0]=='index':writable(expression[1],env)
     def body(statements,env):
         for s in statements:
-            if s[0]=='set':infer(s[1],env);infer(s[2],env)
+            if s[0]=='set':writable(s[1],env);infer(s[1],env);infer(s[2],env)
             elif s[0]=='call':infer(s[1],env)
             elif s[0]=='if':
                 for cond,branch in s[1]:infer(cond,env);body(branch,env)

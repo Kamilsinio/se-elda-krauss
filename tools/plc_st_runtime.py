@@ -227,6 +227,11 @@ class Runtime:
         self.root=Path(root); self.types={}; self.definitions={}; self.enums={}; self.dt=10; self.steps=0
         for path in sorted((self.root/"Modules").glob("*/DUTs/*.st")):
             self.load_type(path.read_text(encoding="utf-8"))
+        # Standalone I/O DUTs are separate objects in Machine Expert.
+        # AT bindings are synthetic in this offline runtime.
+        for path in sorted((self.root/"GVLs").glob("ST_*.st")):
+            text=re.sub(r"\bAT\s+%[A-Za-z0-9.]+", "", path.read_text(encoding="utf-8"))
+            self.load_type(text)
     def load_type(self,text):
         p=Parser(text)
         while p.peek()!="<EOF>":

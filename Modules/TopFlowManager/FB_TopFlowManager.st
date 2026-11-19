@@ -46,6 +46,15 @@ END_VAR
 
 Outp.TransferDonePulse := FALSE;
 
+(* Status jest zapisywany tylko wewnatrz FB. Recovery odtwarza zajetosc,
+   gdy obraz wejsc jest wazny i oba transportery potwierdzaja postoj. *)
+IF Inp.Reconcile AND Inp.Valid AND Inp.BeltsStopped THEN
+    Sts.OccP1 := Inp.Restored[1];
+    Sts.OccP2 := Inp.Restored[2];
+    Sts.OccP3 := Inp.Restored[3];
+    Sts.State := E_TopFlowState.IDLE;
+END_IF;
+
 // --- 1) Permisywy ---
 permissive := Cmd.EnableAuto AND Cmd.SafetyOK AND (NOT Diag.Fault);
 

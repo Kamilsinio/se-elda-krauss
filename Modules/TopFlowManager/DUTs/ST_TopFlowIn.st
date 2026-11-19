@@ -1,5 +1,11 @@
 TYPE ST_TopFlowIn :
 STRUCT
+    // Jawne odtworzenie zajętości po zatwierdzonym recovery w postoju.
+    Valid : BOOL;
+    Reconcile : BOOL;
+    Restored : ARRAY[1..3] OF BOOL;
+    BeltsStopped : BOOL;
+
     // surowe czujniki (migają w ruchu!)
     sPos1_raw : BOOL; // ind_container_in_pos_1
     sPos2_raw : BOOL; // ind_container_in_pos_2
