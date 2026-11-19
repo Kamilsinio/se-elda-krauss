@@ -8,7 +8,7 @@ uiMode : UINT;
     xWorkWithRobot : BOOL;
     xRobotHomeValid : BOOL;
     xCanPhysicalStart : BOOL;
-    sStartBlockReason : STRING[120];
+    sStartBlockReason : STRING[80];
     xOpsSettled : BOOL;
     xStationEmpty : BOOL;
     uiRobotStep : UINT;

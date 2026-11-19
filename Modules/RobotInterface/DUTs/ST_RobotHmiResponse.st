@@ -6,6 +6,6 @@ udiSessionId : UDINT;
     xAck : BOOL;
     uiResult : UINT;
     uiReason : UINT;
-    sReason : STRING[120];
+    sReason : STRING[80];
 END_STRUCT
 END_TYPE

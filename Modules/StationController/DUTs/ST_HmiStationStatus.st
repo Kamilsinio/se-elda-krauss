@@ -25,7 +25,7 @@ STRUCT
     xElevBusy           : BOOL;
     xElevFault          : BOOL;
     rElevFreq_Hz        : REAL;  // aktualna częstotliwość VFD
-    sElevDiagText       : STRING[120];
+    sElevDiagText       : STRING[80];
 
     (* Transportery *)
     xConvTopRunning     : BOOL;
@@ -40,9 +40,9 @@ STRUCT
     xConvTopFault       : BOOL;
     xConvElevFault      : BOOL;
     xConvBottomFault    : BOOL;
-    sConvTopDiagText    : STRING[120];
-    sConvElevDiagText   : STRING[120];
-    sConvBottomDiagText : STRING[120];
+    sConvTopDiagText    : STRING[80];
+    sConvElevDiagText   : STRING[80];
+    sConvBottomDiagText : STRING[80];
 
     (* Stopery / pozycjonery — stan zagregowany (kompatybilność wstecz) *)
     xM1_Extended        : BOOL;
@@ -77,14 +77,14 @@ STRUCT
     xM6_Fault           : BOOL;
     xM7_Fault           : BOOL;
     xM8_Fault           : BOOL;
-    sM1DiagText         : STRING[120];
-    sM2DiagText         : STRING[120];
-    sM3DiagText         : STRING[120];
-    sM4DiagText         : STRING[120];
-    sM5DiagText         : STRING[120];
-    sM6DiagText         : STRING[120];
-    sM7DiagText         : STRING[120];
-    sM8DiagText         : STRING[120];
+    sM1DiagText         : STRING[80];
+    sM2DiagText         : STRING[80];
+    sM3DiagText         : STRING[80];
+    sM4DiagText         : STRING[80];
+    sM5DiagText         : STRING[80];
+    sM6DiagText         : STRING[80];
+    sM7DiagText         : STRING[80];
+    sM8DiagText         : STRING[80];
 
     (* Krańcówki siłowników — każdy czujnik osobno *)
     (* M1 — pozycjoner załadunku *)
@@ -133,7 +133,7 @@ STRUCT
     xSafetyDoorReadyToRun    : BOOL;
     xSafetyDoorBusy          : BOOL;
     xSafetyDoorFault         : BOOL;
-    sSafetyDoorDiagText      : STRING[120];
+    sSafetyDoorDiagText      : STRING[80];
 
     (* Magazyn przekładek *)
     uiStorageState              : UINT;
@@ -148,7 +148,7 @@ STRUCT
     xStorageEmpty               : BOOL;
     xStorageBusy                : BOOL;
     xStorageFault               : BOOL;
-    sStorageDiagText            : STRING[120];
+    sStorageDiagText            : STRING[80];
 
     (* Robot *)
     xRobotAutoMode      : BOOL;
@@ -164,10 +164,10 @@ STRUCT
     uiBoxSeqState       : UINT;
     uiTopFlowState      : UINT;
     uiBottomState       : UINT;
-    sTopFlowDiagText    : STRING[120];
-    sBottomDiagText     : STRING[120];
-    sTraySeqDiagText    : STRING[120];
-    sBoxSeqDiagText     : STRING[120];
+    sTopFlowDiagText    : STRING[80];
+    sBottomDiagText     : STRING[80];
+    sTraySeqDiagText    : STRING[80];
+    sBoxSeqDiagText     : STRING[80];
 
     (* Liczniki produkcji *)
     uiTraysDone         : UINT;   // tacki ułożone w bieżącym stosie

@@ -3,6 +3,6 @@ TYPE ST_RobotDiag :
 STRUCT
 fault : BOOL;
     code : UINT;
-    text : STRING[120];
+    text : STRING[80];
 END_STRUCT
 END_TYPE

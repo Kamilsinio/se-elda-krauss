@@ -10,6 +10,6 @@ uiContractVersion : UINT;
     xArmed : BOOL;
     xDataValid : BOOL;
     uiSessionState : UINT;
-    sDiag : STRING[120];
+    sDiag : STRING[80];
 END_STRUCT
 END_TYPE

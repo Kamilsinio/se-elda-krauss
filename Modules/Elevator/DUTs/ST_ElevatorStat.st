@@ -26,7 +26,7 @@ STRUCT
   // Faulty modułu
   xFault             : BOOL;
   uiFaultId          : UINT;
-  sDiagText          : STRING[120];
+  sDiagText          : STRING[80];
     xStandstillValid : BOOL;
     xStandstill : BOOL;
     AcceptedId : UDINT;
