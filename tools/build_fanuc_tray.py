@@ -361,17 +361,27 @@ def template(mode="TRAY"):
         iff(f"({rx['p2r.production.stopRequest']} OR {rx['p2r.production.endOrderRequest']}) AND {rx['p2r.imm.settled']} AND ({rx['p2r.imm.unsettledCount']}=0)",goto(700)),
         iff(f"{p['state']}=700",'JMP LBL[999]'),
         iff(f"!{b['trayReady']} AND {rx['p2r.production.newOperationPermit']}",goto(200))])
-    state(205,'Oczekiwanie na dostep do zrodla',[wait(60),iff(f"{rx['p2r.area.source.valid']} AND {rx['p2r.area.source.granted']}",goto(210))])
+    stop_before_entry = (
+        f"({rx['p2r.production.stopRequest']} OR {rx['p2r.production.endOrderRequest']})"
+        f" AND {rx['p2r.imm.settled']} AND ({rx['p2r.imm.unsettledCount']}=0)"
+        f" AND !{rx['p2r.imm.pickupPending']} AND !{b['batchAssigned']}")
+    cancel_source = [
+        put(b['safe'],stop_before_entry),
+        iff(f"{b['safe']} AND !{b['sourceInside']} AND ({b['sourceExited']} OR {raw['home']})",goto(700)),
+        iff(f"{p['state']}=700",no(app['r2p.area.source.accessReq'])),
+        iff(f"{p['state']}=700",'JMP LBL[999]')]
+    state(205,'Oczekiwanie na dostep do zrodla',[wait(60)]+cancel_source+[
+        iff(f"{rx['p2r.area.source.valid']} AND {rx['p2r.area.source.granted']}",goto(210))])
     empty_checks=[]
     for i in range(5):
         checked(empty_checks,f"!({bit(active['trayMask'],i)}) OR !{rx[f'p2r.vac.{i+1}.ok']}",1502)
     state(200,'Zadanie dostepu do zrodla',empty_checks+[
-        no(b['sourceExited']),yes(app['r2p.area.source.accessReq']),
+        yes(app['r2p.area.source.accessReq']),
         put(p['mask'],active['trayMask']),put(p['searchDepth'],0),put(p['attempt'],0),goto(205)])
     state(210,'Dostep i dojazd do stosu',[
-        wait(60),'CALL RG_FOLD',
+        wait(60),'CALL RG_FOLD',iff('!'+b['cylDone'],'JMP LBL[999]')]+cancel_source+[
         iff(f"!{rx['p2r.area.source.valid']} OR !{rx['p2r.area.source.granted']}",'JMP LBL[999]'),
-        iff('!'+b['cylDone'],'JMP LBL[999]'),yes(b['sourceInside'])]+moved('RM_SRCIN',220))
+        no(b['sourceExited']),yes(b['sourceInside'])]+moved('RM_SRCIN',220))
     state(220,'Wlaczenie prozni tacki',[
         'CALL RG_VACON',iff(b['vacDone'],goto(240)),iff('!'+b['vacDone'],goto(225))])
     lines=[wait(50),'CALL RG_VACON',iff(b['vacDone'],goto(240)),iff(b['vacDone'],'JMP LBL[999]'),
@@ -481,7 +491,11 @@ def template(mode="TRAY"):
         iff(b['armed'],yes(c['appArm'])),iff(b['armed'],goto(10)),iff(b['armed'],'JMP LBL[999]'),
         iff(f"{rx['p2r.imm.pickupPending']} OR ({rx['p2r.imm.unsettledCount']}>0)",'JMP LBL[999]'),
         no(b['armed']),no(c['appArm']),yes(app['r2p.production.operationsSettled']),
-        yes(app['r2p.production.waitingResume']),wait(80)])
+        put(app['r2p.production.waitingResume'],rx['p2r.production.orderActive']),wait(80)])
+    state(720,'Zlecenie zamkniete - oczekiwanie na lokalne NEW',[
+        wait(80),put(b['safe'],f"{c['session']} AND {rx['p2r.imm.cycleKnown']} AND {rx['p2r.imm.settled']} AND ({rx['p2r.imm.unsettledCount']}=0) AND !{rx['p2r.imm.pickupPending']}"),
+        iff(f"{b['safe']} AND {b['newApproved']} AND {b['stationIdleConfirmed']}",'CALL RT_NEW'),
+        iff(f"{p['state']}=10",no(b['stationIdleConfirmed']))])
     state(900,'Wymagane uzgodnienie stanu',[
         no(b['armed']),no(c['appArm']),yes(b['needsRecovery']),wait(80),iff(b['newApproved'],'CALL RT_NEW'),
         iff(f"{b['recoveryApproved']} AND {b['contextChecked']}",'CALL RT_RECOV')])
@@ -491,7 +505,7 @@ def template(mode="TRAY"):
     groups={'RT_IDLE':[10],'RT_TACK':[n for n in states if 200<=n<300],
             'RT_PICK':[n for n in states if 300<=n<400],
             'RT_PLACE':[n for n in states if 400<=n<500],
-            'RT_FULL':[n for n in states if 500<=n<700],'RT_STOP':[700,710,900]}
+            'RT_FULL':[n for n in states if 500<=n<700],'RT_STOP':[700,710,720,900]}
     for name,numbers in groups.items():
         lines=[iff(f"{p['dispatch']}={n}",f'JMP LBL[{n}]') for n in numbers]+['CALL RT_BADSTATE','JMP LBL[999]']
         for n in numbers:lines += [f'LBL[{n}]','! '+states[n]['title']]+states[n]['lines']+['JMP LBL[999]']
@@ -501,8 +515,15 @@ def template(mode="TRAY"):
     lines=[iff('!'+b['selected'],'JMP LBL[999]'),iff(f"{p['state']}<>900",put(p['resumeState'],p['state'])),put(p['dispatch'],p['state']),put(app['r2p.production.step'],p['state']),wait(0),
            iff(f"{p['state']}<>{p['lastState']}",put(p['phaseSince'],c['now'])),
            put(p['lastState'],p['state'])]
-    lines += [iff(f"{b['orderWasActive']} AND !{rx['p2r.production.orderActive']}",yes(b['needsRecovery'])),iff(f"{b['orderWasActive']} AND !{rx['p2r.production.orderActive']}",goto(900)),put(b['orderWasActive'],rx['p2r.production.orderActive'])]
-    start=f"({rx['p2r.production.startToken']}<>{p['lastStart']}) AND {c['productionPermit']} AND {rx['p2r.production.orderActive']}"
+    lines += [put(b['safe'],f"{b['orderWasActive']} AND !{rx['p2r.production.orderActive']}"),
+              iff(f"{b['safe']} AND ({p['state']}=710) AND !{b['armed']} AND {app['r2p.production.operationsSettled']} AND {raw['home']}",goto(720)),
+              iff(f"{b['safe']} AND ({p['state']}=720) AND ({b['batchAssigned']} OR ({p['remaining']}<>0) OR !{app['r2p.production.loadKnown']} OR ({app['r2p.production.loadMask']}<>0))",goto(900)),
+              iff(f"{b['safe']} AND ({p['state']}=720)",no(b['newApproved'])),
+              iff(f"{b['safe']} AND ({p['state']}=720)",no(b['stationIdleConfirmed'])),
+              iff(f"{b['safe']} AND ({p['state']}<>720)",yes(b['needsRecovery'])),
+              iff(f"{b['safe']} AND ({p['state']}<>720)",goto(900)),
+              put(b['orderWasActive'],rx['p2r.production.orderActive'])]
+    start=f"({rx['p2r.production.startToken']}<>{p['lastStart']}) AND ({p['state']}<>720) AND {c['productionPermit']} AND {rx['p2r.production.orderActive']}"
     lines += [put(b['safe'],start),
               put(b['safe'],f"{b['safe']} AND {rx['p2r.production.withRobot']} AND ({rx['p2r.production.expectedProgram']}=2)"),
               put(b['safe'],f"{b['safe']} AND !{rx['p2r.production.stopRequest']} AND !{rx['p2r.production.endOrderRequest']}"),
@@ -529,7 +550,7 @@ def template(mode="TRAY"):
               put(b['safe'],f"{b['safe']} OR ({b['batchAssigned']} AND ({p['destination']}=1))"),
               put(b['safe'],f"{b['safe']} AND ({c['sampleState']}=10)"),
               iff(b['safe'],put(app['r2p.samples.result'],2)),iff(b['safe'],yes(app['r2p.samples.ack'])),
-              iff(f"!{b['armed']} AND ({p['state']}<>10) AND ({p['state']}<>710) AND ({p['state']}<>900)",'JMP LBL[999]')]
+              iff(f"!{b['armed']} AND ({p['state']}<>10) AND ({p['state']}<>710) AND ({p['state']}<>720) AND ({p['state']}<>900)",'JMP LBL[999]')]
     lines.append(put(p['work'],p['dispatch']+' DIV 100'))
     for index,(family,name) in enumerate([(0,'RT_IDLE'),(2,'RT_TACK'),(3,'RT_PICK'),(4,'RT_PLACE'),(5,'RT_FULL'),(6,'RT_FULL'),(7,'RT_STOP'),(9,'RT_STOP')]):
         lines.append((f"SELECT {p['work']}" if index==0 else '')+f'={family},CALL {name}')
@@ -539,7 +560,7 @@ def template(mode="TRAY"):
         lines += [iff(cond,yes(b['needsRecovery'])),
                   iff(cond,put(app['r2p.production.faultCode'],1700+n)),iff(cond,goto(900))]
     lines += [iff(b['needsRecovery'],yes(c['guardRequest'])),put(app['r2p.production.phase'],10)]
-    for lo,hi,phase in [(200,300,40),(300,400,20),(400,500,30),(500,700,40),(700,710,60),(710,711,70),(900,901,900)]:
+    for lo,hi,phase in [(200,300,40),(300,400,20),(400,500,30),(500,700,40),(700,710,60),(710,711,70),(720,721,70),(900,901,900)]:
         lines.append(iff(f"({p['state']}>={lo}) AND ({p['state']}<{hi})",put(app['r2p.production.phase'],phase)))
     lines += [iff(f"({p['state']}>=400) AND ({p['state']}<500) AND ({p['destination']}<>0)",put(app['r2p.production.phase'],50)),
               'LBL[999]']

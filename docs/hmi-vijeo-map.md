@@ -1,6 +1,6 @@
 # Vijeo Designer — docelowa mapa ekranów i zmiennych
 
-Aktualizacja stacyjna 2026-11-15: zaimplementowano dodatkowe klucze transakcji, Manual ST.1–ST.4, parametry, statusy i diagnostykę według [aktualnego kontraktu stacji](station-plc-implementation.md). uiContractVersion=3. Poniższa mapa obejmuje również propozycje spoza zadeklarowanego interfejsu; do wiązania używać rzeczywistego eksportu symboli, nie podobieństwa nazw.
+Aktualizacja stacyjna 2026-11-15: zaimplementowano dodatkowe klucze transakcji, Manual ST.1–ST.4, parametry, statusy i diagnostykę według [aktualnego kontraktu stacji](station-plc-implementation.md). uiContractVersion=4. Poniższa mapa obejmuje również propozycje spoza zadeklarowanego interfejsu; do wiązania używać rzeczywistego eksportu symboli, nie podobieństwa nazw.
 
 Aktualizacja 2026-11-15: [pakiet PLC v2](plc-robot-implementation.md) implementuje podzbiór hmiV2 dla zlecenia, trybu, robota, ilości, recovery i ręcznego chwytaka. Pozostałe pola tej mapy nadal są planowane. Nie wykonano ekranów ani konfiguracji drivera/symboli. Nowe pole hmiV2.manual jest opisane w pakiecie PLC; nie podłączać starych hmiCmd jako obejścia nadzoru.
 

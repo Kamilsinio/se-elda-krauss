@@ -1,6 +1,6 @@
 {
   "date": "2026-11-19",
-  "verification": "Targeted PLC source checks passed; error-free Machine Expert V2.3 build reported by user; physical commissioning and FAT/SAT not performed",
+  "verification": "Offline PLC and FANUC source verification. Native Machine Expert compilation, FANUC import and physical FAT/SAT of this revision remain pending.",
   "hashNormalization": "UTF-8 source with LF line endings",
   "contextSchema": 4,
   "hmiVersion": 4,
@@ -96,7 +96,7 @@
     },
     {
       "path": "Modules/BottomAccumulator/FB_BottomAccumulator_567.st",
-      "sha256": "64c36031ce82a888b812db21760d10eb4faeea9345301819d311e404bbbcc02a"
+      "sha256": "f838d672eb9ddb34e8e1a36ee41b0c420e569168538690ed83bbb42c56ea960f"
     },
     {
       "path": "Modules/BoxSequencer/DUTs/E_BoxSeqFault.st",
@@ -120,7 +120,7 @@
     },
     {
       "path": "Modules/BoxSequencer/DUTs/ST_BoxSeqIn.st",
-      "sha256": "f4ed9ace84267ff3b0b3b80a1acbed9d64ac9f7f0b4ffce0ffb99eb8aafb7f91"
+      "sha256": "335c6ebeb09be99bd029415eb4e1b063f4bb04c623bec54e29d77b3517256ba9"
     },
     {
       "path": "Modules/BoxSequencer/DUTs/ST_BoxSeqOut.st",
@@ -132,7 +132,7 @@
     },
     {
       "path": "Modules/BoxSequencer/FB_BoxSequencer.st",
-      "sha256": "da1c3d37f56cb02152f487beb4906d3cfdb4fd056a5ea62063825d29de335b58"
+      "sha256": "8c4aea54e863c140233336369841f5789b06e33b4f18373165e5bba259fe3788"
     },
     {
       "path": "Modules/Conveyor/DUTs/E_ConveyorFault.st",
@@ -236,11 +236,11 @@
     },
     {
       "path": "Modules/Elevator/DUTs/ST_ElevatorStat.st",
-      "sha256": "ad7c177e76cb115377dffe4bfc270b2137d064ff30657601c74af7ec59720663"
+      "sha256": "0470332d211602d8652af78c649b5033edfb0c5305992a3c3e56dd06927c465f"
     },
     {
       "path": "Modules/Elevator/FB_Elevator.st",
-      "sha256": "6343c5fc0d6eac727535428a87ec4b0eff65e88956240659b061b1c67ebbe1f4"
+      "sha256": "15f460d2660bc64bcf5bc8c189f4d0f706df9ee382892f55cfefd406ba5708b5"
     },
     {
       "path": "Modules/ElevatorDriveAdapter/DUTs/ST_ElevatorDriveCmd.st",
@@ -260,7 +260,7 @@
     },
     {
       "path": "Modules/OrderManager/FB_OrderManager.st",
-      "sha256": "e6db8718a1f3b5bbe6cd02e9c6f584138d8779804976690bd4553fba553184d3"
+      "sha256": "f3b45bb73d2d57bc3273e94d7344dc0a4fe6c38213a2b6ef76d1666f7fb4a261"
     },
     {
       "path": "Modules/PRG_IO_Read.st",
@@ -284,11 +284,11 @@
     },
     {
       "path": "Modules/RobotController/FB_RobotController.st",
-      "sha256": "1d2b7224ab899073d9f537f94cdb6daa0e21b8a23e4c7e54ad4420dd5e5b68f8"
+      "sha256": "ca95a11efa81f115cc4609b46dc7ce8467e5a7beda8db44995fc832f303308f3"
     },
     {
       "path": "Modules/RobotCycleLedger/FB_RobotCycleLedger.st",
-      "sha256": "70b0abc0bbf890c90b4562180e3e5e63d4dd0b96940a142e2995229991bcc18e"
+      "sha256": "b8ddbd56d598ee2365e6658274dba498f1913d6327e256467c080055cfab4a14"
     },
     {
       "path": "Modules/RobotEvents/FB_RobotEvents.st",
@@ -296,7 +296,7 @@
     },
     {
       "path": "Modules/RobotGripper/FB_RobotGripper.st",
-      "sha256": "392f13f493d11d93e5e988a50ebafc2e9ea140fe39a2661c39b39370e263dd2c"
+      "sha256": "e4a3678c04bbbe440f1d97442a3cacd104df1628206d053a62beb1635193919c"
     },
     {
       "path": "Modules/RobotHmi/FB_RobotHmi.st",
@@ -452,7 +452,7 @@
     },
     {
       "path": "Modules/RobotManual/FB_RobotManual.st",
-      "sha256": "e7c6887f3b74be96479f2732b8fcb8c44aa256df5750738142b3d0f6a00ffdc7"
+      "sha256": "3c90021453e54d1d362cf383b9746ace028379d1313ddbe0f8252e85b7908390"
     },
     {
       "path": "Modules/RobotRecovery/FB_RobotRecovery.st",
@@ -532,7 +532,7 @@
     },
     {
       "path": "Modules/StationController/FB_StationController.st",
-      "sha256": "60165b0ba6a71a9180a516503d9c41f2dd43d45c0a6fa1d24828b65a8ff8eeb3"
+      "sha256": "8fbc1e6e154ae92319fe9dbc74cc8e0d334125f9d9483f7a69ff4e3920503223"
     },
     {
       "path": "Modules/StationDrain/DUTs/E_StationDrainState.st",
@@ -780,7 +780,7 @@
     },
     {
       "path": "Modules/TopFlowManager/FB_TopFlowManager.st",
-      "sha256": "65f740dac43d6e54d11b5a5ccb990ea3da4d1d257c7f99aecc6a8e72f6aa74d9"
+      "sha256": "69da9ec634704515069e6cd7c9b232326b57054246eb14264bf4a158bf1c9df4"
     },
     {
       "path": "Modules/TraySequencer/DUTs/E_TraySeqFault.st",
@@ -828,7 +828,7 @@
     },
     {
       "path": "ROBOT/BG/BG_STATUS.LS",
-      "sha256": "6f667515260ef6fcd3fff7c3fa87b91a2d020f626ddae573b7f92f34f31e12fe"
+      "sha256": "9e734d49c256f2061e374ea22e43c98825a1e2cf477ae08880a5bf77e6fd5773"
     },
     {
       "path": "ROBOT/BG/bindings.json",
@@ -836,7 +836,7 @@
     },
     {
       "path": "ROBOT/BOX/MAIN_BOX.LS",
-      "sha256": "859fb411b47724be5b76cf667649e4bf79bbaaafb8f10d2f29af64a272219a07"
+      "sha256": "14442f47979ba0b9310570cbf81cdd9ad0c6fc046e609d8dfdbd25c139918c86"
     },
     {
       "path": "ROBOT/BOX/points.csv",
@@ -844,7 +844,7 @@
     },
     {
       "path": "ROBOT/BOX/resources.json",
-      "sha256": "0ecef06830cdac5471345728a3fb70a0dba31108af98f23c9970b8fea5b9a566"
+      "sha256": "19b03c05801f316575b6806e32e1ee03d8eb5dad85428e39065fa9ce170f1d85"
     },
     {
       "path": "ROBOT/COMM/BG_PLC.LS",
@@ -1040,7 +1040,7 @@
     },
     {
       "path": "ROBOT/TRAY/MAIN_TRAY.LS",
-      "sha256": "41a29876c7454964a487c7e3b1924ee5b00c8a148b731f7da8d98bf491ec2c53"
+      "sha256": "2c69ffc92c29f0fb01be11390489270a9b606fdcac49e29f4204d6ba73df0c55"
     },
     {
       "path": "ROBOT/TRAY/points.csv",
@@ -1048,7 +1048,7 @@
     },
     {
       "path": "ROBOT/TRAY/resources.json",
-      "sha256": "15287bc5c03800026184d6e03c6bf83ba2fb0aaf245fadd68deb4aecab4d3aa1"
+      "sha256": "28eb5836aee9d2138703c1d9296daac59ea406fd6b9019e6cc211d08b22dbaf5"
     },
     {
       "path": "ROBOT/program-migration.csv",
@@ -1060,7 +1060,7 @@
     },
     {
       "path": "tools/build_fanuc_tray.py",
-      "sha256": "2d7f269744d2c580f5fea52f0d06fbd75787d1b158f65df7ba6931c2ba58fbb3"
+      "sha256": "43e3810f9ae416597235d6101de679100fb78fe11be09f2adc8f312e6d5d8693"
     },
     {
       "path": "tools/build_plc_robot.py",
@@ -1080,7 +1080,7 @@
     },
     {
       "path": "tools/check_fanuc_tray.py",
-      "sha256": "9cf0a0f14f013aef20a095ddcee1aacbbf996783fd0ef17b96688afe8001bae3"
+      "sha256": "a90a47ef98ffac7afb1b629ad25738dec2279f65ac8bbe9b343f9e8c3f82d5f1"
     },
     {
       "path": "tools/check_plc_release.py",
@@ -1088,11 +1088,11 @@
     },
     {
       "path": "tools/check_plc_review.py",
-      "sha256": "52a8bddeb9939d2cbae4ec553ae0741b436f3be97818416aee3d5c96d941c5df"
+      "sha256": "dc857b7e0816ad6c77ff2e35aa828089af276cc4ef2fa38787f3df7e6bba5460"
     },
     {
       "path": "tools/check_plc_robot.py",
-      "sha256": "be95008bcd5c741cfed357e4efc696a2c32cd526520f8130420a58e845fed939"
+      "sha256": "a39d1301fc22174a62884f4f0718b952731926dcbe9f19f114561cca85c7e023"
     },
     {
       "path": "tools/check_plc_structure.py",
@@ -1104,11 +1104,11 @@
     },
     {
       "path": "tools/check_station.py",
-      "sha256": "1d2e47a2cd2223296c79e9e81621c4079de940d60225361af2b16af778ccbf30"
+      "sha256": "fbb8288d75c9eb6686cc8be61835093719ee3dbbb1608655c4eb6b943640129e"
     },
     {
       "path": "tools/check_station_integration.py",
-      "sha256": "7e7e91838bc17790764cbcedef970662701fec3aef44983b8e7512a297a57fa9"
+      "sha256": "ce4b05e404a958534fab9935489b59b05a60d8a954e9bd6000df9fb4fbd58aec"
     },
     {
       "path": "tools/fanuc_box.py",
@@ -1116,7 +1116,7 @@
     },
     {
       "path": "tools/fanuc_common.py",
-      "sha256": "47979d4ef4480fc3b38335d44c3c2e885f3e7e1b62b44c05baded9f854d8e72f"
+      "sha256": "6b5bed9a7b4264b8cb27b6ddd45f94fa963593ec06cd740c61e8c27842a5ac55"
     },
     {
       "path": "tools/fanuc_descriptions.py",
@@ -1136,7 +1136,7 @@
     },
     {
       "path": "tools/plc_robot_cosim.py",
-      "sha256": "2731c0acfd225a2e1ea02066997e893abce22adc0db3806d3cfba6aa660273b7"
+      "sha256": "2cfb8cb78c87f4435d13aaa92a8ccee646306fcc41cc779a5b6def187647fdba"
     },
     {
       "path": "tools/plc_st_runtime.py",
@@ -1144,7 +1144,7 @@
     },
     {
       "path": "tools/plc_station_cosim.py",
-      "sha256": "9546427628f0882c21638ea150913340841abf7336619ad976fd36f1b54577b7"
+      "sha256": "4ab3d6b2ac87b9e83aee4f2ebebf3765e8300d37c5f0fa57d0392b23ceb393cf"
     },
     {
       "path": "tools/plc_station_main.py",

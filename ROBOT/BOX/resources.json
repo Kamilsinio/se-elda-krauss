@@ -1904,6 +1904,9 @@
     "710": {
       "title": "Postoj po rozliczeniu"
     },
+    "720": {
+      "title": "Zlecenie zamkniete - oczekiwanie na lokalne NEW"
+    },
     "900": {
       "title": "Wymagane uzgodnienie stanu"
     }

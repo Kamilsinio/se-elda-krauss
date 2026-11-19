@@ -111,13 +111,18 @@ class StationCell:
         if topRun and self.topTransit is None and self.positions[v['fbTopFlow'].v['Sts']['SrcPos']] is not None:
             t=v['fbTopFlow'].v['Sts'];source=t['SrcPos'];target=t['Target']
             self.topTransit=[source,target,self.positions[source],0];self.positions[source]=None
+        a['barrierBlocked'] = bool(self.topTransit and self.topTransit[0] == 1 and 1 <= self.topTransit[3] <= 3)
         if self.topTransit and topRun:
             self.topTransit[3]+=1
-            if self.topTransit[3]>=4:
+            travel_scans = 7 if self.topTransit[0] == 1 else 4
+            if self.topTransit[3]>=travel_scans:
                 source,target,load,_=self.topTransit;self.positions[target]=load;self.topTransit=None
                 if target==4:self.p4edge=self.axis+.15
         if lowerRun and self.lowerTransit is None and self.positions.get(v['fbBottom567'].v['source']) is not None:
             b=v['fbBottom567'].v;source=b['source'];target=b['target']
+            # A raised intermediate stop intercepts a carrier travelling from P5 to P7.
+            if source == 5 and target == 7 and self.coils[10]:
+                target = 6
             self.lowerTransit=[source,target,self.positions[source],0];self.positions[source]=None
         if self.lowerTransit and lowerRun:
             self.lowerTransit[3]+=1;d['ind_elevator_emptied']=self.lowerTransit[0]==4 and self.lowerTransit[3]<4

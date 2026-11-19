@@ -23,12 +23,16 @@ VAR
     authorized : ARRAY[1..10] OF BOOL;
     request : ARRAY[1..10] OF BOOL;
     changed : BOOL;
+    previousSession : UDINT;
+    sessionChanged : BOOL;
     valid : BOOL;
     i : INT;
     blowLatched : ARRAY[1..5] OF BOOL;
     blowHold : ARRAY[1..5] OF BOOL;
     blowValid : ARRAY[1..5] OF BOOL;
 END_VAR
+sessionChanged := SessionId <> previousSession;
+previousSession := SessionId;
 valid := Armed AND Permit AND ActivePanel = 115 AND Cmd.udiSessionId = SessionId AND Timeout > T#0ms;
 FOR i := 1 TO 5 DO
     request[i] := Cmd.cylHome[i] OR Cmd.cylWork[i];
@@ -37,8 +41,8 @@ END_FOR;
 FOR i := 1 TO 10 DO
     changed := Cmd.holdCounter[i] <> lastCounter[i];
     lastCounter[i] := Cmd.holdCounter[i];
-    watchdog[i](IN := NOT changed, PT := Timeout);
-    IF NOT valid OR watchdog[i].Q THEN
+    watchdog[i](IN := request[i] AND NOT changed, PT := Timeout);
+    IF NOT valid OR watchdog[i].Q OR (sessionChanged AND request[i]) THEN
         authorized[i] := FALSE;
         neutralSeen[i] := FALSE;
     ELSIF NOT request[i] THEN
@@ -49,7 +53,7 @@ FOR i := 1 TO 10 DO
     END_IF;
 END_FOR;
 FOR i := 1 TO 5 DO
-    IF NOT valid THEN blowLatched[i] := FALSE;
+    IF NOT valid OR sessionChanged THEN blowLatched[i] := FALSE;
     ELSIF NOT blowLatched[i] AND Cmd.blowReq[i] AND authorized[i + 5] THEN
         blowLatched[i] := TRUE;
         blowHold[i] := Cmd.vacHold[i];

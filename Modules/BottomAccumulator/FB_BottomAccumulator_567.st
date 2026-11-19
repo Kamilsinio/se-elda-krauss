@@ -86,7 +86,8 @@ CASE Sts.State OF
   IF Cmd.EnableAuto AND Inp.BeltsStopped AND NOT Inp.StopWarning THEN
    IF Cmd.SingleUnloadReq AND (NOT unloadAccepted OR (Cmd.UnloadId <> 0 AND Cmd.UnloadId <> lastUnloadId)) AND Sts.SingleUnloadReady THEN
     unload := TRUE; target := 7;
-    IF Sts.Occ7 THEN source := 7; ELSIF Sts.Occ6 THEN source := 6; ELSE source := 5; END_IF;
+    IF Sts.Occ7 THEN source := 7; ELSIF Sts.Occ6 THEN source := 6;
+    ELSE source := 5; target := 6; END_IF;
    ELSIF Cmd.DischargeReq AND (NOT dischargeAccepted OR (Cmd.DischargeId <> 0 AND Cmd.DischargeId <> lastDischargeId)) AND Sts.CanAcceptFromElev THEN source := 4; target := 5;
    ELSIF Cmd.AdvanceReq AND (NOT advanceAccepted OR (Cmd.AdvanceId <> 0 AND Cmd.AdvanceId <> lastAdvanceId)) AND Sts.CanAdvance THEN source := 5; target := 6;
    END_IF;
@@ -97,9 +98,9 @@ CASE Sts.State OF
    ELSE motionId := Cmd.AdvanceId; lastAdvanceId := Cmd.AdvanceId; END_IF;
    Outp.AcceptedId := motionId;
    motionCfg := Cfg;
-   IF unload THEN receiptStable := Cfg.tSensorStable; unloadAccepted := TRUE;
+   IF unload THEN receiptStable := Cfg.tSensorStable; unloadAccepted := TRUE; Sts.PickupSeen := FALSE;
    ELSIF source = 4 THEN dischargeAccepted := TRUE; ELSE advanceAccepted := TRUE; END_IF;
-   Outp.AcceptedPulse := TRUE; Sts.Busy := TRUE; Sts.PickupSeen := FALSE;
+   Outp.AcceptedPulse := TRUE; Sts.Busy := TRUE;
    seenSource := FALSE; sourceGone := FALSE;
    IF source = 7 THEN Sts.WaitingPickup := TRUE; Outp.SingleUnloadIssuedPulse := TRUE; Sts.State := E_Bottom567State.IDLE;
    ELSE Sts.State := E_Bottom567State.PRECHECK; END_IF;
@@ -147,7 +148,11 @@ CASE Sts.State OF
    IF target = 6 THEN Sts.Occ6 := TRUE; END_IF;
    IF target = 7 THEN Sts.Occ7 := TRUE; END_IF;
    Outp.MaterialMovedPulse := TRUE; Outp.MaterialSource := source; Outp.MaterialTarget := target;
-   IF unload THEN Sts.WaitingPickup := TRUE; Outp.SingleUnloadIssuedPulse := TRUE; Sts.State := E_Bottom567State.IDLE;
+   IF unload AND target = 6 THEN
+    (* Ten sam identyfikator wydania. Po postoju na P6 odblokuj drugi stoper. *)
+    source := 6; target := 7; seenSource := FALSE; sourceGone := FALSE;
+    Sts.State := E_Bottom567State.PRECHECK;
+   ELSIF unload THEN Sts.WaitingPickup := TRUE; Outp.SingleUnloadIssuedPulse := TRUE; Sts.State := E_Bottom567State.IDLE;
    ELSE Sts.State := E_Bottom567State.COMPLETE; END_IF;
   END_IF;
  E_Bottom567State.WAIT_RECEIPT:

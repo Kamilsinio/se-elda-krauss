@@ -6,6 +6,8 @@ VAR_INPUT
     ImageFresh : BOOL;
     Rx : ST_RobotRxV2;
     Plant : ST_RobotPlant;
+    PreviousOutputBlocked : BOOL;
+    AppliedVacuumHold : ARRAY[1..5] OF BOOL;
 END_VAR
 VAR_IN_OUT
     Context : ST_RobotContext;
@@ -208,6 +210,8 @@ Order(Cmd := Panel.Cmd, PhysicalStart := Plant.physicalStart, PhysicalStop := Pl
     Critical := criticalNow, OperationsSettled := Link.Session AND (Rx.production_operationsSettled OR reconciledIdle) AND
     Plant.imm.settled AND Plant.imm.cycleKnown AND Ledger.Unsettled = 0 AND Events.Idle AND allTasksIdle,
     TransferBusy := Plant.transferBusy, AreasClear := areasClearNow, StationIdle := quantityIdle,
+    NewOrderReady := Link.Session AND NOT Recovery.Required AND NOT Context.orderActive AND Rx.production_step = 710 AND
+        Rx.production_operationsSettled AND NOT Rx.production_waitingResume,
     RecoveryResumeAllowed := resumeReady AND Rx.production_loadKnown AND Plant.robotContextConfirmed AND Plant.loadsConfirmed,
     Context := Context, Drain := Drain);
 IF Order.Sts.startAccepted THEN reconciledIdle := FALSE; resumeReady := FALSE; END_IF;
@@ -227,7 +231,7 @@ IF Link.Session AND sampleState = 10 AND Rx.samples_ack THEN
     sampleReq := FALSE; sampleState := 20;
 END_IF;
 IF Link.Session AND sampleState = 20 AND NOT Rx.samples_ack THEN sampleState := 0; END_IF;
-FOR i := 1 TO 5 DO manualBlowAck[i] := Gripper.Vac[i].blowAck; END_FOR;
+FOR i := 1 TO 5 DO manualBlowAck[i] := Gripper.Vac[i].blowAck AND NOT PreviousOutputBlocked; END_FOR;
 Manual(Cmd := Hmi.manual, SessionId := Hmi.link.udiSessionId, Armed := Hmi.link.xArmed,
     ActivePanel := Hmi.link.uiActivePanel, Permit := Order.Sts.manual AND NOT Context.withRobot AND
     Plant.manualGripperHandover AND homeValid AND areasClearNow AND NOT Plant.transferBusy,
@@ -238,7 +242,8 @@ IF Order.Sts.manual THEN
 END_IF;
 Gripper(Cfg := Cfg.gripper, Session := Link.Session AND NOT Recovery.Required AND NOT protocolFault,
     Permit := Order.Sts.newPermit OR Order.Sts.finishPermit OR (Order.Sts.manual AND NOT Context.withRobot AND
-        Plant.manualGripperHandover AND homeValid AND areasClearNow AND NOT Plant.transferBusy), Critical := criticalNow,
+        Plant.manualGripperHandover AND homeValid AND areasClearNow AND NOT Plant.transferBusy), Critical := criticalNow OR PreviousOutputBlocked,
+    RestoreApplied := PreviousOutputBlocked, AppliedHold := AppliedVacuumHold,
     Reset := Recovery.Approved, CylHome := cylHome, CylWork := cylWork,
     VacValid := vacValid, VacHold := vacHold, BlowReq := blowReq,
     CylIn := Plant.cylinders, VacIn := Plant.vacuum);
@@ -463,7 +468,7 @@ Hmi.permit.station5ParamApply.xAllowed := Hmi.link.xArmed;
 Hmi.permit.station5ParamApply.sReason := '';
 Hmi.permit.samples.xAllowed := Hmi.link.xArmed;
 Hmi.permit.samples.sReason := '';
-Hmi.permit.orderOpen.xAllowed := Hmi.link.xArmed AND NOT Context.orderActive AND NOT Sts.recoveryRequired AND Sts.settled AND Context.batchCount > 0;
+Hmi.permit.orderOpen.xAllowed := Hmi.link.xArmed AND NOT Order.AwaitingNew AND NOT Context.orderActive AND NOT Sts.recoveryRequired AND Sts.settled AND Context.batchCount > 0;
 Hmi.permit.orderOpen.xAllowed := Hmi.permit.orderOpen.xAllowed AND NOT Order.Sts.manual AND
     ((Hmi.edit.uiProgram = 1) OR (Hmi.edit.uiProgram = 2));
 Hmi.permit.orderEnd.xAllowed := Hmi.link.xArmed AND Context.orderActive AND NOT Context.ending;
@@ -475,7 +480,8 @@ Hmi.permit.station5ParamApply.xAllowed := Hmi.link.xArmed AND quantityIdle AND N
 Hmi.permit.recoveryConfirm.xAllowed := Hmi.link.xArmed AND (Link.State = E_RobotLinkState.RECOVERY OR (Plant.stationRecoveryRequired AND Plant.physicalIdle));
 Hmi.permit.newEmptyContext.xAllowed := Hmi.permit.recoveryConfirm.xAllowed AND Plant.stationEmptyConfirmed;
 Hmi.permit.samples.xAllowed := Hmi.link.xArmed AND Sts.order.newPermit AND NOT Context.sampleAccepted AND sampleState = 0;
-IF NOT Hmi.permit.orderOpen.xAllowed THEN Hmi.permit.orderOpen.sReason := 'Wymagany zamkniety uzgodniony postoj, Auto, ilosc i wybor produkcji.'; END_IF;
+IF Order.AwaitingNew THEN Hmi.permit.orderOpen.sReason := 'Oczekiwanie na lokalne NEW robota po zamknieciu zlecenia.';
+ELSIF NOT Hmi.permit.orderOpen.xAllowed THEN Hmi.permit.orderOpen.sReason := 'Wymagany zamkniety uzgodniony postoj, Auto, ilosc i wybor produkcji.'; END_IF;
 IF NOT Hmi.permit.modeManual.xAllowed THEN Hmi.permit.modeManual.sReason := 'Najpierw zakoncz Stop i zwolnij obszary robota.'; END_IF;
 IF NOT Hmi.permit.robotEnable.xAllowed THEN Hmi.permit.robotEnable.sReason := 'Wymagane aktualne HOME i rozliczone operacje.'; END_IF;
 IF NOT Hmi.permit.robotDisable.xAllowed THEN Hmi.permit.robotDisable.sReason := 'Wymagane aktualne HOME i zakonczony Stop.'; END_IF;

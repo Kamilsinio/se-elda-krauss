@@ -23,6 +23,7 @@ class CoupledCell:
         self.step=0;self.reqid=0;self.events=[];self.previous_req={}
         self.top=True;self.bottom=False;self.p4=False;self.positioner=False;self.delivered=False
         self.discharge=False;self.advanceStack=False;self.physicalStart=False;self.physicalStop=False
+        self.atContainerEdge = False
         self.wasPlaced=False
         self.sourceStock=2;self.delayEvents=set()
         self.robot.set(self.robot.b,'contextChecked',True)
@@ -109,6 +110,8 @@ class CoupledCell:
             TaskPicked=ctx['tasks'][1]['pending'],TaskPlaced=ctx['tasks'][2]['pending'],
             TaskFinished=ctx['tasks'][3]['pending'],TaskStack=ctx['tasks'][8]['pending'],
             SourceEmptyConfirmed=self.sourceStock==0)
+        if self.mode == 1:
+            inp['LoadAtFillPosition'] = self.delivered and self.atContainerEdge and not self.bottom
         self.seq.run(Cmd=cmd,Inp=inp,Context=ctx)
         out=self.seq.v['Outp'];self.discharge=False
         self.positioner=out['M6_Extend' if self.mode==2 else 'M7_Extend']
@@ -117,6 +120,7 @@ class CoupledCell:
             target=out['Elev_AutoTarget']
             if target==1:self.top=True;self.bottom=False
             if target==4:self.top=False;self.bottom=True
+            self.atContainerEdge = target == 10 and self.p4
             if target==10:self.p4=False
         if out['Bottom_DischargeReq']:
             self.discharge=True;self.p4=False;self.delivered=False

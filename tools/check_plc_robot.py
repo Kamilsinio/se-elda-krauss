@@ -290,6 +290,9 @@ class Checks(unittest.TestCase):
         cmd=self.r.value('ST_BoxSeqCmd');cmd.update(Enable=True,NewOperations=True,SafetyOK=True)
         inp=self.r.value('ST_BoxSeqIn');inp.update(Session=True,RobotClear=True,PositionerWork=True)
         f.run(Cmd=cmd,Inp=inp,Context=c)
+        self.assertFalse(f.v['Outp']['ElevatorReady'])
+        inp['LoadAtFillPosition']=True
+        f.run(Cmd=cmd,Inp=inp,Context=c)
         self.assertTrue(f.v['Outp']['ElevatorReady']);self.assertFalse(f.v['Outp']['Elev_AutoGo'])
         c['boxStep']=90;inp.update(RobotReserved=True,Elev_CommandReady=True)
         f.run(Cmd=cmd,Inp=inp,Context=c);self.assertFalse(f.v['Outp']['Elev_AutoGo'])

@@ -27,6 +27,10 @@ Identyfikatory operacji i zdarzeń materiałowych pochodzą z retencji `Context.
 
 `StationMaterial` jest właścicielem zajętości P1–P7. W integracji korzysta ze zdarzeń przybycia, zakończonego przejazdu i potwierdzonego odbioru; aktualizacja całej partii zdarzeń jest atomowa. Powtórzenia są ignorowane, luka w numeracji lub sprzeczne źródło/cel odbierają known i wymagają uzgodnienia. Zgaśnięcie B205 podczas obniżania windy nie kasuje ładunku P4. Snapshoty wewnętrzne sekwencerów nie zastępują całego modelu materiału po dowolnym ruchu.
 
+Podczas opróżniania ST.1 podejmuje stabilny ładunek z P1 także bez wcześniejszego zatwierdzenia załadunku. Zakończenie przejazdu z P1 wymaga obserwacji zajęcia i zwolnienia bariery P2. Wydanie z P5 przebiega przez potwierdzony postój na P6. Oba odcinki zachowują ten sam identyfikator wydania. Rozpoczęcie innego ruchu dolnej taśmy zachowuje informację o obecności wydanego ładunku na B304 aż do potwierdzenia odbioru.
+
+Gotowość BOX wymaga znanego pojemnika na P4, potwierdzonego zejścia z B205 podczas ruchu do krawędzi i postoju osi. Dojazd na dół lub następne pozycjonowanie unieważnia potwierdzenie krawędzi. Po zamknięciu opróżnionego zlecenia PLC nadaje następny identyfikator stosu i zeruje indeksy stosu. Liczniki całkowite i identyfikatory zdarzeń transportu zachowują ciągłość. Po utracie potwierdzenia krawędzi przy częściowo napełnionym pojemniku potrzebne jest uzgodnienie postoju przy aktywnym B205. Wtedy kolejny fizyczny Start pozwala ponownie wypozycjonować ten sam pojemnik i zmierzyć krawędź. PLC udostępnia otwarcie następnego zlecenia po potwierdzeniu nowego kontekstu przez FANUC.
+
 ## Stop, Manual i recovery
 
 Normalny Stop odbiera nowe cykle, a rozpoczęte operacje kończą się na dotychczasowym właścicielu. Drain zatrzymuje wybór następnego działania i czeka na świeży fizyczny Start. Końcowe zamknięcie zlecenia wymaga pustego, znanego modelu, rozliczonych operacji i ostatniego potwierdzenia odbioru B304. Lokalny przycisk wydaje jeden gotowy ładunek bez kolejki i bez uruchomienia całego Drain.

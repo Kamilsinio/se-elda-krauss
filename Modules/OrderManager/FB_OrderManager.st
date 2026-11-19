@@ -15,6 +15,7 @@ VAR_INPUT
  AreasClear : BOOL;
  StationIdle : BOOL;
  RecoveryResumeAllowed : BOOL;
+ NewOrderReady : BOOL;
 END_VAR
 VAR_IN_OUT
  Context : ST_RobotContext;
@@ -22,6 +23,7 @@ VAR_IN_OUT
 END_VAR
 VAR_OUTPUT
  Sts : ST_RobotOrderStatus;
+ AwaitingNew : BOOL;
 END_VAR
 VAR
  startEdge : R_TRIG;
@@ -34,8 +36,10 @@ VAR
  autoDrainAfterFinish : BOOL;
  initialized : BOOL;
  ready : BOOL;
+ initializeSequence : BOOL;
 END_VAR
 startEdge(CLK := PhysicalStart);
+initializeSequence := FALSE;
 Sts.startAccepted := FALSE; Sts.reason := 0;
 Sts.settled := OperationsSettled AND NOT TransferBusy AND AreasClear;
 ready := Session AND ProgramOK AND ProcessOK AND NOT Critical AND NOT RecoveryRequired;
@@ -47,9 +51,11 @@ IF Cmd.applyQuantity THEN
  IF NOT Context.orderActive AND StationIdle AND Sts.settled AND Cmd.quantity > 0 AND NOT RecoveryRequired THEN Context.batchCount := Cmd.quantity;
  ELSE Sts.reason := 30; END_IF;
 END_IF;
+IF NewOrderReady THEN AwaitingNew := FALSE; END_IF;
 IF Cmd.openOrder THEN
- IF NOT Context.orderActive AND NOT RecoveryRequired AND Context.valid AND Context.batchCount > 0 AND
+ IF NOT AwaitingNew AND NOT Context.orderActive AND NOT RecoveryRequired AND Context.valid AND Context.batchCount > 0 AND
   (Cmd.program_ = 1 OR Cmd.program_ = 2) AND NOT manualMode AND Sts.settled THEN
+  initializeSequence := TRUE;
   Context.orderActive := TRUE; Context.ending := FALSE; Context.program_ := Cmd.program_;
   Context.drainRequested := FALSE; Context.drainResumeRequired := FALSE;
  ELSE Sts.reason := 30; END_IF;
@@ -102,10 +108,18 @@ IF Drain.request AND Drain.connected AND NOT Drain.accepted AND NOT Drain.busy A
 IF drainInFlight AND Drain.request AND Drain.accepted THEN drainAccepted := TRUE; END_IF;
 IF Drain.request AND drainInFlight AND drainAccepted AND Drain.connected AND Drain.accepted AND Drain.done AND
  NOT Drain.busy AND NOT Drain.fault AND Drain.emptyConfirmed AND Sts.settled AND ready THEN
+ initializeSequence := TRUE; AwaitingNew := TRUE;
+ Context.stackId := TO_UINT((TO_UDINT(Context.stackId) + 1) MOD 65536);
  Context.orderActive := FALSE; Context.ending := FALSE; Context.drainRequested := FALSE;
  Context.drainResumeRequired := FALSE; running := FALSE; drainAuthorized := FALSE;
  Drain.request := FALSE; Drain.runPermit := FALSE; Drain.paused := FALSE;
  drainInFlight := FALSE; drainAccepted := FALSE;
+END_IF;
+IF initializeSequence THEN
+ (* Nowe zlecenie inicjalizuje takze zamkniety kontekst starszej wersji. *)
+ Context.boxStep := E_BoxSeqState.DISABLED; Context.trayStep := E_TraySeqState.DISABLED;
+ Context.trayAction := FALSE; Context.stackFull := FALSE;
+ Context.blisterCount := 0; Context.layerCount := 0;
 END_IF;
 Sts.manual := manualMode;
 Sts.running := running;

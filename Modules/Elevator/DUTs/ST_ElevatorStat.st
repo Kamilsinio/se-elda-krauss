@@ -31,5 +31,6 @@ STRUCT
     xStandstill : BOOL;
     AcceptedId : UDINT;
     CompletedId : UDINT;
+    xContainerEdgeReached : BOOL; // B205 zgasl podczas zjazdu do krawedzi
 END_STRUCT
 END_TYPE

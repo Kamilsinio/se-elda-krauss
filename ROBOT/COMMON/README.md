@@ -27,7 +27,9 @@ R331 zapisuje wyłącznie BG_STATUS: 0 brak, 1 MAIN_BOX, 2 MAIN_TRAY. Lokalnie u
 
 Przyznanie wymaga zamkniętego zlecenia, zweryfikowanych native i zasobów, HOME, znanego pustego chwytaka, rozliczonych wtrysków i bezczynnych REQ/ACK. Tylko jeden natywny main może być aktywny/paused i zgłaszać wybór. Oba aktywne zadania lub oba żądania zatrzaskują konflikt. PLC expectedProgram i praca PLC_SVC nie zastępują identyfikacji main.
 
-Sekcja EXIT zgłasza zwolnienie. BG przyjmuje je w stanie 710 lub 900, przy zamkniętym zleceniu, HOME, stationIdleConfirmed, znanym pustym chwytaku, braku partii, remaining=0 oraz rozliczonych kanałach/wtryskach. Main kończy pętlę po zwolnieniu. Przed drugim main trzeba zakończyć stare zadanie, także PAUSE. Konflikt wymaga jawnej wspólnej inicjalizacji przy obu zakończonych zadaniach i pustej uzgodnionej stacji.
+Po rozliczonym zakończeniu zlecenia w HOME oba programy przechodzą do kroku 720 z zachowaną sesją PLC. Operator potwierdza pusty postój przez stationIdleConfirmed i wybiera NEW. Po przyjęciu NEW panel udostępnia otwarcie kolejnego zlecenia, a wznowienie produkcji wymaga nowego fizycznego Startu.
+
+Sekcja EXIT zgłasza zwolnienie. BG przyjmuje je w stanie 710, 720 lub 900, przy zamkniętym zleceniu, HOME, stationIdleConfirmed, znanym pustym chwytaku, braku partii, remaining=0 oraz rozliczonych kanałach/wtryskach. Main kończy pętlę po zwolnieniu. Przed drugim main trzeba zakończyć stare zadanie, także PAUSE. Konflikt wymaga jawnej wspólnej inicjalizacji przy obu zakończonych zadaniach i pustej uzgodnionej stacji.
 
 Nie ma mailboxu ani kopiowania danych między bankami produkcyjnymi. Każdy main używa bezpośrednio własnych nastaw i kontekstu oraz interfejsu COMM.
 

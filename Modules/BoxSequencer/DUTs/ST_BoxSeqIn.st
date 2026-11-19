@@ -10,6 +10,7 @@ STRUCT
     Elev_AtTarget : BOOL; // LEGACY: nieuzywane w v4; patrz docs/plc-review-fixes.md.
     Elev_Busy : BOOL;
     Elev_CommandReady : BOOL;
+    LoadAtFillPosition : BOOL; // Znany pojemnik na P4, potwierdzona krawedz i postoj osi
     Elev_Fault : BOOL;
     Bottom_CanAccept : BOOL;
     Bottom_Busy : BOOL;

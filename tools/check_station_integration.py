@@ -205,6 +205,153 @@ class FullStationTests(unittest.TestCase):
         self.assertFalse(out['robot_Tx']['production_newOperationPermit'])
         self.assertFalse(out['robot_Tx']['imm_newCyclePermit']);self.assertFalse(out['drive']['forward'])
         self.assertFalse(out['drive']['reverse'])
+    def test_next_box_order_waits_for_new_container_and_measured_edge(self):
+        from plc_station_cosim import StationCell
+        c = StationCell(1)
+        c.start()
+        def wire():
+            return c.controller.v['Outp']['robot_Tx']
+        c.until(lambda: wire()['area_elevator_ready'])
+        c.begin()
+        c.until(lambda: c.c['goodCount'] == 7)
+        old_stack = c.c['stackId']
+        c.command('orderEnd')
+        c.until(lambda: not c.c['orderActive'], limit=500)
+        self.assertFalse(c.hmi['permit']['orderOpen']['xAllowed'])
+        self.assertIsNone(c.positions[4])
+        self.assertEqual(c.axis, 4)
+        self.assertNotEqual(c.c['stackId'], old_stack)
+        self.assertEqual(c.c['goodCount'], 7)
+        c.until(lambda: c.native.get(c.native.p, 'state') == 720 and not c.controller.v['Outp']['robot_Sts']['order']['settled'])
+        c.native.set(c.native.b, 'stationIdleConfirmed', True)
+        c.native.set(c.native.b, 'newApproved', True)
+        c.until(lambda: not c.native.get(c.native.b, 'needsRecovery') and not c.native.get(c.native.b, 'newApproved'))
+        c.until(lambda: c.native.get(c.native.p, 'state') == 710 and c.hmi['permit']['orderOpen']['xAllowed'])
+        c.command('orderOpen')
+        c.start()
+        self.assertTrue(c.controller.v['Outp']['robot_Sts']['order']['running'])
+        for _ in range(30):
+            c.scan()
+            self.assertFalse(wire()['area_elevator_ready'] or wire()['area_elevator_granted'])
+        c.positions[1] = {'trays': 1}
+        c.until(lambda: c.controller.v['fbTopFlow'].v['Sts']['Pos1SensorStable'])
+        c.inp['io_di']['ind_button_container_ready'] = True
+        c.scan()
+        c.inp['io_di']['ind_button_container_ready'] = False
+        for _ in range(300):
+            c.scan()
+            if wire()['area_elevator_ready']:
+                break
+            self.assertFalse(wire()['area_elevator_granted'])
+        self.assertTrue(wire()['area_elevator_ready'], c.debug())
+        self.assertIsNotNone(c.positions[4])
+        self.assertGreater(c.axis, c.p4edge)
+        self.assertLess(c.axis, 4)
+        self.assertTrue(c.controller.v['elevStat']['xStandstill'])
+        c.begin()
+        c.until(lambda: c.c['goodCount'] == 14)
+
+    def test_box_stop_keeps_edge_and_recovery_remeasures_same_load(self):
+        from plc_station_cosim import StationCell
+        c = StationCell(1)
+        c.start()
+        def ready():
+            return c.controller.v['Outp']['robot_Tx']['area_elevator_ready']
+        def stop():
+            c.physicalStop = True
+            c.scan()
+            c.physicalStop = False
+            c.until(lambda: c.controller.v['Outp']['robot_Sts']['order']['stopped'])
+        c.until(ready)
+        position = c.axis
+        stack = c.c['stackId']
+        stop()
+        c.start()
+        c.until(ready)
+        self.assertEqual(c.axis, position)
+        self.assertEqual(c.c['stackId'], stack)
+        stop()
+        c.command('modeManual')
+        c.inp['station_ManualInterlocks']['allowPositive'][4] = True
+        c.hmi['link']['uiActivePanel'] = 112
+        jog = c.hmi['stationManual']
+        jog['sessionId'] = c.hmi['link']['udiSessionId']
+        c.scan()
+        jog['positive'][4] = True
+        for _ in range(12):
+            jog['holdCounter'][4] += 1
+            c.scan()
+        jog['positive'][4] = False
+        c.until(lambda: c.controller.v['physicalIdle'] and not c.controller.v['manual'].v['Sts']['active'])
+        self.assertIsNotNone(c.positions[4])
+        self.assertTrue(c.inp['station_Inputs']['occupied'][4])
+        self.assertFalse(c.controller.v['elevStat']['xContainerEdgeReached'])
+        c.command('modeAuto')
+        c.proposal.update(copy.deepcopy(c.c))
+        c.proposal['occupancyKnown'] = True
+        c.proposal['occupied'] = {i: load is not None for i, load in c.positions.items()}
+        c.proposal['elevatorLoadPresent'] = c.positions[4] is not None
+        c.command('recoveryConfirm')
+        for _ in range(4):
+            c.scan()
+            self.assertFalse(ready())
+        c.start()
+        c.until(ready)
+        self.assertEqual(c.c['stackId'], stack)
+        self.assertGreater(c.axis, c.p4edge)
+
+    def test_standalone_cycles_and_high_start_across_mode_change(self):
+        from plc_station_cosim import StationCell
+        c = StationCell(2)
+        c.command('robotDisable')
+        imm = c.inp['robot_Plant']['imm']
+        tx = lambda: c.controller.v['Outp']['robot_Tx']
+        first_cycle = c.c['nextCycleId']
+        for _ in range(4):
+            imm['startConfirmed'] = False
+            c.scan()
+            imm['startConfirmed'] = True
+            c.scan()
+            self.assertEqual(tx()['imm_unsettledCount'], 0)
+            self.assertTrue(tx()['imm_applied_mouldClose'])
+        c.command('robotEnable')
+        c.start()
+        self.assertEqual(c.c['nextCycleId'], first_cycle)
+        self.assertEqual(tx()['imm_unsettledCount'], 0)
+        c.begin()
+        c.until(lambda: c.c['goodCount'] == 7)
+        self.assertEqual(c.c['nextCycleId'], (first_cycle + 1) % 65536)
+
+    def test_drain_takes_unaccepted_p1_and_routes_each_unload_through_p6(self):
+        from plc_station_cosim import StationCell
+        c = StationCell(1)
+        c.positions[1] = {'trays': 1}
+        c.until(lambda: c.c['occupied'][1])
+        self.assertFalse(c.controller.v['fbTopFlow'].v['Sts']['Pos1Accepted'])
+        c.command('orderEnd')
+        c.start()
+        lower_moves = []
+        passed_barrier = False
+        for _ in range(700):
+            c.scan()
+            top = c.controller.v['fbTopFlow'].v
+            if top['Sts']['SrcPos'] == 1 and top['Cmd']['EmptyingMode']:
+                passed_barrier |= top['Inp']['LoadBarrierBlocked']
+                self.assertFalse(top['Sts']['P1ReleasedForLoad'])
+            bottom = c.controller.v['fbBottom567'].v['Outp']
+            if bottom['MaterialMovedPulse']:
+                lower_moves.append((bottom['MaterialSource'], bottom['MaterialTarget'], bottom['AcceptedId']))
+            if not c.c['orderActive']:
+                break
+        self.assertTrue(passed_barrier)
+        self.assertFalse(c.c['orderActive'], c.debug())
+        self.assertFalse(any(c.positions.values()))
+        to_p6 = [ident for source, target, ident in lower_moves if (source, target) == (5, 6)]
+        to_p7 = [ident for source, target, ident in lower_moves if (source, target) == (6, 7)]
+        self.assertEqual(len(to_p6), 3)
+        self.assertEqual(to_p6, to_p7)
+        self.assertEqual(len(set(to_p6)), 3)
+
     def test_stop_finishes_overlapping_injections_without_restart(self):
         from plc_station_cosim import StationCell
         for mode in [1,2]:

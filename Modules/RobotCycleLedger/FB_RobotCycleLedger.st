@@ -59,8 +59,8 @@ FOR i := 1 TO 2 DO
 END_FOR;
 IF Context.cycles[1].occupied AND Context.cycles[2].occupied AND
    Context.cycles[1].id = Context.cycles[2].id THEN Fault := TRUE; END_IF;
-(* Fizyczny start zawsze rejestrujemy lub zatrzaskujemy niepewnosc, takze po utracie sesji. *)
-IF startEdge.Q THEN
+(* Wspolpraca obowiazuje na zboczu fizycznym, rowniez przy utracie sesji. *)
+IF startEdge.Q AND Context.withRobot THEN
     slot := 0;
     FOR i := 1 TO 2 DO
         IF NOT Context.cycles[i].occupied AND slot = 0 THEN slot := i; END_IF;

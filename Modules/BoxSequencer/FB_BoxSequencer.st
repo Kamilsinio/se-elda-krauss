@@ -53,12 +53,12 @@ CASE Sts.State OF
         Outp.M7_Extend := TRUE;
         Outp.Elev_AutoTarget := E_ElevatorTarget.posContainerEdge;
         Outp.Elev_AutoGo := moving AND Inp.Elev_CommandReady AND Inp.ind_container_in_pos_4;
-        IF moving AND NOT Inp.ind_container_in_pos_4 AND NOT Inp.Elev_Busy THEN Outp.NewStackReady := TRUE; Sts.State := E_BoxSeqState.WAIT_PALLET_DONE; END_IF;
+        IF moving AND Inp.LoadAtFillPosition AND NOT Inp.Elev_Busy THEN Outp.NewStackReady := TRUE; Sts.State := E_BoxSeqState.WAIT_PALLET_DONE; END_IF;
     E_BoxSeqState.SIGNAL_ROBOT:
         Sts.State := E_BoxSeqState.WAIT_PALLET_DONE;
     E_BoxSeqState.WAIT_PALLET_DONE:
         Outp.M7_Extend := TRUE;
-        Outp.ElevatorReady := NOT Inp.Elev_Busy AND Inp.PositionerWork;
+        Outp.ElevatorReady := Inp.LoadAtFillPosition AND NOT Inp.Elev_Busy AND Inp.PositionerWork;
         IF Inp.TaskStack THEN Outp.ElevatorReady := FALSE; Sts.State := E_BoxSeqState.RETRACT_M7; END_IF;
     E_BoxSeqState.RETRACT_M7:
         IF moving AND Inp.PositionerHome THEN Sts.State := E_BoxSeqState.ELEV_TO_BOTTOM; END_IF;

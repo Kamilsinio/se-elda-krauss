@@ -242,6 +242,26 @@ class StationTests(unittest.TestCase):
         count=0
         for _ in range(25):f.run(Cfg=cfg,Cmd=c,Inp=a);count+=f.v['Outp']['SingleUnloadDonePulse']
         self.assertEqual(count,1);self.assertTrue(f.v['Sts']['Occ5']);self.assertTrue(f.v['Sts']['Occ6'])
+    def test_b304_receipt_survives_concurrent_transfer(self):
+        for request, occupied in [('DischargeReq', {7}), ('AdvanceReq', {5, 7})]:
+            with self.subTest(request=request):
+                f, cfg, cmd, inputs = self.bottom_fixture(occupied)
+                cmd.update(SingleUnloadReq=True, UnloadId=21)
+                for _ in range(5):
+                    f.run(Cfg=cfg, Cmd=cmd, Inp=inputs)
+                self.assertTrue(f.v['Sts']['PickupSeen'])
+                cmd.update(SingleUnloadReq=False, DischargeId=22, AdvanceId=22)
+                cmd[request] = True
+                inputs['sPos7_raw'] = False
+                receipts = []
+                for _ in range(7):
+                    f.run(Cfg=cfg, Cmd=cmd, Inp=inputs)
+                    if f.v['Outp']['SingleUnloadDonePulse']:
+                        receipts.append(f.v['Outp']['UnloadDoneId'])
+                self.assertEqual(f.v['Outp']['AcceptedId'], 22)
+                self.assertEqual(receipts, [21])
+                self.assertFalse(f.v['Sts']['WaitingPickup'])
+
     def test_bottom_transfer_stop_keeps_owner_and_stoppers_wait_for_belt(self):
         f,cfg,c,a=self.bottom_fixture(set());c['DischargeReq']=True;f.run(Cfg=cfg,Cmd=c,Inp=a)
         c.update(EnableAuto=False,DischargeReq=False);a['BeltsStopped']=False
@@ -272,6 +292,14 @@ class StationTests(unittest.TestCase):
         a=self.r.value('ST_TopFlowIn');f.v['Sts'].update(State=70,Target=1)
         for _ in range(100):f.run(Cfg=cfg,Cmd=cmd,Inp=a)
         self.assertFalse(f.v['Diag']['Fault'])
+    def test_vijeo_map_matches_published_contract_version(self):
+        panel = self.r.instance('FB_RobotHmi')
+        hmi = self.r.value('ST_RobotHmiV2')
+        panel.run(Hmi=hmi, Context=context(self.r))
+        guide = (self.r.root / 'docs/hmi-vijeo-map.md').read_text(encoding='utf-8')
+        versions = re.findall(r'uiContractVersion=(\d+)\b', guide)
+        self.assertEqual(versions, [str(hmi['link']['uiContractVersion'])])
+
     def test_hmi_io_aliases_cover_all_source_names(self):
         text=(self.r.root/'docs/hmi-io-diagnostics.md').read_text(encoding='utf-8')
         names=set(re.findall(r'^\|\s*\d+\s*\|[^|]+\|\s*`(\w+)`\s*\|\s*(?:IN|OUT)\s*\|',text,re.M))

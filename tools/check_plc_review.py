@@ -57,6 +57,29 @@ class DeviceReviewTests(unittest.TestCase):
         idle=r.instance('FB_RobotGripper'); idle.run(**{**a,'Permit':False})
         self.assertFalse(idle.v['Cyl'][1]['fault']); self.assertFalse(idle.v['Vac'][1]['fault'])
 
+    def test_manual_first_press_after_idle_and_release_after_stale_hold(self):
+        f = self.r.instance('FB_RobotManual')
+        cmd = self.r.value('ST_RobotManual')
+        cmd['udiSessionId'] = 5
+        def scan(held, fresh=False, session=5):
+            cmd['cylWork'][1] = held
+            if fresh:
+                cmd['holdCounter'][1] += 1
+            f.run(Cmd=cmd, Armed=True, Permit=True, ActivePanel=115, SessionId=session, Timeout=30)
+            return f.v['CylWork'][1]
+        for _ in range(10):
+            self.assertFalse(scan(False))
+        self.assertTrue(scan(True, fresh=True))
+        for _ in range(6):
+            scan(True)
+        self.assertFalse(scan(True, fresh=True))
+        self.assertFalse(scan(False))
+        self.assertTrue(scan(True, fresh=True))
+        cmd['udiSessionId'] = 6
+        self.assertFalse(scan(True, fresh=True, session=6))
+        self.assertFalse(scan(False, session=6))
+        self.assertTrue(scan(True, fresh=True, session=6))
+
     def test_local_timeout_reaches_final_coil_without_global_critical(self):
         r=self.r; stopper=r.instance('FB_StopperPair'); coils=r.instance('FB_StationCoils')
         cfg=r.value('ST_StopperPairCfg'); cfg.update(requireValid=True,requireApplied=True,tStable=10,tTimeout=20)
@@ -156,13 +179,40 @@ class ControllerReviewTests(unittest.TestCase):
         for i in range(31,41): self.assertFalse(c.controller.v['alarmIn']['active'][i],i)
 
     def test_final_vacuum_applied_matches_wire_and_preserves_existing_hold(self):
-        for held in (False,True):
-            with self.subTest(held=held):
-                c=self.cell(); c.controller.v['robot'].v['Gripper'].v['Vac'][1]['hold']=held
-                c.inp['robot_Plant']['critical']=True; c.scan(); out=c.controller.v['Outp']
-                self.assertEqual(out['robot_Sts']['vacuum'][1]['hold'],held)
-                self.assertEqual(out['robot_Tx']['vac_1_holdApplied'],held)
-                self.assertFalse(out['robot_Sts']['vacuum'][1]['blow'])
+        c = self.cell()
+        c.command('modeManual')
+        c.command('robotDisable')
+        c.inp['robot_Plant']['manualGripperHandover'] = True
+        c.hmi['link']['uiActivePanel'] = 115
+        manual = c.hmi['manual']
+        manual['udiSessionId'] = c.hmi['link']['udiSessionId']
+        c.scan()
+        for i in (1, 2):
+            manual['vacValid'][i] = True
+            manual['vacHold'][i] = i == 1
+            manual['holdCounter'][5+i] += 1
+        c.scan()
+        out = c.controller.v['Outp']
+        self.assertTrue(out['robot_Tx']['vac_1_holdApplied'])
+        self.assertFalse(out['robot_Tx']['vac_2_holdApplied'])
+        for i in (1, 2):
+            manual['vacHold'][i] = i == 2
+            manual['holdCounter'][5+i] += 1
+        manual['blowReq'][1] = True
+        c.cfg['station_AlarmCfg']['critical'][53] = True
+        c.inp['station_AlarmInputs']['active'][53] = True
+        for _ in range(4):
+            c.scan()
+            out = c.controller.v['Outp']
+            self.assertTrue(out['robot_Tx']['production_criticalBlock'])
+            for i in (1, 2):
+                vacuum = out['robot_Sts']['vacuum'][i]
+                self.assertEqual(vacuum['hold'], i == 1)
+                self.assertEqual(out['robot_Tx'][f'vac_{i}_holdApplied'], i == 1)
+                self.assertEqual(out['hmi_hmiIo']['value'][f'ctrl_turn_on_robot_gripper_vacuum_{i}'], i == 1)
+                self.assertFalse(vacuum['blow'] or vacuum['accepted'] or vacuum['busy'])
+                self.assertFalse(out['robot_Tx'][f'vac_{i}_blowAck'])
+                self.assertEqual(out['robot_Tx'][f'vac_{i}_blowResult'], 0)
 
     def test_prg_main_decodes_signed_rfr_before_scaling(self):
         from plc_station_main import MainCell

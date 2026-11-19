@@ -259,6 +259,10 @@ END_IF;
 // -------------------------
 // 8) Maszyna stanów
 // -------------------------
+IF NOT xEnable OR stStat.xFault OR rtReset.Q OR NOT stStat.xStandstillValid OR
+   stIn.xContainerInPos4 OR stStat.ePos = E_ElevatorPos.posBottom THEN
+  stStat.xContainerEdgeReached := FALSE;
+END_IF;
 IF NOT xEnable THEN
   stStat.eState := E_ElevatorState.DISABLED;
 
@@ -282,6 +286,7 @@ ELSE
 
       // latch target w AUTO na zboczu
       IF (stCmd.eMode = E_ElevatorMode.AUTO) AND rtAutoGo.Q THEN
+        stStat.xContainerEdgeReached := FALSE;
         stStat.eTargetLatched := stCmd.eAutoTarget;
         stStat.AcceptedId := stCmd.OperationId;
 
@@ -320,9 +325,11 @@ ELSE
       IF stCmd.eMode = E_ElevatorMode.MANUAL THEN
 
         IF stCmd.xManUp AND (NOT stCmd.xManDown) AND xPermUp THEN
+          stStat.xContainerEdgeReached := FALSE;
           stStat.eState := E_ElevatorState.MANUAL_UP;
 
         ELSIF stCmd.xManDown AND (NOT stCmd.xManUp) AND xPermDown THEN
+          stStat.xContainerEdgeReached := FALSE;
           stStat.eState := E_ElevatorState.MANUAL_DOWN;
 
         END_IF;
@@ -441,6 +448,8 @@ ELSE
         stStat.eState := E_ElevatorState.STOPPING;
 
       ELSIF xAtTargetInt THEN
+        stStat.xContainerEdgeReached := stStat.eTargetLatched = E_ElevatorTarget.posContainerEdge AND
+          stStat.xStandstillValid AND stStat.ePos <> E_ElevatorPos.posBottom;
         stStat.eTargetLatched := E_ElevatorTarget.NONE;
         stStat.eState := E_ElevatorState.STOPPING;
       END_IF;

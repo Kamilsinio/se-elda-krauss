@@ -157,6 +157,8 @@ VAR
   localValveFault : ARRAY[1..10] OF BOOL;
   stationCommandFault : BOOL;
   currentCritical : BOOL;
+  appliedVacuumHold : ARRAY[1..5] OF BOOL;
+  boxLoadAtFillPosition : BOOL;
   localRestart : R_TRIG;
 END_VAR
 
@@ -229,10 +231,14 @@ sourceEmpty(IN := io.Sts.positionValid[3] AND NOT io.Sts.occupied[3] AND NOT fbC
 plantNow.sourceEmptyConfirmed := Context.stationParameters[1].sensorStableMs > 0 AND sourceEmpty.Q;
 plantNow.areas[1].ready := material.Sts.known AND material.Sts.occupied[3] AND fbTopFlow.Sts.StackReadyAtP3 AND NOT fbConvTop.Sts.Running AND
     NOT fbConvTop.Outp.Q_Fwd AND NOT fbTopFlow.Sts.Busy AND fbTopFlow.Sts.State = E_TopFlowState.IDLE;
+boxLoadAtFillPosition := material.Sts.known AND material.Sts.occupied[4] AND
+    io.Sts.positionValid[4] AND NOT io.Sts.occupied[4] AND NOT Inp.io_di.ind_elevator_in_bottom_pos AND
+    ABS(Inp.drive.actualHz) < Cfg.station_ElevatorCfg.rStopSpeedThreshold_Hz AND
+    elevStat.xContainerEdgeReached AND elevStat.xStandstill AND NOT elevStat.xBusy;
 plantNow.areas[2].ready := Inp.drive.valid AND Inp.drive.commHealthy AND elevStat.xStandstill AND NOT elevStat.xBusy AND NOT fbConvElev.Sts.Running AND NOT elevStat.xVfdRunning AND
     NOT fbConvElev.Outp.Q_Fwd AND NOT fbConvElev.Outp.Q_Bwd AND
     ((fbTraySeq.Outp.ElevatorReady AND Context.program_ = 2) OR
-     (fbBoxSeq.Outp.ElevatorReady AND Context.program_ = 1));
+     (fbBoxSeq.Outp.ElevatorReady AND boxLoadAtFillPosition AND Context.program_ = 1));
 plantNow.areas[3].ready := fbStorage.Sts.RobotSideOpen AND fbStorage.Sts.RobotAccessGranted AND NOT fbStorage.Sts.Empty;
 plantNow.areas[1].blocked := plantNow.areas[1].blocked OR fbStopM4.Diag.Fault OR fbPosM5.Diag.Fault OR stationCoils.RestartRequired[4] OR stationCoils.RestartRequired[5];
 plantNow.areas[2].blocked := plantNow.areas[2].blocked OR (fbV201.Diag.Fault OR fbV202.Diag.Fault) OR fbPosM7.Diag.Fault OR stationCoils.RestartRequired[6] OR stationCoils.RestartRequired[8] OR stationCoils.RestartRequired[7];
@@ -252,7 +258,8 @@ plantNow.imm.manualFullOpen := immManual.Sts.positive[2] AND NOT immManual.Sts.p
 plantNow.imm.manualEjectorBack := immManual.Sts.positive[3] AND NOT immManual.Sts.positive[4];
 plantNow.imm.manualEjectorForward := immManual.Sts.positive[4] AND NOT immManual.Sts.positive[3];
 robot(Cfg := Cfg.robot_Cfg, ScannerHealthy := Inp.robot_ScannerHealthy, ImageFresh := Inp.robot_ImageFresh,
-    Rx := Inp.robot_Rx, Plant := plantNow, Context := Context, Proposal := Proposal,
+    Rx := Inp.robot_Rx, Plant := plantNow, PreviousOutputBlocked := currentCritical,
+    AppliedVacuumHold := appliedVacuumHold, Context := Context, Proposal := Proposal,
     Drain := Drain, Hmi := Hmi);
 stationRecovery(Invalidate := NOT io.Sts.valid OR NOT Inp.drive.valid OR NOT Inp.drive.commHealthy OR manual.Sts.active OR reconcileRequired OR transport.Sts.fault,
  Blocked := NOT io.Sts.valid OR NOT Inp.drive.valid OR NOT Inp.drive.commHealthy OR manual.Sts.active OR NOT xSafetyOK OR plantNow.critical,
@@ -269,6 +276,13 @@ IF reconciledNow THEN
     (* Odtworzenie statusow transportu przez Inp.Reconcile/Restored
        w ich FB; bez zewnetrznego zapisu do VAR_OUTPUT Sts. *)
     xElevatorLoadPresent := Context.elevatorLoadPresent;
+    IF Context.orderActive AND NOT Context.ending AND Context.program_ = 1 AND
+       Context.boxStep = E_BoxSeqState.WAIT_PALLET_DONE AND NOT Context.tasks[8].pending AND
+       Context.elevatorLoadPresent AND NOT elevStat.xContainerEdgeReached AND
+       io.Sts.positionValid[4] AND io.Sts.occupied[4] THEN
+        (* Po uzgodnieniu przy aktywnym B205 ponownie zmierz krawedz po fizycznym Starcie. *)
+        Context.boxStep := E_BoxSeqState.POS_M7_FWD;
+    END_IF;
     xBottomDonePendingTray := Context.bottomDonePendingTray;
     xBottomDonePendingBox := Context.bottomDonePendingBox;
     xBottomTransferOwnerTray := FALSE;
@@ -287,6 +301,7 @@ productionPermit := robot.Sts.order.newPermit OR robot.Sts.order.finishPermit;
 outputPermit := robot.Sts.session AND xGlobalEnable AND (productionPermit OR Drain.runPermit OR
  transport.Sts.owner = E_StationOwner.DRAIN OR transport.Sts.owner = E_StationOwner.LOCAL OR xHmiManualMode);
 rtContainerReady(CLK := Inp.io_di.ind_button_container_ready);
+IF NOT Context.orderActive OR Context.ending THEN xLoadAcceptedPending := FALSE; END_IF;
 IF rtContainerReady.Q AND robot.Sts.order.newPermit AND NOT Context.ending THEN xLoadAcceptedPending := TRUE; END_IF;
 fbTopFlow.Cmd.Pos1AcceptedPulse := FALSE;
 fbPosM1.Cfg.requireValid := TRUE; fbPosM1.Cfg.requireApplied := TRUE;
@@ -669,6 +684,7 @@ fbBoxSeq.Inp.TopFlow_Fault := fbTopFlow.Diag.Fault;
 fbBoxSeq.Inp.Elev_AtTop := elevStat.ePos = E_ElevatorPos.posTop;
 fbBoxSeq.Inp.Elev_AtBottom := elevStat.ePos = E_ElevatorPos.posBottom;
 fbBoxSeq.Inp.Elev_AtTarget := elevStat.xAtTarget;
+fbBoxSeq.Inp.LoadAtFillPosition := boxLoadAtFillPosition;
 fbBoxSeq.Inp.Elev_Busy := elevStat.xBusy;
 fbBoxSeq.Inp.Elev_CommandReady := elevStat.eState = E_ElevatorState.IDLE;
 fbBoxSeq.Inp.Elev_Fault := elevStat.xFault;
@@ -721,6 +737,7 @@ IF fbTraySeq.Outp.ConsumeFinished THEN taskDoneNext[3] := TRUE; END_IF;
 (* Warstwa/przekladka maja skutki licznikowe, bez ruchu windy. *)
 taskDoneNext[4] := Context.tasks[4].pending;
 taskDoneNext[7] := Context.tasks[7].pending;
+IF NOT Context.orderActive THEN stackAdvancePending := FALSE; END_IF;
 IF stackAdvancePending AND robot.Sts.allChannelsIdle AND NOT Context.tasks[8].pending THEN
     Context.stackId := TO_UINT((TO_UDINT(Context.stackId) + 1) MOD 65536);
     Context.blisterCount := 0;
@@ -1645,9 +1662,13 @@ IF currentCritical THEN
    Outp.robot_Sts.cylinders[i].acceptedHome := FALSE; Outp.robot_Sts.cylinders[i].acceptedWork := FALSE;
    Outp.robot_Sts.cylinders[i].busy := FALSE;
    (* Zachowaj faktycznie zalaczona proznie; alarm nie jest poleceniem zrzutu ani nowego ssania. *)
+   Outp.robot_Sts.vacuum[i].hold := appliedVacuumHold[i];
    Outp.robot_Sts.vacuum[i].blow := FALSE; Outp.robot_Sts.vacuum[i].accepted := FALSE;
+   Outp.robot_Sts.vacuum[i].blowAck := FALSE; Outp.robot_Sts.vacuum[i].blowResult := 0;
    Outp.robot_Sts.vacuum[i].busy := FALSE;
  END_FOR;
+ELSE
+ FOR i := 1 TO 5 DO appliedVacuumHold[i] := Outp.robot_Sts.vacuum[i].hold; END_FOR;
 END_IF;
 Outp.robot_Tx.cyl_V501_acceptedWork := Outp.robot_Tx.cyl_V501_acceptedWork AND NOT Outp.robot_Tx.production_criticalBlock;
 Outp.robot_Tx.vac_1_accepted := Outp.robot_Tx.vac_1_accepted AND NOT Outp.robot_Tx.production_criticalBlock;
@@ -1677,18 +1698,28 @@ Outp.robot_Tx.area_storage_granted := Outp.robot_Tx.area_storage_granted AND fbS
 Outp.robot_Sts.areas[3].granted := Outp.robot_Sts.areas[3].granted AND Outp.robot_Tx.area_storage_granted;
 (* applied oznacza koncowa komende PLC po wszystkich blokadach; nie pomiar cewki. *)
 Outp.robot_Tx.vac_1_holdApplied := Outp.robot_Sts.vacuum[1].hold;
+Outp.robot_Tx.vac_1_blowAck := Outp.robot_Sts.vacuum[1].blowAck;
+Outp.robot_Tx.vac_1_blowResult := Outp.robot_Sts.vacuum[1].blowResult;
 Outp.robot_Tx.cyl_V501_busy := Outp.robot_Sts.cylinders[1].busy;
 Outp.robot_Tx.vac_1_busy := Outp.robot_Sts.vacuum[1].busy;
 Outp.robot_Tx.vac_2_holdApplied := Outp.robot_Sts.vacuum[2].hold;
+Outp.robot_Tx.vac_2_blowAck := Outp.robot_Sts.vacuum[2].blowAck;
+Outp.robot_Tx.vac_2_blowResult := Outp.robot_Sts.vacuum[2].blowResult;
 Outp.robot_Tx.cyl_V502_busy := Outp.robot_Sts.cylinders[2].busy;
 Outp.robot_Tx.vac_2_busy := Outp.robot_Sts.vacuum[2].busy;
 Outp.robot_Tx.vac_3_holdApplied := Outp.robot_Sts.vacuum[3].hold;
+Outp.robot_Tx.vac_3_blowAck := Outp.robot_Sts.vacuum[3].blowAck;
+Outp.robot_Tx.vac_3_blowResult := Outp.robot_Sts.vacuum[3].blowResult;
 Outp.robot_Tx.cyl_V503_busy := Outp.robot_Sts.cylinders[3].busy;
 Outp.robot_Tx.vac_3_busy := Outp.robot_Sts.vacuum[3].busy;
 Outp.robot_Tx.vac_4_holdApplied := Outp.robot_Sts.vacuum[4].hold;
+Outp.robot_Tx.vac_4_blowAck := Outp.robot_Sts.vacuum[4].blowAck;
+Outp.robot_Tx.vac_4_blowResult := Outp.robot_Sts.vacuum[4].blowResult;
 Outp.robot_Tx.cyl_V504_busy := Outp.robot_Sts.cylinders[4].busy;
 Outp.robot_Tx.vac_4_busy := Outp.robot_Sts.vacuum[4].busy;
 Outp.robot_Tx.vac_5_holdApplied := Outp.robot_Sts.vacuum[5].hold;
+Outp.robot_Tx.vac_5_blowAck := Outp.robot_Sts.vacuum[5].blowAck;
+Outp.robot_Tx.vac_5_blowResult := Outp.robot_Sts.vacuum[5].blowResult;
 Outp.robot_Tx.cyl_V505_busy := Outp.robot_Sts.cylinders[5].busy;
 Outp.robot_Tx.vac_5_busy := Outp.robot_Sts.vacuum[5].busy;
 Outp.hmi_hmiStatus.xOccP4 := material.Sts.occupied[4];

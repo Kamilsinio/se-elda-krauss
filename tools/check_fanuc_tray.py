@@ -225,6 +225,39 @@ class TrayChecks(unittest.TestCase):
         self.assertEqual(cell.event_count('samplesPlaced'),2)
         self.assertEqual(cell.event_count('rejectsPlaced'),2)
 
+    def test_stop_or_order_end_while_waiting_outside_empty_source(self):
+        for request in ('stopRequest', 'endOrderRequest'):
+            with self.subTest(request=request):
+                cell = Cell()
+                cell.update_jobs()
+                cell.area_block.add('source')
+                cell.start()
+                cell.until(lambda: cell.get(cell.p, 'state') == 205 and cell.output('r2p.area.source.accessReq'))
+                motions = len(cell.v.motions)
+                cell.inputs['p2r.production.' + request] = True
+                cell.inputs['p2r.production.newOperationPermit'] = False
+                cell.until(lambda: cell.output('r2p.production.operationsSettled') and cell.get(cell.p, 'state') == 710)
+                self.assertFalse(cell.output('r2p.area.source.accessReq'))
+                self.assertTrue(cell.output('r2p.area.source.clear'))
+                self.assertEqual(len(cell.v.motions), motions)
+
+    def test_pending_injection_needs_tray_after_stop_at_source(self):
+        cell = Cell()
+        cell.update_jobs()
+        cell.area_block.add('source')
+        cell.start()
+        cell.until(lambda: cell.get(cell.p, 'state') == 205)
+        cell.begin(17)
+        cell.stop()
+        for _ in range(8):
+            cell.scan()
+            self.assertEqual(cell.get(cell.p, 'state'), 205)
+            self.assertTrue(cell.output('r2p.area.source.accessReq'))
+        cell.area_block.remove('source')
+        cell.until(lambda: cell.get(cell.p, 'state') == 710 and cell.output('r2p.production.operationsSettled'))
+        self.assertEqual(cell.total('productsPlaced'), 7)
+        self.assertEqual(cell.event_count('immPickupCompleted'), 1)
+
     def test_stop_finishes_n_and_already_begun_n_plus_one(self):
         cell=Cell();cell.start();cell.begin(1)
         cell.until(lambda:cell.event_count('immPickupCompleted')==1)
@@ -375,6 +408,22 @@ class TrayChecks(unittest.TestCase):
         cell.inputs['p2r.production.newOperationPermit']=True
         cell.start()
         self.assertEqual(len(cell.v.motions),before)
+
+    def test_closed_settled_order_requires_new_and_allows_exit(self):
+        for mode in (1, 2):
+            with self.subTest(mode=mode):
+                cell = Cell(mode=mode)
+                cell.update_jobs()
+                cell.start()
+                cell.stop()
+                cell.until(lambda: cell.get(cell.p, 'state') == 710 and cell.output('r2p.production.operationsSettled'))
+                cell.inputs['p2r.production.orderActive'] = False
+                cell.until(lambda: cell.get(cell.p, 'state') == 720)
+                self.assertTrue(cell.get(cell.c, 'session'))
+                self.assertFalse(cell.get(cell.b, 'armed'))
+                cell.set(cell.b, 'stationIdleConfirmed', True)
+                cell.control('EXIT')
+                cell.until(lambda: cell.v.read(COMMON['owner']) == 0)
 
     def test_manual_jog_invalidates_area_release_after_stopping(self):
         cell=Cell();cell.set(cell.b,'sourceExited',True)

@@ -5,6 +5,8 @@ VAR_INPUT
     Session : BOOL;
     Permit : BOOL;
     Critical : BOOL;
+    RestoreApplied : BOOL;
+    AppliedHold : ARRAY[1..5] OF BOOL;
     Reset : BOOL;
     CylHome : ARRAY[1..5] OF BOOL;
     CylWork : ARRAY[1..5] OF BOOL;
@@ -26,6 +28,7 @@ VAR
     previousTarget : ARRAY[1..5] OF UINT;
     directionBlocked : ARRAY[1..5] OF BOOL;
     wasVacuum : ARRAY[1..5] OF BOOL;
+    previouslyDetected : ARRAY[1..5] OF BOOL;
     blowState : ARRAY[1..5] OF UINT;
     blowNeutral : ARRAY[1..5] OF BOOL;
     homeStable : ARRAY[1..5] OF TON;
@@ -102,6 +105,12 @@ FOR i := 1 TO 5 DO
         END_IF;
     END_IF;
 
+    (* Cofnij polecenie odrzucone przez koncowy arbitraz w poprzednim skanie. *)
+    IF RestoreApplied THEN
+        Vac[i].hold := AppliedHold[i];
+        wasVacuum[i] := AppliedHold[i] AND (previouslyDetected[i] OR VacIn[i].ok);
+    END_IF;
+    previouslyDetected[i] := wasVacuum[i];
     healthy := VacIn[i].configured AND VacIn[i].valid AND VacIn[i].lossPolicyVerified AND
         (Cfg.vacuumTimeout > T#0ms);
     active := healthy AND Session AND Permit AND NOT Critical AND NOT Fault;

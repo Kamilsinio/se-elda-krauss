@@ -128,7 +128,7 @@ def combine(tray,box):
              yes(b['booted']),iff(f'{p["state"]}<>710',yes(b['needsRecovery'])),iff(b['needsRecovery'],put(p['state'],900)),'LBL[997]']
         save(mode,prefix+'_TICK',pre+lines)
         save(mode,prefix+'_EXIT',[iff(f'{owner}<>{mode}','JMP LBL[999]'),
-            iff(f'({p["state"]}<>710) AND ({p["state"]}<>900)','JMP LBL[999]'),
+            iff(f'({p["state"]}<>710) AND ({p["state"]}<>720) AND ({p["state"]}<>900)','JMP LBL[999]'),
             iff(b['batchAssigned'],'JMP LBL[999]'),iff(f'{p["remaining"]}<>0','JMP LBL[999]'),yes(release),'LBL[999]'])
         # Every exported private routine also refuses calls without its lease.
         for item in list(art):
@@ -176,7 +176,7 @@ def combine(tray,box):
         status += [iff(f'({owner}<>{mode}) OR !{gb[name+"Release"]}',f'JMP LBL[{910+mode}]'),
                    iff(f'!{safe} OR !{b["stationIdleConfirmed"]}',f'JMP LBL[{910+mode}]'),
                    iff(f'{b["batchAssigned"]} OR ({p["remaining"]}<>0)',f'JMP LBL[{910+mode}]'),
-                   iff(f'({p["state"]}<>710) AND ({p["state"]}<>900)',f'JMP LBL[{910+mode}]'),
+                   iff(f'({p["state"]}<>710) AND ({p["state"]}<>720) AND ({p["state"]}<>900)',f'JMP LBL[{910+mode}]'),
                    put(owner,0),no(gb[name+'Request']),no(gb[name+'Release']),no(b['selected']),no(b['armed']),no(b['booted']),
                    no(c['appArm']),no(c['productionRequired']),no(c['productionPermit']),f'LBL[{910+mode}]']
         status += [iff(f'({owner}<>0) OR !{gb["initialized"]}',f'JMP LBL[{920+mode}]'),

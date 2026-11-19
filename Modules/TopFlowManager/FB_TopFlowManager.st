@@ -14,7 +14,7 @@ VAR
     fPos2Fall : F_TRIG;
     xP2SeenForP1 : BOOL;
     xP2PassedForP1 : BOOL;
-    xP1TransferCanRelease : BOOL;
+    xP1TransferRunning : BOOL;
 
     // Timery
     tStopDelay  : TON;
@@ -60,15 +60,12 @@ permissive := Cmd.EnableAuto AND Cmd.SafetyOK AND (NOT Diag.Fault);
 
 // Przejazd P2 pamiętamy także podczas wyhamowania po pauzie.
 fPos2Fall(CLK := Inp.LoadBarrierBlocked);
-xP1TransferCanRelease := (Sts.State = E_TopFlowState.RUN) AND
-                         (Sts.SrcPos = E_TopPos.P1) AND
-                         Inp.LoadBarrierValid AND
-                         (NOT Cmd.EmptyingMode);
-IF xP1TransferCanRelease THEN
+xP1TransferRunning := (Sts.State = E_TopFlowState.RUN) AND (Sts.SrcPos = E_TopPos.P1);
+IF xP1TransferRunning AND Inp.LoadBarrierValid THEN
     IF permissive AND Inp.TopConveyorRunning AND Inp.LoadBarrierBlocked THEN
         xP2SeenForP1 := TRUE;
     END_IF;
-    IF Inp.LoadBarrierValid AND xP2SeenForP1 AND fPos2Fall.Q THEN
+    IF xP2SeenForP1 AND fPos2Fall.Q THEN
         xP2PassedForP1 := TRUE;
     END_IF;
 END_IF;
@@ -191,7 +188,7 @@ CASE Sts.State OF
             xStackConsumedPending := FALSE;
         END_IF;
 
-        IF Sts.Pos1Accepted AND sPos1_stable THEN
+        IF sPos1_stable AND (Sts.Pos1Accepted OR Cmd.EmptyingMode) THEN
             Sts.OccP1 := TRUE;
         END_IF;
 
@@ -210,7 +207,7 @@ CASE Sts.State OF
         Outp.HoldPos3_Up := Sts.OccP3;
 
         planned := FALSE;
-        p1Ready := Sts.OccP1 AND (Sts.Pos1Accepted OR Cmd.EmptyingMode) AND Inp.LoadBarrierValid;
+        p1Ready := Sts.OccP1 AND sPos1_stable AND (Sts.Pos1Accepted OR Cmd.EmptyingMode) AND Inp.LoadBarrierValid;
 
         IF permissive AND Cmd.AllowNewTransfers THEN
             // --- W trybie tacek (TrayMode) nie planuj TG_ELEV ---
@@ -383,7 +380,7 @@ CASE Sts.State OF
             Sts.State := E_TopFlowState.FAULT;
         END_IF;
 
-        IF xP1TransferCanRelease AND xP2PassedForP1 AND NOT Sts.P1ReleasedForLoad AND
+        IF NOT Cmd.EmptyingMode AND xP1TransferRunning AND Inp.LoadBarrierValid AND xP2PassedForP1 AND NOT Sts.P1ReleasedForLoad AND
            NOT Inp.sPos1_raw AND Sts.State = E_TopFlowState.RUN THEN
             Outp.TopConveyor_Run := FALSE; Outp.ElevConv_RunFwd := FALSE;
             tMoveTO(IN := FALSE); Sts.State := E_TopFlowState.RELEASE_P1;

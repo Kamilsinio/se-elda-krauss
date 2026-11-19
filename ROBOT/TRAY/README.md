@@ -84,7 +84,7 @@ Po ABORT, utracie sesji, krytycznej blokadzie lub ręcznym przemieszczeniu:
 
 Jeżeli przerwano pobieranie pustej tacki, najpierw ręcznie uzgodnić jej odłożenie i stan zdarzeń PLC; program nie podejmuje od nowa szukania z tacką w chwytaku. Przy pełnej tacce (slot równy pojemności) recovery jest blokowane kodem 1408 do ręcznego uzgodnienia końcowych zdarzeń i korekty kontekstu z PLC. Nie przesuwać indeksów na podstawie domysłu.
 
-Sekcja EXIT zgłasza zwolnienie właściciela. BG przyjmuje je ze stanu 710 lub 900 przy zamkniętym zleceniu, HOME, rozliczonych wtryskach/kanałach, remaining=0, braku partii, znanym pustym chwytaku oraz stationIdleConfirmed. Main kończy się po przyjęciu zwolnienia. Przed BOX trzeba zakończyć również natywne zadanie TRAY, w tym PAUSE. Pełna procedura i konflikt obu main: [COMMON](../COMMON/README.md).
+Sekcja EXIT zgłasza zwolnienie właściciela. BG przyjmuje je ze stanu 710, 720 lub 900 przy zamkniętym zleceniu, HOME, rozliczonych wtryskach/kanałach, remaining=0, braku partii, znanym pustym chwytaku oraz stationIdleConfirmed. Main kończy się po przyjęciu zwolnienia. Przed BOX trzeba zakończyć również natywne zadanie TRAY, w tym PAUSE. Pełna procedura i konflikt obu main: [COMMON](../COMMON/README.md).
 
 ## Diagnostyka i sprawdzenia
 
@@ -96,6 +96,7 @@ Sekcja EXIT zgłasza zwolnienie właściciela. BG przyjmuje je ze stanu 710 lub 
 | 400–490 | częściowe odkładanie oraz rozliczenie grup |
 | 500–620 | pełna tacka / stos / oczekiwanie na nowy stos |
 | 700/710 | dojście do HOME / postój |
+| 720 | zlecenie zamknięte w HOME, oczekiwanie na lokalne NEW i stationIdleConfirmed |
 | 900 | uzgodnienie stanu |
 
 FaultCode: 1001 parametry; 1100 brak dopuszczenia ruchu; 1101 punkt/granica szukania; 1102 nieznany stan; 1201 przedmuch; 1301–1303 przypisanie partii; 1401–1408 niespójność recovery; 1501 granice szukania; 1502 zastana próżnia tacki; 1601 brak miejsca; 1700+stan timeout; 1800 BG; 1900 niespójność sekwencji. Przyczyna jest odrębna od step/resumeState.
