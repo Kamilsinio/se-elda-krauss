@@ -1,12 +1,8 @@
-# Vijeo Designer — docelowa mapa ekranów i zmiennych
+# Vijeo Designer — pierwotna mapa projektowa i scenariusze prób
 
-Aktualizacja stacyjna 2026-11-15: zaimplementowano dodatkowe klucze transakcji, Manual ST.1–ST.4, parametry, statusy i diagnostykę według [aktualnego kontraktu stacji](station-plc-implementation.md). uiContractVersion=4. Poniższa mapa obejmuje również propozycje spoza zadeklarowanego interfejsu; do wiązania używać rzeczywistego eksportu symboli, nie podobieństwa nazw.
+**Do budowy projektu użyj instrukcji wykonawczej HMI v4.** Podaje rzeczywiste symbole przy każdym ekranie i oznacza brakujące powiązania. [20 paneli, obiekty i zmienne](hmi-instructions.md).
 
-Aktualizacja 2026-11-15: [pakiet PLC v2](plc-robot-implementation.md) implementuje podzbiór hmiV2 dla zlecenia, trybu, robota, ilości, recovery i ręcznego chwytaka. Pozostałe pola tej mapy nadal są planowane. Nie wykonano ekranów ani konfiguracji drivera/symboli. Nowe pole hmiV2.manual jest opisane w pakiecie PLC; nie podłączać starych hmiCmd jako obejścia nadzoru.
-
-Stan: 2026-10-04. **Specyfikacja do implementacji, nie gotowy eksport symboli ani projekt Vijeo.** Wszystkie pola `GVL_HMI.hmiV2.…` oraz `GVL_HMI.hmiIo.…` w tej dokumentacji są **NOWE / PLANOWANE**. Nie dodano ich jeszcze do ST. Pełna lista obecnych 208 pól jest w [inwentaryzacji](hmi-existing-variables.md). Kolejność pracy i konfigurację narzędzia podaje [human-instructions](../human-instructions.md).
-
-Do przygotowania wyglądu i obiektów korzystaj z [listy ekranów i elementów bez zmiennych](hmi-instructions.md). Każdy panel ma osobną tabelę typów i konfiguracji.
+Poniższe rozdziały zachowują propozycję z 04.10.2026 i scenariusze prób. Kod stacji publikuje `uiContractVersion=4`. Wersja v4 ma m.in. ręczne żądania z licznikami, wspólne zestawy nastaw ST.1–ST.4 i rekordy alarmów w `GVL_HMI.vijeo.alarms`. Klucze i struktury w pierwotnych tabelach obejmują również warianty niewdrożone. [Implementacja stacji](station-plc-implementation.md) · [historyczne pola HMI](hmi-existing-variables.md).
 
 ## 1. Konwencje i zakres
 
@@ -318,7 +314,7 @@ Fizyczne czasy ze starego kodu nie są zatwierdzonymi nastawami Krauss. Obecny f
 
 ## 8. Alarmy
 
-Obecne hmiAlarms jest strukturą flag, a nie gotową listą alarmów. Zaprojektuj stabilny katalog ID w FB_AlarmManager, zatwierdź go w GAP-12, a potem z niego wygeneruj listę Vijeo. `MAX_ALARMS=32` nie wyznacza liczby wymaganych rekordów nowego projektu.
+Dawna struktura flag `hmiAlarms` została usunięta. Panel 3 używa rekordów z `GVL_HMI.vijeo.alarms`. Katalog ID i polityka alarmowa wymagają zatwierdzenia w GAP-12.
 
 Dla każdego zatwierdzonego rekordu i=1..N:
 

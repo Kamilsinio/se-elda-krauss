@@ -11,7 +11,8 @@ class MainCell:
         r.definitions['GIATV.Control_ATV']=r.definitions['NativeAtv']
         r.load('Modules/StationController/FB_StationController.st','Modules/ElevatorDriveAdapter/FB_ElevatorDriveAdapter.st','Modules/Conveyor/FB_Conveyor.st','Modules/Elevator/FB_Elevator.st',
                'Modules/SafetyDoor/FB_SafetyDoor.st','Modules/PRG_IO_Read.st',
-               'Modules/PRG_IO_Write.st','Modules/PRG_Main.st')
+               'Modules/PRG_IO_Write.st','Modules/Vijeo/FB_VijeoRead.st',
+               'Modules/Vijeo/FB_VijeoPublish.st','Modules/PRG_Main.st')
         self.g={}
         for name in ['GVL_IO_RAW','GVL_IO','GVL_HMI','GVL_Robot','GVL_RobotRetain','GVL_Station']:
             text=(r.root/'GVLs'/f'{name}.st').read_text(encoding='utf-8')

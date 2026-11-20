@@ -27,9 +27,9 @@ Aktualizacja 2026-11-15: przygotowano [kontrakt komunikacji PLC–robot](docs/ro
 | Dokument | Przeznaczenie |
 |---|---|
 | [Instrukcja dla człowieka](human-instructions.md) | Kolejność modułów, dobór modeli i poziomów rozumowania, przygotowanie projektu Vijeo |
-| [Ekrany i elementy HMI](docs/hmi-instructions.md) | Lista 20 ekranów i konfiguracja ich elementów bez nazw zmiennych |
-| [Docelowa mapa Vijeo](docs/hmi-vijeo-map.md) | Ekrany, nowe komendy i statusy, blokady, parametry, alarmy i próby HMI |
-| [Obecne zmienne HMI](docs/hmi-existing-variables.md) | Wszystkie 208 pól istniejącej GVL_HMI, ich powiązania i ograniczenia |
+| [Ekrany i elementy HMI](docs/hmi-instructions.md) | 20 paneli Vijeo z obiektami, działaniem i przypisaniem do symboli PLC dla interfejsu HMI v4 |
+| [Docelowa mapa Vijeo](docs/hmi-vijeo-map.md) | Pierwotne założenia interfejsu, proponowane rozszerzenia i scenariusze prób HMI |
+| [Obecne zmienne HMI](docs/hmi-existing-variables.md) | 208 odziedziczonych pól i ich ograniczenia przy migracji |
 | [Diagnostyka I/O dla HMI](docs/hmi-io-diagnostics.md) | Wszystkie 166 wierszy sygnałów i 12 urządzeń z kopii Excela |
 | [Instrukcja dla agenta](AGENTS.md) | Zasady pracy, granice zapisów, architektura i konwencje programowania |
 | [Założenia projektowe](docs/project-assumptions.md) | Uzgodniony proces, zlecenia, tryby, stacje, alarmy i HMI |

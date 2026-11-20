@@ -12,7 +12,8 @@ def validate():
                  'Modules/TopFlowManager/FB_TopFlowManager.st',
                  'Modules/BottomAccumulator/FB_BottomAccumulator_567.st',
                  'Modules/Elevator/FB_Elevator.st','Modules/ElevatorDriveAdapter/FB_ElevatorDriveAdapter.st','Modules/StationController/FB_StationController.st','Modules/SafetyDoor/FB_SafetyDoor.st',
-                 'Modules/PRG_IO_Read.st','Modules/PRG_IO_Write.st','Modules/PRG_Main.st']:
+                 'Modules/PRG_IO_Read.st','Modules/PRG_IO_Write.st','Modules/Vijeo/FB_VijeoRead.st',
+                 'Modules/Vijeo/FB_VijeoPublish.st','Modules/PRG_Main.st']:
         r.load(path)
     globals={}
     global_declarations=[]

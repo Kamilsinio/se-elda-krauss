@@ -16,10 +16,10 @@ Zacznij od [założeń](docs/project-assumptions.md). Szczegółowe wymagania RE
 
 Dokumentację HMI tworzą cztery uzupełniające się dokumenty:
 
-- [Ekrany i elementy HMI bez zmiennych](docs/hmi-instructions.md) — lista 20 paneli oraz typy i konfiguracja elementów na każdym panelu.
+- [Ekrany, elementy i symbole HMI v4](docs/hmi-instructions.md) — lista wykonawcza do budowy i wiązania 20 paneli w Vijeo.
 
-- [Docelowe ekrany, przyciski, parametry i protokół komend](docs/hmi-vijeo-map.md) — projekt interfejsu do zaimplementowania.
-- [Wszystkie 208 obecnych pól GVL_HMI](docs/hmi-existing-variables.md) — rzeczywista baza migracji z ograniczeniami.
+- [Pierwotna mapa Vijeo](docs/hmi-vijeo-map.md) — założenia projektowe, proponowane rozszerzenia i scenariusze prób.
+- [208 odziedziczonych pól GVL_HMI](docs/hmi-existing-variables.md) — rzeczywista baza migracji z ograniczeniami.
 - [166 wierszy sygnałów oraz 12 urządzeń z Excela](docs/hmi-io-diagnostics.md) — podgląd I/O, nazwy i pochodzenie; żaden wiersz nie daje prawa do bezpośredniego wymuszania wyjścia.
 
 ## 2. Kolejność prac nad modułami
@@ -115,7 +115,7 @@ Zapisz projekt jako osobny projekt Krauss w podkatalogu repozytorium, np. HMI/Vi
 Preferowany wariant projektowy to komunikacja symboliczna obsługiwana przez konkretny zestaw Machine Expert/Vijeo. Wybór potwierdź po otrzymaniu projektu i wersji; Ethernet HMI–PLC nie oznacza automatycznie EtherNet/IP używanego do robota i Festo.
 
 1. W Machine Expert skompiluj rzeczywiste DUT/GVL/POU.
-2. Dodaj/uzupełnij Symbol Configuration i wybierz wyłącznie potrzebne pola interfejsu. Statusy udostępnij do odczytu, komendy i bufor parametrów do zapisu zgodnie z możliwościami sterownika.
+2. W Symbol Configuration zaznacz całe `GVL_HMI` oraz 40 odczytów z `GVL_Robot` i `GVL_Station`. Uprawnienia ustaw według oznaczeń R i RW. [Checklista z dokładnymi nazwami](docs/hmi-vijeo-symbols.txt) · [migracja starych wiązań](docs/hmi-instructions.md#migracja-wiązań-po-przycięciu-gvl_hmi).
 3. Wyeksportuj symbole do Vijeo; w panelu zaimportuj zmienne z SoMachine/Machine Expert. Schneider opisuje polecenia „Export Symbols to Vijeo-Designer” i „Import Variables From SoMachine…” dla Machine Expert 1.2 oraz Vijeo 6.2 SP9.1; w innej wersji sprawdź jej odpowiednik. [Schneider — import symboli](https://www.se.com/us/en/faqs/FA411965/)
 4. Skonfiguruj właściwy sterownik/equipment, nazwę węzła i adres PLC. Adresy 192.168.0.1 / .10 i maska 255.255.255.0 pochodzą ze schematu, wymagają sprawdzenia konfliktów i rzeczywistej konfiguracji.
 5. Wybieraj zmienne z listy zaimportowanych symboli. Pełny prefiks urządzenia/aplikacji oraz alias Vijeo może różnić się od zapisu GVL_HMI.… w dokumentacji. Nie zgaduj go ręcznie.
@@ -125,18 +125,11 @@ Sprawdź BOOL, 16-bitowe UINT/INT, REAL 32-bit oraz długość i kodowanie STRIN
 
 ### 4.3. Ekrany i elementy do przygotowania teraz
 
-Przygotuj projekt według [HMI instructions — ekrany i elementy](docs/hmi-instructions.md). Dokument zawiera:
-
-- listę 20 ekranów z numerami i przeznaczeniem;
-- listę elementów osobno dla każdego ekranu;
-- typy obiektów Vijeo, sposób działania, formaty, jednostki, kolory, dostępność i potwierdzenia;
-- wspólny szablon ekranów oraz konfigurację przycisków, odczytów, parametrów i alarmów.
-
-Ta lista służy przygotowaniu ekranów bez nazw zmiennych. Powiązania wykonuje się w kolejnym kroku z mapą Vijeo. Lokalne dane demonstracyjne jednoznacznie oznacz jako demonstracyjne; przy finalnej integracji zastąp je rzeczywistymi odczytami. Nie twórz strony receptur.
+Zacznij od listy 20 ekranów. Każdy ekran ma tabelę obiektów z opisem działania, ścieżką symbolu PLC albo akcją lokalną. Elementy bez czynnego powiązania są opisane przy właściwej stacji. [Instrukcja wykonawcza HMI v4](docs/hmi-instructions.md).
 
 ### 4.4. Zasady powiązania elementów
 
-Pełne nazwy i procedury są w [mapie Vijeo](docs/hmi-vijeo-map.md). Stosuj cztery różne zachowania: odczyt, transakcja jednorazowa z odpowiedzią PLC, ruch przytrzymywany z nadzorem oraz edycja parametru z zatwierdzeniem.
+Wspólny szablon, sesję HMI, transakcje poleceń, ruchy przytrzymywane oraz edycję nastaw opisuje [instrukcja wykonawcza HMI v4](docs/hmi-instructions.md).
 
 Kolor przycisku wynika z potwierdzonego stanu PLC, a nie z ostatnio naciśniętego żądania. Brak ważnych danych pokazuj jako „brak danych”, a nie jako FALSE, HOME albo pustą stację. Dostępność w HMI poprawia obsługę, natomiast właściwe blokady musi ponownie sprawdzić PLC.
 
@@ -151,4 +144,4 @@ Nie wiąż Start zlecenia do starego xStartAuto ani Koniec zlecenia do xEmptySta
 - Raport walidacji/kompilacji i prób HMI z [mapy](docs/hmi-vijeo-map.md); osobno symulacja, komunikacja z PLC i próby na maszynie.
 - Backup przed uruchomieniem i backup końcowy z numerem wersji.
 
-Na dziś można wykonać szkielet i przygotować powiązania projektowe. Brak natywnego projektu PLC/HMI, pełnej konfiguracji panelu oraz niezaimplementowane nowe tagi blokują uznanie mapy za gotowy import i potwierdzenie działania przycisków.
+Obiekty można przygotować według ścieżek w ST. Ostateczne powiązania wymagają eksportu symboli z wybranego projektu PLC, potwierdzenia targetu HMI i weryfikacji w runtime.

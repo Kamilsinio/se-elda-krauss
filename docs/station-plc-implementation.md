@@ -69,7 +69,7 @@ Ruch Manual unieważnia model materiału. Dopuszczone ruchy ręczne można zako�
 
 Sesję, monotoniczne ID, neutralizację i czterofazową transakcję nadal prowadzi jeden FB_RobotHmi. Dodano station1–4ParamApply, station1–5ParamReload, station1–5ResetState i alarmAckAll. Dalszy wynik semantyczny wraca z głównej integracji; samo przyjęcie transportu HMI nie oznacza zakończenia ruchu. Snapshot parametrów jest zamrożony przy przyjęciu żądania.
 
-Publiczne pola: hmiV2.station, stationManual, immManual, stationEdit[1..4], stationActual, stationRevision, stationEditRevision oraz dotychczasowe edit/actual dla ilości ST.5. Apply wymaga postoju, zgodnej rewizji i zweryfikowanych zakresów ParameterCfg; zlecenie może pozostać otwarte. Ilość detali nadal wymaga zamkniętego zlecenia. Reload kopiuje aktywne dane i rewizję. Nie zerować rewizji po wyczerpaniu UINT bez kontrolowanej migracji.
+Panel korzysta z `hmiV2.station`, buforów `hmiV2.edit` i `hmiV2.actual` dla ST.5 oraz pól `vijeo.stationManual`, `vijeo.immManual` i nastaw z listy eksportowej ([symbole HMI](hmi-vijeo-symbols.txt)). Apply wymaga postoju, zgodnej rewizji i zweryfikowanych zakresów ParameterCfg; zlecenie może pozostać otwarte. Ilość detali nadal wymaga zamkniętego zlecenia. Reload kopiuje aktywne dane i rewizję. Nie zerować rewizji po wyczerpaniu UINT bez kontrolowanej migracji.
 
 Zestaw ST.1–ST.4 zawiera sensorStableMs, stopDelayMs, moveTimeoutMs, actuatorTimeoutMs, a ST.2 także slowHz/fastHz. Czasy interfejsu są UDINT w ms; walidacja ogranicza je przed TO_TIME. Parametry techniczne napędu i polityki cewek nie są edytowane przez ten interfejs. Winda do krawędzi korzysta z aktywnej prędkości wolnej.
 

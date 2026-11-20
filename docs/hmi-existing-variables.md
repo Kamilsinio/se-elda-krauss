@@ -4,7 +4,7 @@ Aktualizacja 2026-11-15: poniższe 208 pól pozostaje historyczną bazą migracj
 
 Data: 2026-10-04. Źródło: [GVL_HMI.st](../GVLs/GVL_HMI.st); odczyty i przypisania: [PRG_Main.st](../Modules/PRG_Main.st). Wykaz opisuje odziedziczony kod, nie ukończoną adaptację Krauss.
 
-**To baza migracji. Nie potwierdza eksportu symboli, komunikacji z panelem ani gotowości komend do wdrożenia na nowej maszynie.** Brakuje natywnego projektu PLC/HMI i konfiguracji Symbol Configuration. Docelowy kontrakt i ekrany opisuje [mapa Vijeo](hmi-vijeo-map.md), a kolejność prac [human-instructions.md](../human-instructions.md).
+Wykaz służy do porównania podczas migracji. Aktualny przydział obiektów do paneli, ścieżki symboli i działanie poleceń zawiera [instrukcja wykonawcza HMI v4](hmi-instructions.md). Konfigurację importu opisuje [instrukcja prowadzenia projektu](../human-instructions.md).
 
 R = panel odczytuje wartość PLC; W = panel zapisuje żądanie/nastawę. To kierunek funkcjonalny, nie potwierdzenie uprawnień drivera. „Brak obsługi” oznacza deklarację bez czynnego odbiorcy lub producenta. Typy są dokładnymi typami IEC; import do konkretnego drivera wymaga potwierdzenia, zwłaszcza INT ze znakiem, REAL i długości STRING.
 

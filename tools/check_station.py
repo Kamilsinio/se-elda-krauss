@@ -306,6 +306,175 @@ class StationTests(unittest.TestCase):
         self.assertEqual(names,{n for n,_,_ in self.r.types['ST_StationIoValues']});self.assertEqual(len(names),159)
 
 class IntegrationTests(unittest.TestCase):
+    def test_vijeo_manual_indices_keep_requests_and_counters_together(self):
+        from plc_station_main import MainCell
+        cell = MainCell()
+        shared = cell.g['GVL_HMI']
+        hmi = cell.main.v['hmiRuntime']
+        vijeo = shared['vijeo']
+        for key, session in (('stationManual', 11), ('immManual', 12), ('manual', 13)):
+            channels = vijeo[key]
+            for field, values in channels.items():
+                if field.lower().endswith('sessionid'):
+                    channels[field] = session
+                else:
+                    for index in values:
+                        values[index] = index + 1 if field == 'holdCounter' else index % 2 == 0
+        cell.scan()
+        for key in ('stationManual', 'immManual', 'manual'):
+            for field, exported in vijeo[key].items():
+                source_field = 'negative' if field == 'negativeFrom2' else field
+                value = hmi[key][source_field]
+                if isinstance(value, dict):
+                    first = 2 if field == 'negativeFrom2' else 1
+                    self.assertEqual([value[i + first] for i in exported], list(exported.values()), (key, field))
+                else:
+                    self.assertEqual(value, exported, (key, field))
+        self.assertFalse(hmi['stationManual']['negative'][1])
+        self.assertFalse(any(hmi['immManual']['negative'].values()))
+        self.assertTrue(all(not hmi['immManual']['positive'][i] for i in range(5, 17)))
+        self.assertTrue(all(hmi['immManual']['holdCounter'][i] == 0 for i in range(5, 17)))
+        vijeo['stationManual']['positive'][0] = False
+        cell.scan()
+        self.assertFalse(hmi['stationManual']['positive'][1])
+
+    def test_vijeo_reload_refreshes_one_buffer_and_preserves_later_edits(self):
+        from plc_station_main import MainCell
+        cell = MainCell()
+        shared = cell.g['GVL_HMI']
+        hmi, vijeo = shared['hmiV2'], shared['vijeo']
+        plc = cell.g['GVL_Robot']
+        plc['ScannerHealthy'] = plc['ImageFresh'] = True
+        plc['Plant']['retentionVerified'] = True
+        plc['Cfg']['hmiTimeout'] = 500
+        ctx = cell.g['GVL_RobotRetain']['Context']
+        ctx['stationParameters'][4].update(sensorStableMs=12, stopDelayMs=38, moveTimeoutMs=90, verified=True)
+        ctx['stationParamRevision'][4] = 9
+        hmi['link']['uiHmiHeartbeat'] = 1
+        cell.scan()
+        hmi['link'].update(xArmReq=True, uiHmiHeartbeat=2)
+        cell.scan()
+        hmi['link']['xArmReq'] = False
+        self.assertTrue(hmi['link']['xArmed'])
+        vijeo['stationEdit'][0]['sensorStableMs'] = 99
+        hmi['cmd']['station4ParamReload'].update(
+            udiSessionId=hmi['link']['udiSessionId'], udiRequestId=1, xReq=True)
+        cell.scan()
+        self.assertEqual(vijeo['storageEdit']['sensorStableMs'], 12)
+        self.assertEqual(vijeo['stationEditRevision'][3], 9)
+        self.assertEqual(vijeo['stationRevision'][3], 9)
+        self.assertEqual(vijeo['stationEdit'][0]['sensorStableMs'], 99)
+        vijeo['storageEdit'].update(sensorStableMs=23, verified=False)
+        cell.scan()
+        runtime_edit = cell.main.v['hmiRuntime']['stationEdit'][4]
+        self.assertEqual(runtime_edit['sensorStableMs'], 23)
+        self.assertTrue(runtime_edit['verified'])
+        self.assertEqual(runtime_edit['stopDelayMs'], 38)
+        self.assertEqual(runtime_edit['moveTimeoutMs'], 90)
+        self.assertTrue(vijeo['storageEdit']['verified'])
+        self.assertEqual(vijeo['storageEdit']['sensorStableMs'], 23)
+        self.assertEqual(vijeo['storageActual']['sensorStableMs'], 12)
+        self.assertTrue(hmi['rsp']['station4ParamReload']['xAck'])
+
+    def test_vijeo_io_publishes_every_documented_alias(self):
+        from plc_station_main import MainCell
+        cell = MainCell()
+        shared = cell.g['GVL_HMI']
+        io = cell.r.value('ST_StationHmiIo')
+        vijeo = shared['vijeo']
+        doc = (cell.r.root / 'docs/hmi-io-diagnostics.md').read_text(encoding='utf-8')
+        rows = [line.split('|') for line in doc.splitlines() if line.startswith('|')]
+        pairs = [(cols[3].strip()[1:-1], cols[7].strip()[1:-1])
+                 for cols in rows if len(cols) == 9 and cols[4].strip() in ('IN', 'OUT')]
+        aliases = dict(pairs)
+        self.assertEqual(len(pairs), 166)
+        self.assertEqual(len(aliases), 159)
+        self.assertEqual(set(aliases), set(io['value']))
+        self.assertEqual(set(aliases.values()), set(vijeo['value']))
+        self.assertEqual(len({alias.lower() for alias in aliases.values()}), 159)
+        self.assertTrue(all(len(alias) <= 32 for alias in aliases.values()))
+        publisher = cell.main.v['vijeoPublish']
+        io['dataValid'] = True
+        io['barrierBlocked'] = True
+        io['appliedCoils'][9]['home'] = True
+        io['appliedCoils'][10]['work'] = True
+        io['alarms']['entries'][1]['code'] = 1
+        io['alarms']['entries'][64]['code'] = 64
+        for bit in range(8):
+            for n, source in enumerate(aliases):
+                io['value'][source] = bool(n & (1 << bit))
+                io['valid'][source] = not io['value'][source]
+            publisher.run(Hmi=cell.main.v['hmiRuntime'], Io=io, ReloadedStation=0)
+            for source, alias in aliases.items():
+                self.assertEqual(vijeo['value'][alias], io['value'][source], alias)
+                self.assertEqual(vijeo['valid'][alias], io['valid'][source], alias)
+        self.assertEqual(vijeo['alarms']['entries'][0]['code'], 1)
+        self.assertEqual(vijeo['alarms']['entries'][63]['code'], 64)
+        self.assertEqual(shared['hmiIo'], {'dataValid': True, 'barrierValid': False, 'barrierBlocked': True})
+        self.assertEqual(vijeo['unloadCoils'][0], {'home': True, 'work': False})
+        self.assertEqual(vijeo['unloadCoils'][1], {'home': False, 'work': True})
+
+    def test_vijeo_elevator_and_batch_reload_publish_only_the_requested_buffers(self):
+        from plc_station_main import MainCell
+        cell = MainCell()
+        plc = cell.g['GVL_Robot']
+        plc['ScannerHealthy'] = plc['ImageFresh'] = True
+        plc['Plant']['retentionVerified'] = True
+        plc['Cfg']['hmiTimeout'] = 500
+        ctx = cell.g['GVL_RobotRetain']['Context']
+        ctx['stationParameters'][2].update(slowHz=12.0, fastHz=24.0)
+        ctx.update(program_=2, batchCount=7)
+        shared = cell.g['GVL_HMI']
+        hmi, vijeo = shared['hmiV2'], shared['vijeo']
+        hmi['link']['uiHmiHeartbeat'] = 1
+        cell.scan()
+        hmi['link'].update(xArmReq=True, uiHmiHeartbeat=2)
+        cell.scan()
+        hmi['link']['xArmReq'] = False
+        session = hmi['link']['udiSessionId']
+        self.assertTrue(hmi['link']['xArmed'])
+        hmi['edit'].update(uiProgram=1, uiBatchCount=99)
+        vijeo['storageEdit']['sensorStableMs'] = 55
+        first = hmi['cmd']['station2ParamReload']
+        first.update(udiSessionId=session, udiRequestId=1, xReq=True)
+        cell.scan()
+        self.assertEqual(vijeo['elevatorSpeedEdit'], {'slowHz': 12.0, 'fastHz': 24.0})
+        self.assertEqual(hmi['edit']['uiBatchCount'], 99)
+        self.assertEqual(vijeo['storageEdit']['sensorStableMs'], 55)
+        cell.scan()
+        first['xReq'] = False
+        cell.scan()
+        vijeo['elevatorSpeedEdit']['slowHz'] = 14.0
+        batch = hmi['cmd']['station5ParamReload']
+        batch.update(udiSessionId=session, udiRequestId=2, xReq=True)
+        cell.scan()
+        self.assertEqual(hmi['edit'], {'uiProgram': 2, 'uiBatchCount': 7})
+        self.assertEqual(vijeo['elevatorSpeedEdit']['slowHz'], 14.0)
+        self.assertEqual(cell.main.v['hmiRuntime']['stationEdit'][2]['slowHz'], 14.0)
+        hmi['edit']['uiBatchCount'] = 77
+        cell.scan()
+        self.assertEqual(hmi['edit']['uiBatchCount'], 77)
+        self.assertTrue(hmi['rsp']['station5ParamReload']['xAck'])
+
+    def test_vijeo_gvl_contains_exactly_the_listed_symbols(self):
+        from plc_station_main import MainCell
+        cell = MainCell()
+        exported = cell.g['GVL_HMI']
+        doc = (cell.r.root / 'docs/hmi-vijeo-symbols.txt').read_text(encoding='utf-8')
+        expected = {line.split()[-1] for line in doc.splitlines()
+                    if line.startswith(('R ', 'RW ')) and line.split()[-1].startswith('GVL_HMI.')}
+
+        def leaves(value, path):
+            if not isinstance(value, dict):
+                return {path}
+            if all(isinstance(k, int) for k in value):
+                self.assertEqual(sorted(value), list(range(len(value))), path)
+                return {p for k, elem in value.items() for p in leaves(elem, f'{path}[{k}]')}
+            self.assertTrue(all(len(k) <= 32 for k in value), path)
+            return {p for k, elem in value.items() for p in leaves(elem, f'{path}.{k}')}
+
+        self.assertEqual(leaves(exported, 'GVL_HMI'), expected)
+
     def test_main_unbound_has_no_motion_and_no_false_empty(self):
         from plc_station_main import MainCell
         cell=MainCell()

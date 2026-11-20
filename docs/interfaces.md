@@ -144,7 +144,7 @@ Arkusz 153 pokazuje wspólne zasilanie styków KF204–KF210 przez KF203:14. Oso
 
 ## 7. HMI ↔ PLC
 
-Szczegółową specyfikację elementów, proponowanych tagów i protokołu komend zawiera [mapa Vijeo](hmi-vijeo-map.md); [inwentaryzacja](hmi-existing-variables.md) opisuje wszystkie istniejące pola. Nowe hmiV2/hmiIo są propozycją do zatwierdzenia przed implementacją, nie deklaracjami już obecnymi w ST.
+Przypisania obiektów Vijeo do zaimplementowanych pól `GVL_HMI.hmiV2` i `GVL_HMI.hmiIo` podaje [instrukcja wykonawcza HMI v4](hmi-instructions.md). Pierwotne propozycje i scenariusze prób zawiera [mapa projektowa](hmi-vijeo-map.md), a 208 odziedziczonych pól opisuje [inwentaryzacja do migracji](hmi-existing-variables.md).
 
 | Grupa | Minimalny zakres |
 |---|---|
