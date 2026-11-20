@@ -433,7 +433,6 @@ Hmi.state.xWorkWithRobot := Context.withRobot;
 Hmi.state.xRobotHomeValid := homeValid;
 Hmi.state.xCanPhysicalStart := Order.Sts.canStart;
 Hmi.state.xOpsSettled := Sts.settled;
-Hmi.state.xStationEmpty := Plant.stationEmptyConfirmed;
 Hmi.state.xRobotDataValid := Sts.session;
 Hmi.state.xRecoveryRequired := Sts.recoveryRequired;
 Hmi.state.uiRobotStep := Rx.production_step;

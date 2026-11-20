@@ -10,7 +10,6 @@ uiMode : UINT;
     xCanPhysicalStart : BOOL;
     sStartBlockReason : STRING[80];
     xOpsSettled : BOOL;
-    xStationEmpty : BOOL;
     uiRobotStep : UINT;
     uiRobotPhase : UINT;
     uiRobotWaitCode : UINT;

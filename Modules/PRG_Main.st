@@ -1,6 +1,9 @@
 PROGRAM PRG_Main
 VAR
  station : FB_StationController;
+ hmiRuntime : ST_RobotHmiV2;
+ vijeoRead : FB_VijeoRead;
+ vijeoPublish : FB_VijeoPublish;
  driveAdapter : FB_ElevatorDriveAdapter;
  cfg : ST_StationCfg;
  inp : ST_StationInputs;
@@ -32,8 +35,9 @@ inp.station_DiagnosticValid := GVL_Station.DiagnosticValid;
 inp.station_ManualInterlocks := GVL_Station.ManualInterlocks;
 inp.io_di := GVL_IO.di;
 inp.drive := driveAdapter.Feedback;
+vijeoRead(Hmi := hmiRuntime);
 station(Cfg := cfg, Inp := inp, Context := GVL_RobotRetain.Context,
- Proposal := GVL_Robot.Proposal, Hmi := GVL_HMI.hmiV2);
+ Proposal := GVL_Robot.Proposal, Hmi := hmiRuntime);
 GVL_Robot.Sts := station.Outp.robot_Sts;
 GVL_Robot.Tx := station.Outp.robot_Tx;
 GVL_Robot.storageOut := station.Outp.robot_storageOut;
@@ -51,12 +55,13 @@ GVL_Station.V202Out := station.Outp.station_V202Out;
 GVL_Station.LowerStopOut := station.Outp.station_LowerStopOut;
 GVL_IO.dout := station.Outp.io_dout;
 GVL_HMI.hmiStatus := station.Outp.hmi_hmiStatus;
-GVL_HMI.hmiAlarms := station.Outp.hmi_hmiAlarms;
-GVL_HMI.hmiAlarmCount := station.Outp.hmi_hmiAlarmCount;
-GVL_HMI.hmiIo := station.Outp.hmi_hmiIo;
 GVL_Robot.Drain := station.Outp.drain;
 GVL_Station.ReconcileRequired := station.Outp.reconcileRequired;
 driveAdapter(Cmd := station.Outp.drive, MappingVerified := GVL_Station.ElevatorCfgVerified,
  CommHealthy := GVL_Robot.vfdCommHealthy, FrequencyValid := GVL_Station.DriveFrequencyValid,
  ActualHz := INT_TO_REAL(WORD_TO_INT(GVL_IO.di.ATV320_currentFreq)) / 10.0);
+vijeoPublish(
+    Hmi := hmiRuntime,
+    Io := station.Outp.hmi_hmiIo,
+    ReloadedStation := station.Outp.hmi_reloadedStation);
 PRG_IO_Write();

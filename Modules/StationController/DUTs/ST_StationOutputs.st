@@ -17,9 +17,8 @@ STRUCT
     station_LowerStopOut : ARRAY[1..2] OF ST_StationCoil;
     io_dout : ST_IO_DO;
     hmi_hmiStatus : ST_HmiStationStatus;
-    hmi_hmiAlarms : ST_HmiAlarm;
-    hmi_hmiAlarmCount : UINT;
     hmi_hmiIo : ST_StationHmiIo;
+    hmi_reloadedStation : UINT;
     drive : ST_ElevatorDriveCmd;
     drain : ST_RobotDrain;
     reconcileRequired : BOOL;

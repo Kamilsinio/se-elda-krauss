@@ -1188,84 +1188,11 @@ Context.stationAction := transport.Sts.action_;
 Context.pickupPending := fbBottom567.Sts.WaitingPickup;
 Context.pickupSeen := fbBottom567.Sts.PickupSeen;
 
-// 15) ALARM MANAGER — zbieranie faultów
-// ================================================================
-
-Outp.hmi_hmiAlarms.xM1_Fault         := fbPosM1.Diag.Fault;
-Outp.hmi_hmiAlarms.xM2_Fault         := fbStopM2.Diag.Fault;
-Outp.hmi_hmiAlarms.xM3_Fault         := fbStopM3.Diag.Fault;
-Outp.hmi_hmiAlarms.xM4_Fault         := fbStopM4.Diag.Fault;
-Outp.hmi_hmiAlarms.xM5_Fault         := fbPosM5.Diag.Fault;
-Outp.hmi_hmiAlarms.xM6_Fault         := (fbV201.Diag.Fault OR fbV202.Diag.Fault);
-Outp.hmi_hmiAlarms.xM7_Fault         := fbPosM7.Diag.Fault;
-Outp.hmi_hmiAlarms.xM8_Fault         := fbStorage.Diag.Fault;
-Outp.hmi_hmiAlarms.xConvTop_Fault    := fbConvTop.Diag.Fault;
-Outp.hmi_hmiAlarms.xConvElev_Fault   := fbConvElev.Diag.Fault;
-Outp.hmi_hmiAlarms.xConvBottom_Fault := fbConvBottom.Diag.Fault;
-Outp.hmi_hmiAlarms.xElev_Fault       := elevStat.xFault;
-Outp.hmi_hmiAlarms.xElev_CommLost    := FALSE; // osobny alarm komunikacji windy nieużywany
-Outp.hmi_hmiAlarms.xTopFlow_Fault    := fbTopFlow.Diag.Fault;
-Outp.hmi_hmiAlarms.xBottom_Fault     := fbBottom567.Diag.Fault;
-Outp.hmi_hmiAlarms.xTraySeq_Fault    := fbTraySeq.Diag.Fault;
-Outp.hmi_hmiAlarms.xBoxSeq_Fault     := fbBoxSeq.Diag.Fault;
-Outp.hmi_hmiAlarms.xRobot_Fault      := (Inp.robot_Rx.production_fault AND robot.Sts.diagnosticValid);
-Outp.hmi_hmiAlarms.xRobot_EStop      := (Inp.robot_Rx.production_estopActive AND robot.Sts.diagnosticValid);
-Outp.hmi_hmiAlarms.xRobot_CommLost   := NOT robot.Sts.session;
-Outp.hmi_hmiAlarms.xVfd_CommLost     := xGlobalEnable AND (NOT elevStat.xVfdCommOk);
-Outp.hmi_hmiAlarms.xLowPressure      := Inp.io_di.ind_low_pressure;
-Outp.hmi_hmiAlarms.xSafetyTrip       := NOT xSafetyOK;
-
-Outp.hmi_hmiAlarmCount :=
-    TO_UINT(Outp.hmi_hmiAlarms.xM1_Fault) +
-    TO_UINT(Outp.hmi_hmiAlarms.xM2_Fault) +
-    TO_UINT(Outp.hmi_hmiAlarms.xM3_Fault) +
-    TO_UINT(Outp.hmi_hmiAlarms.xM4_Fault) +
-    TO_UINT(Outp.hmi_hmiAlarms.xM5_Fault) +
-    TO_UINT(Outp.hmi_hmiAlarms.xM6_Fault) +
-    TO_UINT(Outp.hmi_hmiAlarms.xM7_Fault) +
-    TO_UINT(Outp.hmi_hmiAlarms.xM8_Fault) +
-    TO_UINT(Outp.hmi_hmiAlarms.xConvTop_Fault) +
-    TO_UINT(Outp.hmi_hmiAlarms.xConvElev_Fault) +
-    TO_UINT(Outp.hmi_hmiAlarms.xConvBottom_Fault) +
-    TO_UINT(Outp.hmi_hmiAlarms.xElev_Fault) +
-    TO_UINT(Outp.hmi_hmiAlarms.xElev_CommLost) +
-    TO_UINT(Outp.hmi_hmiAlarms.xTopFlow_Fault) +
-    TO_UINT(Outp.hmi_hmiAlarms.xBottom_Fault) +
-    TO_UINT(Outp.hmi_hmiAlarms.xTraySeq_Fault) +
-    TO_UINT(Outp.hmi_hmiAlarms.xBoxSeq_Fault) +
-    TO_UINT(Outp.hmi_hmiAlarms.xRobot_Fault) +
-    TO_UINT(Outp.hmi_hmiAlarms.xRobot_EStop) +
-    TO_UINT(Outp.hmi_hmiAlarms.xRobot_CommLost) +
-    TO_UINT(Outp.hmi_hmiAlarms.xVfd_CommLost) +
-    TO_UINT(Outp.hmi_hmiAlarms.xRobot_MbLost) +
-    TO_UINT(Outp.hmi_hmiAlarms.xLowPressure) +
-    TO_UINT(Outp.hmi_hmiAlarms.xSafetyTrip);
-
-// ================================================================
 // 16) HMI STATUS — aktualizacja statusu stacji dla wizualizacji
 // ================================================================
 
-Outp.hmi_hmiStatus.xAutoRunning     := xAutoActive;
-Outp.hmi_hmiStatus.xManualMode      := xHmiManualMode;
-Outp.hmi_hmiStatus.xEmptyingStation := xEmptyRunning;
-Outp.hmi_hmiStatus.xModeTray        := xModeTray;
-Outp.hmi_hmiStatus.xModeBox         := xModeBox;
-Outp.hmi_hmiStatus.xGlobalEnable    := xGlobalEnable;
-Outp.hmi_hmiStatus.xSafetyOK        := xSafetyOK;
-
-// Pozycje
-Outp.hmi_hmiStatus.xOccP1 := fbTopFlow.Sts.OccP1;
-Outp.hmi_hmiStatus.xOccP2 := fbTopFlow.Sts.OccP2;
-Outp.hmi_hmiStatus.xOccP3 := fbTopFlow.Sts.OccP3;
-Outp.hmi_hmiStatus.xOccP4 := io.Sts.occupied[4];
-Outp.hmi_hmiStatus.xOccP5 := fbBottom567.Sts.Occ5;
-Outp.hmi_hmiStatus.xOccP6 := fbBottom567.Sts.Occ6;
-Outp.hmi_hmiStatus.xOccP7 := fbBottom567.Sts.Occ7;
-
 // Winda
 Outp.hmi_hmiStatus.uiElevState   := uiElevState;
-Outp.hmi_hmiStatus.xElevAtTop    := elevStat.ePos = E_ElevatorPos.posTop;
-Outp.hmi_hmiStatus.xElevAtBottom := elevStat.ePos = E_ElevatorPos.posBottom;
 Outp.hmi_hmiStatus.xElevBusy     := elevStat.xBusy;
 Outp.hmi_hmiStatus.xElevFault    := elevStat.xFault;
 Outp.hmi_hmiStatus.rElevFreq_Hz  := elevStat.rVfdOutHz;
@@ -1275,109 +1202,37 @@ Outp.hmi_hmiStatus.sElevDiagText := elevStat.sDiagText;
 Outp.hmi_hmiStatus.xConvTopRunning    := fbConvTop.Sts.Running;
 Outp.hmi_hmiStatus.xConvElevRunning   := fbConvElev.Sts.Running;
 Outp.hmi_hmiStatus.xConvBottomRunning := fbConvBottom.Sts.Running;
-Outp.hmi_hmiStatus.uiConvTopState      := TO_UINT(fbConvTop.Sts.State);
-Outp.hmi_hmiStatus.uiConvElevState     := TO_UINT(fbConvElev.Sts.State);
-Outp.hmi_hmiStatus.uiConvBottomState   := TO_UINT(fbConvBottom.Sts.State);
 Outp.hmi_hmiStatus.iConvTopDirection   := fbConvTop.Sts.Direction;
 Outp.hmi_hmiStatus.iConvElevDirection  := fbConvElev.Sts.Direction;
 Outp.hmi_hmiStatus.iConvBottomDirection := fbConvBottom.Sts.Direction;
-Outp.hmi_hmiStatus.xConvTopFault       := fbConvTop.Diag.Fault;
-Outp.hmi_hmiStatus.xConvElevFault      := fbConvElev.Diag.Fault;
-Outp.hmi_hmiStatus.xConvBottomFault    := fbConvBottom.Diag.Fault;
 Outp.hmi_hmiStatus.sConvTopDiagText    := fbConvTop.Diag.Text;
 Outp.hmi_hmiStatus.sConvElevDiagText   := fbConvElev.Diag.Text;
 Outp.hmi_hmiStatus.sConvBottomDiagText := fbConvBottom.Diag.Text;
 
 // Siłowniki — stan zagregowany (kompatybilność wstecz)
-Outp.hmi_hmiStatus.xM1_Extended := fbPosM1.Sts.IsUp;
-Outp.hmi_hmiStatus.xM2_Up       := fbStopM2.Sts.IsUp;
-Outp.hmi_hmiStatus.xM3_Up       := fbStopM3.Sts.IsUp;
-Outp.hmi_hmiStatus.xM4_Up       := fbStopM4.Sts.IsUp;
-Outp.hmi_hmiStatus.xM5_Up       := fbPosM5.Sts.IsUp;
-Outp.hmi_hmiStatus.xM6_Up       := (fbV201.Sts.AtExt AND fbV202.Sts.AtExt);
-Outp.hmi_hmiStatus.xM7_Extended := fbPosM7.Sts.IsUp;
-Outp.hmi_hmiStatus.xM8_Extended := fbStorage.Sts.RobotSideOpen;
-Outp.hmi_hmiStatus.xM1_Retracted := fbPosM1.Sts.IsDown;
-Outp.hmi_hmiStatus.xM2_Down      := fbStopM2.Sts.IsDown;
-Outp.hmi_hmiStatus.xM3_Down      := fbStopM3.Sts.IsDown;
-Outp.hmi_hmiStatus.xM4_Down      := fbStopM4.Sts.IsDown;
-Outp.hmi_hmiStatus.xM5_Down      := fbPosM5.Sts.IsDown;
-Outp.hmi_hmiStatus.xM6_Down      := (fbV201.Sts.AtRet AND fbV202.Sts.AtRet);
-Outp.hmi_hmiStatus.xM7_Retracted := fbPosM7.Sts.IsDown;
-Outp.hmi_hmiStatus.xM8_Retracted := fbStorage.Sts.RobotSideClosed;
 Outp.hmi_hmiStatus.xM1_Busy      := fbPosM1.Sts.Busy;
 Outp.hmi_hmiStatus.xM2_Busy      := fbStopM2.Sts.Busy;
 Outp.hmi_hmiStatus.xM3_Busy      := fbStopM3.Sts.Busy;
 Outp.hmi_hmiStatus.xM4_Busy      := fbStopM4.Sts.Busy;
 Outp.hmi_hmiStatus.xM5_Busy      := fbPosM5.Sts.Busy;
 Outp.hmi_hmiStatus.xM6_Busy      := (fbV201.Sts.Busy OR fbV202.Sts.Busy);
-Outp.hmi_hmiStatus.xM7_Busy      := fbPosM7.Sts.Busy;
-Outp.hmi_hmiStatus.xM8_Busy      := fbStorage.Sts.Busy;
-Outp.hmi_hmiStatus.xM1_Fault     := fbPosM1.Diag.Fault;
-Outp.hmi_hmiStatus.xM2_Fault     := fbStopM2.Diag.Fault;
-Outp.hmi_hmiStatus.xM3_Fault     := fbStopM3.Diag.Fault;
-Outp.hmi_hmiStatus.xM4_Fault     := fbStopM4.Diag.Fault;
-Outp.hmi_hmiStatus.xM5_Fault     := fbPosM5.Diag.Fault;
-Outp.hmi_hmiStatus.xM6_Fault     := (fbV201.Diag.Fault OR fbV202.Diag.Fault);
-Outp.hmi_hmiStatus.xM7_Fault     := fbPosM7.Diag.Fault;
-Outp.hmi_hmiStatus.xM8_Fault     := fbStorage.Diag.Fault;
 Outp.hmi_hmiStatus.sM1DiagText   := fbPosM1.Diag.Text;
 Outp.hmi_hmiStatus.sM2DiagText   := fbStopM2.Diag.Text;
 Outp.hmi_hmiStatus.sM3DiagText   := fbStopM3.Diag.Text;
 Outp.hmi_hmiStatus.sM4DiagText   := fbStopM4.Diag.Text;
 Outp.hmi_hmiStatus.sM5DiagText   := fbPosM5.Diag.Text;
-Outp.hmi_hmiStatus.sM6DiagText   := 'V201/V202: sprawdz osobna diagnostyke osi';
-Outp.hmi_hmiStatus.sM7DiagText   := fbPosM7.Diag.Text;
-Outp.hmi_hmiStatus.sM8DiagText   := fbStorage.Diag.Text;
 
 // Krańcówki siłowników — surowe czujniki fizyczne
 // M1 — pozycjoner załadunku
-Outp.hmi_hmiStatus.xM1_1_Fwd := Inp.io_di.ind_M1_1_fwd;
-Outp.hmi_hmiStatus.xM1_2_Fwd := Inp.io_di.ind_M1_2_fwd;
-Outp.hmi_hmiStatus.xM1_1_Bwd := Inp.io_di.ind_M1_1_bwd;
-Outp.hmi_hmiStatus.xM1_2_Bwd := Inp.io_di.ind_M1_2_bwd;
 // M2 — stoper P1
-Outp.hmi_hmiStatus.xM2_1_Fwd := Inp.io_di.ind_M2_1_fwd;
-Outp.hmi_hmiStatus.xM2_2_Fwd := Inp.io_di.ind_M2_2_fwd;
-Outp.hmi_hmiStatus.xM2_1_Bwd := Inp.io_di.ind_M2_1_bwd;
-Outp.hmi_hmiStatus.xM2_2_Bwd := Inp.io_di.ind_M2_2_bwd;
 // M3 — stoper P2
-Outp.hmi_hmiStatus.xM3_1_Fwd := Inp.io_di.ind_M3_1_fwd;
-Outp.hmi_hmiStatus.xM3_2_Fwd := Inp.io_di.ind_M3_2_fwd;
-Outp.hmi_hmiStatus.xM3_1_Bwd := Inp.io_di.ind_M3_1_bwd;
-Outp.hmi_hmiStatus.xM3_2_Bwd := Inp.io_di.ind_M3_2_bwd;
 // M4 — stoper P3
-Outp.hmi_hmiStatus.xM4_1_Fwd := Inp.io_di.ind_M4_1_fwd;
-Outp.hmi_hmiStatus.xM4_2_Fwd := Inp.io_di.ind_M4_2_fwd;
-Outp.hmi_hmiStatus.xM4_1_Bwd := Inp.io_di.ind_M4_1_bwd;
-Outp.hmi_hmiStatus.xM4_2_Bwd := Inp.io_di.ind_M4_2_bwd;
 // M5 — pozycjoner tacek P3
-Outp.hmi_hmiStatus.xM5_1_Fwd := Inp.io_di.ind_M5_1_fwd;
-Outp.hmi_hmiStatus.xM5_2_Fwd := Inp.io_di.ind_M5_2_fwd;
-Outp.hmi_hmiStatus.xM5_1_Bwd := Inp.io_di.ind_M5_1_bwd;
-Outp.hmi_hmiStatus.xM5_2_Bwd := Inp.io_di.ind_M5_2_bwd;
 // M6 — pozycjoner tacek winda
-Outp.hmi_hmiStatus.xM6_1_Fwd := Inp.station_Inputs.v201.IsExt;
-Outp.hmi_hmiStatus.xM6_2_Fwd := Inp.station_Inputs.v202.IsExt;
-Outp.hmi_hmiStatus.xM6_1_Bwd := Inp.station_Inputs.v201.IsRet;
-Outp.hmi_hmiStatus.xM6_2_Bwd := Inp.station_Inputs.v202.IsRet;
 // M7 — pozycjoner kuwet winda
-Outp.hmi_hmiStatus.xM7_Fwd := Inp.io_di.ind_M7_fwd;
-Outp.hmi_hmiStatus.xM7_Bwd := Inp.io_di.ind_M7_bwd;
 // M8 — osłona magazynu przekładek
-Outp.hmi_hmiStatus.xM8_Fwd := Inp.io_di.ind_M8_fwd;
-Outp.hmi_hmiStatus.xM8_Bwd := Inp.io_di.ind_M8_bwd;
 
 // Drzwi celi robota
-Outp.hmi_hmiStatus.uiSafetyDoorState        := TO_UINT(fbSafetyDoor.Sts.State);
-Outp.hmi_hmiStatus.xSafetyDoorClosed        := fbSafetyDoor.Sts.DoorClosed;
-Outp.hmi_hmiStatus.xSafetyDoorLocked        := fbSafetyDoor.Sts.DoorLocked;
-Outp.hmi_hmiStatus.xSafetyDoorDeviceError   := fbSafetyDoor.Sts.DeviceError;
-Outp.hmi_hmiStatus.xSafetyDoorUnlockRequest := fbSafetyDoor.Sts.UnlockRequest;
-Outp.hmi_hmiStatus.xSafetyDoorReadyToRun    := fbSafetyDoor.Sts.ReadyToRun;
-Outp.hmi_hmiStatus.xSafetyDoorBusy          := fbSafetyDoor.Sts.Busy;
-Outp.hmi_hmiStatus.xSafetyDoorFault         := fbSafetyDoor.Diag.Fault;
-Outp.hmi_hmiStatus.sSafetyDoorDiagText      := fbSafetyDoor.Diag.Text;
 
 // Magazyn przekładek
 Outp.hmi_hmiStatus.uiStorageState               := TO_UINT(fbStorage.Sts.State);
@@ -1390,10 +1245,7 @@ Outp.hmi_hmiStatus.xStorageRobotPermission      :=
     Inp.robot_storageIn.RobotSideOpeningPermission;
 Outp.hmi_hmiStatus.xStorageOperatorPermission   :=
     Inp.robot_storageIn.OperatorSideOpeningPermission;
-Outp.hmi_hmiStatus.xStorageLowLevel             := fbStorage.Sts.LowLevel;
-Outp.hmi_hmiStatus.xStorageEmpty                := fbStorage.Sts.Empty;
 Outp.hmi_hmiStatus.xStorageBusy                 := fbStorage.Sts.Busy;
-Outp.hmi_hmiStatus.xStorageFault                := fbStorage.Diag.Fault;
 Outp.hmi_hmiStatus.sStorageDiagText             := fbStorage.Diag.Text;
 
 // Robot
@@ -1402,18 +1254,13 @@ Outp.hmi_hmiStatus.xRobotReady    := (Inp.robot_Rx.production_systemReady AND ro
 Outp.hmi_hmiStatus.xRobotRunning  := (Inp.robot_Rx.production_running AND robot.Sts.session);
 Outp.hmi_hmiStatus.xRobotFault    := (Inp.robot_Rx.production_fault AND robot.Sts.diagnosticValid);
 Outp.hmi_hmiStatus.xRobotHome     := (Inp.robot_Rx.production_home AND robot.Sts.session);
-Outp.hmi_hmiStatus.xRobotCommOk   := robot.Sts.session;
 Outp.hmi_hmiStatus.xVfdCommOk     := elevStat.xVfdCommOk;
 
 // Stany sekwencerów
-Outp.hmi_hmiStatus.uiTraySeqState := TO_UINT(fbTraySeq.Sts.State);
-Outp.hmi_hmiStatus.uiBoxSeqState  := TO_UINT(fbBoxSeq.Sts.State);
 Outp.hmi_hmiStatus.uiTopFlowState := TO_UINT(fbTopFlow.Sts.State);
 Outp.hmi_hmiStatus.uiBottomState  := TO_UINT(fbBottom567.Sts.State);
 Outp.hmi_hmiStatus.sTopFlowDiagText := fbTopFlow.Diag.FaultText;
 Outp.hmi_hmiStatus.sBottomDiagText  := fbBottom567.Diag.Text;
-Outp.hmi_hmiStatus.sTraySeqDiagText := fbTraySeq.Diag.FaultText;
-Outp.hmi_hmiStatus.sBoxSeqDiagText  := fbBoxSeq.Diag.FaultText;
 
 Outp.hmi_hmiStatus.uiTraysDone  := fbTraySeq.Sts.TrayCount;
 Outp.hmi_hmiStatus.uiStacksDone := fbTraySeq.Sts.StackCount;
@@ -1437,6 +1284,8 @@ parameters(Cfg := Cfg.station_ParameterCfg, Inp := parameterIn, Snapshot := robo
  Edit := Hmi.stationEdit, Active := Context.stationParameters,
  Revision := Context.stationParamRevision);
 stationCommandReason := parameters.Sts.reason;
+Outp.hmi_reloadedStation := parameterIn.reload;
+IF robot.Panel.StationKey = 20 THEN Outp.hmi_reloadedStation := 5; END_IF;
 IF parameterIn.reload > 0 THEN
  Hmi.stationEditRevision[parameterIn.reload] := parameters.Sts.revision[parameterIn.reload];
 END_IF;
@@ -1586,7 +1435,6 @@ Outp.io_dout.ctrl_move_M7_actuator_forward := stationCoils.Applied[7].work;
 Outp.io_dout.ctrl_move_M7_actuator_backward := stationCoils.Applied[7].home;
 
 
-Outp.hmi_hmiAlarmCount := alarms.Sts.count;
 Outp.io_dout.ctrl_turn_on_light_red := alarms.Sts.critical OR plantNow.critical;
 Outp.io_dout.ctrl_turn_on_light_yellow := alarms.Sts.warning OR robot.Sts.order.stopping;
 Outp.io_dout.ctrl_turn_on_light_green := robot.Sts.order.running AND NOT Outp.io_dout.ctrl_turn_on_light_red;
@@ -1722,13 +1570,11 @@ Outp.robot_Tx.vac_5_blowAck := Outp.robot_Sts.vacuum[5].blowAck;
 Outp.robot_Tx.vac_5_blowResult := Outp.robot_Sts.vacuum[5].blowResult;
 Outp.robot_Tx.cyl_V505_busy := Outp.robot_Sts.cylinders[5].busy;
 Outp.robot_Tx.vac_5_busy := Outp.robot_Sts.vacuum[5].busy;
-Outp.hmi_hmiStatus.xOccP4 := material.Sts.occupied[4];
 Outp.hmi_hmiStatus.uiElevState := uiElevState;
 Outp.hmi_hmiStatus.xElevBusy := elevStat.xBusy;
 Outp.hmi_hmiStatus.xElevFault := elevStat.xFault;
 Outp.hmi_hmiStatus.rElevFreq_Hz := elevStat.rVfdOutHz;
 Outp.hmi_hmiStatus.sElevDiagText := elevStat.sDiagText;
-Outp.hmi_hmiStatus.xGlobalEnable := xGlobalEnable AND NOT currentCritical;
 Outp.io_dout.ctrl_turn_on_light_red := currentCritical;
 Outp.io_dout.ctrl_turn_on_light_green := robot.Sts.order.running AND NOT currentCritical;
 Outp.io_dout.ctrl_turn_on_buzzer := currentCritical;
