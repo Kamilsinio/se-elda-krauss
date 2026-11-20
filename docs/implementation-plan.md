@@ -67,7 +67,7 @@ Dodać rzeczywisty `FB_AlarmManager`; stara instrukcja błędnie podawała go ja
 
 Rozszerzyć `GVL_HMI` o stany zlecenia i zakończenia pracy, dostępność komend, przyczyny blokad, parametry stacji i diagnostykę komunikacji. Stare pola nie mogą omijać nowej nadrzędnej logiki.
 
-Wykonać ekrany po zamknięciu GAP-07. Blokady pozostają w PLC, nie wyłącznie na HMI. Ręczne wymuszenia EUROMAP są kasowane przy przejściu do Auto; reset stanów stacji tylko w Manual.
+Wykonać ekrany zgodnie z [instrukcją HMI](hmi-instructions.md) po potwierdzeniu targetu i wersji Vijeo (GAP-07). PLC ocenia blokady, kasuje żądania Manual EUROMAP po przejściu do Auto i wymaga trybu Manual do resetu stanu stacji.
 
 Przywrócić rzeczywistą kontrolę pozwoleń i aktualności danych zamiast stałych testowych. Wdrożyć jawny stan wymagający odzyskania po restarcie i brak samoczynnego ruchu po resecie lub powrocie łączności.
 
@@ -139,7 +139,7 @@ Wszystkie wpisy nadal mają status **OTWARTE w pozostałym zakresie**. Część 
 | GAP-07 | Znaleziono dwa wzorce HMI Vijeo .vdz (SRC-13); zgodność z W716/C30 nadal do weryfikacji | Wskazanie projektu bazowego i wzorca, kompletny model panelu i wersja narzędzia | Wykonanie ekranów, integracja HMI |
 | GAP-08 | Pneumatyka SRC-09 potwierdza pięć obwodów i warianty F-2844/F-2680; porty Y502/Y503 sprzeczne między arkuszami 010/021 | Rozstrzygnięcie portów i HP/WP, przypisanie narzędzi, grup siłowników i ilości detali, utrzymanie ładunku/cewek przy Stop i awarii | E2, reakcje na awarie, AT-07/15 |
 | GAP-09 | Przewodowe procesowe sygnały robota w schemacie/arkuszu vs docelowy EtherNet/IP | Aktualizacja lub jednoznaczne oznaczenie rewizji, wykaz pozostających przewodowych funkcji i usunięcie konkurujących kanałów sterowania | Docelowa mapa robot–PLC–IMM |
-| GAP-10 | Szczegóły obsługi postoju/Manual/opróżniania i starego HMI Start | Uzgodnione Stop/Start podczas opróżniania, przejście do Manual, Koniec zlecenia z postoju, dostępność starego HMI Start i wydania lokalnego podczas pauzy | Odpowiednie przejścia OrderManager/StationDrain/HMI |
+| GAP-10 | Rozstrzygnięty w logice stacji | Stop pauzuje opróżnianie po transferze; fizyczny Start wznawia pracę. Koniec zlecenia z postoju przygotowuje opróżnianie. Lokalne wydanie dotyczy jednej jednostki. | Odbiór odpowiednich przejść OrderManager/StationDrain/HMI |
 | GAP-11 | Retencja i odzyskiwanie po restarcie | Lista zachowywanych danych oraz procedura uzgodnienia ładunków, robota i wtryskarki przed Start; bez automatycznego wznowienia | Inicjalizacja, AT-13 |
 | GAP-12 | Pełna macierz alarmów poza uzgodnionymi ostrzeżeniami siłowników | Klasyfikacja, warunki kasowania/wznowienia i reakcje m.in. dla falownika, chwytaka, próżni i komunikacji; bez wtórnej eskalacji tej samej przyczyny | AlarmManager, reakcje krytyczne, AT-11/12/15 |
 

@@ -2,11 +2,11 @@
 
 Aktualizacja 2026-11-19: **użytkownik potwierdził zbudowanie projektu w Machine Expert V2.3 bez błędów**. Przygotowano konwersję obrazu FANUC 40 WORD ↔ 80 BYTE, wydzielono DUT I/O RAW i poprawiono odtwarzanie zajętości transportu przez wejścia FB. Audyt statyczny i 98 testów offline przeszły poprawnie. [Zapis weryfikacji i zakres potwierdzenia](docs/robot-communication-verification.md#kompilacja-machine-expert--aktualizacja-2026-11-19).
 
-Aktualizacja po review 2026-11-15: poprawiono blokady Manual, końcowe wyjścia, lokalne timeouty, recovery materiału, warunki Apply i signed RFR. Dodano jawne lokalne polityki usterek, testy regresji i CI. [Zmiany, nowe porty i migracja](docs/plc-review-fixes.md). Kompilacja natywna i odbiór sprzętowy nadal niewykonane.
+Aktualizacja po review 2026-11-15: poprawiono blokady Manual, końcowe wyjścia, lokalne timeouty, recovery materiału, warunki Apply i signed RFR. Dodano jawne lokalne polityki usterek, testy regresji i CI. [Zmiany, nowe porty i migracja](docs/plc-review-fixes.md). Odbiór sprzętowy nadal niewykonany.
 
 Integracja 2026-11-15: typowany StationController, cienki PRG_Main, adapter GIATV, lokalne recovery, rezerwacje zasobów oraz zdarzeniowy model materiału. Kontekst i HMI mają wersję 4, wire robota pozostaje v2. [Architektura, migracja i dalsze uruchomienie](docs/station-integration.md).
 
-Aktualizacja modułów stacji 2026-11-15: zaimplementowano osiem nowych FB, pełny wykonawca Drain, pojedyncze wydanie ST.3, rozdzielenie V201/V202, alarmy, Manual, parametry i interfejs HMI. [Zakres, kontrakty i granice odbioru](docs/station-plc-implementation.md). Źródła są testowane offline; konfiguracja urządzeń i kompilacja natywna pozostają niewykonane.
+Aktualizacja modułów stacji 2026-11-15: zaimplementowano osiem nowych FB, pełny wykonawca Drain, pojedyncze wydanie ST.3, rozdzielenie V201/V202, alarmy, Manual, parametry i interfejs HMI. [Zakres, kontrakty i granice odbioru](docs/station-plc-implementation.md). Uruchomienie i odbiór urządzeń pozostają otwarte.
 
 Adaptacja stanowiska paletyzacji do wtryskarki Krauss, robota **FANUC M-20iD/25 z R-30iB Mate Plus** oraz rozproszonych I/O **Festo AP**.
 
@@ -14,9 +14,9 @@ PLC Schneider Electric M241 pośredniczy między robotem a wtryskarką: robot i 
 
 ## Stan projektu
 
-**Komunikacja FANUC v2 i jej integracja w źródłach PLC są przygotowane i testowane offline. Kompilacja Machine Expert, konfiguracja urządzeń, import FANUC i uruchomienie pozostają do wykonania.**
+**Komunikacja FANUC v2 i jej integracja w źródłach PLC są przygotowane i testowane offline. Konfiguracja urządzeń, import FANUC i uruchomienie pozostają do wykonania.**
 
-Pakiet PLC obejmuje sesję, 227 pól/80 B w każdym kierunku, rejestr N/N+1, zdarzenia, cały chwytak, obszary, IMM, zlecenie/Stop, recovery oraz podzbiór HMI v2. Opis symboli, importu, retencji i nieuzbrojonych bindingów: [implementacja PLC v2](docs/plc-robot-implementation.md). Pełne opróżnianie wykonuje FB_StationDrain przez wspólny scheduler zasobów i wykonawców transportu. Zmienione sekwencery odbierają zapisane zadania, a BOX utrzymuje nieruchomą windę podczas napełniania.
+Pakiet PLC obejmuje sesję, 227 pól/80 B w każdym kierunku, rejestr N/N+1, zdarzenia, cały chwytak, obszary, IMM, zlecenie/Stop, recovery oraz interfejs HMI v4. Opis symboli, importu, retencji i nieuzbrojonych bindingów: [implementacja PLC v2](docs/plc-robot-implementation.md). Pełne opróżnianie wykonuje FB_StationDrain przez wspólny scheduler zasobów i wykonawców transportu. Zmienione sekwencery odbierają zapisane zadania, a BOX utrzymuje nieruchomą windę podczas napełniania.
 
 Źródła PLC i archiwalne programy FANUC są odziedziczoną bazą poprzedniego stanowiska. Dokumentacja opisuje uzgodnione zachowanie docelowe i wskazuje braki sprzętowe; nie potwierdza gotowości obecnego programu do pracy na nowej maszynie. W etapie dokumentacyjnym nie zmieniono plików ST, LS, VA ani DG. Następnie uporządkowano źródła PLC w `Modules/` i wydzielono typy do `DUTs/`, bez zmiany logiki sterowania.
 
@@ -26,11 +26,9 @@ Aktualizacja 2026-11-15: przygotowano [kontrakt komunikacji PLC–robot](docs/ro
 
 | Dokument | Przeznaczenie |
 |---|---|
-| [Instrukcja dla człowieka](human-instructions.md) | Kolejność modułów, dobór modeli i poziomów rozumowania, przygotowanie projektu Vijeo |
-| [Ekrany i elementy HMI](docs/hmi-instructions.md) | 20 paneli Vijeo z obiektami, działaniem i przypisaniem do symboli PLC dla interfejsu HMI v4 |
-| [Docelowa mapa Vijeo](docs/hmi-vijeo-map.md) | Pierwotne założenia interfejsu, proponowane rozszerzenia i scenariusze prób HMI |
-| [Obecne zmienne HMI](docs/hmi-existing-variables.md) | 208 odziedziczonych pól i ich ograniczenia przy migracji |
-| [Diagnostyka I/O dla HMI](docs/hmi-io-diagnostics.md) | Wszystkie 166 wierszy sygnałów i 12 urządzeń z kopii Excela |
+| [Instrukcja dla człowieka](human-instructions.md) | Kolejność prac i przygotowanie integracji |
+| [Ekrany i elementy HMI](docs/hmi-instructions.md) | 20 paneli Vijeo, typy obiektów, tryby działania, zmienne PLC, diagnostyka i próby odbiorcze |
+| [Wykaz symboli do importu](docs/hmi-vijeo-symbols.txt) | Symbole i prawa zapisu w konfiguracji PLC/Vijeo |
 | [Instrukcja dla agenta](AGENTS.md) | Zasady pracy, granice zapisów, architektura i konwencje programowania |
 | [Założenia projektowe](docs/project-assumptions.md) | Uzgodniony proces, zlecenia, tryby, stacje, alarmy i HMI |
 | [Interfejsy i mapowanie](docs/interfaces.md) | Podział I/O, kontrakty PLC–robot–Festo–wtryskarka oraz migracja oznaczeń |
@@ -63,4 +61,4 @@ Najpierw zapoznaj się z założeniami, następnie wybierz etap z planu implemen
 
 Wszystkie zapisy, także tymczasowe, muszą pozostawać wewnątrz `se-elda-krauss`. Poprzednie repozytorium i zewnętrzne materiały wejściowe służą tylko do odczytu.
 
-Zewnętrzne projekty PLC/HMI, fizyczny backup FANUC i przykład EDS są dostępne i zarejestrowane w analizie źródeł; nie zostały skopiowane do repozytorium ani zatwierdzone jako kompletne środowisko budowania. Kompilacja, weryfikacja FANUC i próby na stanowisku są oddzielnymi etapami odbioru; nie zostały wykonane podczas przygotowania dokumentacji.
+Zewnętrzne projekty PLC/HMI, fizyczny backup FANUC i przykład EDS są dostępne i zarejestrowane w analizie źródeł; nie zostały skopiowane do repozytorium ani zatwierdzone jako kompletne środowisko budowania. Odbiór urządzeń obejmuje weryfikację na FANUC i próby na stanowisku. Stan kompilacji PLC jest zapisany w raporcie weryfikacji.

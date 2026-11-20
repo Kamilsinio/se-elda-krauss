@@ -45,11 +45,11 @@ Generator tools/build_plc_robot.py tworzy dwa typy wire, kodek i docs/plc-robot-
 | GVL_RobotRetain.Context | Kontekst do retencji; żadne pozwolenia ruchu nie są odtwarzane |
 | GVL_Robot.Proposal | Edytowalny, jawnie uzgodniony kandydat kontekstu recovery |
 | GVL_Robot.Drain | Interfejs do osobnego wykonawcy pełnego opróżniania |
-| GVL_HMI.hmiV2 | Zaimplementowany podzbiór kontraktu HMI, niezależny od starego hmiCmd |
+| GVL_HMI.hmiV2 | Sesja, żądania transakcyjne, pozwolenia, odpowiedzi i statusy HMI |
 
 W strukturach Plant.cylinders[i] indeksy 1–5 oznaczają V501–V505. Plant.vacuum[i] oznacza fizyczny obwód 1–5, nie numer detalu. Obszary 1/2/3 to source/elevator/storage.
 
-M1–M7 mają dodatkowy końcowy arbitraż FB_StationCoils. stationCoilPolicyVerified i stationCoilLossPolicy[1..7] wymagają osobnego potwierdzenia GAP-08; home/work oznacza tu zatwierdzone bwd/fwd historycznych grup. Przed Start nowe cele nie trafiają do wyjść. Zwykły postój zachowuje poprzednie komendy; blokada krytyczna stosuje wyłącznie zweryfikowaną politykę. Sprzeczna polityka blokuje wykonanie. Osobne sterowania Manual całej stacji pozostają poza tym podzbiorem HMI.
+M1–M7 mają dodatkowy końcowy arbitraż FB_StationCoils. stationCoilPolicyVerified i stationCoilLossPolicy[1..7] wymagają osobnego potwierdzenia GAP-08; home/work oznacza tu zatwierdzone bwd/fwd historycznych grup. Przed Start nowe cele nie trafiają do wyjść. Zwykły postój zachowuje poprzednie komendy; blokada krytyczna stosuje wyłącznie zweryfikowaną politykę. Sprzeczna polityka blokuje wykonanie. Ręczne sterowania całej stacji opisuje [instrukcja HMI](hmi-instructions.md).
 
 Każde valid/configured/potwierdzenie ma domyślnie FALSE. Potwierdzenie musi pochodzić z rzeczywistego urządzenia lub jawnej próby modelowej. Parametry materiałowe na FANUC pozostają ustawiane na robocie; PLC dostarcza ilość przypisaną do wtrysku.
 
@@ -100,9 +100,9 @@ Bufor edit.uiProgram używa kodów 1=BOX, 2=TRAY. Status state.uiProduction zach
 
 Sesja HMI wymaga świeżego heartbeat, retencji generacji, neutralnych komend i nowego zbocza ARM. ACK=przyjęto oznacza przyjęcie komendy; zakończenie pokazuje status procesu. W przypadku próbek nie oznacza przyjęcia przez robot ani odłożenia; wynik robota i samplesPlaced są osobnymi etapami.
 
-Nowy podzbiór ręcznego chwytaka: hmiV2.manual, panel ST05 Manual 115, poprawne udiSessionId, Manual, wyłączona współpraca, HOME, wolne obszary i jawne manualGripperHandover. holdCounter[1..5] dotyczy V501–V505, [6..10] próżni 1–5. Licznik innego urządzenia nie przedłuża pozwolenia; po wygaśnięciu/zmianie strony wymagane są zwolnienie i nowe naciśnięcie. Przedmuch po przyjęciu jest skończoną operacją PLC, utrzymywaną do terminalnego wyniku, bez powtórzeń. Przełączenie na Auto kasuje autoryzację; stare ręczne EUROMAP wymaga neutralizacji przed ponownym dopuszczeniem.
+Ręczny chwytak korzysta z `GVL_HMI.vijeo.manual`. Panel 115 wymaga aktualnego ID sesji, trybu Manual, wyłączonej współpracy, potwierdzonego HOME, wolnych obszarów i przekazania chwytaka przez PLC. Publiczne indeksy holdCounter[0..4] dotyczą V501–V505, a [5..9] próżni 1–5. Licznik innego urządzenia nie przedłuża pozwolenia; po wygaśnięciu/zmianie strony wymagane są zwolnienie i nowe naciśnięcie. Przedmuch po przyjęciu jest skończoną operacją PLC, utrzymywaną do terminalnego wyniku, bez powtórzeń. Przełączenie na Auto kasuje autoryzację; ręczny EUROMAP wymaga neutralizacji przed ponownym dopuszczeniem.
 
-Stare hmiCmd pozostają deklaracjami do migracji i nie uruchamiają produkcji ani ruchów z pominięciem nowego nadzoru. Nie dostarczono nowych ekranów ani eksportu symboli. Ręczne ekrany całej stacji i dalsze hmiV2/hmiIo nadal należą do oddzielnej adaptacji HMI; nie należy podłączać ich na podstawie podobnej nazwy.
+Bieżące przypisania czterech struktur `GVL_HMI` do ekranów i zasady importu opisuje [instrukcja HMI Krauss](hmi-instructions.md). Prace w Vijeo obejmują import i odbiór runtime.
 
 ## 6. Granica pełnego opróżniania
 

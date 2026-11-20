@@ -37,7 +37,7 @@ Normalny Stop odbiera nowe cykle, a rozpoczęte operacje kończą się na dotych
 
 Nowy `FB_StationRecovery` oddziela uzgodnienie materiału po Manual/resetowaniu kroku od odtwarzania sesji robota. Ocenia rzeczywisty postój taśm i ważny pomiar zatrzymanej osi; zatrzaśnięty owner lub sam wymóg recovery nie blokuje jego własnego rozliczenia. Bieżący brak ważnych danych, ruch ręczny i blokada procesu nadal uniemożliwiają zatwierdzenie. Proposal wymaga znanej zajętości i zgodności occupied[4] z elevatorLoadPresent. Uzgodnienie kończy rezerwacje i odtwarza model w postoju, bez automatycznego odtwarzania ruchu w połowie kroku. Nie nadaje Start.
 
-Ręczny EUROMAP korzysta z `hmiV2.immManual`: strona 201, ta sama sesja HMI, własne holdCounter[1..4], obowiązek zwolnienia przed ponownym naciśnięciem. Positive: 1=zamknięcie formy, 2=pełne otwarcie, 3=wyrzutnik w tył, 4=wyrzutnik w przód. Przeciwstawne żądania są odrzucane. Wymagane są Manual, HOME, brak pracy z robotem, postój i blokady IMM. Polecenia manualne przekazane bezpośrednio w Plant nie obchodzą tego nadzoru. Dotychczasowe ręczne sterowanie chwytakiem i stationManual pozostaje oddzielne.
+Ręczny EUROMAP na panelu 201 korzysta z `GVL_HMI.vijeo.immManual`. Publiczne pola positive[0..3] i holdCounter[0..3] odpowiadają kolejno zamknięciu formy, pełnemu otwarciu, wyrzutnikowi w tył i wyrzutnikowi w przód. PLC wymaga tej samej sesji HMI i zwolnienia przycisku przed ponownym naciśnięciem. Przeciwstawne żądania są odrzucane. Wymagane są Manual, HOME, brak pracy z robotem, postój i blokady IMM. Polecenia manualne przekazane bezpośrednio w Plant nie obchodzą tego nadzoru. Dotychczasowe ręczne sterowanie chwytakiem i stationManual pozostaje oddzielne.
 
 ## Poprawki istniejących modułów
 

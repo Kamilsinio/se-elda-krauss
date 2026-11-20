@@ -292,18 +292,14 @@ class StationTests(unittest.TestCase):
         a=self.r.value('ST_TopFlowIn');f.v['Sts'].update(State=70,Target=1)
         for _ in range(100):f.run(Cfg=cfg,Cmd=cmd,Inp=a)
         self.assertFalse(f.v['Diag']['Fault'])
-    def test_vijeo_map_matches_published_contract_version(self):
+    def test_vijeo_guide_matches_published_contract_version(self):
         panel = self.r.instance('FB_RobotHmi')
         hmi = self.r.value('ST_RobotHmiV2')
         panel.run(Hmi=hmi, Context=context(self.r))
-        guide = (self.r.root / 'docs/hmi-vijeo-map.md').read_text(encoding='utf-8')
+        guide = (self.r.root / 'docs/hmi-instructions.md').read_text(encoding='utf-8')
         versions = re.findall(r'uiContractVersion=(\d+)\b', guide)
         self.assertEqual(versions, [str(hmi['link']['uiContractVersion'])])
 
-    def test_hmi_io_aliases_cover_all_source_names(self):
-        text=(self.r.root/'docs/hmi-io-diagnostics.md').read_text(encoding='utf-8')
-        names=set(re.findall(r'^\|\s*\d+\s*\|[^|]+\|\s*`(\w+)`\s*\|\s*(?:IN|OUT)\s*\|',text,re.M))
-        self.assertEqual(names,{n for n,_,_ in self.r.types['ST_StationIoValues']});self.assertEqual(len(names),159)
 
 class IntegrationTests(unittest.TestCase):
     def test_vijeo_manual_indices_keep_requests_and_counters_together(self):
@@ -376,23 +372,29 @@ class IntegrationTests(unittest.TestCase):
         self.assertEqual(vijeo['storageActual']['sensorStableMs'], 12)
         self.assertTrue(hmi['rsp']['station4ParamReload']['xAck'])
 
-    def test_vijeo_io_publishes_every_documented_alias(self):
+    def test_vijeo_io_publishes_every_alias(self):
         from plc_station_main import MainCell
         cell = MainCell()
         shared = cell.g['GVL_HMI']
         io = cell.r.value('ST_StationHmiIo')
         vijeo = shared['vijeo']
-        doc = (cell.r.root / 'docs/hmi-io-diagnostics.md').read_text(encoding='utf-8')
-        rows = [line.split('|') for line in doc.splitlines() if line.startswith('|')]
-        pairs = [(cols[3].strip()[1:-1], cols[7].strip()[1:-1])
-                 for cols in rows if len(cols) == 9 and cols[4].strip() in ('IN', 'OUT')]
-        aliases = dict(pairs)
-        self.assertEqual(len(pairs), 166)
+        source = (cell.r.root / 'Modules/Vijeo/FB_VijeoPublish.st').read_text(encoding='utf-8')
+        assignments = re.findall(
+            r'GVL_HMI\.vijeo\.value\.(\w+) := Io\.value\.(\w+);', source)
+        aliases = {name: alias for alias, name in assignments}
+        self.assertEqual(len(assignments), 159)
         self.assertEqual(len(aliases), 159)
         self.assertEqual(set(aliases), set(io['value']))
         self.assertEqual(set(aliases.values()), set(vijeo['value']))
         self.assertEqual(len({alias.lower() for alias in aliases.values()}), 159)
         self.assertTrue(all(len(alias) <= 32 for alias in aliases.values()))
+        guide = (cell.r.root / 'docs/hmi-instructions.md').read_text(encoding='utf-8')
+        rows = re.findall(r'^\| [^|]+ \| (?:Wejście|Komenda PLC) \| `(\w+)` \|$', guide, re.M)
+        self.assertTrue(rows)
+        self.assertEqual(len(rows), len(set(rows)))
+        controller = (cell.r.root / 'Modules/StationController/FB_StationController.st').read_text(encoding='utf-8')
+        unavailable = set(re.findall(r'Outp\.hmi_hmiIo\.valid\.(\w+) := FALSE;', controller))
+        self.assertTrue(set(rows) <= {alias for name, alias in aliases.items() if name not in unavailable})
         publisher = cell.main.v['vijeoPublish']
         io['dataValid'] = True
         io['barrierBlocked'] = True

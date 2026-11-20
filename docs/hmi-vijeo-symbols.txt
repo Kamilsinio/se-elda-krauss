@@ -8,10 +8,9 @@ PLC konfiguruje dostęp na poziomie wybranego symbolu. Złożone symbole
 vijeo i hmiV2 mają zarówno pola zapisu, jak i pola odczytu.
 W Symbol Configuration zaznacz całe GVL_HMI.
 Z GVL_Robot i GVL_Station dodaj 40 odczytów z checklisty poniżej.
-Przepięcie starych wiązań opisuje instrukcja hmi-instructions.md.
 
 Składnia PLC bez prefiksu urządzenia/aplikacji dodawanego przez import.
-Dokładne powiązania z ekranami: hmi-instructions.md.
+Ekrany, tryby obiektów i przypisania opisuje hmi-instructions.md.
 
 CHECKLISTA SYMBOL CONFIGURATION
 [GVL_HMI]

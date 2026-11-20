@@ -14,13 +14,7 @@ Zacznij od [założeń](docs/project-assumptions.md). Szczegółowe wymagania RE
 4. Równolegle przygotuj szkielet Vijeo według rozdziału 4. Komendy podłączaj dopiero po implementacji i weryfikacji kontraktu PLC.
 5. Wszystkie projekty, eksporty, backupy i raporty zapisuj **wewnątrz se-elda-krauss**. Stare repozytorium i oryginały dokumentów są tylko do odczytu.
 
-Dokumentację HMI tworzą cztery uzupełniające się dokumenty:
-
-- [Ekrany, elementy i symbole HMI v4](docs/hmi-instructions.md) — lista wykonawcza do budowy i wiązania 20 paneli w Vijeo.
-
-- [Pierwotna mapa Vijeo](docs/hmi-vijeo-map.md) — założenia projektowe, proponowane rozszerzenia i scenariusze prób.
-- [208 odziedziczonych pól GVL_HMI](docs/hmi-existing-variables.md) — rzeczywista baza migracji z ograniczeniami.
-- [166 wierszy sygnałów oraz 12 urządzeń z Excela](docs/hmi-io-diagnostics.md) — podgląd I/O, nazwy i pochodzenie; żaden wiersz nie daje prawa do bezpośredniego wymuszania wyjścia.
+Dokumentację budowy paneli, importu symboli i prób odbiorczych zawiera [instrukcja HMI Krauss](docs/hmi-instructions.md).
 
 ## 2. Kolejność prac nad modułami
 
@@ -37,7 +31,7 @@ Kroki są praktycznym rozwinięciem E1–E5. Kontrakty robota, wtryskarki, alarm
 | 6 / E3–E4 | Nowy FB_ImmInterface, oba LS FANUC oraz FB_TraySequencer/FB_BoxSequencer | Dostarczasz brakujące podprogramy i potwierdzasz sygnały rzeczywiście rozpoczętego wtrysku. Program wybierasz/uruchamiasz na FANUC | Pełna wymiana IMM i chwytaka przez PLC; zdarzenia z ACK; Stop nie tworzy oczekiwania na kolejny zabroniony wtrysk. AT-03/08/09/10/15 |
 | 7 / E3 | Nowe FB_OrderManager i FB_StationDrain, integracja PRG_Main | Próbujesz otwarcia zlecenia, fizycznego Start/Stop, obu produkcji, częściowych ładunków i pełnego opróżnienia | Start zlecenia bez ruchu; rozliczenie wszystkich rozpoczętych operacji; zamknięcie zlecenia dopiero po odebraniu ostatniego ładunku. AT-01–05 |
 | 8 / E3–E4 | Odzyskiwanie stanu, finalny FB_AlarmManager, parametry i adapter HMI | Zatwierdzasz retencję, macierz alarmów, zakresy nastaw i warunki ponownego startu | Reset/powrót zasilania/łączności nie wywołuje ruchu. Ostrzeżenie siłownika nie eskaluje drugi raz w sekwencerze. AT-11–13 |
-| 9 / E4 | GVL_HMI, obsługa żądań, watchdog, symbole, finalne powiązania Vijeo | Importujesz symbole po kompilacji; wiążesz obiekty; sprawdzasz dostępność i potwierdzenia komend | Każdy przycisk ma właściciela w PLC i test. Zanik połączenia lub zamknięcie strony Manual nie pozostawia jogu. AT-01/08/09/14 i próby HMI z mapy |
+| 9 / E4 | GVL_HMI, obsługa żądań, watchdog, symbole, finalne powiązania Vijeo | Importujesz symbole po kompilacji; wiążesz obiekty; sprawdzasz dostępność i potwierdzenia komend | Każdy przycisk ma właściciela w PLC i test. Zanik połączenia lub zamknięcie strony Manual nie pozostawia jogu. AT-01/08/09/14 i [próby odbiorcze HMI](docs/hmi-instructions.md#proby-odbiorcze) |
 | 10 / E5 | FAT/SAT, nastawy, trajektorie, backupy końcowe | Przeprowadzasz próby na stanowisku dla Pojemników i Blistrów; zapisujesz wersje i wyniki | Zamknięte braki wpływające na uruchomienie; wymagane AT mają dowody, a nie tylko etykietę PASS |
 
 W kroku 1 ustal także minimalny szkielet OrderManager i reakcje alarmowe, aby urządzenia w krokach 3–6 korzystały z docelowych pozwoleń. Finalizacja w krokach 7–8 nie oznacza odkładania projektu tych zachowań na koniec.
@@ -102,46 +96,6 @@ W aplikacji wybierz dostępny model oraz poziom rozumowania z selektora. Tryb pr
 
 > Na podstawie [zatwierdzonego pliku] zaktualizuj wyłącznie tabelę [nazwa]. Zachowaj dokładne symbole, typy, kierunki i jednostki. Nie twórz brakujących danych. Porównaj kompletność list przed i po zmianie.
 
-## 4. Co przygotować w projekcie Vijeo Designer
+## 4. Wykonanie HMI
 
-### 4.1. Materiały i projekt bazowy
-
-Przygotuj pełny numer wyświetlacza i jednostki bazowej HMIG…, wersję Vijeo z Service Packiem, firmware/runtime, rozdzielczość, kopię projektu źródłowego HMI poprzedniej maszyny oraz wzorzec W716/C30. Schemat podaje HMIDT351; nie rozstrzyga pełnej konfiguracji jednostki. Schneider rozróżnia część ekranową HMIDT i współpracujący moduł bazowy. [Schneider — zgodność części panelu](https://www.se.com/uk/en/faqs/FAQ000239173/)
-
-Zapisz projekt jako osobny projekt Krauss w podkatalogu repozytorium, np. HMI/Vijeo. Zachowaj edytowalny projekt i eksport/backup właściwy dla użytej wersji, wykaz wersji narzędzi, listę symboli oraz raport kompilacji. Nie dostarczaj wyłącznie pliku runtime.
-
-### 4.2. Komunikacja i symbole
-
-Preferowany wariant projektowy to komunikacja symboliczna obsługiwana przez konkretny zestaw Machine Expert/Vijeo. Wybór potwierdź po otrzymaniu projektu i wersji; Ethernet HMI–PLC nie oznacza automatycznie EtherNet/IP używanego do robota i Festo.
-
-1. W Machine Expert skompiluj rzeczywiste DUT/GVL/POU.
-2. W Symbol Configuration zaznacz całe `GVL_HMI` oraz 40 odczytów z `GVL_Robot` i `GVL_Station`. Uprawnienia ustaw według oznaczeń R i RW. [Checklista z dokładnymi nazwami](docs/hmi-vijeo-symbols.txt) · [migracja starych wiązań](docs/hmi-instructions.md#migracja-wiązań-po-przycięciu-gvl_hmi).
-3. Wyeksportuj symbole do Vijeo; w panelu zaimportuj zmienne z SoMachine/Machine Expert. Schneider opisuje polecenia „Export Symbols to Vijeo-Designer” i „Import Variables From SoMachine…” dla Machine Expert 1.2 oraz Vijeo 6.2 SP9.1; w innej wersji sprawdź jej odpowiednik. [Schneider — import symboli](https://www.se.com/us/en/faqs/FA411965/)
-4. Skonfiguruj właściwy sterownik/equipment, nazwę węzła i adres PLC. Adresy 192.168.0.1 / .10 i maska 255.255.255.0 pochodzą ze schematu, wymagają sprawdzenia konfliktów i rzeczywistej konfiguracji.
-5. Wybieraj zmienne z listy zaimportowanych symboli. Pełny prefiks urządzenia/aplikacji oraz alias Vijeo może różnić się od zapisu GVL_HMI.… w dokumentacji. Nie zgaduj go ręcznie.
-6. Jeśli wybrany zestaw wymaga Modbus TCP zamiast symboli, najpierw zaprojektuj osobny blok wymiany PLC z zatwierdzonymi adresami, typami, kolejnością słów i bitów. Obecne struktury nie mają gotowych adresów %MW. Ten wariant wymaga uzupełnienia mapy przed wiązaniem panelu.
-
-Sprawdź BOOL, 16-bitowe UINT/INT, REAL 32-bit oraz długość i kodowanie STRING. Enumy wyświetlaj poprzez jawny słownik liczb, bo Vijeo może otrzymać wartość liczbową bez etykiety. Nie zakładaj obsługi 64-bitowych typów. [Schneider — ograniczenia typów i enumów](https://www.se.com/uk/en/faqs/FA315437/)
-
-### 4.3. Ekrany i elementy do przygotowania teraz
-
-Zacznij od listy 20 ekranów. Każdy ekran ma tabelę obiektów z opisem działania, ścieżką symbolu PLC albo akcją lokalną. Elementy bez czynnego powiązania są opisane przy właściwej stacji. [Instrukcja wykonawcza HMI v4](docs/hmi-instructions.md).
-
-### 4.4. Zasady powiązania elementów
-
-Wspólny szablon, sesję HMI, transakcje poleceń, ruchy przytrzymywane oraz edycję nastaw opisuje [instrukcja wykonawcza HMI v4](docs/hmi-instructions.md).
-
-Kolor przycisku wynika z potwierdzonego stanu PLC, a nie z ostatnio naciśniętego żądania. Brak ważnych danych pokazuj jako „brak danych”, a nie jako FALSE, HOME albo pustą stację. Dostępność w HMI poprawia obsługę, natomiast właściwe blokady musi ponownie sprawdzić PLC.
-
-Nie wiąż Start zlecenia do starego xStartAuto ani Koniec zlecenia do xEmptyStation. Nie używaj surowego xOccP4 jako jedynego dowodu braku ładunku windy. Stare xM6Fwd/Bwd nie sterują oddzielnie V201/V202; stare M8 nie ma docelowej interpretacji obu osłon.
-
-### 4.5. Co oddać po przygotowaniu HMI
-
-- Edytowalny projekt Vijeo z wersją docelowego panelu i narzędzia.
-- Eksport rzeczywiście użytych symboli i zgodną wersję kontraktu PLC.
-- Mapę obiekt → symbol → zachowanie → blokada → potwierdzenie, zgodną z dokumentami w tym repozytorium.
-- Słowniki stanów i alarmów oraz zatwierdzone jednostki/zakresy parametrów.
-- Raport walidacji/kompilacji i prób HMI z [mapy](docs/hmi-vijeo-map.md); osobno symulacja, komunikacja z PLC i próby na maszynie.
-- Backup przed uruchomieniem i backup końcowy z numerem wersji.
-
-Obiekty można przygotować według ścieżek w ST. Ostateczne powiązania wymagają eksportu symboli z wybranego projektu PLC, potwierdzenia targetu HMI i weryfikacji w runtime.
+Przygotowanie projektu, import symboli, wspólne akcje, rozmieszczenie kontrolek na wszystkich 20 panelach oraz scenariusze odbiorcze opisuje [instrukcja HMI Krauss](docs/hmi-instructions.md).

@@ -32,7 +32,7 @@ SHA-256 wykonanych kopii:
 - Wytyczne.docx: `9368fd7d90d1aa23f35983e61f74dc6dfbe97ee35a77bd52c225179ae983cfa9`
 - Schemat elektryczny.PDF: `81f6c50ad3cdec51a13930bfea6311f13f2754f5ef89630fb13928928be226a9`
 
-Kopię SRC-02 zweryfikowano SHA-256 względem oryginału. Ponowny odczyt potwierdził istotne dla dokumentacji funkcje i otwarte punkty: brak osobnej bariery, B205 bez podłączenia, adresy TBD, rozdzielone V201/V202 i V401/V402 oraz roboczą mapę EUROMAP/robota. Pełny podgląd HMI opisuje [mapa diagnostyczna](../hmi-io-diagnostics.md). Brak sumy kontrolnej z wcześniejszego planowania nie pozwala twierdzić, że arkusz od tamtej chwili nie zmienił się; obecna kopia jest nowym utrwalonym punktem odniesienia.
+Kopię SRC-02 zweryfikowano SHA-256 względem oryginału. Ponowny odczyt potwierdził istotne dla dokumentacji funkcje i otwarte punkty: brak osobnej bariery, B205 bez podłączenia, adresy TBD, rozdzielone V201/V202 i V401/V402 oraz roboczą mapę EUROMAP/robota. Bieżący podgląd HMI opisuje [wykaz I/O panelu 301](../hmi-instructions.md#wykaz-io). Brak sumy kontrolnej z wcześniejszego planowania nie pozwala twierdzić, że arkusz od tamtej chwili nie zmienił się; obecna kopia jest nowym utrwalonym punktem odniesienia.
 
 ## Nawigacja po dokumentach
 

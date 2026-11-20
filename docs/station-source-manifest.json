@@ -1168,7 +1168,7 @@
     },
     {
       "path": "tools/check_station.py",
-      "sha256": "5472a5ef95a145969327714d6bdb065f84f766b2e4b76f4d9bb9794686ff8cc0"
+      "sha256": "1b12ff4b5f16e023d84ba21964a6d57aa990e8cae64ebd5967cb239e122cd357"
     },
     {
       "path": "tools/check_station_integration.py",

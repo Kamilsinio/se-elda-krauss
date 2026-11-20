@@ -99,7 +99,7 @@ Oddzielić rodzaj produkcji (**Pojemniki/Blistry**), tryb (**Auto/Manual**), sta
 
 **DOMYŚLNE:** Start odrzucony z powodu blokady nie jest kolejkowany do późniejszego samoczynnego wznowienia. HMI pokazuje powód odrzucenia.
 
-**OTWARTE (GAP-10):** zachowanie Stop i wejścia w Manual podczas opróżniania, koniec zlecenia wywołany w stanie postoju oraz los dotychczasowej komendy HMI Start. Punktem wyjścia jest pauza po trwającym transferze z zachowaniem jego właściciela i wznowieniem przez fizyczny Start; przed implementacją tej ścieżki trzeba doprecyzować warunki. Nie przenosić starego natychmiastowego AbortAuto jako domyślnej odpowiedzi.
+**POTWIERDZONE w źródłach (GAP-10).** Stop pauzuje opróżnianie po bieżącym transferze. Fizyczny Start wznawia pracę. Polecenie Koniec zlecenia z postoju przygotowuje opróżnianie. Polecenia HMI i warunki odbioru opisuje [instrukcja HMI](hmi-instructions.md).
 
 ## 5. Zatrzymywanie przy nakładających się operacjach
 

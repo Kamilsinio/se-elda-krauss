@@ -144,7 +144,7 @@ Arkusz 153 pokazuje wspólne zasilanie styków KF204–KF210 przez KF203:14. Oso
 
 ## 7. HMI ↔ PLC
 
-Przypisania obiektów Vijeo do zaimplementowanych pól `GVL_HMI.hmiV2` i `GVL_HMI.hmiIo` podaje [instrukcja wykonawcza HMI v4](hmi-instructions.md). Pierwotne propozycje i scenariusze prób zawiera [mapa projektowa](hmi-vijeo-map.md), a 208 odziedziczonych pól opisuje [inwentaryzacja do migracji](hmi-existing-variables.md).
+Instrukcja HMI zawiera wiązania obiektów do `GVL_HMI` oraz wymaganych odczytów z `GVL_Robot` i `GVL_Station`. [Ekrany i konfiguracja Vijeo](hmi-instructions.md).
 
 | Grupa | Minimalny zakres |
 |---|---|
@@ -157,7 +157,7 @@ Przypisania obiektów Vijeo do zaimplementowanych pól `GVL_HMI.hmiV2` i `GVL_HM
 
 Zachować rozdział żądań od potwierdzonych stanów. Odrzucenie komendy nie zmienia potajemnie stanu urządzenia lub zlecenia. Reset stanów stacji jest odrębną czynnością od resetu alarmów i wymaga Manual.
 
-Fizyczny Start i Stop trafiają do tej samej nadrzędnej koordynacji zlecenia. Dotychczasową komendę HMI Start rozstrzyga GAP-10; nie dodawać nowego przycisku uruchomienia poza uzgodnionym zakresem.
+Automat uruchamia i wznawia fizyczny Start. HMI zatwierdza wybór produkcji, otwiera i kończy zlecenie. Fizyczny Stop wymaga odrębnego powiązania wejścia.
 
 ## 8. Zasady migracji i weryfikacji
 
