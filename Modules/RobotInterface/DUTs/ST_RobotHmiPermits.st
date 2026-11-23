@@ -26,5 +26,7 @@ STRUCT
     station4ResetState : ST_RobotHmiPermit;
     station5ResetState : ST_RobotHmiPermit;
     alarmAckAll : ST_RobotHmiPermit;
+    pause : ST_RobotHmiPermit;
+    resume : ST_RobotHmiPermit;
 END_STRUCT
 END_TYPE

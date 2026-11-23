@@ -148,7 +148,7 @@ FOR i := 1 TO 5 DO
 END_FOR;
 processOK := processOK AND Cfg.gripper.stable > T#0ms AND Cfg.gripper.motionTimeout > T#0ms AND
     Cfg.gripper.vacuumTimeout > T#0ms AND Cfg.gripper.blowTime > T#0ms AND Cfg.gripper.releaseTimeout > Cfg.gripper.blowTime;
-IF Panel.Pending AND Panel.Key > 11 THEN
+IF Panel.Pending AND Panel.Key >= 12 AND Panel.Key <= 26 THEN
  replyComplete := Plant.stationCommandComplete;
  replyReason := Plant.stationCommandReason;
 END_IF;
@@ -156,7 +156,7 @@ IF Panel.Pending AND Panel.Key = 8 AND Plant.stationRecoveryConfirmed THEN reply
 Panel(DataValid := ScannerHealthy AND ImageFresh, GenerationValid := Plant.retentionVerified,
     Timeout := Cfg.hmiTimeout, Complete := replyComplete, CompleteReason := replyReason,
     Hmi := Hmi, Context := Context);
-replyComplete := Panel.Pending AND Panel.Key <= 11;
+replyComplete := Panel.Pending;
 replyReason := 0;
 (* Sesja jest uniewazniana w tym samym skanie co bledy wejscia. *)
 Link(Cfg := Cfg.link, ScannerHealthy := ScannerHealthy, ImageFresh := ImageFresh, Rx := Rx,
@@ -432,6 +432,8 @@ IF Sts.recoveryRequired THEN Hmi.state.uiExecutionState := 90; END_IF;
 Hmi.state.xWorkWithRobot := Context.withRobot;
 Hmi.state.xRobotHomeValid := homeValid;
 Hmi.state.xCanPhysicalStart := Order.Sts.canStart;
+Hmi.state.xHmiPausePending := Order.Sts.pausePending;
+Hmi.state.xHmiPaused := Order.Sts.paused;
 Hmi.state.xOpsSettled := Sts.settled;
 Hmi.state.xRobotDataValid := Sts.session;
 Hmi.state.xRecoveryRequired := Sts.recoveryRequired;
@@ -471,6 +473,12 @@ Hmi.permit.orderOpen.xAllowed := Hmi.link.xArmed AND NOT Order.AwaitingNew AND N
 Hmi.permit.orderOpen.xAllowed := Hmi.permit.orderOpen.xAllowed AND NOT Order.Sts.manual AND
     ((Hmi.edit.uiProgram = 1) OR (Hmi.edit.uiProgram = 2));
 Hmi.permit.orderEnd.xAllowed := Hmi.link.xArmed AND Context.orderActive AND NOT Context.ending;
+Hmi.permit.pause.xAllowed := Hmi.link.xArmed AND Order.Sts.canPause;
+Hmi.permit.pause.sReason := '';
+IF NOT Hmi.permit.pause.xAllowed THEN Hmi.permit.pause.sReason := 'Pauza wymaga pracy w Auto lub oprozniania.'; END_IF;
+Hmi.permit.resume.xAllowed := Hmi.link.xArmed AND Order.Sts.canResume;
+Hmi.permit.resume.sReason := '';
+IF NOT Hmi.permit.resume.xAllowed THEN Hmi.permit.resume.sReason := 'Wymagana zakonczona pauza HMI i gotowosc do Startu.'; END_IF;
 Hmi.permit.modeManual.xAllowed := Hmi.link.xArmed AND NOT Order.Sts.running AND Sts.settled AND NOT Drain.runPermit;
 Hmi.permit.modeAuto.xAllowed := Hmi.link.xArmed AND NOT Order.Sts.running AND Sts.settled;
 Hmi.permit.robotEnable.xAllowed := Hmi.link.xArmed AND NOT Order.Sts.running AND Sts.settled AND homeValid;

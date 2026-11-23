@@ -12,5 +12,9 @@ manual : BOOL;
     startAccepted : BOOL;
     settled : BOOL;
     reason : UINT;
+    canPause : BOOL;
+    canResume : BOOL;
+    pausePending : BOOL;
+    paused : BOOL;
 END_STRUCT
 END_TYPE

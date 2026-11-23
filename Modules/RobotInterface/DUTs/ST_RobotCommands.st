@@ -14,5 +14,7 @@ openOrder : BOOL;
     applyQuantity : BOOL;
     quantity : UINT;
     samples : BOOL;
+    pause : BOOL;
+    resume : BOOL;
 END_STRUCT
 END_TYPE

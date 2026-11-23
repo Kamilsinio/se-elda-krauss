@@ -1,4 +1,4 @@
-(* Sesja i transakcje HMI v2; bez komendy Start i bez starych obejsc. *)
+(* Sesja i transakcje HMI, w tym pauza i wznowienie otwartego zlecenia. *)
 FUNCTION_BLOCK FB_RobotHmi
 VAR_INPUT
     DataValid : BOOL;
@@ -21,9 +21,9 @@ VAR_OUTPUT
 END_VAR
 VAR
     emptyCmd : ST_RobotCommands;
-    req : ARRAY[1..26] OF ST_RobotHmiRequest;
-    rsp : ARRAY[1..26] OF ST_RobotHmiResponse;
-    lastId : ARRAY[1..26] OF UDINT;
+    req : ARRAY[1..28] OF ST_RobotHmiRequest;
+    rsp : ARRAY[1..28] OF ST_RobotHmiResponse;
+    lastId : ARRAY[1..28] OF UDINT;
     active : BOOL;
     initialized : BOOL;
     lastHeartbeat : UINT;
@@ -92,13 +92,17 @@ req[25] := Hmi.cmd.station5ResetState;
 rsp[25] := Hmi.rsp.station5ResetState;
 req[26] := Hmi.cmd.alarmAckAll;
 rsp[26] := Hmi.rsp.alarmAckAll;
+req[27] := Hmi.cmd.pause;
+rsp[27] := Hmi.rsp.pause;
+req[28] := Hmi.cmd.resume;
+rsp[28] := Hmi.rsp.resume;
 changed := Hmi.link.uiHmiHeartbeat <> lastHeartbeat;
 lastHeartbeat := Hmi.link.uiHmiHeartbeat;
 IF changed THEN seen := TRUE; END_IF;
 watchdog(IN := NOT changed, PT := Timeout);
 armEdge(CLK := Hmi.link.xArmReq);
 neutral := TRUE;
-FOR i := 1 TO 26 DO
+FOR i := 1 TO 28 DO
     neutral := neutral AND NOT req[i].xReq AND NOT rsp[i].xAck;
 END_FOR;
 FOR i := 1 TO 5 DO
@@ -119,7 +123,7 @@ IF armEdge.Q AND neutral AND seen AND DataValid AND GenerationValid AND NOT watc
         Context.hmiGeneration := Context.hmiGeneration + 1;
         Hmi.link.udiSessionId := Context.hmiGeneration;
         active := TRUE;
-        FOR i := 1 TO 26 DO lastId[i] := 0; END_FOR;
+        FOR i := 1 TO 28 DO lastId[i] := 0; END_FOR;
     ELSE active := FALSE;
     END_IF;
 END_IF;
@@ -133,14 +137,14 @@ IF Pending AND Complete THEN
     Pending := FALSE;
 END_IF;
 newCount := 0; selected := 0;
-FOR i := 1 TO 26 DO
+FOR i := 1 TO 28 DO
     IF NOT req[i].xReq THEN rsp[i].xAck := FALSE; END_IF;
     IF req[i].xReq AND NOT rsp[i].xAck AND NOT Pending THEN
         newCount := newCount + 1; selected := i;
     END_IF;
 END_FOR;
 IF newCount > 0 AND NOT Pending THEN
-    FOR i := 1 TO 26 DO
+    FOR i := 1 TO 28 DO
         IF req[i].xReq AND NOT rsp[i].xAck THEN
             rsp[i].udiSessionId := req[i].udiSessionId;
             rsp[i].udiRequestId := req[i].udiRequestId;
@@ -176,6 +180,8 @@ IF newCount > 0 AND NOT Pending THEN
             9: Cmd.newEmptyContext := TRUE;
             10: Cmd.applyQuantity := TRUE;
             11: Cmd.samples := TRUE;
+            27: Cmd.pause := TRUE;
+            28: Cmd.resume := TRUE;
             ELSE
                 StationKey := Key;
                 IF Key >= 12 AND Key <= 15 THEN
@@ -220,3 +226,5 @@ Hmi.rsp.station4ResetState := rsp[24];
 Hmi.rsp.station5ResetState := rsp[25];
 
 Hmi.rsp.alarmAckAll := rsp[26];
+Hmi.rsp.pause := rsp[27];
+Hmi.rsp.resume := rsp[28];

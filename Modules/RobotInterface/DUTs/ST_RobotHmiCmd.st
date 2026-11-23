@@ -27,5 +27,7 @@ orderOpen : ST_RobotHmiRequest;
     station4ResetState : ST_RobotHmiRequest;
     station5ResetState : ST_RobotHmiRequest;
     alarmAckAll : ST_RobotHmiRequest;
+    pause : ST_RobotHmiRequest;
+    resume : ST_RobotHmiRequest;
 END_STRUCT
 END_TYPE

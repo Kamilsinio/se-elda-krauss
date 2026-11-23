@@ -28,6 +28,7 @@ END_VAR
 VAR
  startEdge : R_TRIG;
  stopLatched : BOOL;
+ pauseRequested : BOOL;
  running : BOOL;
  manualMode : BOOL;
  drainInFlight : BOOL;
@@ -79,11 +80,20 @@ IF Cmd.endOrder AND Context.orderActive AND NOT Context.ending THEN
  Context.drainResumeRequired := NOT autoDrainAfterFinish;
 END_IF;
 IF PhysicalStop THEN
+ pauseRequested := FALSE;
  stopLatched := TRUE; autoDrainAfterFinish := FALSE; drainAuthorized := FALSE;
 END_IF;
 IF Context.ending THEN stopLatched := TRUE; END_IF;
 IF NOT ready THEN
+ pauseRequested := FALSE;
  running := FALSE; stopLatched := TRUE; drainAuthorized := FALSE; autoDrainAfterFinish := FALSE;
+END_IF;
+Sts.canPause := Context.orderActive AND Context.withRobot AND NOT manualMode AND ready AND
+ NOT PhysicalStop AND NOT pauseRequested AND ((running AND (NOT stopLatched OR autoDrainAfterFinish)) OR drainAuthorized);
+IF Cmd.pause THEN
+ IF Sts.canPause THEN
+  pauseRequested := TRUE; stopLatched := TRUE; autoDrainAfterFinish := FALSE; drainAuthorized := FALSE;
+ ELSE Sts.reason := 30; END_IF;
 END_IF;
 IF stopLatched AND Sts.settled THEN running := FALSE; END_IF;
 IF Context.orderActive AND Context.ending AND Sts.settled THEN
@@ -93,8 +103,11 @@ IF Context.orderActive AND Context.ending AND Sts.settled THEN
  END_IF;
 END_IF;
 Sts.canStart := Context.valid AND Context.orderActive AND Context.withRobot AND NOT manualMode AND ready AND HomeValid AND
- (Sts.settled OR (NOT Context.ending AND RecoveryResumeAllowed AND NOT TransferBusy AND AreasClear));
-IF startEdge.Q AND Sts.canStart AND NOT PhysicalStop THEN
+ (Sts.settled OR (NOT pauseRequested AND NOT Context.ending AND RecoveryResumeAllowed AND NOT TransferBusy AND AreasClear));
+Sts.canResume := pauseRequested AND Sts.canStart AND NOT PhysicalStop;
+IF Cmd.resume AND NOT Sts.canResume THEN Sts.reason := 30; END_IF;
+IF (startEdge.Q OR (Cmd.resume AND Sts.canResume)) AND Sts.canStart AND NOT PhysicalStop AND NOT Cmd.pause THEN
+ pauseRequested := FALSE;
  IF Context.ending THEN drainAuthorized := TRUE; ELSE running := TRUE; stopLatched := FALSE; END_IF;
  Sts.startToken := TO_UINT((TO_UDINT(Sts.startToken) + 1) MOD 65536);
  Sts.startAccepted := TRUE;
@@ -111,7 +124,7 @@ IF Drain.request AND drainInFlight AND drainAccepted AND Drain.connected AND Dra
  initializeSequence := TRUE; AwaitingNew := TRUE;
  Context.stackId := TO_UINT((TO_UDINT(Context.stackId) + 1) MOD 65536);
  Context.orderActive := FALSE; Context.ending := FALSE; Context.drainRequested := FALSE;
- Context.drainResumeRequired := FALSE; running := FALSE; drainAuthorized := FALSE;
+ Context.drainResumeRequired := FALSE; running := FALSE; drainAuthorized := FALSE; pauseRequested := FALSE;
  Drain.request := FALSE; Drain.runPermit := FALSE; Drain.paused := FALSE;
  drainInFlight := FALSE; drainAccepted := FALSE;
 END_IF;
@@ -125,5 +138,9 @@ Sts.manual := manualMode;
 Sts.running := running;
 Sts.stopping := stopLatched AND NOT Sts.settled;
 Sts.stopped := NOT running AND NOT drainAuthorized AND Sts.settled;
+Sts.paused := pauseRequested AND Sts.stopped;
+Sts.pausePending := pauseRequested AND NOT Sts.stopped;
+Sts.canPause := Sts.canPause AND NOT pauseRequested AND Context.orderActive;
+Sts.canResume := Sts.canResume AND Sts.paused;
 Sts.newPermit := running AND NOT stopLatched AND NOT Context.ending AND ready AND Context.withRobot AND NOT manualMode;
 Sts.finishPermit := Context.orderActive AND Context.withRobot AND NOT manualMode AND ready AND running;

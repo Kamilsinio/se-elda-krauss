@@ -20,5 +20,7 @@ uiMode : UINT;
     udiGood : UDINT;
     udiSamples : UDINT;
     udiRejects : UDINT;
+    xHmiPausePending : BOOL;
+    xHmiPaused : BOOL;
 END_STRUCT
 END_TYPE
