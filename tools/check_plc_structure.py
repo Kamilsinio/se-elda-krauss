@@ -17,7 +17,7 @@ def validate():
         r.load(path)
     globals={}
     global_declarations=[]
-    for file in ['GVL_IO','GVL_HMI','GVL_Robot','GVL_RobotRetain','GVL_Station']:
+    for file in ['GVL_IO','GVL_HMI','GVL_Robot','GVL_RobotRetain','GVL_Station','GVL_Festo']:
         text=(ROOT/'GVLs'/f'{file}.st').read_text(encoding='utf-8')
         for match in re.finditer(r'\bTYPE\s+\w+\s*:.*?\bEND_TYPE',text,re.S):r.load_type(match[0])
         rows=[]

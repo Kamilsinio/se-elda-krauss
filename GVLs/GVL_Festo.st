@@ -9,4 +9,8 @@ VAR_GLOBAL
 
     // PLC -> Festo: 8 slow = 16 bajtow; komendy z koncowej logiki wyjsc.
     EipOutWords : ARRAY[0..7] OF WORD;
+
+    // Podglad RAW wedlug numerow modulow AP. Znaczenie maja tylko przypisane indeksy.
+    RawDiByModule : ARRAY[2..13] OF BYTE; // Moduly 2, 5, 6, 7, 8, 9 i 13.
+    RawCoilCommandByModule : ARRAY[3..17] OF BYTE; // Moduly 3, 10, 11, 14, 16 i 17.
 END_VAR

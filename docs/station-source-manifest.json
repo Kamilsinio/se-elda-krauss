@@ -1,6 +1,6 @@
 {
-  "date": "2026-11-20",
-  "verification": "Pruned HMI symbol contract: full offline PLC/FANUC source checks passed. Vijeo import and verification of active screen bindings remain pending.",
+  "date": "2026-11-22",
+  "verification": "Active alarm rows for HMI. All 13 offline PLC/FANUC source checks passed, including 198 behavior and readability tests. Machine Expert compilation, Vijeo import and verification on the target panel remain pending.",
   "hashNormalization": "UTF-8 source with LF line endings",
   "contextSchema": 4,
   "hmiVersion": 4,
@@ -9,6 +9,10 @@
     {
       "path": ".github/workflows/plc-source-checks.yml",
       "sha256": "39d1c96ef19fb26b394d4cec06c2af60c95eb649a157481dffbedbfc8f939a64"
+    },
+    {
+      "path": "GVLs/GVL_Festo.st",
+      "sha256": "414b94eb0cdb363bf799e33c6f8ce8bd971c95ca7d923ea0be585430408bee8c"
     },
     {
       "path": "GVLs/GVL_HMI.st",
@@ -56,11 +60,11 @@
     },
     {
       "path": "Modules/AlarmManager/DUTs/ST_StationAlarmStatus.st",
-      "sha256": "be4f42cd235817ab01c7a377d2f1a35ceff7859e7cc36861c8f805446978faac"
+      "sha256": "e3bb10e1f438e54e808cd88fbad31f6c6d9d3a2f43eab17e5e4398e5a2023c42"
     },
     {
       "path": "Modules/AlarmManager/FB_AlarmManager.st",
-      "sha256": "b33dd769eea5f21e56646b110fe4f03c150c4485df8d996e839865814a266cd6"
+      "sha256": "4be6cc967899c3a1ee88cfc36ba12ed27d5d90682b4e3ea3fe8e4b9fb821f3dd"
     },
     {
       "path": "Modules/BottomAccumulator/DUTs/E_Bottom567Fault.st",
@@ -264,11 +268,11 @@
     },
     {
       "path": "Modules/PRG_IO_Read.st",
-      "sha256": "82795eec310f1265ce59736ff8ae29833b94aa43dc7dae0898058793c3f8c817"
+      "sha256": "fd1e145fd1eb55529261be515225688c1d97ffbeb6657c24a361ba1fcc7092eb"
     },
     {
       "path": "Modules/PRG_IO_Write.st",
-      "sha256": "b61bf4d446803967f54a2c26979982f2f73fa7fd5b5f1a759cfbf2249fa22c06"
+      "sha256": "3a1ee1ca976e24ea707456a52808304b8fda91f3635d89e5185d32422ec4b461"
     },
     {
       "path": "Modules/PRG_Main.st",
@@ -811,8 +815,12 @@
       "sha256": "a08c7f89b0b88a1de6eb1ff7f10d97cf0fdb0a60615e053487a22c6aee869613"
     },
     {
+      "path": "Modules/Vijeo/DUTs/ST_VijeoActiveAlarmRow.st",
+      "sha256": "df8707407f1dc10fb25751b7e0f7fce8f08f83cfc821394d834a4fca39a0e0f8"
+    },
+    {
       "path": "Modules/Vijeo/DUTs/ST_VijeoAlarmStatus.st",
-      "sha256": "ee27b0c5becd370977b358e49458113a8d107b271598a6fb81ae37dcee890d92"
+      "sha256": "8a99f495b773d8960d7b0fd8d05b47f212ee9139f1528331b88dd2b721c30911"
     },
     {
       "path": "Modules/Vijeo/DUTs/ST_VijeoArea.st",
@@ -876,7 +884,7 @@
     },
     {
       "path": "Modules/Vijeo/FB_VijeoPublish.st",
-      "sha256": "8ce195ee960584738e8a791bdf52cddfe4b206b13c8dc94ab71be907dfdd1e88"
+      "sha256": "755acd38a3d14fb13fcb1e76400195786a07c78515fab6da104a9e002864ba75"
     },
     {
       "path": "Modules/Vijeo/FB_VijeoRead.st",
@@ -1160,7 +1168,7 @@
     },
     {
       "path": "tools/check_plc_structure.py",
-      "sha256": "0887e371be638696bbf419e0a4186741eee9c5bfd43e667697117c91bcc5d084"
+      "sha256": "1985ae34db137e969bd22b29510886c89d67bf39012b4c8599f64a13760459ae"
     },
     {
       "path": "tools/check_robot_contract.py",
@@ -1168,7 +1176,7 @@
     },
     {
       "path": "tools/check_station.py",
-      "sha256": "1b12ff4b5f16e023d84ba21964a6d57aa990e8cae64ebd5967cb239e122cd357"
+      "sha256": "0be633a28c36776b4f520a325eccf4ae7f61ccb0b33e28fb9d75b5132fad1b51"
     },
     {
       "path": "tools/check_station_integration.py",
@@ -1212,7 +1220,7 @@
     },
     {
       "path": "tools/plc_station_main.py",
-      "sha256": "e23e8fc0fff534cf5161af7d659412fb734686c099c14d0311f503ed7906587a"
+      "sha256": "89cc8b326f288bb6b2928ebf35303f14407c0c6b33d5b81c030e23b98fc2a07b"
     }
   ],
   "checksPassed": 13,

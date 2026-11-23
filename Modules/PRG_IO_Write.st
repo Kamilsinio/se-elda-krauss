@@ -91,3 +91,12 @@ FOR iEip := 0 TO 39 DO
         TO_UINT(GVL_Robot.RawOut[2 * iEip])
         OR SHL(TO_UINT(GVL_Robot.RawOut[2 * iEip + 1]), 8));
 END_FOR;
+
+(* Assembly 101: podglad wysylanych komend cewek, bez zapisu do obrazu Festo.
+   Kolejne pary bajtow zajmuja mlodszy i starszy bajt slowa skanera. *)
+GVL_Festo.RawCoilCommandByModule[3] := TO_BYTE(WORD_TO_UINT(GVL_Festo.EipOutWords[0]) AND 255);
+GVL_Festo.RawCoilCommandByModule[10] := TO_BYTE(SHR(GVL_Festo.EipOutWords[0], 8));
+GVL_Festo.RawCoilCommandByModule[11] := TO_BYTE(WORD_TO_UINT(GVL_Festo.EipOutWords[1]) AND 255);
+GVL_Festo.RawCoilCommandByModule[14] := TO_BYTE(SHR(GVL_Festo.EipOutWords[1], 8));
+GVL_Festo.RawCoilCommandByModule[16] := TO_BYTE(WORD_TO_UINT(GVL_Festo.EipOutWords[2]) AND 255);
+GVL_Festo.RawCoilCommandByModule[17] := TO_BYTE(SHR(GVL_Festo.EipOutWords[2], 8));

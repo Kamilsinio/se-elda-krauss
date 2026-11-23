@@ -14,7 +14,7 @@ class MainCell:
                'Modules/PRG_IO_Write.st','Modules/Vijeo/FB_VijeoRead.st',
                'Modules/Vijeo/FB_VijeoPublish.st','Modules/PRG_Main.st')
         self.g={}
-        for name in ['GVL_IO_RAW','GVL_IO','GVL_HMI','GVL_Robot','GVL_RobotRetain','GVL_Station']:
+        for name in ['GVL_IO_RAW','GVL_IO','GVL_HMI','GVL_Robot','GVL_RobotRetain','GVL_Station','GVL_Festo']:
             text=(r.root/'GVLs'/f'{name}.st').read_text(encoding='utf-8')
             text=re.sub(r'\bAT\s+%[A-Za-z0-9.]+','',text)
             for match in re.finditer(r'\bTYPE\s+\w+\s*:.*?\bEND_TYPE',text,re.S):r.load_type(match[0])

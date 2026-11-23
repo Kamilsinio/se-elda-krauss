@@ -7,6 +7,16 @@ END_VAR
 (********* INPUTS *********)	
 (**************************)
 
+(* Assembly 100: podglad wejsc CPX-AP-A-8DI-M8-3P wedlug numeru modulu AP.
+   Dane RAW moga byc nieaktualne; nie zasilaja potwierdzen procesu. *)
+GVL_Festo.RawDiByModule[2] := GVL_Festo.EipInBytes[0];
+GVL_Festo.RawDiByModule[5] := GVL_Festo.EipInBytes[2];
+GVL_Festo.RawDiByModule[6] := GVL_Festo.EipInBytes[3];
+GVL_Festo.RawDiByModule[7] := GVL_Festo.EipInBytes[4];
+GVL_Festo.RawDiByModule[8] := GVL_Festo.EipInBytes[5];
+GVL_Festo.RawDiByModule[9] := GVL_Festo.EipInBytes[6];
+GVL_Festo.RawDiByModule[13] := GVL_Festo.EipInBytes[9];
+
 (* DI: RAW -> di *)
 
 (* M1 *)

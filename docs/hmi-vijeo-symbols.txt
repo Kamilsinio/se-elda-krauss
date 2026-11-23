@@ -1,5 +1,5 @@
 Krauss | Symbole PLC wymagane przez projekt Vijeo
-1795 zmiennych, z rozwiniętymi indeksami i polami wszystkich 26 transakcji.
+1856 zmiennych, z rozwiniętymi indeksami i polami wszystkich 26 transakcji.
 
 R  = panel odczytuje pole.
 RW = pole używane do zapisu przez panel.
@@ -442,6 +442,67 @@ R   GVL_HMI.hmiV2.station.reason
 R   GVL_HMI.hmiV2.station.waitingPickup
 
 [GVL_HMI.vijeo]
+R   GVL_HMI.vijeo.alarms.activeCount
+R   GVL_HMI.vijeo.alarms.activeRows[0].code
+R   GVL_HMI.vijeo.alarms.activeRows[0].level
+R   GVL_HMI.vijeo.alarms.activeRows[0].station
+R   GVL_HMI.vijeo.alarms.activeRows[0].text
+R   GVL_HMI.vijeo.alarms.activeRows[0].valid
+R   GVL_HMI.vijeo.alarms.activeRows[1].code
+R   GVL_HMI.vijeo.alarms.activeRows[1].level
+R   GVL_HMI.vijeo.alarms.activeRows[1].station
+R   GVL_HMI.vijeo.alarms.activeRows[1].text
+R   GVL_HMI.vijeo.alarms.activeRows[1].valid
+R   GVL_HMI.vijeo.alarms.activeRows[2].code
+R   GVL_HMI.vijeo.alarms.activeRows[2].level
+R   GVL_HMI.vijeo.alarms.activeRows[2].station
+R   GVL_HMI.vijeo.alarms.activeRows[2].text
+R   GVL_HMI.vijeo.alarms.activeRows[2].valid
+R   GVL_HMI.vijeo.alarms.activeRows[3].code
+R   GVL_HMI.vijeo.alarms.activeRows[3].level
+R   GVL_HMI.vijeo.alarms.activeRows[3].station
+R   GVL_HMI.vijeo.alarms.activeRows[3].text
+R   GVL_HMI.vijeo.alarms.activeRows[3].valid
+R   GVL_HMI.vijeo.alarms.activeRows[4].code
+R   GVL_HMI.vijeo.alarms.activeRows[4].level
+R   GVL_HMI.vijeo.alarms.activeRows[4].station
+R   GVL_HMI.vijeo.alarms.activeRows[4].text
+R   GVL_HMI.vijeo.alarms.activeRows[4].valid
+R   GVL_HMI.vijeo.alarms.activeRows[5].code
+R   GVL_HMI.vijeo.alarms.activeRows[5].level
+R   GVL_HMI.vijeo.alarms.activeRows[5].station
+R   GVL_HMI.vijeo.alarms.activeRows[5].text
+R   GVL_HMI.vijeo.alarms.activeRows[5].valid
+R   GVL_HMI.vijeo.alarms.activeRows[6].code
+R   GVL_HMI.vijeo.alarms.activeRows[6].level
+R   GVL_HMI.vijeo.alarms.activeRows[6].station
+R   GVL_HMI.vijeo.alarms.activeRows[6].text
+R   GVL_HMI.vijeo.alarms.activeRows[6].valid
+R   GVL_HMI.vijeo.alarms.activeRows[7].code
+R   GVL_HMI.vijeo.alarms.activeRows[7].level
+R   GVL_HMI.vijeo.alarms.activeRows[7].station
+R   GVL_HMI.vijeo.alarms.activeRows[7].text
+R   GVL_HMI.vijeo.alarms.activeRows[7].valid
+R   GVL_HMI.vijeo.alarms.activeRows[8].code
+R   GVL_HMI.vijeo.alarms.activeRows[8].level
+R   GVL_HMI.vijeo.alarms.activeRows[8].station
+R   GVL_HMI.vijeo.alarms.activeRows[8].text
+R   GVL_HMI.vijeo.alarms.activeRows[8].valid
+R   GVL_HMI.vijeo.alarms.activeRows[9].code
+R   GVL_HMI.vijeo.alarms.activeRows[9].level
+R   GVL_HMI.vijeo.alarms.activeRows[9].station
+R   GVL_HMI.vijeo.alarms.activeRows[9].text
+R   GVL_HMI.vijeo.alarms.activeRows[9].valid
+R   GVL_HMI.vijeo.alarms.activeRows[10].code
+R   GVL_HMI.vijeo.alarms.activeRows[10].level
+R   GVL_HMI.vijeo.alarms.activeRows[10].station
+R   GVL_HMI.vijeo.alarms.activeRows[10].text
+R   GVL_HMI.vijeo.alarms.activeRows[10].valid
+R   GVL_HMI.vijeo.alarms.activeRows[11].code
+R   GVL_HMI.vijeo.alarms.activeRows[11].level
+R   GVL_HMI.vijeo.alarms.activeRows[11].station
+R   GVL_HMI.vijeo.alarms.activeRows[11].text
+R   GVL_HMI.vijeo.alarms.activeRows[11].valid
 R   GVL_HMI.vijeo.alarms.count
 R   GVL_HMI.vijeo.alarms.critical
 R   GVL_HMI.vijeo.alarms.entries[0].acknowledged

@@ -416,6 +416,52 @@ class IntegrationTests(unittest.TestCase):
         self.assertEqual(vijeo['unloadCoils'][0], {'home': True, 'work': False})
         self.assertEqual(vijeo['unloadCoils'][1], {'home': False, 'work': True})
 
+    def test_vijeo_active_alarm_rows_are_recent_compact_and_independent_of_latches(self):
+        from plc_station_main import MainCell
+        cell = MainCell()
+        manager = cell.r.instance('FB_AlarmManager')
+        cfg = cell.r.value('ST_StationAlarmCfg')
+        cfg['configured'][14] = cfg['critical'][14] = cfg['latched'][14] = True
+        cfg['station'][14] = 2
+        inp = cell.r.value('ST_StationAlarmIn')
+        io = cell.r.value('ST_StationHmiIo')
+        publisher = cell.main.v['vijeoPublish']
+        alarms = cell.g['GVL_HMI']['vijeo']['alarms']
+        empty = dict(valid=False, code=0, station=0, level='', text='')
+
+        def publish(active, expected):
+            inp['active'] = {code: code in active for code in range(1, 65)}
+            manager.run(Cfg=cfg, Inp=inp)
+            io['alarms'] = manager.v['Sts']
+            publisher.run(Hmi=cell.main.v['hmiRuntime'], Io=io, ReloadedStation=0)
+            rows = alarms['activeRows']
+            self.assertEqual(alarms['activeCount'], len(active))
+            self.assertEqual([row['code'] for row in rows.values() if row['valid']], expected)
+            self.assertEqual([rows[i] for i in range(len(expected), 12)], [empty] * (12 - len(expected)))
+
+        publish(set(), [])
+        publish({2, 6}, [6, 2])
+        self.assertEqual(alarms['activeRows'][0],
+                         dict(valid=True, code=6, station=2, level='Warning', text='ST.2 V201'))
+        publish({2, 6, 14}, [14, 6, 2])
+        self.assertEqual(alarms['activeRows'][0],
+                         dict(valid=True, code=14, station=2, level='Alarm', text='Komunikacja ATV320'))
+        publish({2, 3, 6, 14}, [3, 14, 6, 2])
+        inp.update(acknowledge=True, reset=True)
+        publish({2, 3, 6, 14}, [3, 14, 6, 2])
+        inp.update(acknowledge=False, reset=False)
+        publish({2, 3, 6}, [3, 6, 2])
+        self.assertTrue(alarms['entries'][13]['latched'])
+        publish({2, 3, 6, 14}, [14, 3, 6, 2])
+        overflow = {2, 3, 6, 14, *range(15, 27)}
+        publish(overflow, list(range(26, 14, -1)))
+        self.assertEqual(alarms['activeRows'][0]['level'], 'Klasa niezatwierdzona')
+        publish(overflow - {26}, [*range(25, 14, -1), 14])
+        publish(set(), [])
+        self.assertEqual(alarms['count'], 1)
+        publish(set(range(1, 65)), list(range(64, 52, -1)))
+        publish(set(), [])
+
     def test_vijeo_elevator_and_batch_reload_publish_only_the_requested_buffers(self):
         from plc_station_main import MainCell
         cell = MainCell()

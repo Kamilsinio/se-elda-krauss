@@ -79,6 +79,8 @@ Ruchy stationManual: 1=górna taśma, 2=taśma windy, 3=dolna taśma, 4=oś wind
 
 [Katalog alarmów](station-alarm-catalog.csv): 1–11 to uzgodnione ostrzeżenia siłowników, 12–52 wymagają GAP-12. 53–64 pozostają na jawne dodatkowe źródła. AlarmCfg.policyVerified i configured dla 12–52 są warunkiem policyReady; niekompletna macierz blokuje produkcję. Dotychczasowe ochronne blokady urządzeń pozostają aktywne. Nie nadano nieuzgodnionym alarmom domyślnie łagodniejszej klasy. alarmAckAll, ustąpienie przyczyny i reset zatrzaśnięcia są osobnymi zdarzeniami. Żadne nie wywołuje ruchu.
 
+`GVL_HMI.vijeo.alarms.activeRows[0..11]` przedstawia maksymalnie 12 przyczyn aktywnych w bieżącym skanie. Pozycja `[0]` zasila również wspólny pasek. `activeCount` obejmuje wszystkie aktywne przyczyny, a `valid` dotyczy obsadzenia danego wiersza. Przy utracie łącza panel ukrywa dane na podstawie jakości odczytu i świeżości heartbeat. `entries[0..63]` pozostaje katalogiem o stałych indeksach dla diagnostyki urządzeń. `count` nadal liczy zatrzaśnięcia. Polecenie `resetFaults` służy do ich kasowania po ustąpieniu przyczyny.
+
 ## 5. Weryfikacja i przekazanie
 
 `python -B tools/check_plc_release.py` uruchamia 12 kontroli. W pakiecie stacyjnym wykonywane są rzeczywiste źródła ST, w tym PRG_Main. Jego GIATV oraz I/O są jawnymi fixture testowymi w tools, a nie zaimportowaną biblioteką ani modelem mechaniki. Nie importować tools/fixtures do PLC.
