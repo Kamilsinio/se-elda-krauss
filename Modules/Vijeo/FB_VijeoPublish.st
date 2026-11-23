@@ -10,6 +10,9 @@ END_VAR
 VAR
     i : INT;
     reloadedIndex : INT;
+    alarmCode : INT;
+    alarmRow : ST_VijeoActiveAlarmRow;
+    emptyAlarmRow : ST_VijeoActiveAlarmRow;
 END_VAR
 
 GVL_HMI.hmiV2.link.uiContractVersion := Hmi.link.uiContractVersion;
@@ -60,6 +63,28 @@ GVL_HMI.vijeo.alarms.critical := Io.alarms.critical;
 GVL_HMI.vijeo.alarms.warning := Io.alarms.warning;
 GVL_HMI.vijeo.alarms.policyReady := Io.alarms.policyReady;
 GVL_HMI.vijeo.alarms.count := Io.alarms.count;
+
+(* Pierwszy wiersz zasila także wspólny pasek alarmu. *)
+GVL_HMI.vijeo.alarms.activeCount := Io.alarms.activeCount;
+FOR i := 1 TO 12 DO
+    alarmCode := Io.alarms.activeCodes[i];
+    IF alarmCode > 0 THEN
+        alarmRow.valid := TRUE;
+        alarmRow.code := Io.alarms.entries[alarmCode].code;
+        alarmRow.station := Io.alarms.entries[alarmCode].station;
+        alarmRow.text := Io.alarms.entries[alarmCode].text;
+        IF NOT Io.alarms.entries[alarmCode].configured THEN
+            alarmRow.level := 'Klasa niezatwierdzona';
+        ELSIF Io.alarms.entries[alarmCode].critical THEN
+            alarmRow.level := 'Alarm';
+        ELSE
+            alarmRow.level := 'Warning';
+        END_IF;
+        GVL_HMI.vijeo.alarms.activeRows[i - 1] := alarmRow;
+    ELSE
+        GVL_HMI.vijeo.alarms.activeRows[i - 1] := emptyAlarmRow;
+    END_IF;
+END_FOR;
 
 FOR i := 1 TO 4 DO
     GVL_HMI.vijeo.stationRevision[i - 1] := Hmi.stationRevision[i];

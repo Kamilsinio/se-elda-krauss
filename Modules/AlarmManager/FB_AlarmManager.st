@@ -11,7 +11,21 @@ END_VAR
 VAR
  i : INT;
  wasActive : ARRAY[1..64] OF BOOL;
+ activeOrder : ARRAY[1..64] OF INT;
+ activeOrderSize : INT;
+ activeCode : INT;
 END_VAR
+
+(* Zachowaj aktywne kody w kolejności ich wystąpienia, od najstarszego. *)
+activeOrderSize := 0;
+FOR i := 1 TO TO_INT(Sts.activeCount) DO
+ activeCode := activeOrder[i];
+ IF Inp.active[activeCode] THEN
+  activeOrderSize := activeOrderSize + 1;
+  activeOrder[activeOrderSize] := activeCode;
+ END_IF;
+END_FOR;
+
 Sts.critical := FALSE; Sts.warning := FALSE; Sts.count := 0;
 Sts.policyReady := Cfg.policyVerified;
 FOR i := 1 TO 64 DO
@@ -25,7 +39,11 @@ FOR i := 1 TO 64 DO
  Sts.entries[i].critical := Cfg.critical[i] AND i > 11;
  IF i > 11 AND i <= 52 AND NOT Cfg.configured[i] THEN Sts.policyReady := FALSE; END_IF;
  IF i > 11 AND Inp.active[i] AND NOT Cfg.configured[i] THEN Sts.policyReady := FALSE; END_IF;
- IF Inp.active[i] AND NOT wasActive[i] THEN Sts.entries[i].acknowledged := FALSE; END_IF;
+ IF Inp.active[i] AND NOT wasActive[i] THEN
+  Sts.entries[i].acknowledged := FALSE;
+  activeOrderSize := activeOrderSize + 1;
+  activeOrder[activeOrderSize] := i;
+ END_IF;
  IF Inp.active[i] THEN Sts.entries[i].latched := TRUE; END_IF;
  Sts.entries[i].active := Inp.active[i];
  Sts.entries[i].returned := NOT Inp.active[i] AND Sts.entries[i].latched;
@@ -38,6 +56,16 @@ FOR i := 1 TO 64 DO
   ELSIF Sts.entries[i].configured THEN Sts.warning := TRUE; END_IF;
  END_IF;
  wasActive[i] := Inp.active[i];
+END_FOR;
+
+(* Najnowszy na górze. W tym samym skanie pierwszy jest większy kod. *)
+Sts.activeCount := TO_UINT(activeOrderSize);
+FOR i := 1 TO 12 DO
+ IF i <= activeOrderSize THEN
+  Sts.activeCodes[i] := activeOrder[activeOrderSize - i + 1];
+ ELSE
+  Sts.activeCodes[i] := 0;
+ END_IF;
 END_FOR;
 
 Sts.entries[1].text := 'ST.1 pozycjoner V107/V108';
