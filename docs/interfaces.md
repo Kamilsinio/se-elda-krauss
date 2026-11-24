@@ -64,11 +64,11 @@ Nie przeliczać mechanicznie zapisów kanałów takich jak `%I2.10` z arkusza na
 | BAT100 / BAT101 | Bramka Ethernet/IP oraz wejścia ST.4 |
 | BAT200–BAT205 | Terminal i wejścia ST.1/ST.3 |
 | BAT300 / BAT301 | Terminal i wejścia ST.2 |
-| BAT400 / BAT401 | Terminal i wejścia ST.5 |
+| BAT400 | Terminal ST.5 i dwa wejścia V501 na AP16 |
 
-ST.5: V501 to oś pneumatyczna „axis 7”, V502–V505 to siłowniki chwytaka 1–4, V506–V508 to rezerwy, V509–V513 to obwody próżni 1–5. Czujniki V502–V505 są w arkuszu przypisane do KEC3, czujniki V501 do BAT401. Nadal przechodzą przez PLC; nie utożsamiać każdego potwierdzenia chwytaka z fizycznym wejściem Festo.
+V501 to oś pneumatyczna. Jej potwierdzenia HOME i WORK są na AP16 B11.0 i B11.1. Krańcówki V502–V505 są na KEC3, V506–V508 stanowią rezerwę, a V509–V513 to obwody próżni. [Aktualna mapa I/O](io-mapping-krauss.csv)
 
-Brakuje pełnego przypisania potwierdzeń podciśnienia i komend przedmuchu. Rezerwy nie są wolnymi kanałami do dowolnego zagospodarowania bez sprawdzenia konfiguracji.
+Komendy ssania i przedmuchu V509–V513 mają przypisania w Assembly 101. Interpretacja wejściowego statusu, pomiaru i jakości próżni czeka na odbiór GAP-03/08.
 
 ### Uzupełnienie 2026-11-14 — schematy współdzielone
 
@@ -85,7 +85,7 @@ Dla zaworu dodatkowo: liczba i funkcja cewek, stan bez energii, sposób utrzyman
 - `GVL_Robot` ma historyczne 32 bity w każdym kierunku: wejścia PLC %IX28.0–%IX31.7 i wyjścia %QX10.0–%QX13.7.
 - Ten kontrakt zawiera przez PLC tylko obwód próżni 5. Nie zawiera pełnej nowej wymiany EUROMAP ani BAT4.
 - `xRobotCommOk := TRUE` jest zastępczym statusem, nie docelową diagnostyką.
-- `PRG_IO_Read/Write` mapują stary układ; nie stanowią nowej konfiguracji Festo/EUROMAP.
+- Historyczne przypisania `PRG_IO_Read/Write` dotyczą starego projektu. Bieżące kanały Festo i EUROMAP są w [mapie I/O Krauss](io-mapping-krauss.csv).
 - LS używają IMM DI101/102/103/106/107 i DO101–106; chwytaka DO111–120, DI112–119, RI1–6, RO1–8 oraz DI32/DO31/DO32 dla próżni 5. Numery są historyczne.
 - DO17 ma zależne od programu znaczenie: zakończenie palety w blistrach i warstwy w pojemnikach. Nie utożsamiać go z zakończeniem całego stosu.
 - HOME DO7 i identyfikacja programu DO12/13 nie są generowane w dostarczonych dwóch programach głównych. Potrzebny jest pełny backup i konfiguracja sygnałów.

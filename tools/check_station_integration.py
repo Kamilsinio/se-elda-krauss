@@ -365,6 +365,44 @@ class FullStationTests(unittest.TestCase):
                 self.assertEqual(c.events.count('immPickupCompleted'),2)
                 for _ in range(10):c.scan()
                 self.assertFalse(c.controller.v['Outp']['robot_Sts']['order']['running'])
+    def test_hmi_pause_finishes_started_production_and_resumes_open_order(self):
+        from plc_station_cosim import StationCell
+        for mode in [1, 2]:
+            with self.subTest(mode=mode):
+                c = StationCell(mode)
+                self.assertFalse(c.hmi['permit']['resume']['xAllowed'])
+                c.start()
+                c.begin()
+                c.command('pause')
+                self.assertTrue(c.hmi['state']['xHmiPausePending'])
+                self.assertFalse(c.hmi['permit']['resume']['xAllowed'])
+                self.assertFalse(c.controller.v['Outp']['robot_Tx']['imm_newCyclePermit'])
+                c.until(lambda: c.hmi['state']['xHmiPaused'])
+                self.assertTrue(c.c['orderActive'])
+                self.assertEqual(c.c['goodCount'], 7)
+                c.until(lambda: c.hmi['permit']['resume']['xAllowed'])
+                c.command('resume')
+                self.assertFalse(c.hmi['state']['xHmiPaused'])
+                self.assertTrue(c.controller.v['Outp']['robot_Sts']['order']['newPermit'])
+                self.assertEqual(c.c['goodCount'], 7)
+
+    def test_hmi_pause_finishes_current_drain_transfer_before_resuming(self):
+        from plc_station_cosim import StationCell
+        c = StationCell(2)
+        c.command('orderEnd')
+        c.start()
+        c.until(lambda: c.controller.v['Outp']['io_dout']['ctrl_turn_on_top_conveyor'])
+        operation = c.controller.v['transport'].v['Sts']['operationId']
+        c.command('pause')
+        c.until(lambda: c.hmi['state']['xHmiPaused'])
+        self.assertEqual(c.controller.v['transport'].v['Sts']['operationId'], operation)
+        self.assertFalse(c.controller.v['Outp']['drain']['runPermit'])
+        self.assertTrue(c.c['orderActive'])
+        c.until(lambda: c.hmi['permit']['resume']['xAllowed'])
+        c.command('resume')
+        c.until(lambda: not c.c['orderActive'], limit=400)
+        self.assertFalse(any(c.positions.values()))
+
     def test_drain_stop_finishes_transfer_then_waits_for_start_and_last_pickup(self):
         from plc_station_cosim import StationCell
         c=StationCell(2);c.command('orderEnd');c.start()
@@ -417,6 +455,190 @@ class EtherNetIpImageTests(unittest.TestCase):
                 self.assertEqual(list(self.robot['EipInWords'].values()), words)
                 self.assertTrue(all(value == 0xA55A for value in self.robot['EipOutWords'].values()))
                 self.assertTrue(all(value == 0x5A for value in self.robot['RawOut'].values()))
+
+    def test_festo_input_bits_reach_only_the_documented_hmi_signal(self):
+        def limit_switches(first, last):
+            return [f'V{valve}_{position}' for valve in range(first, last + 1)
+                    for position in ('HP', 'WP')]
+
+        expected = {
+            0: limit_switches(401, 402) + ['B401', 'B402'],
+            2: limit_switches(101, 104),
+            3: limit_switches(105, 108),
+            4: limit_switches(109, 110) + ['B101', 'B102', 'B103'],
+            5: limit_switches(301, 304),
+            6: [None, 'B302', 'B303', 'B304'],
+            9: limit_switches(201, 203),
+            11: limit_switches(501, 501),
+        }
+        station = self.cell.g['GVL_Station']
+        station['Inputs'].update(mappingVerified=True, gatewayHealthy=True, imageFresh=True)
+        station['Inputs']['moduleHealthy'].update({i: True for i in range(1, 12)})
+        image = self.cell.g['GVL_Festo']['EipInBytes']
+        hmi = self.cell.g['GVL_HMI']['vijeo']
+        all_signals = {f'ind_{alias}' for aliases in expected.values() for alias in aliases if alias}
+        for byte, aliases in expected.items():
+            for bit in range(8):
+                with self.subTest(byte=byte, bit=bit):
+                    image[byte] = 1 << bit
+                    self.cell.scan()
+                    alias = aliases[bit] if bit < len(aliases) else None
+                    active = {name for name in all_signals if hmi['value'][name]}
+                    self.assertEqual(active, {f'ind_{alias}'} if alias else set())
+                    if alias:
+                        self.assertTrue(hmi['valid'][f'ind_{alias}'])
+                    image[byte] = 0
+
+    def test_v501_hmi_indicates_the_sensor_without_authorizing_motion(self):
+        festo = self.cell.g['GVL_Festo']
+        hmi = self.cell.g['GVL_HMI']['vijeo']
+        for byte, home, work in ((2, False, True), (1, True, False),
+                                 (3, False, False), (0, False, False)):
+            with self.subTest(byte=byte):
+                festo['EipInBytes'][11] = byte
+                self.cell.scan()
+                self.assertEqual(hmi['cylinders'][0]['atHome'], home)
+                self.assertEqual(hmi['cylinders'][0]['atWork'], work)
+                self.assertFalse(hmi['valid']['ind_V501_HP'])
+                self.assertFalse(hmi['valid']['ind_V501_WP'])
+                self.assertFalse(hmi['cylinders'][0]['valid'])
+                self.assertFalse(self.robot['Tx']['cyl_V501_atHome'])
+                self.assertFalse(self.robot['Tx']['cyl_V501_atWork'])
+                self.assertEqual(festo['EipOutWords'][2] & 0x03, 0)
+                self.assertFalse(hmi['cylinders'][1]['atHome'])
+                self.assertFalse(hmi['cylinders'][1]['atWork'])
+
+    def test_feedback_reaches_consumers_and_stale_values_lose_validity(self):
+        station = self.cell.g['GVL_Station']
+        station['IoCfg'].update(configured=True, stable=10)
+        station['Inputs'].update(mappingVerified=True, gatewayHealthy=True, imageFresh=True)
+        station['Inputs']['moduleHealthy'].update({i: True for i in range(1, 12)})
+        station['Inputs']['positionValid'][4] = True
+        station.update(LocalIoHealthy=True, PhysicalStopValid=True)
+        self.robot['stationIoBound'] = True
+        self.robot['storageIn']['Left']['configured'] = True
+        self.robot['storageIn']['Right']['configured'] = True
+        self.robot['Plant']['imm']['valid'] = True
+        raw = self.cell.g['GVL_IO_RAW']['di']
+        raw.update(ind_gripper_1_work=True, ind_e67_imm_mould_open=True,
+                   ind_spacer_storage_robot_side_doors_opening_permission=True)
+        festo = self.cell.g['GVL_Festo']['EipInBytes']
+        festo.update({0: 0x29, 4: 0x50, 5: 0x41, 6: 0x0B, 11: 0x01})
+        self.cell.scan()
+        inp = self.cell.main.v['inp']
+        inputs = inp['station_Inputs']
+        self.assertEqual(list(inputs['occupied'].values()), [True, False, True, False, True, False, True])
+        self.assertTrue(inputs['lowerStop'][1]['ind_1_bwd'])
+        self.assertTrue(inputs['lowerStop'][2]['ind_2_bwd'])
+        self.assertTrue(inputs['lowerFeedbackValid'])
+        self.assertTrue(inp['robot_storageIn']['Left']['atHome'])
+        self.assertTrue(inp['robot_storageIn']['Right']['atWork'])
+        self.assertTrue(inp['robot_storageIn']['Empty'])
+        self.assertTrue(inp['robot_storageIn']['RobotSideOpeningPermission'])
+        self.assertTrue(inp['robot_Plant']['cylinders'][1]['atHome'])
+        self.assertTrue(inp['robot_Plant']['cylinders'][2]['atWork'])
+        self.assertTrue(inp['robot_Plant']['imm']['mouldOpen'])
+        hmi = self.cell.g['GVL_HMI']['vijeo']
+        self.assertFalse(hmi['valid']['ind_B301'])
+        self.assertFalse(self.cell.main.v['station'].v['fbBottom567'].v['Inp']['Valid'])
+        station['B301PolarityVerified'] = True
+        self.cell.scan()
+        bottom = self.cell.main.v['station'].v['fbBottom567']
+        self.assertTrue(bottom.v['Inp']['Valid'])
+        self.assertTrue(bottom.v['Inp']['sElevatorEmptied_raw'])
+        self.assertTrue(hmi['valid']['ind_B301'])
+        self.assertFalse(hmi['value']['ind_B301'])
+        festo[6] &= ~1
+        self.cell.scan()
+        self.assertFalse(bottom.v['Inp']['sElevatorEmptied_raw'])
+        self.assertTrue(hmi['value']['ind_B301'])
+        station['B301HighWhenOccupied'] = False
+        self.cell.scan()
+        self.assertTrue(bottom.v['Inp']['sElevatorEmptied_raw'])
+        self.assertFalse(hmi['value']['ind_B301'])
+        station['Inputs']['moduleHealthy'][8] = False
+        station['Inputs']['moduleHealthy'][11] = False
+        station['LocalIoHealthy'] = False
+        station['PhysicalStopValid'] = False
+        self.cell.scan()
+        inp = self.cell.main.v['inp']
+        self.assertFalse(hmi['valid']['ind_B301'])
+        self.assertFalse(hmi['value']['ind_B301'])
+        self.assertFalse(bottom.v['Inp']['Valid'])
+        self.assertTrue(hmi['valid']['ind_V301_HP'])
+        self.assertFalse(hmi['valid']['ind_B302'])
+        self.assertFalse(hmi['valid']['ind_V501_HP'])
+        self.assertFalse(hmi['valid']['ind_V502_WP'])
+        self.assertFalse(inp['robot_Plant']['cylinders'][1]['atHome'])
+        self.assertFalse(inp['robot_Plant']['imm']['valid'])
+        self.assertTrue(inp['robot_Plant']['physicalStop'])
+
+    def test_held_start_requires_release_after_io_returns(self):
+        station = self.cell.g['GVL_Station']
+        self.robot['stationIoBound'] = True
+        raw = self.cell.g['GVL_IO_RAW']['di']
+        raw['ind_button_start_process'] = True
+        self.cell.scan()
+        station.update(LocalIoHealthy=True, PhysicalStopValid=True)
+        self.cell.scan()
+        self.assertFalse(self.cell.main.v['inp']['io_di']['ind_button_start_process'])
+        self.assertTrue(self.cell.g['GVL_HMI']['vijeo']['value']['ind_S5'])
+        raw['ind_button_start_process'] = False
+        self.cell.scan()
+        raw['ind_button_start_process'] = True
+        self.cell.scan()
+        self.assertTrue(self.cell.main.v['inp']['io_di']['ind_button_start_process'])
+
+    def test_wired_output_addresses_are_unique_and_leave_sto_out(self):
+        import re
+
+        source = self.cell.r.root / 'GVLs/ST_GVL_IO_DO_RAW.st'
+        pairs = re.findall(r'(\w+)\s+AT\s+(%QX\d+\.\d+)\s*:', source.read_text(encoding='utf-8'))
+        addresses = dict(pairs)
+        self.assertEqual(len(pairs), len(set(addresses.values())))
+        self.assertNotIn('%QX7.1', addresses.values())
+        self.assertNotIn('%QX7.5', addresses.values())
+        self.assertNotIn('%QX7.7', addresses.values())
+        for name, address in (
+            ('ctrl_turn_on_elevator_conveyor_out', '%QX1.0'),
+            ('ctrl_turn_on_elevator_conveyor_in', '%QX1.1'),
+            ('ctrl_turn_on_buzzer', '%QX7.6'),
+        ):
+            with self.subTest(name=name):
+                self.assertEqual(addresses[name], address)
+                commands = self.cell.g['GVL_IO']['dout']
+                commands[name] = True
+                self.cell.g['PRG_IO_Write'].run()
+                raw = self.cell.g['GVL_IO_RAW']['dout']
+                self.assertEqual({n for n, value in raw.items() if value}, {name})
+                commands[name] = False
+
+    def test_festo_output_bits_have_independent_owners_and_clear_reserves(self):
+        coil_order = (
+            (0, 8, 2), (0, 10, 3), (0, 12, 4), (0, 14, 1), (1, 0, 5),
+            (1, 2, 9), (1, 4, 10), (1, 8, 6), (1, 10, 8), (1, 12, 7),
+        )
+        commands = self.cell.g['GVL_Station']['Coils']
+        storage = self.robot['storageOut']
+        bindings = [(word, bit + index, commands[coil], key)
+                    for word, bit, coil in coil_order
+                    for index, key in enumerate(('work', 'home'))]
+        bindings += [(0, index, storage, name) for index, name in enumerate(
+            ('Q_V401Work', 'Q_V401Home', 'Q_V402Work', 'Q_V402Home'))]
+        for i in range(1, 6):
+            bindings += [(2, 2 * (i - 1) + bit, self.robot['Sts']['cylinders'][i], key)
+                         for bit, key in enumerate(('work', 'home'))]
+            bindings += [(i + 2, bit, self.robot['Sts']['vacuum'][i], key)
+                         for bit, key in enumerate(('hold', 'blow'))]
+        self.assertEqual(len(bindings), 44)
+        actual = self.cell.g['GVL_Festo']['EipOutWords']
+        for word, bit, owner, key in bindings:
+            with self.subTest(word=word, bit=bit):
+                actual.update({i: 0xFFFF for i in range(8)})
+                owner[key] = True
+                self.cell.g['PRG_IO_Write'].run()
+                self.assertEqual(list(actual.values()), [1 << bit if i == word else 0 for i in range(8)])
+                owner[key] = False
 
     def test_output_uses_current_encoded_frame_and_clears_stale_reserves(self):
         import json

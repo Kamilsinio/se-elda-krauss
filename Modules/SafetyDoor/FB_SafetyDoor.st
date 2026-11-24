@@ -26,6 +26,7 @@ VAR_OUTPUT
 END_VAR
 VAR
     tLockedStable : TON;
+    tClosedStable : TON;
     tErrorStable  : TON;
     tBlink        : TON;
     tUnlockTO     : TON;
@@ -41,11 +42,12 @@ VAR
 END_VAR
 
 // Stabilizacja sygnalow z Euchnera.
-tLockedStable(IN := Inp.DoorLocked, PT := Cfg.tStable);
-tErrorStable(IN := Inp.DeviceError, PT := Cfg.tStable);
+tLockedStable(IN := Enable AND Inp.DoorLocked, PT := Cfg.tStable);
+tClosedStable(IN := Enable AND Inp.DoorClosed, PT := Cfg.tStable);
+tErrorStable(IN := Enable AND Inp.DeviceError, PT := Cfg.tStable);
 
 Sts.DoorLocked := tLockedStable.Q;
-Sts.DoorClosed := Sts.DoorLocked; // brak osobnego sygnalu closed; locked implikuje zamkniecie
+Sts.DoorClosed := tClosedStable.Q;
 Sts.DeviceError := tErrorStable.Q;
 
 xResetRise := ResetFault AND (NOT xResetPrev);
@@ -91,7 +93,7 @@ IF tUnlockTO.Q AND (NOT Diag.Fault) THEN
 END_IF;
 
 Sts.UnlockRequest := xUnlockReq;
-Sts.ReadyToRun := Enable AND (NOT Diag.Fault) AND Sts.DoorLocked AND (NOT xUnlockReq);
+Sts.ReadyToRun := Enable AND (NOT Diag.Fault) AND Sts.DoorClosed AND Sts.DoorLocked AND (NOT xUnlockReq);
 Sts.Busy := Enable AND (NOT Diag.Fault) AND (
     xUnlockReq AND Sts.DoorLocked
 );

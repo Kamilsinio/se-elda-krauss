@@ -89,6 +89,8 @@ Oddzielić rodzaj produkcji (**Pojemniki/Blistry**), tryb (**Auto/Manual**), sta
 | Start zlecenia | Zatwierdzenie rodzaju produkcji i otwarcie zlecenia. Bez ruchu. |
 | Fizyczny Start | Uruchomienie/wznowienie automatu po sprawdzeniu warunków. |
 | Fizyczny Stop | Zablokowanie nowych cykli i zakończenie rozpoczętych operacji. Zlecenie pozostaje otwarte. Zastępuje starą funkcję przycisku Kontynuuj. |
+| Pauza (HMI) | Wstrzymanie automatu lub opróżniania po rozliczeniu rozpoczętych operacji. Zlecenie pozostaje otwarte. |
+| Wznów (HMI) | Wznowienie po pauzie zadanej z HMI i sprawdzeniu warunków Startu. |
 | Koniec zlecenia | Zakończenie rozpoczętych operacji, opróżnienie stacji, a następnie zamknięcie zlecenia. |
 | Reset | Skasowanie usuniętych przyczyn alarmów zgodnie z ich typem; bez komendy ruchu. |
 | Alarm krytyczny | Natychmiastowe zatrzymanie automatu; oddzielna reakcja od normalnego Stop. |

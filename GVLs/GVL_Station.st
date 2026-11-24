@@ -3,6 +3,10 @@ VAR_GLOBAL
  ElevatorCfg : ST_ElevatorPar;
  ElevatorCfgVerified : BOOL;
  DriveFrequencyValid : BOOL;
+ LocalIoHealthy : BOOL; // Stan lokalnych I/O KEB1/TM3 z diagnostyki projektu natywnego.
+ PhysicalStopValid : BOOL; // Ważność niezależnego źródła GVL_Robot.Plant.physicalStop.
+ B301PolarityVerified : BOOL; // Odbiór fizyczny BAT205 X0.
+ B301HighWhenOccupied : BOOL := TRUE; // Wartość używana po potwierdzeniu polaryzacji.
     DiagnosticValue : ST_StationIoValues;
     DiagnosticValid : ST_StationIoValues;
  IoCfg : ST_StationIoCfg;

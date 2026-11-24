@@ -1,5 +1,5 @@
 Krauss | Symbole PLC wymagane przez projekt Vijeo
-1856 zmiennych, z rozwiniętymi indeksami i polami wszystkich 26 transakcji.
+1880 zmiennych, z rozwiniętymi indeksami i polami wszystkich 28 transakcji.
 
 R  = panel odczytuje pole.
 RW = pole używane do zapisu przez panel.
@@ -130,12 +130,18 @@ RW  GVL_HMI.hmiV2.cmd.orderEnd.xReq
 RW  GVL_HMI.hmiV2.cmd.orderOpen.udiRequestId
 RW  GVL_HMI.hmiV2.cmd.orderOpen.udiSessionId
 RW  GVL_HMI.hmiV2.cmd.orderOpen.xReq
+RW  GVL_HMI.hmiV2.cmd.pause.udiRequestId
+RW  GVL_HMI.hmiV2.cmd.pause.udiSessionId
+RW  GVL_HMI.hmiV2.cmd.pause.xReq
 RW  GVL_HMI.hmiV2.cmd.recoveryConfirm.udiRequestId
 RW  GVL_HMI.hmiV2.cmd.recoveryConfirm.udiSessionId
 RW  GVL_HMI.hmiV2.cmd.recoveryConfirm.xReq
 RW  GVL_HMI.hmiV2.cmd.resetFaults.udiRequestId
 RW  GVL_HMI.hmiV2.cmd.resetFaults.udiSessionId
 RW  GVL_HMI.hmiV2.cmd.resetFaults.xReq
+RW  GVL_HMI.hmiV2.cmd.resume.udiRequestId
+RW  GVL_HMI.hmiV2.cmd.resume.udiSessionId
+RW  GVL_HMI.hmiV2.cmd.resume.xReq
 RW  GVL_HMI.hmiV2.cmd.robotDisable.udiRequestId
 RW  GVL_HMI.hmiV2.cmd.robotDisable.udiSessionId
 RW  GVL_HMI.hmiV2.cmd.robotDisable.xReq
@@ -214,10 +220,14 @@ R   GVL_HMI.hmiV2.permit.orderEnd.sReason
 R   GVL_HMI.hmiV2.permit.orderEnd.xAllowed
 R   GVL_HMI.hmiV2.permit.orderOpen.sReason
 R   GVL_HMI.hmiV2.permit.orderOpen.xAllowed
+R   GVL_HMI.hmiV2.permit.pause.sReason
+R   GVL_HMI.hmiV2.permit.pause.xAllowed
 R   GVL_HMI.hmiV2.permit.recoveryConfirm.sReason
 R   GVL_HMI.hmiV2.permit.recoveryConfirm.xAllowed
 R   GVL_HMI.hmiV2.permit.resetFaults.sReason
 R   GVL_HMI.hmiV2.permit.resetFaults.xAllowed
+R   GVL_HMI.hmiV2.permit.resume.sReason
+R   GVL_HMI.hmiV2.permit.resume.xAllowed
 R   GVL_HMI.hmiV2.permit.robotDisable.sReason
 R   GVL_HMI.hmiV2.permit.robotDisable.xAllowed
 R   GVL_HMI.hmiV2.permit.robotEnable.sReason
@@ -290,6 +300,12 @@ R   GVL_HMI.hmiV2.rsp.orderOpen.udiSessionId
 R   GVL_HMI.hmiV2.rsp.orderOpen.uiReason
 R   GVL_HMI.hmiV2.rsp.orderOpen.uiResult
 R   GVL_HMI.hmiV2.rsp.orderOpen.xAck
+R   GVL_HMI.hmiV2.rsp.pause.sReason
+R   GVL_HMI.hmiV2.rsp.pause.udiRequestId
+R   GVL_HMI.hmiV2.rsp.pause.udiSessionId
+R   GVL_HMI.hmiV2.rsp.pause.uiReason
+R   GVL_HMI.hmiV2.rsp.pause.uiResult
+R   GVL_HMI.hmiV2.rsp.pause.xAck
 R   GVL_HMI.hmiV2.rsp.recoveryConfirm.sReason
 R   GVL_HMI.hmiV2.rsp.recoveryConfirm.udiRequestId
 R   GVL_HMI.hmiV2.rsp.recoveryConfirm.udiSessionId
@@ -302,6 +318,12 @@ R   GVL_HMI.hmiV2.rsp.resetFaults.udiSessionId
 R   GVL_HMI.hmiV2.rsp.resetFaults.uiReason
 R   GVL_HMI.hmiV2.rsp.resetFaults.uiResult
 R   GVL_HMI.hmiV2.rsp.resetFaults.xAck
+R   GVL_HMI.hmiV2.rsp.resume.sReason
+R   GVL_HMI.hmiV2.rsp.resume.udiRequestId
+R   GVL_HMI.hmiV2.rsp.resume.udiSessionId
+R   GVL_HMI.hmiV2.rsp.resume.uiReason
+R   GVL_HMI.hmiV2.rsp.resume.uiResult
+R   GVL_HMI.hmiV2.rsp.resume.xAck
 R   GVL_HMI.hmiV2.rsp.robotDisable.sReason
 R   GVL_HMI.hmiV2.rsp.robotDisable.udiRequestId
 R   GVL_HMI.hmiV2.rsp.robotDisable.udiSessionId
@@ -424,6 +446,8 @@ R   GVL_HMI.hmiV2.state.uiRobotStep
 R   GVL_HMI.hmiV2.state.uiRobotWaitCode
 R   GVL_HMI.hmiV2.state.uiUnsettled
 R   GVL_HMI.hmiV2.state.xCanPhysicalStart
+R   GVL_HMI.hmiV2.state.xHmiPausePending
+R   GVL_HMI.hmiV2.state.xHmiPaused
 R   GVL_HMI.hmiV2.state.xOpsSettled
 R   GVL_HMI.hmiV2.state.xRecoveryRequired
 R   GVL_HMI.hmiV2.state.xRobotDataValid

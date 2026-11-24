@@ -28,10 +28,11 @@ class StationCell:
         self.inp.update(robot_ScannerHealthy=True,robot_ImageFresh=True,robot_vfdCommHealthy=True)
         self.inp['robot_Plant']=plant(r)
         self.inp['station_Inputs'].update(mappingVerified=True,gatewayHealthy=True,imageFresh=True,
-            barrierValid=True,lowerFeedbackValid=True)
+            barrierValid=True,lowerFeedbackValid=True,b301Valid=True)
         self.inp['station_Inputs']['positionValid']={i:True for i in range(1,8)}
         self.inp['station_Inputs']['moduleHealthy']={i:True for i in range(1,13)}
-        self.inp['io_di'].update(ind_robot_cell_doors_locked=True,ind_robot_cell_doors_error=True)
+        self.inp['io_di'].update(ind_robot_cell_doors_closed=True,ind_robot_cell_doors_locked=True,
+                                 doorDeviceStatusValid=True,doorDeviceOk=True,pressureValid=True)
         self.inp['drive'].update(valid=True,commHealthy=True,statusword=513,actualHz=0)
         self.inp['robot_storageIn']['Left']=copy.deepcopy(self.inp['robot_Plant']['cylinders'][1])
         self.inp['robot_storageIn']['Right']=copy.deepcopy(self.inp['robot_Plant']['cylinders'][1])

@@ -543,6 +543,42 @@ class IntegrationTests(unittest.TestCase):
         f.run(**a,PhysicalStart=False)
         self.assertTrue(f.v['Sts']['finishPermit'])
         f.run(**a,PhysicalStop=True);self.assertTrue(f.v['Sts']['finishPermit']);self.assertFalse(f.v['Sts']['newPermit'])
+    def test_early_resume_is_rejected_and_physical_stop_cancels_hmi_resume(self):
+        r = runtime()
+        order = r.instance('FB_OrderManager')
+        cmd = r.value('ST_RobotCommands')
+        ctx = context(r)
+        ctx['orderActive'] = True
+        args = dict(Cmd=cmd, Context=ctx, Drain=r.value('ST_RobotDrain'), Session=True,
+                    ProgramOK=True, HomeValid=True, ProcessOK=True, OperationsSettled=True, AreasClear=True)
+        cmd['resume'] = True
+        order.run(**args)
+        self.assertEqual(order.v['Sts']['reason'], 30)
+        self.assertFalse(order.v['Sts']['running'])
+        cmd['resume'] = False
+        order.run(**args, PhysicalStart=True)
+        self.assertTrue(order.v['Sts']['newPermit'])
+        args['OperationsSettled'] = False
+        cmd['pause'] = True
+        order.run(**args, PhysicalStart=False)
+        self.assertTrue(order.v['Sts']['finishPermit'])
+        self.assertFalse(order.v['Sts']['newPermit'])
+        cmd.update(pause=False, resume=True)
+        order.run(**args)
+        self.assertEqual(order.v['Sts']['reason'], 30)
+        cmd['resume'] = False
+        args['OperationsSettled'] = True
+        order.run(**args)
+        self.assertTrue(order.v['Sts']['paused'])
+        self.assertFalse(order.v['Sts']['running'])
+        self.assertTrue(order.v['Sts']['canResume'])
+        cmd['resume'] = True
+        order.run(**args, PhysicalStop=True)
+        self.assertEqual(order.v['Sts']['reason'], 30)
+        self.assertFalse(order.v['Sts']['paused'])
+        order.run(**args, PhysicalStop=False)
+        self.assertFalse(order.v['Sts']['newPermit'])
+
     def test_manual_handover_does_not_move_unselected_cylinders_and_releases_on_auto(self):
         r=runtime();f=r.instance('FB_StationCoils');cmd={i:r.value('ST_StationCoil') for i in range(1,11)}
         loss=copy.deepcopy(cmd);release=copy.deepcopy(cmd);release[2]['home']=True

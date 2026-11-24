@@ -13,5 +13,6 @@ STRUCT
     v202 : ST_Cyl2PosIn;
     lowerStop : ARRAY[1..2] OF ST_StopperPairIn;
     lowerFeedbackValid : BOOL;
+    b301Valid : BOOL;
 END_STRUCT
 END_TYPE

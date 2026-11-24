@@ -137,8 +137,17 @@ GVL_HMI.vijeo.sourceArea.reserved := GVL_Robot.Sts.areas[1].reserved;
 GVL_HMI.vijeo.elevatorAreaReserved := GVL_Robot.Sts.areas[2].reserved;
 FOR i := 1 TO 5 DO
     GVL_HMI.vijeo.cylinders[i - 1].valid := GVL_Robot.Sts.cylinders[i].valid;
-    GVL_HMI.vijeo.cylinders[i - 1].atHome := GVL_Robot.Sts.cylinders[i].atHome;
-    GVL_HMI.vijeo.cylinders[i - 1].atWork := GVL_Robot.Sts.cylinders[i].atWork;
+    IF i = 1 THEN
+        (* Lampki V501 pokazują odczyt AP16 także podczas diagnostyki.
+           Ważność danych i dopuszczenie ruchu mają osobne sygnały. *)
+        GVL_HMI.vijeo.cylinders[0].atHome := Io.value.ind_robot_axis_7_in_home_position AND
+            NOT Io.value.ind_robot_axis_7_in_work_position;
+        GVL_HMI.vijeo.cylinders[0].atWork := Io.value.ind_robot_axis_7_in_work_position AND
+            NOT Io.value.ind_robot_axis_7_in_home_position;
+    ELSE
+        GVL_HMI.vijeo.cylinders[i - 1].atHome := GVL_Robot.Sts.cylinders[i].atHome;
+        GVL_HMI.vijeo.cylinders[i - 1].atWork := GVL_Robot.Sts.cylinders[i].atWork;
+    END_IF;
     GVL_HMI.vijeo.cylinders[i - 1].acceptedHome := GVL_Robot.Sts.cylinders[i].acceptedHome;
     GVL_HMI.vijeo.cylinders[i - 1].acceptedWork := GVL_Robot.Sts.cylinders[i].acceptedWork;
     GVL_HMI.vijeo.cylinders[i - 1].busy := GVL_Robot.Sts.cylinders[i].busy;

@@ -1,92 +1,56 @@
 TYPE ST_GVL_IO_DI_RAW :
 STRUCT
-	// --- Moduł Załadunku ---
-    ind_M1_1_fwd AT %IX0.0 : BOOL; // siłownik M1.1 w pozycji wysuniętej - pozycjoner stosu, załadunek
-    ind_M1_2_fwd AT %IX0.1 : BOOL; // siłownik M1.2 w pozycji wysuniętej - pozycjoner stosu, załadunek
-    ind_M1_1_bwd AT %IX0.2 : BOOL; // siłownik M1.1 w pozycji cofniętej - pozycjoner stosu, załadunek
-    ind_M1_2_bwd AT %IX0.3 : BOOL; // siłownik M1.2 w pozycji cofniętej - pozycjoner stosu, załadunek
-    ind_M2_1_fwd AT %IX0.4 : BOOL; // siłownik M2.1 w pozycji wysuniętej - blokada ruchu stosu na pozycji 1, załadunek
-    ind_M2_2_fwd AT %IX0.5 : BOOL; // siłownik M2.2 w pozycji wysuniętej - blokada ruchu stosu na pozycji 1, załadunek
-    ind_M2_1_bwd AT %IX0.6 : BOOL; // siłownik M2.1 w pozycji cofniętej - blokada ruchu stosu na pozycji 1, załadunek
-    ind_M2_2_bwd AT %IX0.7 : BOOL; // siłownik M2.2 w pozycji cofniętej - blokada ruchu stosu na pozycji 1, załadunek
-    ind_container_in_pos_1 AT %IX1.0 : BOOL; // Pojemnik w pozycji 1 - potwierdzenie obecności, załadunek
+    // KEB1: S1–S7, stany klamki i zezwolenia magazynu.
+    ind_button_open_close_spacer_storage AT %IX0.0 : BOOL;
+    ind_button_open_close_robot_cell_doors AT %IX0.1 : BOOL;
+    ind_button_samples AT %IX0.2 : BOOL;
+    ind_button_continue_process AT %IX0.3 : BOOL;
+    ind_button_start_process AT %IX0.4 : BOOL;
+    ind_button_container_ready AT %IX0.5 : BOOL;
+    ind_button_start_emptying_process AT %IX0.6 : BOOL;
+    ind_robot_cell_doors_closed AT %IX1.0 : BOOL;
+    ind_robot_cell_doors_locked AT %IX1.1 : BOOL;
+    ind_spacer_storage_robot_side_doors_opening_permission AT %IX1.2 : BOOL;
+    ind_spacer_storage_operator_side_doors_opening_permission AT %IX1.3 : BOOL;
 
-    // --- Moduł Bufora ---
-    ind_container_in_pos_2 AT %IX1.1 : BOOL; // Pojemnik w pozycji 2 - potwierdzenie obecności, bufor
-    ind_M3_1_fwd AT %IX1.2 : BOOL; // siłownik M3.1 w pozycji wysuniętej - blokada ruchu stosu na pozycji 2, bufor
-    ind_M3_2_fwd AT %IX1.3 : BOOL; // siłownik M3.2 w pozycji wysuniętej - blokada ruchu stosu na pozycji 2, bufor
-    ind_M3_1_bwd AT %IX1.4 : BOOL; // siłownik M3.1 w pozycji cofniętej - blokada ruchu stosu na pozycji 2, bufor
-    ind_M3_2_bwd AT %IX1.5 : BOOL; // siłownik M3.2 w pozycji cofniętej - blokada ruchu stosu na pozycji 2, bufor
+    // KEC1: KF101–KF111, wejścia EUROMAP 67.
+    ind_e67_imm_reject AT %IX4.1 : BOOL;
+    ind_e67_imm_mould_closed AT %IX4.2 : BOOL;
+    ind_e67_imm_mould_open AT %IX4.3 : BOOL;
+    ind_e67_imm_mould_in_intermediate_position AT %IX4.4 : BOOL;
+    ind_e67_imm_operation_with_robot_enabled AT %IX4.5 : BOOL;
+    ind_e67_imm_ejector_in_back_position AT %IX4.6 : BOOL;
+    ind_e67_imm_ejector_in_forward_position AT %IX4.7 : BOOL;
+    ind_e67_imm_core_1_in_position_1 AT %IX5.0 : BOOL;
+    ind_e67_imm_core_1_in_position_2 AT %IX5.1 : BOOL;
+    ind_e67_imm_core_2_in_position_1 AT %IX5.2 : BOOL;
+    ind_e67_imm_core_2_in_position_2 AT %IX5.3 : BOOL;
 
-    ind_M4_1_fwd AT %IX4.0 : BOOL; // siłownik M4.1 w pozycji wysuniętej - blokada ruchu stosu na pozycji 3, bufor
-    ind_M4_2_fwd AT %IX4.1 : BOOL; // siłownik M4.2 w pozycji wysuniętej - blokada ruchu stosu na pozycji 3, bufor
-    ind_M4_1_bwd AT %IX4.2 : BOOL; // siłownik M4.1 w pozycji cofniętej - blokada ruchu stosu na pozycji 3, bufor
-    ind_M4_2_bwd AT %IX4.3 : BOOL; // siłownik M4.2 w pozycji cofniętej - blokada ruchu stosu na pozycji 3, bufor
-    ind_container_in_pos_3 AT %IX4.4 : BOOL; // Pojemnik w pozycji 3 - potwierdzenie obecności, bufor
+    // KEC2: B201–B204, pozycje windy.
+    ind_elevator_in_top_pos AT %IX7.0 : BOOL;
+    ind_elevator_in_intermediate_top_pos AT %IX7.1 : BOOL;
+    ind_elevator_in_intermediate_bottom_pos AT %IX7.2 : BOOL;
+    ind_elevator_in_bottom_pos AT %IX7.3 : BOOL;
 
-    spare_IX4_5 AT %IX4.5 : BOOL; // spare
+    // KEC3: potwierdzenia HOME/WORK chwytaka V502–V505.
+    ind_gripper_1_home AT %IX8.0 : BOOL;
+    ind_gripper_1_work AT %IX8.1 : BOOL;
+    ind_gripper_2_home AT %IX8.2 : BOOL;
+    ind_gripper_2_work AT %IX8.3 : BOOL;
+    ind_gripper_3_home AT %IX8.4 : BOOL;
+    ind_gripper_3_work AT %IX8.5 : BOOL;
+    ind_gripper_4_home AT %IX8.6 : BOOL;
+    ind_gripper_4_work AT %IX8.7 : BOOL;
 
-    ind_M5_1_fwd AT %IX4.6 : BOOL; // siłownik M5.1 w pozycji wysuniętej - pozycjoner tacek na pozycji 3, bufor
-    ind_M5_2_fwd AT %IX4.7 : BOOL; // siłownik M5.2 w pozycji wysuniętej - pozycjoner tacek na pozycji 3, bufor
-    ind_M5_1_bwd AT %IX5.0 : BOOL; // siłownik M5.1 w pozycji cofniętej - pozycjoner tacek na pozycji 3, bufor
-    ind_M5_2_bwd AT %IX5.1 : BOOL; // siłownik M5.2 w pozycji cofniętej - pozycjoner tacek na pozycji 3, bufor
+    // Wejścia do powiązania symbolicznego po potwierdzeniu źródła i polaryzacji.
+    pressureValid : BOOL;
+    ind_low_pressure : BOOL;
+    doorDeviceStatusValid : BOOL;
+    doorDeviceOk : BOOL;
 
-    // --- Moduł Windy ---
-    ind_M6_1_fwd AT %IX5.2 : BOOL; // siłownik M6.1 w pozycji wysuniętej - pozycjoner tacek na pozycji 4, winda
-    ind_M6_2_fwd AT %IX5.3 : BOOL; // siłownik M6.2 w pozycji wysuniętej - pozycjoner tacek na pozycji 4, winda
-    ind_M6_1_bwd AT %IX5.4 : BOOL; // siłownik M6.1 w pozycji cofniętej - pozycjoner tacek na pozycji 4, winda
-    ind_M6_2_bwd AT %IX5.5 : BOOL; // siłownik M6.2 w pozycji cofniętej - pozycjoner tacek na pozycji 4, winda
-    ind_M7_fwd AT %IX5.6 : BOOL; // siłownik M7 w pozycji wysuniętej - pozycjoner kuwet na pozycji 4, winda
-    ind_M7_bwd AT %IX5.7 : BOOL; // siłownik M7 w pozycji cofniętej - pozycjoner kuwet na pozycji 4, winda
-    ind_elevator_in_top_pos AT %IX6.0 : BOOL; // winda w górnej pozycji - zatrzymaj/uruchom falownik, winda
-    ind_elevator_in_intermediate_top_pos AT %IX6.1 : BOOL; // winda blisko górnej pozycji - zmień prędkość falownika, winda
-    ind_elevator_in_intermediate_bottom_pos AT %IX6.2 : BOOL; // winda blisko dolnej pozycji - zmień prędkość falownika, winda
-    ind_elevator_in_bottom_pos AT %IX6.3 : BOOL; // winda w dolnej pozycji - zatrzymaj/uruchom falownik, winda
-    ind_container_in_pos_4 AT %IX6.4 : BOOL; // Pojemnik w pozycji 4 - potwierdzenie obecności, winda
-
-    spare_IX6_5 AT %IX6.5 : BOOL; // spare
-
-    ind_elevator_emptied AT %IX6.6 : BOOL; // Pojemnik opuścił windę - pozwolenie na ruch do góry, winda
-
-    // --- Moduł Rozładunku ---
-    ind_container_in_pos_5 AT %IX6.7 : BOOL; // Pojemnik w pozycji 5, rozładunek
-    ind_container_in_pos_6 AT %IX7.0 : BOOL; // Pojemnik w pozycji 6, rozładunek
-    ind_container_in_pos_7 AT %IX7.1 : BOOL; // Pojemnik w pozycji 7, rozładunek
-
-    spare_IX7_2 AT %IX7.2 : BOOL; // spare
-    spare_IX7_3 AT %IX7.3 : BOOL; // spare
-
-    // --- Moduł Magazynu ---
-    ind_M8_fwd AT %IX7.4 : BOOL; // siłownik M8 w pozycji wysuniętej - osłona magazynu od strony robota otwarta, magazyn
-    ind_M8_bwd AT %IX7.5 : BOOL; // siłownik M8 w pozycji cofniętej - osłona magazynu od strony robota zamknięta, magazyn
-    ind_low_level_of_spacers AT %IX7.6 : BOOL; // niski poziom przekładek w magazynie, magazyn
-    ind_spacer_storage_empty AT %IX7.7 : BOOL; // magazyn przekładek pusty, magazyn
-
-    spare_IX8_0 AT %IX8.0 : BOOL; // spare
-    spare_IX8_1 AT %IX8.1 : BOOL; // spare
-
-    ind_button_open_close_spacer_storage AT %IX8.2 : BOOL; // przycisk "Otwórz/Zamknij magazyn" wciśnięty przez operatora, magazyn
-    ind_spacer_storage_robot_side_doors_opening_permission AT %IX9.4 : BOOL; // zezwolenie otwarcia magazynu od strony robota
-    ind_spacer_storage_operator_side_doors_opening_permission AT %IX9.5 : BOOL; // zezwolenie otwarcia magazynu przez operatora
-
-    // --- Utils / Robot / Inne ---
-    ind_button_open_close_robot_cell_doors AT %IX8.3 : BOOL; // przycisk "Otwórz/Zamknij drzwi" wciśnięty przez operatora, utils
-    ind_button_samples AT %IX8.4 : BOOL; // przycisk "Podaj Próbki" wciśnięty przez operatora, utils
-    ind_button_continue_process AT %IX8.5 : BOOL; // przycisk "Kontynuuj proces" wciśnięty przez operatora, utils
-    ind_button_start_process AT %IX8.6 : BOOL; // przycisk "Rozpocznij pracę/START" wciśnięty przez operatora, utils
-    ind_button_container_ready AT %IX8.7 : BOOL; // przycisk "Pojemnik gotowy" wciśnięty przez operatora, moduł załadunku
-    ind_button_start_emptying_process AT %IX9.0 : BOOL; // przycisk "Opróżnij stację" wciśnięty przez operatora, utils
-    ind_low_pressure AT %IX9.1 : BOOL; // niskie ciśnienie w obwodach pneumatyki, utils
-    ind_robot_cell_doors_locked AT %IX9.2 : BOOL; // OD Euchner: drzwi celi robota zaryglowane, utils
-    ind_robot_cell_doors_error AT %IX9.3 : BOOL; // OI Euchner: blad klamki drzwi celi robota, utils
-    ind_robot_gripper_vacuum_ok AT %IX9.6 : BOOL; // sygnał osiągnięcia próżni eżektora na narzędziu robota, moduł robota
-
-    spare_IX9_7 AT %IX9.7 : BOOL; // spare
-
-	// --- Falownik ATV320 ---
-	ATV320_stsWord_ETA3201 AT %IW16 : WORD; // status word falownika
-	ATV320_currentFrequency_RFR3202 AT %IW17 : WORD; // aktualna czestotliwość w 0.1Hz
-	ATV320_axisExcessError_L4D4004 AT %IW18 : WORD; // fizyczne krańcówki podpięte pod DI4 -> wtedy w manualu tryb serwisowy i sterowanie ręczne do wyjazdu
-
+    // ATV320: wiązania symboliczne z natywnej konfiguracji napędu.
+    ATV320_stsWord_ETA3201 : WORD;
+    ATV320_currentFrequency_RFR3202 : WORD;
+    ATV320_axisExcessError_L4D4004 : WORD;
 END_STRUCT
 END_TYPE

@@ -99,6 +99,7 @@ W = Wytyczne klienta, sekcja podana w kolumnie źródła. DEC = potwierdzona dec
 | REQ-20 | Karty HOME/zlecenie/alarmy/stacje/parametry/manual, kolory, blokady, progi; reset stanów tylko Manual; bez receptur | W HMI i Podział błędów | GVL_HMI, HMI, alarmy | AT-01, AT-11, AT-14 |
 | REQ-21 | Priorytet robota, wspólne transfery, brak ruchu stoperów z taśmą, bazowanie windy do krawędzi | Zachowana funkcja bazowa | Transport, winda | AT-06, AT-14 |
 | REQ-22 | Diagnostyka kroku/timeoutu robota, rozróżnione zdarzenia i potwierdzenia bez zgubienia/powtórzenia | W ST.5, D | LS, komunikacja, HMI | AT-03, AT-09, AT-14 |
+| REQ-23 | Pauza z HMI blokuje nowe operacje, rozlicza rozpoczęte i zachowuje zlecenie. Wznów wymaga potwierdzonej pauzy HMI oraz gotowości Startu. | Ustalenie 2026-11-23 | OrderManager, HMI | AT-02, AT-04, HMI-13 |
 
 ## 5. Scenariusze odbiorcze
 
@@ -132,10 +133,10 @@ Wszystkie wpisy nadal mają status **OTWARTE w pozostałym zakresie**. Część 
 |---|---|---|---|
 | GAP-01 | Osobna bariera pełnego przejścia ST.1 | Oznaczenie, położenie, polaryzacja, wejście, mechanizm blokowania wjazdu i warunek pełnego przejazdu | ST.1, REQ-08, AT-06 |
 | GAP-02 | B205 nie ma pokazanego podłączenia sygnału do PLC w P0001 | Uzupełniony schemat i potwierdzony kanał/polaryzacja sygnału | Winda, obecność/poziom ładunku |
-| GAP-03 | Festo AP: kody VTUX i typy zaworów dostępne w SRC-09; nadal brak zatwierdzonego obrazu procesowego i pełnych pomiarów próżni | Konfiguracja, kanały/assembly, długości/offsety, RPI, diagnostyka, sygnały próżni/przedmuchu i reakcje wyjść | E1/E2, BAT4, AT-09/15 |
+| GAP-03 | Festo AP: zweryfikowano obrazy procesowe 100/101, offsety i bity komend. Otwarte diagnostyka i dane próżni | Źródła ważności połączenia i modułów AP, interpretacja statusu/pomiaru próżni oraz zachowanie wyjść po zaniku | E1/E2, BAT4, AT-09/15 |
 | GAP-04 | Dostępne: fizyczny backup V9.40P/80, opcje EIP, wzorce W716/W590 i trzy podprogramy TP (SRC-10/11); eksport LS i audyt pozostają OTWARTE | Odczyt/eksport TP, źródło HOME/identyfikacji programu, potwierdzenie instrukcji i konfiguracji EIP, ramki/narzędzie/obciążenia i punkty | Adaptacja LS, zgodność programów, AT-10/14 |
 | GAP-05 | EUROMAP: brak rozpoznania początku wtrysku i niepełne KF211/KF403; odkryte wspólne zasilanie KF204–KF210 przez KF203:14 | Lista używanych sygnałów, zaciski/polaryzacje, początek/koniec wtrysku, podtrzymanie pozwoleń z uwzględnieniem wspólnego zasilania, granica safety | ImmInterface, Stop przy nakładaniu cykli |
-| GAP-06 | Znaleziono zewnętrzne projekty PLC i eksport symboli (SRC-13); wersja docelowa i środowisko niezatwierdzone | Wybór projektu, biblioteki/firmware, zadania, skaner i obraz I/O, ATV320/Axis_Ref oraz potwierdzenia układu bezpieczeństwa | Kompilacja, rzeczywista mapa i diagnostyka |
+| GAP-06 | Kompilacja kopii `plc_soft.project` w Machine Expert V2.3 i odczyt mapy KEB1/TM3/Festo wykonane | Odbiór na sterowniku, natywne źródła ważności, połączenia ATV320/Axis_Ref, osobny fizyczny Stop, OI klamki, ciśnienie i potwierdzenia układu bezpieczeństwa | Rzeczywista mapa, ważność i diagnostyka |
 | GAP-07 | Znaleziono dwa wzorce HMI Vijeo .vdz (SRC-13); zgodność z W716/C30 nadal do weryfikacji | Wskazanie projektu bazowego i wzorca, kompletny model panelu i wersja narzędzia | Wykonanie ekranów, integracja HMI |
 | GAP-08 | Pneumatyka SRC-09 potwierdza pięć obwodów i warianty F-2844/F-2680; porty Y502/Y503 sprzeczne między arkuszami 010/021 | Rozstrzygnięcie portów i HP/WP, przypisanie narzędzi, grup siłowników i ilości detali, utrzymanie ładunku/cewek przy Stop i awarii | E2, reakcje na awarie, AT-07/15 |
 | GAP-09 | Przewodowe procesowe sygnały robota w schemacie/arkuszu vs docelowy EtherNet/IP | Aktualizacja lub jednoznaczne oznaczenie rewizji, wykaz pozostających przewodowych funkcji i usunięcie konkurujących kanałów sterowania | Docelowa mapa robot–PLC–IMM |

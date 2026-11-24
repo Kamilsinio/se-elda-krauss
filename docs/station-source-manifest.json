@@ -1,6 +1,6 @@
 {
-  "date": "2026-11-22",
-  "verification": "Active alarm rows for HMI. All 13 offline PLC/FANUC source checks passed, including 198 behavior and readability tests. Machine Expert compilation, Vijeo import and verification on the target panel remain pending.",
+  "date": "2026-11-24",
+  "verification": "V501 HMI display revision passed 48 targeted station and I/O tests and the static PLC audit. Release suite totals below refer to the preceding I/O mapping run.",
   "hashNormalization": "UTF-8 source with LF line endings",
   "contextSchema": 4,
   "hmiVersion": 4,
@@ -36,15 +36,15 @@
     },
     {
       "path": "GVLs/GVL_Station.st",
-      "sha256": "f899d367676b5eda134911eef65f03f0e42bff4821d97de896a65dcfc43de440"
+      "sha256": "55264f8d823ba2a9af5be4aa44a327b23149741393f44409c8eac8af062fc864"
     },
     {
       "path": "GVLs/ST_GVL_IO_DI_RAW.st",
-      "sha256": "effa5870d275e771f18894c231cc1ec79d7146f9fe584c2496f0377371577557"
+      "sha256": "77007d9a5b1a7ff5ea569144551628974adb8012750f5cd74fc53807cbe5e3af"
     },
     {
       "path": "GVLs/ST_GVL_IO_DO_RAW.st",
-      "sha256": "7c4ef8535e2558186e589412a4630e7ffdc797321dae383b9827ee77532f9e24"
+      "sha256": "5ac30948374260d95afb4903f3cad837de3b44819b83272389be2d03cdf0c86c"
     },
     {
       "path": "Modules/AlarmManager/DUTs/ST_StationAlarmCfg.st",
@@ -264,19 +264,19 @@
     },
     {
       "path": "Modules/OrderManager/FB_OrderManager.st",
-      "sha256": "f3b45bb73d2d57bc3273e94d7344dc0a4fe6c38213a2b6ef76d1666f7fb4a261"
+      "sha256": "192997821eb52111bf9294209de0c32c95d95052dfaae95acdabea67d5b1e21d"
     },
     {
       "path": "Modules/PRG_IO_Read.st",
-      "sha256": "fd1e145fd1eb55529261be515225688c1d97ffbeb6657c24a361ba1fcc7092eb"
+      "sha256": "4cc117806a9d71c5ed0c3b9d0c278d474167bcff7092fbe26404999ce4c798ec"
     },
     {
       "path": "Modules/PRG_IO_Write.st",
-      "sha256": "3a1ee1ca976e24ea707456a52808304b8fda91f3635d89e5185d32422ec4b461"
+      "sha256": "1873bd675f41272708d4a5fed2d09fd5c3a7df6afb41db79f7a257830bd5ac92"
     },
     {
       "path": "Modules/PRG_Main.st",
-      "sha256": "7c968f203dff8f159a1f9076614777b84a416712455f5e146abe2708431a176b"
+      "sha256": "87907e5ceb253ea254efa6c7225f2331f43d87475336a88cae230936411afd9c"
     },
     {
       "path": "Modules/RobotAreas/FB_RobotAreas.st",
@@ -288,7 +288,7 @@
     },
     {
       "path": "Modules/RobotController/FB_RobotController.st",
-      "sha256": "dc214c0fb04bf6fe39cd9ee7103eb844324f7d95bb1c42866f1850a87f489f27"
+      "sha256": "8aea0ca32d8a5dd2303075860ae9fee20fe5c6e13edf15da35d63e188dfe3e99"
     },
     {
       "path": "Modules/RobotCycleLedger/FB_RobotCycleLedger.st",
@@ -304,7 +304,7 @@
     },
     {
       "path": "Modules/RobotHmi/FB_RobotHmi.st",
-      "sha256": "11d57439b3b35a83b7cb9830f050dae958ed55d78456b8bf71880ce42b862248"
+      "sha256": "93347c805769e2cac4c93288958a392f6b9e73d44e0e7cdbcb5fd935def76398"
     },
     {
       "path": "Modules/RobotInterface/DUTs/E_RobotLinkState.st",
@@ -324,7 +324,7 @@
     },
     {
       "path": "Modules/RobotInterface/DUTs/ST_RobotCommands.st",
-      "sha256": "eb8dc6b20f31b94f76f9a4b3d42aefa53e2a0999eb88ab4f73c419bb76408ac0"
+      "sha256": "f11dd58c2abbd4660eec81440efcf2541050dc87202a4251c1e3858dc225b5da"
     },
     {
       "path": "Modules/RobotInterface/DUTs/ST_RobotContext.st",
@@ -360,7 +360,7 @@
     },
     {
       "path": "Modules/RobotInterface/DUTs/ST_RobotHmiCmd.st",
-      "sha256": "f55cc5bd0fe26574e1bd46e99800423fd5cccdd86440b1d97c239e18444b13d9"
+      "sha256": "6c0372d6c17d6f2bbc32aafe627592133b829c81cc12734e68c3862792f5cde3"
     },
     {
       "path": "Modules/RobotInterface/DUTs/ST_RobotHmiLink.st",
@@ -376,7 +376,7 @@
     },
     {
       "path": "Modules/RobotInterface/DUTs/ST_RobotHmiPermits.st",
-      "sha256": "e8dd0bee6c4580f09e6e8eb16d0bd5737ee8d8fa5f273b56fd7aeaaba0d534c5"
+      "sha256": "5474b9e0f6e7c637af221066fb15cb63d9f96f866a2fba03e45ac152c03b4418"
     },
     {
       "path": "Modules/RobotInterface/DUTs/ST_RobotHmiRequest.st",
@@ -388,11 +388,11 @@
     },
     {
       "path": "Modules/RobotInterface/DUTs/ST_RobotHmiRsp.st",
-      "sha256": "036f6ce3d72b9a10ece3a194c628aa217019115544f45891d18bc0acf1187456"
+      "sha256": "1de9563e2c6f9ca74d0f7e26b8657ea6c997cc790c66fead53b9d154f59d1f83"
     },
     {
       "path": "Modules/RobotInterface/DUTs/ST_RobotHmiState.st",
-      "sha256": "fafb6b7421771fbcb2a5d536eee9262134f3ecc48c2f95eb08705d4dd93a894a"
+      "sha256": "f24243893974994e92a984d0a307291ac16c8fa3cc16c3d18c55b16963678a83"
     },
     {
       "path": "Modules/RobotInterface/DUTs/ST_RobotHmiV2.st",
@@ -416,7 +416,7 @@
     },
     {
       "path": "Modules/RobotInterface/DUTs/ST_RobotOrderStatus.st",
-      "sha256": "f793009f8c29824af9bccf76362e56c83d7fea10db957c9d0939f1876e961f93"
+      "sha256": "42ce59a83ed469d326062cf7ffdecf889c753ae690ecdfe07770d0590e0991c3"
     },
     {
       "path": "Modules/RobotInterface/DUTs/ST_RobotPlant.st",
@@ -480,7 +480,7 @@
     },
     {
       "path": "Modules/SafetyDoor/DUTs/ST_SafetyDoorIn.st",
-      "sha256": "271db4866c0b20db68e333e619f9e12504abf542a92fbf7ff64dcb30f332d22c"
+      "sha256": "e517000938f747623aef3190d0d46120f2e7597894a2045761c34287a6afe3f4"
     },
     {
       "path": "Modules/SafetyDoor/DUTs/ST_SafetyDoorOut.st",
@@ -492,7 +492,7 @@
     },
     {
       "path": "Modules/SafetyDoor/FB_SafetyDoor.st",
-      "sha256": "9a0d57e8f8505af17c21effd09a5c7fd5e2d0725d70e350272f118cd6b196a4f"
+      "sha256": "31ab2b081573b5a2e13efa07b7d401ea503b852631b00f411504712dc04ea65e"
     },
     {
       "path": "Modules/StationCoils/FB_StationCoils.st",
@@ -504,7 +504,7 @@
     },
     {
       "path": "Modules/StationController/DUTs/ST_IO_DI.st",
-      "sha256": "d0e1bc57983e1ee77be6cb53fe036817a7e914d7a345b32ff83387f7c6bee485"
+      "sha256": "b18a1a3d15a16971d5c641a5b5dd9bf3ae587e4d205624ef4ee2a3377a75782e"
     },
     {
       "path": "Modules/StationController/DUTs/ST_IO_DO.st",
@@ -528,7 +528,7 @@
     },
     {
       "path": "Modules/StationController/FB_StationController.st",
-      "sha256": "7a08b8d045588fbd887aff6de070ffb5d4eba08c5db6732f9e877780722e8dac"
+      "sha256": "1610a2b60df6a897bd566e489756aedc9880e6303b42a36e87285ae2ed185252"
     },
     {
       "path": "Modules/StationDrain/DUTs/E_StationDrainState.st",
@@ -576,7 +576,7 @@
     },
     {
       "path": "Modules/StationIo/DUTs/ST_StationIoIn.st",
-      "sha256": "f0e04b3b9f43ae69bbc161ad48c55e26df2adb720eda62e49b52d8a8b5785e7c"
+      "sha256": "a3f589aa6b597bab023ddf5ee9d183694c4dbb224d3780359ca5951883101b13"
     },
     {
       "path": "Modules/StationIo/DUTs/ST_StationIoStatus.st",
@@ -884,7 +884,7 @@
     },
     {
       "path": "Modules/Vijeo/FB_VijeoPublish.st",
-      "sha256": "755acd38a3d14fb13fcb1e76400195786a07c78515fab6da104a9e002864ba75"
+      "sha256": "cfa6f4dab91ce63a28155d7b11be832a30376c444a0dbee11629083cfa25a2be"
     },
     {
       "path": "Modules/Vijeo/FB_VijeoRead.st",
@@ -1168,7 +1168,7 @@
     },
     {
       "path": "tools/check_plc_structure.py",
-      "sha256": "1985ae34db137e969bd22b29510886c89d67bf39012b4c8599f64a13760459ae"
+      "sha256": "c31e362696346b098ef4c5e17b0bc77c6988dc088065b3a94e8b3d6b533623a0"
     },
     {
       "path": "tools/check_robot_contract.py",
@@ -1176,11 +1176,11 @@
     },
     {
       "path": "tools/check_station.py",
-      "sha256": "0be633a28c36776b4f520a325eccf4ae7f61ccb0b33e28fb9d75b5132fad1b51"
+      "sha256": "a5d2c2134403a8676c3a0ce889617d9cd47bafe1ec6db4603f0b9d55e574f9bc"
     },
     {
       "path": "tools/check_station_integration.py",
-      "sha256": "ce4b05e404a958534fab9935489b59b05a60d8a954e9bd6000df9fb4fbd58aec"
+      "sha256": "9d71ffd11f315d3305c7e4ac5a77c5fcc6771bd8c2d18cc110c664f5edd3dc06"
     },
     {
       "path": "tools/fanuc_box.py",
@@ -1216,7 +1216,7 @@
     },
     {
       "path": "tools/plc_station_cosim.py",
-      "sha256": "4ab3d6b2ac87b9e83aee4f2ebebf3765e8300d37c5f0fa57d0392b23ceb393cf"
+      "sha256": "ba0c3295451e87618c515a3e1690deaa0bda1fc233d9e7ca2f35c02a2ed77b15"
     },
     {
       "path": "tools/plc_station_main.py",
@@ -1224,7 +1224,7 @@
     }
   ],
   "checksPassed": 13,
-  "behaviorReadabilityTestsPassed": 198,
-  "nativeCompile": "PASS: Machine Expert V2.3 Generate Code on a local copy of plc_soft.project with updated ST sources. 0 errors, 7 warnings (Industrial Ethernet and obsolete hmiCmd, hmiAlarms and hmiAlarmCount symbol selections reported in two phases). Export using the refreshed selection remains pending.",
+  "behaviorReadabilityTestsPassed": 206,
+  "nativeCompile": "PASS: Machine Expert V2.3 Generate Code on an offline copy of plc_soft.project with the updated FB_VijeoPublish. 0 errors and 1 Industrial Ethernet Manager warning.",
   "fatSat": "NOT RUN"
 }

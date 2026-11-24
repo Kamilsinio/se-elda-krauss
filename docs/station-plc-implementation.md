@@ -26,27 +26,35 @@ Każdy FB ma własny katalog i osobne DUT. Zmieniono również OrderManager, Top
 
 ## 2. Publiczne interfejsy i ważność
 
+[Mapa I/O Krauss](io-mapping-krauss.csv) wskazuje wiersz aktualnego arkusza, kanał w Machine Expert, zmienną RAW, odbiorcę i alias HMI. Obejmuje przypisania w źródłach ST oraz otwarte pozycje do odbioru. Źródłem jest [arkusz z pomiarów maszyny](<../../IO map.xlsx>) i eksporty Assembly w katalogu [FESTO](../FESTO/README.md).
+
+W kopii projektu `plc_soft.project` odczytano 34 adresy wejść i 31 adresów wyjść przewodowych z arkusza. Festo jest powiązane z `GVL_Festo.EipInBytes` na %IB120–%IB152 i `GVL_Festo.EipOutWords` na %QW51–%QW58. Po podmianie źródeł w kopii Machine Expert V2.3 wykonał Generate Code z 0 błędów i jednym ostrzeżeniem o konfiguracji portu przy Industrial Ethernet Manager. Próby sprzętowe są nadal otwarte.
+
 `GVL_Station` jest interfejsem adaptera sprzętowego i konfiguracji. Żadne nowe pole nie ma adresu AT. Poniżej kierunki dotyczą PLC; HMI odczytuje statusy i zapisuje wyłącznie żądania/bufory.
 
 | Pole / źródło → odbiorca | Znaczenie i potwierdzenie | Utrata ważności |
 |---|---|---|
 | IoCfg.configured/stable/required[1..12], konfiguracja → StationIo | Zatwierdzenie konfiguracji, czas filtracji i wymagane moduły. Nie są pomiarem health. | Brak configured, dodatniego czasu lub wymaganego modułu unieważnia obraz. |
 | Inputs.mappingVerified/gatewayHealthy/imageFresh/moduleHealthy, adapter → StationIo | Mapowanie oraz rzeczywista diagnostyka skanera/bramki/AP. TRUE wymaga danych urządzenia. | Brak ważnego obrazu blokuje ruch; powrót wymaga uzgodnienia modelu materiału. |
-| Inputs.occupied/positionValid[1..7], adapter → StationIo | Logiczne P1–P7. TRUE=czujnik aktywny; FALSE nie dowodzi braku całego ładunku, zwłaszcza B205. Osobna ważność każdego punktu. | Ostatnia wartość pozostaje diagnostyczna, ważność spada. Nie daje potwierdzenia pustej stacji. |
+| Inputs.occupied/positionValid[1..7], PRG_Main → StationIo | P1–P3 z BAT203, P5–P7 z BAT205. P4/B205 pozostaje w interfejsie adaptera. Osobna ważność każdego punktu. | Ostatnia wartość pozostaje diagnostyczna, ważność spada. Brak potwierdzenia pustej stacji. |
 | Inputs.barrierBlocked/barrierValid, adapter → TopFlow | Osobna bariera ST.1: zasłonięcie i późniejsze zwolnienie potwierdzają pełny przejazd. | Brak ważności blokuje nowe podanie z P1 i potwierdzenie jego zwolnienia. |
 | Inputs.beltsStopped[1..3], adapter → transport/arbitraż | Potwierdzone zatrzymanie taśmy górnej, windy i dolnej; nie sam brak komendy RUN. | Brak potwierdzenia nie dopuszcza zmiany stoperów ani Apply w postoju. |
 | Inputs.v201/v202/lowerStop[1..2]/lowerFeedbackValid, adapter → urządzenia | Oddzielne HOME/WORK i jawne potwierdzenie mapowania dolnych grup. | Nieważne dane nie dopuszczają zależnego ruchu. |
+| B301PolarityVerified/B301HighWhenOccupied, konfiguracja → PRG_Main | BAT205 X0. Sekwencja otrzymuje zajętość, HMI wskazuje wolną strefę. Potwierdzenie polaryzacji z pomiaru uruchamia użycie kanału. | Brak ważności blokuje rozładunek i wygasza potwierdzenie wolnej strefy. |
+| LocalIoHealthy/PhysicalStopValid, adapter → PRG_Main | Bieżąca diagnostyka lokalnych I/O oraz ważność osobnego sygnału Stop. | Utrata ważności blokuje nowe operacje. Przytrzymany Start wymaga ponownego naciśnięcia po zwolnieniu. |
 | ElevatorCfg/ElevatorCfgVerified, konfiguracja → Elevator | Kierunki, maski i techniczne parametry napędu, potwierdzone niezależnie od nastaw operatora. | Brak zatwierdzenia blokuje ruch. GIATV/Axis_Ref nadal wymagają projektu natywnego. |
 | ManualInterlocks, adapter blokad → StationManual | allowPositive/Negative[1..16] są dodatkowym dopuszczeniem danego kierunku, domyślnie FALSE. PLC dokłada stan trybu, obszarów, taśm i sesji. | Wygaśnięcie autoryzacji wymaga zwolnienia i nowego naciśnięcia. |
 | ManualRelease/ManualReleaseVerified, konfiguracja → StationCoils | Potwierdzona polityka po odebraniu ręcznego żądania, osobna od utraty komunikacji. | Brak zatwierdzenia blokuje Manual; nie zakłada się uniwersalnego wyłączenia cewek. |
 | V201Out/V202Out/LowerStopOut, StationCoils → adapter | Końcowe komendy HOME/WORK; TRUE oznacza komendę, nie potwierdzenie pozycji. | Stosowana jest wyłącznie zatwierdzona polityka zaniku. |
 | DiagnosticValue/DiagnosticValid, adapter → hmiIo | Wartości wejść diagnostycznych według nazw z mapy 159 aliasów. To odczyt, bez wymuszania. | valid=FALSE oznacza brak danych, nie FALSE procesu. |
 
-Indeksy required/moduleHealthy/moduleValid[1..12] zachowują kolejność mapy HMI: 1=BAT100, 2=BAT101, 3=BAT200, 4=BAT201, 5=BAT202, 6=BAT203, 7=BAT204, 8=BAT205, 9=BAT300, 10=BAT301, 11=BAT400, 12=BAT401. Są indeksami logicznymi, nie slotami ani osobnymi adresami IP.
+Indeksy required/moduleHealthy/moduleValid[1..12] zachowują kolejność mapy HMI: 1=BAT100, 2=BAT101, 3=BAT200, 4=BAT201, 5=BAT202, 6=BAT203, 7=BAT204, 8=BAT205, 9=BAT300, 10=BAT301, 11=BAT400 (status obejmuje AP16 dla V501), 12=rezerwa BAT401. Są indeksami logicznymi.
 
-Wszystkie ustawienia verified/configured i ważności startują od FALSE. RAW i historyczne adresy pozostają niezatwierdzoną warstwą sprzętową do powiązania przed uruchomieniem. Wejścia B301, Start/Stop, bezpieczeństwo i osłony wymagają spójnej weryfikacji z tą samą mapą. PhysicalStop nadal jest osobnym bindingiem Plant; nie przypisano go do starego Continue.
+Wszystkie ustawienia verified/configured i ważności startują od FALSE. W integracji natywnej trzeba powiązać rzeczywiste źródła diagnostyki i świeżości oraz sygnały ciśnienia, OI klamki, niezależnego Stopu i częstotliwości ATV320. S4 pozostaje sygnałem Continue. Diagnostyka kanału na HMI może mieć ważne dane przy nieważnym ogólnym obrazie stacji. Dopuszczenia ruchu nadal używają ważności urządzeń i istniejącego układu bezpieczeństwa.
 
-**Właściciele wyjść:** StationCoils obsługuje 10 grup: 1=M1, 2=M2, 3=M3, 4=M4, 5=M5, 6=V201, 7=V203, 8=V202, 9=V301/V302, 10=V303/V304. Powiązania M1–M5 z nową mechaniką nadal wymagają GAP-08. Stare wyjście M6 jest odłączone. Storage pozostaje właścicielem V401/V402, RobotGripper chwytaka, ImmInterface logicznych wyjść EUROMAP, a bloki napędów ruchu transporterów/windy. Adapter nie tworzy drugiego arbitrażu.
+Na KEB1 KF33/Q8 steruje taśmą windy OUT, a KF34/Q9 steruje IN. Brzęczyk PFA10-5 jest na %QX7.6. %QX7.1 należy do obwodu STO. Wyjścia EUROMAP KF201–KF210 są zinwentaryzowane i wymagają odbioru GAP-05 przed przypisaniem zapisu.
+
+**Właściciele wyjść.** StationCoils obsługuje 10 grup. Dla ST.1 potwierdzono role programu i powiązania M1 = V107/V108, M2 = V101/V102, M3 = V103/V104, M4 = V105/V106 oraz M5 = V109/V110. Grupy 6–10 odpowiadają kolejno V201, V203, V202, V301/V302 i V303/V304. Storage steruje V401/V402, RobotGripper chwytakiem, ImmInterface logicznymi wyjściami EUROMAP, a bloki napędów ruchem transporterów i windy.
 
 ## 3. Proces, Stop i odzyskiwanie
 
@@ -68,6 +76,8 @@ Ruch Manual unieważnia model materiału. Dopuszczone ruchy ręczne można zako�
 ## 4. HMI, parametry i alarmy
 
 Sesję, monotoniczne ID, neutralizację i czterofazową transakcję nadal prowadzi jeden FB_RobotHmi. Dodano station1–4ParamApply, station1–5ParamReload, station1–5ResetState i alarmAckAll. Dalszy wynik semantyczny wraca z głównej integracji; samo przyjęcie transportu HMI nie oznacza zakończenia ruchu. Snapshot parametrów jest zamrożony przy przyjęciu żądania.
+
+Przyciski Pauza i Wznów korzystają z transakcji `pause` oraz `resume`. `FB_OrderManager` wykonuje Pauzę jak kontrolowany Stop podczas produkcji i opróżniania. Statusy `xHmiPausePending` i `xHmiPaused` potwierdzają kończenie operacji i osiągnięcie pauzy. Po rozliczeniu operacji Wznów korzysta z warunków Startu. Fizyczny Stop, utrata gotowości procesu i restart PLC kasują możliwość wznowienia z HMI. Utrata sesji HMI unieważnia żądania panelu. Ponowne uzbrojenie sesji wymaga nowego polecenia operatora.
 
 Panel korzysta z `hmiV2.station`, buforów `hmiV2.edit` i `hmiV2.actual` dla ST.5 oraz żądań i nastaw w `GVL_HMI.vijeo`. Apply wymaga postoju, zgodnej rewizji i zweryfikowanych zakresów ParameterCfg. Zlecenie może pozostać otwarte. Ilość detali nadal wymaga zamkniętego zlecenia. Reload kopiuje aktywne dane i rewizję. Nie zerować rewizji po wyczerpaniu UINT bez kontrolowanej migracji. [Wiązania ekranów](hmi-instructions.md) · [Symbole do eksportu](hmi-vijeo-symbols.txt).
 

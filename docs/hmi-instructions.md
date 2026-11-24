@@ -115,6 +115,9 @@ Reset stanu ST.1–ST.5 wymaga lokalnego potwierdzenia, trybu Manual i postoju. 
 | Praca z robotem / HOME | 2 × Lamp | Pokaż przyjętą opcję oraz HOME potwierdzone w sesji z rozpoznanym ładunkiem. | `_SoM.MyController.Application.GVL_HMI.hmiV2.state.xWorkWithRobot`<br>`_SoM.MyController.Application.GVL_HMI.hmiV2.state.xRobotHomeValid` |
 | Reset alarmów | Switch / transakcja | Zażądaj skasowania po usunięciu przyczyny. Wznowienie wymaga odrębnej czynności. | `_SoM.MyController.Application.GVL_HMI.hmiV2.cmd.resetFaults.xReq` |
 | Zlecenie / produkcja / wykonanie | 3 × Text Display | Opisy kodów jak na panelu 2. | `_SoM.MyController.Application.GVL_HMI.hmiV2.state.uiOrderState`<br>`_SoM.MyController.Application.GVL_HMI.hmiV2.state.uiProduction`<br>`_SoM.MyController.Application.GVL_HMI.hmiV2.state.uiExecutionState` |
+| Pauza | Switch / transakcja | Zatrzymaj automat lub opróżnianie po rozliczeniu rozpoczętych operacji. PLC blokuje nowe operacje i zachowuje zlecenie. | `_SoM.MyController.Application.GVL_HMI.hmiV2.cmd.pause.xReq` |
+| Wznów | Switch / transakcja | Wznów pracę po pauzie zadanej z HMI i po spełnieniu warunków Startu. | `_SoM.MyController.Application.GVL_HMI.hmiV2.cmd.resume.xReq` |
+| Pauza z HMI | 2 × Lamp | Pokaż „Kończenie operacji” podczas przechodzenia do pauzy i „Pauza” po rozliczeniu operacji. | `_SoM.MyController.Application.GVL_HMI.hmiV2.state.xHmiPausePending`<br>`_SoM.MyController.Application.GVL_HMI.hmiV2.state.xHmiPaused` |
 | Gotowość na fizyczny START · lampka i tekst | Lamp + String Display | Wyświetl pozwolenie na Start oraz powód blokady. | `_SoM.MyController.Application.GVL_HMI.hmiV2.state.xCanPhysicalStart`<br>`_SoM.MyController.Application.GVL_HMI.hmiV2.state.sStartBlockReason` |
 | PLC/HMI / FANUC / Festo / ATV320 | 4 × Lamp | HMI według jakości drivera i zmiany heartbeat. FANUC według sesji, bramka Festo według świeżości i diagnostyki BAT100, napęd według komunikacji. | `_SoM.MyController.Application.GVL_HMI.hmiV2.link.uiPlcHeartbeat`<br>`_SoM.MyController.Application.GVL_HMI.hmiV2.state.xRobotDataValid`<br>`_SoM.MyController.Application.GVL_Station.Inputs.gatewayHealthy`<br>`_SoM.MyController.Application.GVL_Station.Inputs.imageFresh`<br>`_SoM.MyController.Application.GVL_HMI.vijeo.modules[0]`<br>`_SoM.MyController.Application.GVL_HMI.hmiStatus.xVfdCommOk` |
 | Krytyczne / ostrzeżenia | 2 × Numeric Display + Switch / Change Panel | Oblicz lokalnie liczbę skonfigurowanych zatrzaśniętych rekordów odpowiedniej klasy. Dotknięcie otwiera panel 3. | `_SoM.MyController.Application.GVL_HMI.vijeo.alarms.entries[i-1].configured`<br>`_SoM.MyController.Application.GVL_HMI.vijeo.alarms.entries[i-1].latched`<br>`_SoM.MyController.Application.GVL_HMI.vijeo.alarms.entries[i-1].critical` |
@@ -129,13 +132,18 @@ Reset stanu ST.1–ST.5 wymaga lokalnego potwierdzenia, trybu Manual i postoju. 
 | Pojemniki / Blistry | 2 × Switch / akcja zapisu wartości | Przy zamkniętym zleceniu i uzbrojonej sesji zapisz 1 dla Pojemników albo 2 dla Blistrów. Podświetl wybór z odczytu bufora. Zezwolenie orderOpen steruje przyciskiem Start zlecenia. | RW `_SoM.MyController.Application.GVL_HMI.hmiV2.edit.uiProgram` |
 | Start zlecenia | Switch / transakcja | Zatwierdź wybraną produkcję i otwórz zlecenie. Ruch rozpoczyna fizyczny Start, FANUC uruchamia operator na robocie. | `_SoM.MyController.Application.GVL_HMI.hmiV2.cmd.orderOpen.xReq` |
 | Koniec zlecenia | Switch / transakcja | PLC rozlicza rozpoczęte operacje, opróżnia stację i czeka na odbiór przy B304. Przy żądaniu z postoju opróżnianie wymaga fizycznego Start. | `_SoM.MyController.Application.GVL_HMI.hmiV2.cmd.orderEnd.xReq` |
+| Pauza | Switch / transakcja | Zatrzymaj automat lub opróżnianie po rozliczeniu rozpoczętych operacji. PLC blokuje nowe operacje i zachowuje zlecenie. | `_SoM.MyController.Application.GVL_HMI.hmiV2.cmd.pause.xReq` |
+| Wznów | Switch / transakcja | Wznów pracę po pauzie zadanej z HMI i po spełnieniu warunków Startu. | `_SoM.MyController.Application.GVL_HMI.hmiV2.cmd.resume.xReq` |
+| Pauza z HMI | 2 × Lamp | Pokaż „Kończenie operacji” podczas przechodzenia do pauzy i „Pauza” po rozliczeniu operacji. | `_SoM.MyController.Application.GVL_HMI.hmiV2.state.xHmiPausePending`<br>`_SoM.MyController.Application.GVL_HMI.hmiV2.state.xHmiPaused` |
 | Zatwierdzona produkcja | 2 × Text Display | 0 brak, 10 Pojemniki, 20 Blistry. Oddziel ją od kandydata w edycji. Kod programu w actual ma wartości 1/2. | `_SoM.MyController.Application.GVL_HMI.hmiV2.state.uiProduction`<br>`_SoM.MyController.Application.GVL_HMI.hmiV2.actual.uiProgram` |
 | Stan zlecenia | Text Display | 0 zamknięte, 10 otwarte, 20 kończenie, 30 opróżnianie, 90 wymagane uzgodnienie. | `_SoM.MyController.Application.GVL_HMI.hmiV2.state.uiOrderState` |
 | Stan wykonania | Text Display + Lamp | 0 postój, 10 gotowy, 20 praca, 30 zatrzymywanie, 40 zatrzymany, 50 opróżnianie, 90 wymagane uzgodnienie. Osobna lampka pauzy. | `_SoM.MyController.Application.GVL_HMI.hmiV2.state.uiExecutionState`<br>`_SoM.MyController.Application.GVL_HMI.hmiV2.station.paused` |
-| Operacje rozliczone / nierozliczone wtryski / transfer / krok opróżniania / odbiór | Lamp + Numeric Display + Lamp + Text Display + Lamp | Pokaż operacje rozliczone, liczbę nierozliczonych wtrysków, transfer w toku, etap opróżniania i oczekiwanie na odbiór. Stop pauzuje po bieżącej operacji. Zakończenie zlecenia potwierdza powrót stanu zlecenia do 0. | `_SoM.MyController.Application.GVL_HMI.hmiV2.state.xOpsSettled`<br>`_SoM.MyController.Application.GVL_HMI.hmiV2.state.uiUnsettled`<br>`_SoM.MyController.Application.GVL_Station.Transport.busy`<br>`_SoM.MyController.Application.GVL_HMI.hmiV2.station.drainStep`<br>`_SoM.MyController.Application.GVL_HMI.hmiV2.station.waitingPickup` |
+| Operacje rozliczone / nierozliczone wtryski / transfer / krok opróżniania / odbiór | Lamp + Numeric Display + Lamp + Text Display + Lamp | Pokaż operacje rozliczone, liczbę nierozliczonych wtrysków, transfer w toku, etap opróżniania i oczekiwanie na odbiór. Stop i Pauza wstrzymują opróżnianie po bieżącej operacji. Zakończenie zlecenia potwierdza powrót stanu zlecenia do 0. | `_SoM.MyController.Application.GVL_HMI.hmiV2.state.xOpsSettled`<br>`_SoM.MyController.Application.GVL_HMI.hmiV2.state.uiUnsettled`<br>`_SoM.MyController.Application.GVL_Station.Transport.busy`<br>`_SoM.MyController.Application.GVL_HMI.hmiV2.station.drainStep`<br>`_SoM.MyController.Application.GVL_HMI.hmiV2.station.waitingPickup` |
 | Stacja pusta | Lamp trójstanowa | Wymagaj aktualnych danych i uzgodnionego modelu. Pokaż „Pusta”, „Zajęta” lub „Stan nieznany”. | `_SoM.MyController.Application.GVL_HMI.hmiV2.station.emptyConfirmed`<br>`_SoM.MyController.Application.GVL_HMI.hmiV2.station.materialKnown`<br>`_SoM.MyController.Application.GVL_HMI.hmiV2.station.dataValid` |
 | Detale na wtrysk | Numeric Display + Switch / Change Panel | Pokaż aktualną ilość w sztukach. Przycisk „Zmień ilość” otwiera 125. | `_SoM.MyController.Application.GVL_HMI.hmiV2.actual.uiBatchCount`<br>Przycisk → 125 |
-| Fizyczny START / gotowość | Lamp + String Display | Pokaż zgodę i powód blokady. Uruchomienie i wznowienie automatu wykonuje operator przyciskiem fizycznym. | `_SoM.MyController.Application.GVL_HMI.hmiV2.state.xCanPhysicalStart`<br>`_SoM.MyController.Application.GVL_HMI.hmiV2.state.sStartBlockReason` |
+| Fizyczny START / gotowość | Lamp + String Display | Pokaż gotowość do uruchomienia i wznowienia fizycznym przyciskiem Start. | `_SoM.MyController.Application.GVL_HMI.hmiV2.state.xCanPhysicalStart`<br>`_SoM.MyController.Application.GVL_HMI.hmiV2.state.sStartBlockReason` |
+
+Potwierdzenie transakcji Pauza oznacza przyjęcie polecenia. Osiągnięcie pauzy potwierdza `xHmiPaused`. Fizyczny Stop i zdarzenia wymagające uzgodnienia odbierają możliwość użycia przycisku Wznów. Po utracie sesji panel wymaga nowej transakcji po ponownym uzbrojeniu.
 
 Dla kroku opróżniania stosuj 0 bezczynny, 10 wybór operacji, 20 oczekiwanie na wykonanie, 40 pauza, 100 ukończone, 900 błąd. Wartość spoza słownika pokaż wraz z numerem.
 
@@ -325,7 +333,7 @@ Liczba blistrów w stosie oraz osobne progi Blistry/Pojemniki, próg zatrzymania
 
 | Element | Typ i tryb | Działanie | Zmienna lub akcja |
 |---|---|---|---|
-| Taśma rozładunku — na zewnątrz / do środka | 2 × Switch / Momentary ON | Kierunek wstecz udostępnij po potwierdzeniu napędu i okablowania. | `_SoM.MyController.Application.GVL_HMI.vijeo.stationManual.positive[2]`<br>`_SoM.MyController.Application.GVL_HMI.vijeo.stationManual.negativeFrom2[1]`<br>`_SoM.MyController.Application.GVL_HMI.vijeo.stationManual.holdCounter[2]` |
+| Taśma rozładunku — na zewnątrz | Switch / Momentary ON | PLC obsługuje kierunek KF31. Kierunek do windy czeka na potwierdzenie wyjścia i napędu. | `_SoM.MyController.Application.GVL_HMI.vijeo.stationManual.positive[2]`<br>`_SoM.MyController.Application.GVL_HMI.vijeo.stationManual.holdCounter[2]` |
 | V301/V302 — WORK / HOME | 2 × Switch / Momentary ON | Wspólne żądanie pierwszej pary przy zatrzymanej taśmie. | `_SoM.MyController.Application.GVL_HMI.vijeo.stationManual.positive[12]`<br>`_SoM.MyController.Application.GVL_HMI.vijeo.stationManual.negativeFrom2[11]`<br>`_SoM.MyController.Application.GVL_HMI.vijeo.stationManual.holdCounter[12]` |
 | V303/V304 — WORK / HOME | 2 × Switch / Momentary ON | Wspólne żądanie drugiej pary przy zatrzymanej taśmie. | `_SoM.MyController.Application.GVL_HMI.vijeo.stationManual.positive[13]`<br>`_SoM.MyController.Application.GVL_HMI.vijeo.stationManual.negativeFrom2[12]`<br>`_SoM.MyController.Application.GVL_HMI.vijeo.stationManual.holdCounter[13]` |
 | B301 | Lamp | Strefa wyjazdu z windy wolna. | `_SoM.MyController.Application.GVL_HMI.vijeo.value.ind_B301` |
@@ -421,6 +429,8 @@ Wczytaj pobiera pełny zestaw ST.4 do bufora PLC. Przy Zastosuj sterownik zachow
 | Wtryskarka / EUROMAP | Switch / Change Panel | Otwórz panel 201. | Lokalnie w Vijeo |
 
 Opisy kroków i kodów według programu. [Blistry](../ROBOT/TRAY/README.md) · [Pojemniki](../ROBOT/BOX/README.md).
+
+Na panelach 105 i 115 lampki V501 `cylinders[0].atHome` i `cylinders[0].atWork` pokazują odczyt krańcówek AP16. HOME oznacza oś prostą (B11.0), WORK oś złamaną (B11.1). Gdy oba bity mają tę samą wartość, obie lampki gasną. Do sygnalizacji jakości odczytu użyj `valid.ind_V501_HP` lub `valid.ind_V501_WP`. Przy nieważnym obrazie lampka może pokazać ostatnią próbkę. `cylinders[0].valid` nadal wskazuje ważność statusu procesowego.
 
 <a id="panel-115"></a>
 
@@ -520,8 +530,8 @@ Dla statusu modelu wymagaj `_SoM.MyController.Application.GVL_HMI.hmiV2.station.
 | BAT205 — Wejścia ST.3 nr 2 | `_SoM.MyController.Application.GVL_HMI.vijeo.modules[7]` | `_SoM.MyController.Application.GVL_HMI.vijeo.alarms.entries[47].text` |
 | BAT300 — Wyspa zaworowa ST.2 | `_SoM.MyController.Application.GVL_HMI.vijeo.modules[8]` | `_SoM.MyController.Application.GVL_HMI.vijeo.alarms.entries[48].text` |
 | BAT301 — Wejścia ST.2 | `_SoM.MyController.Application.GVL_HMI.vijeo.modules[9]` | `_SoM.MyController.Application.GVL_HMI.vijeo.alarms.entries[49].text` |
-| BAT400 — Wyspa zaworowa ST.5 | `_SoM.MyController.Application.GVL_HMI.vijeo.modules[10]` | `_SoM.MyController.Application.GVL_HMI.vijeo.alarms.entries[50].text` |
-| BAT401 — Wejścia ST.5 | `_SoM.MyController.Application.GVL_HMI.vijeo.modules[11]` | `_SoM.MyController.Application.GVL_HMI.vijeo.alarms.entries[51].text` |
+| BAT400 — Wyspa zaworowa ST.5 i wejścia V501 | `_SoM.MyController.Application.GVL_HMI.vijeo.modules[10]` | `_SoM.MyController.Application.GVL_HMI.vijeo.alarms.entries[50].text` |
+| BAT401 — Rezerwa w tabeli | `_SoM.MyController.Application.GVL_HMI.vijeo.modules[11]` | `_SoM.MyController.Application.GVL_HMI.vijeo.alarms.entries[51].text` |
 
 <a id="wykaz-io"></a>
 
@@ -724,5 +734,6 @@ Zapisz wynik osobno dla symulacji, połączenia z PLC i stanowiska. Poniższe pr
 | HMI-10 / AT-08/10 | Manual EUROMAP bez HOME, w ruchu, potem przy poprawnych warunkach i przejściu Auto | Zgodne pozwolenia PLC, osobne wskazania żądania, decyzji i wejścia Krauss. Wejście w Auto kasuje żądania ręczne. |
 | HMI-11 / AT-01/14 | Przegląd każdego przycisku, ekranów, polskich znaków i opisu celu | Typ i tryb zgodne z tabelą panelu, odpowiednia dostępność, powód blokady, stan rzeczywisty i czytelne jednostki |
 | HMI-12 | Porównanie eksportów PLC i Vijeo oraz próby typów | Każdy wymagany symbol istnieje, właściwy typ/zakres/kierunek; -1 nie staje się 65535; częstotliwość REAL i czasy w ms poprawne, statusy mają dostęp R |
+| HMI-13 / AT-02/04 | Pauza i Wznów w obu produkcjach i podczas opróżniania. Spróbuj wznowić podczas kończenia operacji, po fizycznym Stopie oraz po utracie sesji. | Rozpoczęte operacje kończą się, zlecenie i stan ładunków pozostają zachowane. Wznów wymaga rozliczonej pauzy HMI, aktualnej sesji i gotowości Startu. Odrzucone żądanie nie uruchamia ruchu po ustąpieniu blokady. |
 
 Przejdź po wszystkich 20 panelach i sprawdź powroty, zapisy numeru ekranu oraz zerowanie żądań przy zmianie widoku. Do kompletu odbioru dołącz edytowalny projekt, wersję narzędzia i targetu, eksport symboli, kopię zapasową, raport kompilacji oraz wyniki testów. [Integracja PLC stacji](station-plc-implementation.md).

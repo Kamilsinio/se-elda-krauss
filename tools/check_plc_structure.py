@@ -17,7 +17,7 @@ def validate():
         r.load(path)
     globals={}
     global_declarations=[]
-    for file in ['GVL_IO','GVL_HMI','GVL_Robot','GVL_RobotRetain','GVL_Station','GVL_Festo']:
+    for file in ['GVL_IO','GVL_IO_RAW','GVL_HMI','GVL_Robot','GVL_RobotRetain','GVL_Station','GVL_Festo']:
         text=(ROOT/'GVLs'/f'{file}.st').read_text(encoding='utf-8')
         for match in re.finditer(r'\bTYPE\s+\w+\s*:.*?\bEND_TYPE',text,re.S):r.load_type(match[0])
         rows=[]
@@ -26,7 +26,6 @@ def validate():
             rows.extend(p.declarations())
         global_declarations.append((file,rows))
         globals[file]=('fields',{name:typ for name,typ,_ in rows})
-    globals['GVL_IO_RAW']='external'
     globals['Altivar_320']='external' # Natywny Axis_Ref, GAP-06; nie jest modelem napedu.
     errors=[]
     # IEC identifiers are case-insensitive; ACTION, PROGRAM and REFERENCE are reserved.
